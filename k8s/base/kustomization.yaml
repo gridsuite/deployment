@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app: demo
+
+resources:
+  - network-store-server-deployment.yaml
+  - network-store-server-ingress.yaml
+  - network-store-server-service.yaml
+
+configMapGenerator:
+  - name: network-store-server-configmap
+    files:
+      - application.yml=network-store-server-application.yml
