@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: network-store-server
-        image: docker.pkg.github.com/powsybl/powsybl-network-store/powsybl-network-store-server:latest
+        image: docker.io/powsybl/network-store-server:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
