@@ -8,8 +8,15 @@ resources:
   - network-store-server-deployment.yaml
   - network-store-server-ingress.yaml
   - network-store-server-service.yaml
+  - case-server-claim.yaml
+  - case-server-deployment.yaml
+  - case-server-ingress.yaml
+  - case-server-service.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
     files:
       - application.yml=network-store-server-application.yml
+  - name: case-server-configmap
+    files:
+      - application.yml=case-server-application.yml

@@ -23,8 +23,6 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-store-server-configmap-volume
-      imagePullSecrets:
-        - name: regcred
       restartPolicy: Always
       volumes:
         - name: network-store-server-configmap-volume
