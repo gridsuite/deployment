@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 103MB
+
+network-store-server:
+  preloading-strategy: COLLECTION
+  base-uri: http://network-store-server/
+
+backing-services:
+  case:
+    base-uri: http://case-server/
+  geo-data:
+    base-uri: http://geo-data-server/

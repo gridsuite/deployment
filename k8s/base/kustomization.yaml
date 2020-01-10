@@ -8,6 +8,9 @@ resources:
   - network-store-server-deployment.yaml
   - network-store-server-ingress.yaml
   - network-store-server-service.yaml
+  - network-conversion-server-deployment.yaml
+  - network-conversion-server-ingress.yaml
+  - network-conversion-server-service.yaml
   - case-server-claim.yaml
   - case-server-deployment.yaml
   - case-server-ingress.yaml
@@ -20,3 +23,6 @@ configMapGenerator:
   - name: case-server-configmap
     files:
       - application.yml=case-server-application.yml
+  - name: network-conversion-server-configmap
+    files:
+      - application.yml=network-conversion-server-application.yml

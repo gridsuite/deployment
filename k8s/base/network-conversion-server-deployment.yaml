@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-conversion-server
+  labels:
+    name: network-conversion-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: network-conversion-server
+  template:
+    metadata:
+      labels:
+        name: network-conversion-server
+    spec:
+      containers:
+      - name: network-conversion
+        image: docker.io/powsybl/network-conversion-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: network-conversion-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: network-conversion-server-configmap-volume
+          configMap:
+            name: network-conversion-server-configmap
