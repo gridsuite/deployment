@@ -18,7 +18,7 @@ network-store-server:
   base-uri: http://network-store-server/
 
 backing-services:
-  case:
+  case-server:
     base-uri: http://case-server/
-  geo-data:
+  geo-data-server:
     base-uri: http://geo-data-server/

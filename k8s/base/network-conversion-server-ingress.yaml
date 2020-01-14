@@ -14,7 +14,7 @@ metadata:
     # base url when behind a reverse proxy.
     # nginx-ingress-controller V0.24 has a simple alternative
     # but latest minikube 1.1.0 uses V0.23 (untested):
-    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/network-conversion"
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/network-conversion-server"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header X-Forwarded-Prefix         /network-conversion-server/;
 spec:
