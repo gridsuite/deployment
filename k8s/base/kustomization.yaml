@@ -15,6 +15,9 @@ resources:
   - case-server-deployment.yaml
   - case-server-ingress.yaml
   - case-server-service.yaml
+  - single-line-diagram-server-deployment.yaml
+  - single-line-diagram-server-ingress.yaml
+  - single-line-diagram-server-service.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -26,3 +29,6 @@ configMapGenerator:
   - name: network-conversion-server-configmap
     files:
       - application.yml=network-conversion-server-application.yml
+  - name: single-line-diagram-server-configmap
+    files:
+      - application.yml=single-line-diagram-server-application.yml
