@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+#Starting from kubernetes 1.14 use the following
+#apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: study-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    # To be able to import big networks
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    # springfox swagger-ui uses X-Forwarded-Prefix to find the
+    # base url when behind a reverse proxy.
+    # nginx-ingress-controller V0.24 has a simple alternative
+    # but latest minikube 1.1.0 uses V0.23 (untested):
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/study-server"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header X-Forwarded-Prefix         /study-server/;
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /study-server(/|$)(.*)
+        backend:
+          serviceName: study-server
+          servicePort: 80

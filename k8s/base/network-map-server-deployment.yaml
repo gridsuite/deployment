@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-map-server
+  labels:
+    name: network-map-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: network-map-server
+  template:
+    metadata:
+      labels:
+        name: network-map-server
+    spec:
+      containers:
+      - name: network-map
+        image: docker.io/powsybl/network-map-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: network-map-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: network-map-server-configmap-volume
+          configMap:
+            name: network-map-server-configmap

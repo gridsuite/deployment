@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+network-store-server:
+  preloading-strategy: COLLECTION
+  base-uri: http://network-store-server/
+
+network-geo-data:
+  iterations: 5

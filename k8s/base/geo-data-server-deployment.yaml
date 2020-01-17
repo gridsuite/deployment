@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geo-data-server
+  labels:
+    name: geo-data-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: geo-data-server
+  template:
+    metadata:
+      labels:
+        name: geo-data-server
+    spec:
+      containers:
+      - name: geo-data-server
+        image: docker.io/powsybl/geo-data-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: geo-data-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: geo-data-server-configmap-volume
+          configMap:
+            name: geo-data-server-configmap

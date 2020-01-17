@@ -27,7 +27,7 @@ Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/instal
 
 Start minikube and activate ingress support:
 ```bash
-minikube start
+minikube start --memory 8192
 minikube addons enable ingress
 ```
 
@@ -70,7 +70,11 @@ MINIKUBE_IP=`minikube ip`
 ```
 
 ```html
-http://<MINIKUBE_IP>/network-store-server/swagger-ui.html
 http://<MINIKUBE_IP>/case-server/swagger-ui.html
+http://<MINIKUBE_IP>/geo-data-server/swagger-ui.html
+http://<MINIKUBE_IP>/network-conversion-server/swagger-ui.html
+http://<MINIKUBE_IP>/network-store-server/swagger-ui.html
+http://<MINIKUBE_IP>/network-map-server/swagger-ui.html
+http://<MINIKUBE_IP>/single-line-diagram-server/swagger-ui.html
+http://<MINIKUBE_IP>/study-server/swagger-ui.html
 ```
-
