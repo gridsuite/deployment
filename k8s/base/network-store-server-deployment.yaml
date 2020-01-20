@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-store-server
+  labels:
+    name: network-store-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: network-store-server
+  template:
+    metadata:
+      labels:
+        name: network-store-server
+    spec:
+      containers:
+      - name: network-store-server
+        image: docker.io/powsybl/network-store-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: network-store-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: network-store-server-configmap-volume
+          configMap:
+            name: network-store-server-configmap

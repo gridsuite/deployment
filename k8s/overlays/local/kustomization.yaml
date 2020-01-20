@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../../base
+
+configMapGenerator:
+  - name: network-store-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: geo-data-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: study-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties

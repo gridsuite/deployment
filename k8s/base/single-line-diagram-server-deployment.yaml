@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: single-line-diagram-server
+  labels:
+    name: single-line-diagram-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: single-line-diagram-server
+  template:
+    metadata:
+      labels:
+        name: single-line-diagram-server
+    spec:
+      containers:
+      - name: single-line-diagram-server
+        image: docker.io/powsybl/single-line-diagram-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: single-line-diagram-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: single-line-diagram-server-configmap-volume
+          configMap:
+            name: single-line-diagram-server-configmap

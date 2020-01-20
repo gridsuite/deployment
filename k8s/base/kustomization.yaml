@@ -1,0 +1,52 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app: demo
+
+resources:
+  - case-server-claim.yaml
+  - case-server-deployment.yaml
+  - case-server-ingress.yaml
+  - case-server-service.yaml
+  - geo-data-server-deployment.yaml
+  - geo-data-server-ingress.yaml
+  - geo-data-server-service.yaml
+  - network-conversion-server-deployment.yaml
+  - network-conversion-server-ingress.yaml
+  - network-conversion-server-service.yaml
+  - network-map-server-deployment.yaml
+  - network-map-server-ingress.yaml
+  - network-map-server-service.yaml
+  - network-store-server-deployment.yaml
+  - network-store-server-ingress.yaml
+  - network-store-server-service.yaml
+  - single-line-diagram-server-deployment.yaml
+  - single-line-diagram-server-ingress.yaml
+  - single-line-diagram-server-service.yaml
+  - study-server-deployment.yaml
+  - study-server-ingress.yaml
+  - study-server-service.yaml
+
+configMapGenerator:
+  - name: case-server-configmap
+    files:
+      - application.yml=case-server-application.yml
+  - name: geo-data-server-configmap
+    files:
+      - application.yml=geo-data-server-application.yml
+  - name: network-conversion-server-configmap
+    files:
+      - application.yml=network-conversion-server-application.yml
+  - name: network-map-server-configmap
+    files:
+      - application.yml=network-map-server-application.yml
+  - name: network-store-server-configmap
+    files:
+      - application.yml=network-store-server-application.yml
+  - name: single-line-diagram-server-configmap
+    files:
+      - application.yml=single-line-diagram-server-application.yml
+  - name: study-server-configmap
+    files:
+      - application.yml=study-server-application.yml

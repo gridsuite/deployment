@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: study-server
+  labels:
+    name: study-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: study-server
+  template:
+    metadata:
+      labels:
+        name: study-server
+    spec:
+      containers:
+        - name: study
+          image: docker.io/powsybl/study-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /config
+              name: study-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: study-server-configmap-volume
+          configMap:
+            name: study-server-configmap

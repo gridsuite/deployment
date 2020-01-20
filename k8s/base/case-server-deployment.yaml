@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case-server
+  labels:
+    name: case-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: case-server
+  template:
+    metadata:
+      labels:
+        name: case-server
+    spec:
+      containers:
+      - name: case-server
+        image: docker.io/powsybl/case-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: case-server-configmap-volume
+        - mountPath: /cases
+          name: case-server-storage
+      restartPolicy: Always
+      volumes:
+        - name: case-server-configmap-volume
+          configMap:
+            name: case-server-configmap
+        - name: case-server-storage
+          persistentVolumeClaim:
+            claimName: case-server-claim
