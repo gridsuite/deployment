@@ -1,6 +1,4 @@
-apiVersion: extensions/v1beta1
-#Starting from kubernetes 1.14 use the following
-#apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: study-server-ingress
