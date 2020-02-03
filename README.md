@@ -21,6 +21,27 @@ rpc_address: "0.0.0.0"
 broadcast_rpc_address: "<YOUR_IP>"
 ```
 
+## Cassandra scheme setup
+
+```bash
+cqlsh <YOUR_IP>
+```
+
+To create keyspaces in a single node cluster:
+
+```sql
+CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE IF NOT EXISTS study WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+```
+
+Then copy paste following files content to cqlsh shell:
+```html
+https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
+https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
+https://github.com/powsybl/powsybl-study-server/blob/master/src/main/resources/study.cql
+```
+
 ### Minikube and kubectl setup
 
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
