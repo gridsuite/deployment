@@ -82,14 +82,20 @@ Verify all services and pods have been correctly started:
 kubectl get all
 ```
 
-### Swagger UI
+### Application & Swagger UI
 
-You can now access to the swagger UI of all the Spring services:
+You can now access to the application and the swagger UI of all the Spring services:
 
 ```bash 
 MINIKUBE_IP=`minikube ip`
 ```
 
+Application:
+```html
+http://<MINIKUBE_IP>/study-app/
+```
+
+Swagger UI:
 ```html
 http://<MINIKUBE_IP>/case-server/swagger-ui.html
 http://<MINIKUBE_IP>/geo-data-server/swagger-ui.html
