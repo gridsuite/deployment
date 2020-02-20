@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: study-app
+  labels:
+    name: study-app
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: study-app
+  template:
+    metadata:
+      labels:
+        name: study-app
+    spec:
+      containers:
+      - name: study-app
+        image: docker.io/powsybl/study-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
