@@ -24,6 +24,9 @@ resources:
   - single-line-diagram-server-deployment.yaml
   - single-line-diagram-server-ingress.yaml
   - single-line-diagram-server-service.yaml
+  - study-app-deployment.yaml
+  - study-app-ingress.yaml
+  - study-app-service.yaml
   - study-server-deployment.yaml
   - study-server-ingress.yaml
   - study-server-service.yaml
