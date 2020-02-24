@@ -16,8 +16,9 @@ backing-services:
     base-uri: http://network-conversion-server/
   geo-data:
     base-uri: http://geo-data-server/
+  network-map:
+    base-uri: http://network-map-store-server/
 
-spring:
   servlet:
     multipart:
       max-file-size: 100MB
