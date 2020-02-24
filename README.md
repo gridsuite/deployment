@@ -108,12 +108,6 @@ git clone https://github.com/powsybl/powsybl-deployment.git
 cd powsybl-deployment
 ```
 
-Change Cassandra daemon ip address in config/cassandra.properties
-```properties
-cassandra.contact-points: 172.17.0.1
-cassandra.port: 9042
-```
-
 Install the orchestration tool docker-compose then: 
 ```bash 
 cd docker-compose/
