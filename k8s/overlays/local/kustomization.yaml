@@ -3,7 +3,7 @@ kind: Kustomization
 
 bases:
 - ../../base
-
+- ../../../config
 configMapGenerator:
   - name: network-store-server-configmap
     behavior: merge

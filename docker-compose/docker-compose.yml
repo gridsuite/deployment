@@ -1,0 +1,109 @@
+version: '3'
+
+services:
+  case-server:
+    image: powsybl/case-server:latest
+    ports:
+      - 5000:80
+    healthcheck:
+      test: curl -s http://localhost:5000/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/case-server-application.yml:/config/application.yml:Z
+      - $HOME/cases:/cases:Z
+      - $HOME/.itools:/root/.itools:Z
+
+  network-store-server:
+    image: powsybl/network-store-server:latest
+    ports:
+      - 8080:80
+    healthcheck:
+      test: curl -s http://localhost:8080/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/network-store-server-application.yml:/config/application.yml:Z
+      - $PWD/../config/cassandra.properties:/config/cassandra.properties:Z
+      - $HOME/.itools:/root/.itools:Z
+
+  geo-data-server:
+    image: powsybl/geo-data-server:latest
+    ports:
+      - 8087:80
+    healthcheck:
+      test: curl -s http://localhost:8087/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/geo-data-server-application.yml:/config/application.yml:Z
+      - $PWD/../config/cassandra.properties:/config/cassandra.properties:Z
+      - $HOME/.itools:/root/.itools:Z
+
+  single-line-diagram-server:
+    image: powsybl/single-line-diagram-server:latest
+    ports:
+      - 5005:80
+    healthcheck:
+      test: curl -s http://localhost:5005/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/single-line-diagram-server-application.yml:/config/application.yml:Z
+      - $HOME/.itools:/root/.itools:Z
+
+  network-conversion-server:
+    image: powsybl/network-conversion-server:latest
+    ports:
+      - 5003:80
+    healthcheck:
+      test: curl -s http://localhost:5003/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/network-conversion-server-application.yml:/config/application.yml:Z
+      - $HOME/.itools:/root/.itools:Z
+
+  network-map-server:
+    image: powsybl/network-map-server:latest
+    ports:
+      - 5006:80
+    healthcheck:
+      test: curl -s http://localhost:5006/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/network-map-server-application.yml:/config/application.yml:Z
+      - $PWD/../config/cassandra.properties:/config/cassandra.properties:Z
+      - $HOME/.itools:/root/.itools:Z
+  study-server:
+    image: powsybl/study-server:latest
+    ports:
+      - 5001:80
+    healthcheck:
+      test: curl -s http://localhost:5001/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../config/study-server-application.yml:/config/application.yml:Z
+      - $PWD/../config/cassandra.properties:/config/cassandra.properties:Z
+      - $HOME/.itools:/root/.itools:Z
+
+  study-app:
+    image: powsybl/study-app:latest
+    ports:
+      - 80:80
+    healthcheck:
+      test: curl -s http://localhost:3000/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+ 
+

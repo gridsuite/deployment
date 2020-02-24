@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
   servlet:
     context-path: /
 
@@ -16,6 +16,8 @@ backing-services:
     base-uri: http://network-conversion-server/
   geo-data:
     base-uri: http://geo-data-server/
+  network-map:
+    base-uri: http://network-map-server/
 
 spring:
   servlet:
