@@ -107,7 +107,7 @@ containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 ### Application & Swagger UI
 
 You can now access to the application and the swagger UI of all the Spring services:
-##### MiniKube deployment: 
+##### Minikube deployment: 
 ```bash 
 MINIKUBE_IP=`minikube ip`
 ```
@@ -132,17 +132,17 @@ DOCKER-COMPOSE_IP=`localhost`
 ```
 Application:
 ```html
-http://<DOCKER-COMPOSE_IP>/
+http://<DOCKER-COMPOSE-IP>/
 ```
 Swagger UI:
 ```html
-http://<COMPOSE_IP>:5000/swagger-ui.html  //case server
-http://<COMPOSE_IP>:8087/swagger-ui.html  //geo-data-server
-http://<COMPOSE_IP>:5003/swagger-ui.html  //network-conversion-server
-http://<COMPOSE_IP>:8080/swagger-ui.html  //network-store-server
-http://<COMPOSE_IP>:5006/swagger-ui.html  //network-map-server
-http://<COMPOSE_IP>:5005/swagger-ui.html  //single-line-diagram-server
-http://<COMPOSE_IP>:5001/swagger-ui.html  //study-server
+http://<DOCKER-COMPOSE_IP>:5000/swagger-ui.html  //case server
+http://<DOCKER-COMPOSE_IP>:8087/swagger-ui.html  //geo-data-server
+http://<DOCKER-COMPOSE_IP>:5003/swagger-ui.html  //network-conversion-server
+http://<DOCKER-COMPOSE_IP>:8080/swagger-ui.html  //network-store-server
+http://<DOCKER-COMPOSE_IP>:5006/swagger-ui.html  //network-map-server
+http://<DOCKER-COMPOSE_IP>:5005/swagger-ui.html  //single-line-diagram-server
+http://<DOCKER-COMPOSE_IP>:5001/swagger-ui.html  //study-server
 ```
 
 
