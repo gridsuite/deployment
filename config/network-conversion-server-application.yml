@@ -15,15 +15,13 @@ spring:
 
 network-store-server:
   preloading-strategy: COLLECTION
-  base-uri: http://network-store-server:80/
-
+  base-uri: http://network-store-server
 
 backing-services:
   case-server:
-    base-uri: http://case-server:80
+    base-uri: http://case-server
   geo-data-server:
-    base-uri: http://geo-data-server:80
-
+    base-uri: http://geo-data-server
 
 management:
   health:
