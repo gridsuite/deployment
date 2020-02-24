@@ -66,9 +66,9 @@ git clone https://github.com/powsybl/powsybl-deployment.git
 cd powsybl-deployment
 ```
 
-Change Cassandra daemon ip address in config/cassandra.properties
+Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
 ```properties
-cassandra.contact-points: "<YOUR_IP>"     
+cassandra.contact-points: "<YOUR_IP>"
 cassandra.port: 9042
 ```
 
