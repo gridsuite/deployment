@@ -81,6 +81,25 @@ Verify all services and pods have been correctly started:
 ```bash 
 kubectl get all
 ```
+You can now access to the application and the swagger UI of all the Spring services:
+```bash 
+MINIKUBE_IP=`minikube ip`
+```
+Application:
+```html
+http://<MINIKUBE_IP>/study-app/
+```
+
+Swagger UI:
+```html
+http://<MINIKUBE_IP>/case-server/swagger-ui.html
+http://<MINIKUBE_IP>/geo-data-server/swagger-ui.html
+http://<MINIKUBE_IP>/network-conversion-server/swagger-ui.html
+http://<MINIKUBE_IP>/network-store-server/swagger-ui.html
+http://<MINIKUBE_IP>/network-map-server/swagger-ui.html
+http://<MINIKUBE_IP>/single-line-diagram-server/swagger-ui.html
+http://<MINIKUBE_IP>/study-server/swagger-ui.html
+```
 
 ### Docker compose  deployment
 Clone deployment repository:
@@ -104,29 +123,8 @@ Note : When using docker-compose for deployment, your machine is accessible from
 `172.17..0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
-### Application & Swagger UI
-
 You can now access to the application and the swagger UI of all the Spring services:
-##### Minikube deployment: 
-```bash 
-MINIKUBE_IP=`minikube ip`
-```
-Application:
-```html
-http://<MINIKUBE_IP>/study-app/
-```
 
-Swagger UI:
-```html
-http://<MINIKUBE_IP>/case-server/swagger-ui.html
-http://<MINIKUBE_IP>/geo-data-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-conversion-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-store-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-map-server/swagger-ui.html
-http://<MINIKUBE_IP>/single-line-diagram-server/swagger-ui.html
-http://<MINIKUBE_IP>/study-server/swagger-ui.html
-```
-##### Docker compose deployment : 
 ```bash 
 DOCKER-COMPOSE_IP=`localhost`
 ```
