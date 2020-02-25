@@ -102,12 +102,6 @@ http://<MINIKUBE_IP>/study-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
-Clone deployment repository:
-```bash 
-git clone https://github.com/powsybl/powsybl-deployment.git
-cd powsybl-deployment
-```
-
 Install the orchestration tool docker-compose then: 
 ```bash 
 cd docker-compose/
@@ -119,22 +113,20 @@ containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
 You can now access to the application and the swagger UI of all the Spring services:
 
-```bash 
-DOCKER-COMPOSE_IP=`localhost`
-```
+
 Application:
 ```html
-http://<DOCKER-COMPOSE-IP>/
+http://localhost
 ```
 Swagger UI:
 ```html
-http://<DOCKER-COMPOSE_IP>:5000/swagger-ui.html  //case server
-http://<DOCKER-COMPOSE_IP>:8087/swagger-ui.html  //geo-data-server
-http://<DOCKER-COMPOSE_IP>:5003/swagger-ui.html  //network-conversion-server
-http://<DOCKER-COMPOSE_IP>:8080/swagger-ui.html  //network-store-server
-http://<DOCKER-COMPOSE_IP>:5006/swagger-ui.html  //network-map-server
-http://<DOCKER-COMPOSE_IP>:5005/swagger-ui.html  //single-line-diagram-server
-http://<DOCKER-COMPOSE_IP>:5001/swagger-ui.html  //study-server
+http://localhost:5000/swagger-ui.html  //case server
+http://localhost:8087/swagger-ui.html  //geo-data-server
+http://localhost:5003/swagger-ui.html  //network-conversion-server
+http://localhost:8080/swagger-ui.html  //network-store-server
+http://localhost:5006/swagger-ui.html  //network-map-server
+http://localhost:5005/swagger-ui.html  //single-line-diagram-server
+http://localhost:5001/swagger-ui.html  //study-server
 ```
 
 
