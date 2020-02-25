@@ -108,11 +108,10 @@ cd docker-compose/
 docker-compose up
 ```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
-`172.17..0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
+`172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
 You can now access to the application and the swagger UI of all the Spring services:
-
 
 Application:
 ```html
@@ -120,13 +119,11 @@ http://localhost
 ```
 Swagger UI:
 ```html
-http://localhost:5000/swagger-ui.html  //case server
-http://localhost:8087/swagger-ui.html  //geo-data-server
-http://localhost:5003/swagger-ui.html  //network-conversion-server
-http://localhost:8080/swagger-ui.html  //network-store-server
-http://localhost:5006/swagger-ui.html  //network-map-server
-http://localhost:5005/swagger-ui.html  //single-line-diagram-server
-http://localhost:5001/swagger-ui.html  //study-server
+http://localhost:5000/swagger-ui.html  // case server
+http://localhost:8087/swagger-ui.html  // geo-data-server
+http://localhost:5003/swagger-ui.html  // network-conversion-server
+http://localhost:8080/swagger-ui.html  // network-store-server
+http://localhost:5006/swagger-ui.html  // network-map-server
+http://localhost:5005/swagger-ui.html  // single-line-diagram-server
+http://localhost:5001/swagger-ui.html  // study-server
 ```
-
-

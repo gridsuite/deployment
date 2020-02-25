@@ -11,7 +11,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/case-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/case-server-application.yml:/config/application.yml:Z
       - $HOME/cases:/cases:Z
       - $HOME/.itools:/root/.itools:Z
 
@@ -25,7 +25,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/network-store-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
       - $HOME/.itools:/root/.itools:Z
 
@@ -39,7 +39,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/geo-data-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
       - $HOME/.itools:/root/.itools:Z
 
@@ -53,7 +53,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/single-line-diagram-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
       - $HOME/.itools:/root/.itools:Z
 
   network-conversion-server:
@@ -66,7 +66,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/network-conversion-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
       - $HOME/.itools:/root/.itools:Z
 
   network-map-server:
@@ -79,7 +79,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/network-map-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
       - $HOME/.itools:/root/.itools:Z
   study-server:
@@ -92,7 +92,7 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - $PWD/../config/study-server-application.yml:/config/application.yml:Z
+      - $PWD/../k8s/base/config/study-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
       - $HOME/.itools:/root/.itools:Z
 
