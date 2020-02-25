@@ -26,3 +26,8 @@ backing-services:
   geo-data-server:
     base-uri: http://geo-data-server
 
+management:
+  health:
+    solr:
+      enabled: false
+
