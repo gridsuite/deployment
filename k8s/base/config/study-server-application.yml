@@ -1,7 +1,5 @@
 server:
-  port: 8080
-  servlet:
-    context-path: /
+  port: 80
 
 network-store-server:
   base-uri: http://network-store-server/
@@ -24,7 +22,3 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 103MB
-
-logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

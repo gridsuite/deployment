@@ -34,22 +34,22 @@ resources:
 configMapGenerator:
   - name: case-server-configmap
     files:
-      - application.yml=case-server-application.yml
+      - application.yml=config/case-server-application.yml
   - name: geo-data-server-configmap
     files:
-      - application.yml=geo-data-server-application.yml
+      - application.yml=config/geo-data-server-application.yml
   - name: network-conversion-server-configmap
     files:
-      - application.yml=network-conversion-server-application.yml
+      - application.yml=config/network-conversion-server-application.yml
   - name: network-map-server-configmap
     files:
-      - application.yml=network-map-server-application.yml
+      - application.yml=config/network-map-server-application.yml
   - name: network-store-server-configmap
     files:
-      - application.yml=network-store-server-application.yml
+      - application.yml=config/network-store-server-application.yml
   - name: single-line-diagram-server-configmap
     files:
-      - application.yml=single-line-diagram-server-application.yml
+      - application.yml=config/single-line-diagram-server-application.yml
   - name: study-server-configmap
     files:
-      - application.yml=study-server-application.yml
+      - application.yml=config/study-server-application.yml
