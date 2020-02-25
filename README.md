@@ -130,6 +130,3 @@ http://localhost:5001/swagger-ui.html  //study-server
 ```
 
 
-
-
-
