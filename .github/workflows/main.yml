@@ -22,5 +22,3 @@ jobs:
     steps:
       - name: Set up kubectl
         uses: azure/setup-kubectl@v1
-        with:
-          version: '17'
