@@ -22,3 +22,7 @@ jobs:
     steps:
       - name: Set up kubectl
         uses: azure/setup-kubectl@v1
+
+      - name: Deploy to Azure
+        run: kubectl kustomize k8s/overlays/azure
+
