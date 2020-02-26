@@ -1,0 +1,26 @@
+name: CD
+
+on:
+  push:
+  repository_dispatch:
+    types:
+      - case_updated
+      - cgmes_gl_updated
+      - geo_data_updated
+      - network_conversion_server_updated
+      - network_map_server_updated
+      - network_store_updated
+      - single_line_diagram_server_updated
+      - study_app_updated
+      - study_server_updated
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: '17'
