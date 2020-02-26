@@ -19,7 +19,7 @@ spec:
         image: docker.io/powsybl/single-line-diagram-server:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         volumeMounts:
         - mountPath: /config
           name: single-line-diagram-server-configmap-volume

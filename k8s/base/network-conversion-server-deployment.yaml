@@ -19,7 +19,7 @@ spec:
         image: docker.io/powsybl/network-conversion-server:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         volumeMounts:
         - mountPath: /config
           name: network-conversion-server-configmap-volume
