@@ -38,20 +38,24 @@ def get_digest(repository, tag, token):
     else:
         response.raise_for_status()
 
-with open(sys.argv[1]) as file:
-    documents = yaml.load(file, Loader=yaml.FullLoader)
-    containers = documents['spec']['template']['spec']['containers'] 
-    for container in containers:
-        image = container['image']
 
-        # parse image and get tag
-        (registry, repository, tag) = parse_image(image)
+documents = list(yaml.load_all(sys.stdin.read(), Loader=yaml.FullLoader))
+for document in documents:
+    if 'spec' in document:
+        spec = document['spec']
+        if 'template' in spec:
+            containers = spec['template']['spec']['containers']
+            for container in containers:
+                image = container['image']
 
-        # get digest from tag (only works with docker.io)
-        if registry == 'docker.io':
-            token = get_token(repository)
-            digest = get_digest(repository, tag, token)
-            # replace tag by digest
-            container['image'] = repository + ':' + digest
+                # parse image and get tag
+                (registry, repository, tag) = parse_image(image)
 
-    print(yaml.dump(documents))
+                # get digest from tag (only works with docker.io)
+                if registry == 'docker.io':
+                    token = get_token(repository)
+                    digest = get_digest(repository, tag, token)
+                    # replace tag by digest
+                    container['image'] = repository + ':' + digest
+
+print(yaml.dump_all(documents))

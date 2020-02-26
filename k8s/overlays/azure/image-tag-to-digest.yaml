@@ -1,0 +1,4 @@
+apiVersion: powsybl.com/v1
+kind: ImageTagToDigest
+metadata:
+  name: image-tag-to-digest

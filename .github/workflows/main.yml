@@ -30,4 +30,3 @@ jobs:
 
       - name: Deploy to Azure
         run: kubectl kustomize k8s/overlays/azure
-

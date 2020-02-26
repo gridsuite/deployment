@@ -17,3 +17,6 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+
+transformers:
+  - image-tag-to-digest.yaml
