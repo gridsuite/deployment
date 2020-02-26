@@ -8,6 +8,7 @@ import sys
 import yaml
 import requests
 
+
 def parse_image(image):
     colon_split = image.split(':')
     repository = colon_split[0]
@@ -23,12 +24,14 @@ def parse_image(image):
 
     return (registry, repository, tag)
 
+
 def get_token(repository):
     response = requests.get(f'https://auth.docker.io/token?service=registry.docker.io&scope=repository:{repository}:pull')
     if response.ok:
         return response.json()['token']
     else:
         response.raise_for_status()
+
 
 def get_digest(repository, tag, token):
     headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/vnd.docker.distribution.manifest.v2+json'}
