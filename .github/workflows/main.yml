@@ -37,12 +37,12 @@ jobs:
           persist-credentials: false
 
       - name: Create key
-        run: 'echo "$BASTION_HELLO" > key'
+        run: 'echo "$BASTION_KEY" > key'
         env:
-          BASTION_KEY: ${{secrets.BASTION_HELLO}}
+          BASTION_KEY: ${{secrets.BASTION_KEY}}
 
       - name: Deploy to Azure
-        run: kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+        run: kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
 
       - name: Delete key
         run: rm key
