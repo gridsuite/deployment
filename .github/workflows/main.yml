@@ -37,7 +37,7 @@ jobs:
           persist-credentials: false
 
       - name: Create key
-        run: 'echo "$BASTION_KEY" > key'
+        run: 'echo "$BASTION_KEY" > key; chmod 600 key'
         env:
           BASTION_KEY: ${{secrets.BASTION_KEY}}
 
