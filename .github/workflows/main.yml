@@ -38,5 +38,7 @@ jobs:
 
       - name: Deploy to Azure
         run: |
-          'echo ${{ secrets.BASTION_KEY }} > key'
-          kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply
+          'echo "BASTION_HELLO" > key'
+          kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+        env:
+          BASTION_KEY: ${{secrets.BASTION_HELLO}}
