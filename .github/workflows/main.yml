@@ -36,9 +36,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Deploy to Azure
-        run: |
-          'echo "$BASTION_HELLO" > key'
-          kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+      - name: Create key
+        run: 'echo "$BASTION_HELLO" > key'
         env:
           BASTION_KEY: ${{secrets.BASTION_HELLO}}
+
+      - name: Deploy to Azure
+        run: kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+
+      - name: Delete key
+        run: rm key
