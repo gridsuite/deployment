@@ -59,6 +59,6 @@ for document in documents:
                     token = get_token(repository)
                     digest = get_digest(repository, tag, token)
                     # replace tag by digest
-                    container['image'] = repository + ':' + digest
+                    container['image'] = repository + '@' + digest
 
 print(yaml.dump_all(documents))
