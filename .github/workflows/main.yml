@@ -1,0 +1,48 @@
+name: CD
+
+on:
+  push:
+  repository_dispatch:
+    types:
+      - case_updated
+      - cgmes_gl_updated
+      - geo_data_updated
+      - network_conversion_server_updated
+      - network_map_server_updated
+      - network_store_updated
+      - single_line_diagram_server_updated
+      - study_app_updated
+      - study_server_updated
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+
+      - name: Set up python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.7'
+
+      - name: Install python dependencies
+        run: python -m pip install --upgrade pip pyyaml requests
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Create key
+        run: 'echo "$BASTION_KEY" > key; chmod 600 key'
+        env:
+          BASTION_KEY: ${{secrets.BASTION_KEY}}
+
+      - name: Deploy to Azure
+        run: kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+
+      - name: Delete key
+        run: rm key
