@@ -13,7 +13,6 @@ services:
     volumes:
       - $PWD/../k8s/base/config/case-server-application.yml:/config/application.yml:Z
       - $HOME/cases:/cases:Z
-      - $HOME/.itools:/root/.itools:Z
 
   network-store-server:
     image: powsybl/network-store-server:latest
@@ -27,7 +26,6 @@ services:
     volumes:
       - $PWD/../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
-      - $HOME/.itools:/root/.itools:Z
 
   geo-data-server:
     image: powsybl/geo-data-server:latest
@@ -41,7 +39,6 @@ services:
     volumes:
       - $PWD/../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
-      - $HOME/.itools:/root/.itools:Z
 
   single-line-diagram-server:
     image: powsybl/single-line-diagram-server:latest
@@ -54,7 +51,6 @@ services:
       retries: 3
     volumes:
       - $PWD/../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
-      - $HOME/.itools:/root/.itools:Z
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
@@ -67,7 +63,6 @@ services:
       retries: 3
     volumes:
       - $PWD/../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
-      - $HOME/.itools:/root/.itools:Z
 
   network-map-server:
     image: powsybl/network-map-server:latest
@@ -80,8 +75,7 @@ services:
       retries: 3
     volumes:
       - $PWD/../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
-      - $PWD/cassandra.properties:/config/cassandra.properties:Z
-      - $HOME/.itools:/root/.itools:Z
+
   study-server:
     image: powsybl/study-server:latest
     ports:
@@ -94,7 +88,18 @@ services:
     volumes:
       - $PWD/../k8s/base/config/study-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
-      - $HOME/.itools:/root/.itools:Z
+
+  cgmes-gl-server:
+    image: powsybl/cgmes-gl-server:latest
+    ports:
+      - 8095:80
+    healthcheck:
+      test: curl -s http://localhost:8095/actuator/health 2>&1 | grep UP
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - $PWD/../k8s/base/config/cgmes-gl-server-application.yml:/config/application.yml:Z
 
   study-app:
     image: powsybl/study-app:latest
@@ -105,5 +110,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
- 
-
