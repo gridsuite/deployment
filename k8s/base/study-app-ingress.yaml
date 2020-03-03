@@ -11,6 +11,7 @@ metadata:
     # but latest minikube 1.1.0 uses V0.23 (untested):
     # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/study-app"
     nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^/study-app$ /study-app/ permanent;
       proxy_set_header X-Forwarded-Prefix         /study-app/;
 spec:
   rules:
