@@ -24,6 +24,12 @@ patchesJson6902:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
+    name: study-app-ingress
+  path: patch_tls_ingress.yaml
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
     name: case-server-ingress
   path: patch_ingress.yaml
 - target:

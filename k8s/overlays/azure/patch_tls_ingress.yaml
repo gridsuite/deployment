@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/tls
+  value: [ { "hosts": [ "demo.powsybl.org" ], "secretName": "demo-study-app-prod-cert" } ]
+- op: add
+  path: /metadata/annotations/cert-manager.io~1cluster-issuer
+  value: letsencrypt-prod
