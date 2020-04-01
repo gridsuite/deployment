@@ -127,3 +127,18 @@ http://localhost:5006/swagger-ui.html  // network-map-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 ```
+In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
+
+Docker image is generated using the following command in the considered service folder:
+```bash 
+mvn jib:dockerBuild -Djib.to.image=<my_image_name>
+```
+Once the image has been generated, you have to modify the name of the image to use in docker-compose.yml file, for the considered service:
+```bash
+services:
+...
+  my-service:
+    image: <my_image_name>:latest
+...
+```
+Now, when using ```docker-compose up```, your custom Docker image will be used. 
