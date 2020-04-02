@@ -1,0 +1,7 @@
+{
+    "authority" : "http://<TO_COMPLETE>/oidc-mock-server/",
+    "client_id" : "my-client",
+    "redirect_uri": "http://<TO_COMPLETE>/study-app/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO_COMPLETE>/study-app/",
+    "scope" : "openid"
+}
