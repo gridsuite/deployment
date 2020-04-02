@@ -109,4 +109,16 @@ services:
       test: curl -s http://localhost:3000/actuator/health 2>&1 | grep UP
       interval: 5s
       timeout: 5s
-      retries: 3
+    volumes:
+      - $PWD/idpSettings.json:/usr/local/apache2/htdocs/study-app/idpSettings.json:Z
+
+  mock_user_service:
+    image: gridsuite/oidc-mock-server
+    ports:
+      - 9090:9090
+    environment:
+      - PORT=9090
+      - CLIENT_ID=my-client
+      - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/
+

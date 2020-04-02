@@ -18,6 +18,11 @@ configMapGenerator:
     files:
       - cassandra.properties
 
+  - name: study-app-configmap
+    files:
+      - idpSettings.json
+
+
 # Patch ingress host
 patchesJson6902:
 - target:
