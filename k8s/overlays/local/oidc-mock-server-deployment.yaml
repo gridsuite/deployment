@@ -26,11 +26,11 @@ spec:
         - name: CLIENT_ID
           value: "my-client"
         - name: CLIENT_REDIRECT_URI
-          value: "http://<TO_COMPLETE>/study-app/sign-in-callback"
+          value: "http://<TO COMPLETE>/study-app/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://<TO_COMPLETE>/study-app/"
+          value: "http://<TO COMPLETE>/study-app/"
         - name: ISSUER_HOST
-          value: "<TO_COMPLETE>"
+          value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX
           value: "/oidc-mock-server"
       restartPolicy: Always
