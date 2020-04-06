@@ -39,7 +39,7 @@ Then copy paste following files content to cqlsh shell:
 ```html
 https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
 https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
-https://github.com/powsybl/powsybl-study-server/blob/master/src/main/resources/study.cql
+https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.cql
 ```
 
 ### Minikube and kubectl setup
