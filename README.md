@@ -1,4 +1,4 @@
-# PowSyBl deployment
+# GridSuite deployment
 
 ## Study application local install
 
@@ -62,8 +62,8 @@ minikube kubectl cluster-info
 
 Clone deployment repository:
 ```bash 
-git clone https://github.com/powsybl/powsybl-deployment.git
-cd powsybl-deployment
+git clone https://github.com/gridsuite/deployment.git
+cd deployment
 ```
 
 Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
