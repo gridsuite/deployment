@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oidc-mock-server
+  labels:
+    name: oidc-mock-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: oidc-mock-server
+  template:
+    metadata:
+      labels:
+        name: oidc-mock-server
+    spec:
+      containers:
+      - name: oidc-mock-server
+        image: docker.io/gridsuite/oidc-mock-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DEBUG
+          value: "oidc-provider:*"
+        - name: CLIENT_ID
+          value: "my-client"
+        - name: CLIENT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/"
+        - name: ISSUER_HOST
+          value: "<TO COMPLETE>"
+        - name: ISSUER_PREFIX
+          value: "/oidc-mock-server"
+      restartPolicy: Always

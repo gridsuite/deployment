@@ -4,6 +4,11 @@ kind: Kustomization
 bases:
  - ../../base
 
+resources:
+  - oidc-mock-server-deployment.yaml
+  - oidc-mock-server-ingress.yaml
+  - oidc-mock-server-service.yaml
+
 configMapGenerator:
   - name: network-store-server-configmap
     behavior: merge
@@ -17,3 +22,6 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+  - name: study-app-configmap
+    files:
+      - idpSettings.json
