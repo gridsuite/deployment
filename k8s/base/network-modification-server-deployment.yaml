@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-modification-server
+  labels:
+    name: network-modification-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: network-modification-server
+  template:
+    metadata:
+      labels:
+        name: network-modification-server
+    spec:
+      containers:
+      - name: network-modification-server
+        image: docker.io/gridsuite/network-modification-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: network-modification-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: network-modification-server-configmap-volume
+          configMap:
+            name: network-modification-server-configmap

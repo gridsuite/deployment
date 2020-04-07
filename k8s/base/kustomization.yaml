@@ -30,6 +30,9 @@ resources:
   - single-line-diagram-server-deployment.yaml
   - single-line-diagram-server-ingress.yaml
   - single-line-diagram-server-service.yaml
+  - network-modification-diagram-server-deployment.yaml
+  - network-modification-diagram-server-ingress.yaml
+  - network-modification-diagram-server-service.yaml
   - study-app-deployment.yaml
   - study-app-ingress.yaml
   - study-app-service.yaml
@@ -56,6 +59,9 @@ configMapGenerator:
   - name: single-line-diagram-server-configmap
     files:
       - application.yml=config/single-line-diagram-server-application.yml
+  - name: network-modification-server-configmap
+    files:
+      - application.yml=config/network-modification-server-application.yml
   - name: study-server-configmap
     files:
       - application.yml=config/study-server-application.yml
