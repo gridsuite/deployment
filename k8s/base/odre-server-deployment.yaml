@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odre-server
+  labels:
+    name: odre-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: odre-server
+  template:
+    metadata:
+      labels:
+        name: odre-server
+    spec:
+      containers:
+      - name: odre
+        image: docker.io/gridsuite/odre-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: odre-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: odre-server-configmap-volume
+          configMap:
+            name: odre-server-configmap
