@@ -13,6 +13,7 @@ on:
       - single_line_diagram_server_updated
       - study_app_updated
       - study_server_updated
+      - odre_server_updated
 
 jobs:
   build:

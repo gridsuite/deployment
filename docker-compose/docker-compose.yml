@@ -5,11 +5,6 @@ services:
     image: powsybl/case-server:latest
     ports:
       - 5000:80
-    healthcheck:
-      test: curl -s http://localhost:5000/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/case-server-application.yml:/config/application.yml:Z
       - $HOME/cases:/cases:Z
@@ -18,11 +13,6 @@ services:
     image: powsybl/network-store-server:latest
     ports:
       - 8080:80
-    healthcheck:
-      test: curl -s http://localhost:8080/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
@@ -31,11 +21,6 @@ services:
     image: powsybl/geo-data-server:latest
     ports:
       - 8087:80
-    healthcheck:
-      test: curl -s http://localhost:8087/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
@@ -44,11 +29,6 @@ services:
     image: powsybl/single-line-diagram-server:latest
     ports:
       - 5005:80
-    healthcheck:
-      test: curl -s http://localhost:5005/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
 
@@ -56,11 +36,6 @@ services:
     image: powsybl/network-conversion-server:latest
     ports:
       - 5003:80
-    healthcheck:
-      test: curl -s http://localhost:5003/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
 
@@ -68,11 +43,6 @@ services:
     image: powsybl/network-map-server:latest
     ports:
       - 5006:80
-    healthcheck:
-      test: curl -s http://localhost:5006/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
 
@@ -80,11 +50,6 @@ services:
     image: powsybl/study-server:latest
     ports:
       - 5001:80
-    healthcheck:
-      test: curl -s http://localhost:5001/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/study-server-application.yml:/config/application.yml:Z
       - $PWD/cassandra.properties:/config/cassandra.properties:Z
@@ -93,23 +58,20 @@ services:
     image: powsybl/cgmes-gl-server:latest
     ports:
       - 8095:80
-    healthcheck:
-      test: curl -s http://localhost:8095/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/../k8s/base/config/cgmes-gl-server-application.yml:/config/application.yml:Z
+
+  odre-server:
+    image: gridsuite/odre-server:latest
+    ports:
+      - 8096:80
+    volumes:
+      - $PWD/../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
 
   study-app:
     image: powsybl/study-app:latest
     ports:
       - 80:80
-    healthcheck:
-      test: curl -s http://localhost:3000/actuator/health 2>&1 | grep UP
-      interval: 5s
-      timeout: 5s
-      retries: 3
     volumes:
       - $PWD/idpSettings.json:/usr/local/apache2/htdocs/study-app/idpSettings.json:Z
 

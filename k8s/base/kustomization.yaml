@@ -24,6 +24,9 @@ resources:
   - network-store-server-deployment.yaml
   - network-store-server-ingress.yaml
   - network-store-server-service.yaml
+  - odre-server-deployment.yaml
+  - odre-server-ingress.yaml
+  - odre-server-service.yaml
   - single-line-diagram-server-deployment.yaml
   - single-line-diagram-server-ingress.yaml
   - single-line-diagram-server-service.yaml
@@ -59,3 +62,6 @@ configMapGenerator:
   - name: cgmes-gl-server-configmap
     files:
       - application.yml=config/cgmes-gl-server-application.yml
+  - name: odre-server-configmap
+    files:
+      - application.yml=config/odre-server-application.yml
