@@ -22,7 +22,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - mountPath: /config
-          name: odre-configmap-volume
+          name: odre-server-configmap-volume
       restartPolicy: Always
       volumes:
         - name: odre-server-configmap-volume
