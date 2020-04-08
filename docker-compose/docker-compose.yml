@@ -83,5 +83,5 @@ services:
       - PORT=9090
       - CLIENT_ID=my-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
 
