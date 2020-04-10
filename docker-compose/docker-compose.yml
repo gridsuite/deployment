@@ -64,7 +64,7 @@ services:
   odre-server:
     image: gridsuite/odre-server:latest
     ports:
-      - 8096:80
+      - 8090:80
     volumes:
       - $PWD/../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
 
