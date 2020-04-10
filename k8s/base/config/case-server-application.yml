@@ -1,10 +1,22 @@
 server:
   port: 80
 
-  spring:
-    servlet:
-      multipart:
-        max-file-size: 100MB
-        max-request-size: 103MB
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 103MB
+
+  autoconfigure:
+    exclude:
+
+  rabbitmq:
+    addresses: rabbitmq
+    port: 5672
+  cloud:
+    stream:
+      bindings:
+        publishCaseImport-out-0:
+          destination: case.import
 
 case-store-directory: /cases

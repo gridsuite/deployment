@@ -131,6 +131,11 @@ http://localhost:8096/swagger-ui.html  // odre-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 ```
+RabbitMQ management UI :
+```html
+http://localhost:15672
+```
+
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
 Docker image is generated using the following command in the considered service folder:
