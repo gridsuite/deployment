@@ -32,6 +32,13 @@ services:
     volumes:
       - $PWD/../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
 
+  network-modification-server:
+    image: gridsuite/network-modification-server:latest
+    ports:
+      - 5007:80
+    volumes:
+      - $PWD/../k8s/base/config/network-modification-server-application.yml:/config/application.yml:Z
+
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
     ports:
@@ -85,4 +92,3 @@ services:
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - ISSUER_HOST=localhost:9090
-

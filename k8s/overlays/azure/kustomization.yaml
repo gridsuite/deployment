@@ -91,3 +91,9 @@ patchesJson6902:
     kind: Ingress
     name: odre-server-ingress
   path: patch_ingress.yaml
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: network-modification-server-ingress
+  path: patch_ingress.yaml
