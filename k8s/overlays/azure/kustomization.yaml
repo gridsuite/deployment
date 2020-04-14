@@ -17,13 +17,9 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
-
   - name: study-app-configmap
     files:
       - idpSettings.json
-  - name: gateway-configmap
-    files:
-      - idp.properties
 
 
 # Patch ingress host

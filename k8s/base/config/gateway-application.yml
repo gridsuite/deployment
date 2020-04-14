@@ -9,7 +9,3 @@ backing-services:
     base-uri: http://case-server/
   study-server:
     base-uri: http://study-server/
-
-
-jwk-url: #To do
-client-id: #To do

@@ -74,8 +74,6 @@ services:
       - 9000:80
     volumes:
       - $PWD/../k8s/base/config/gateway-application.yml:/config/application.yml:Z
-      - $PWD/idp.properties:/config/idp.properties:Z
-
 
   study-app:
     image: powsybl/study-app:latest
