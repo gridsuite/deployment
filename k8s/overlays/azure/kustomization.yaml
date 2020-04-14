@@ -21,6 +21,9 @@ configMapGenerator:
   - name: study-app-configmap
     files:
       - idpSettings.json
+  - name: gateway-configmap
+    files:
+      - idp.properties
 
 
 # Patch ingress host
@@ -91,3 +94,11 @@ patchesJson6902:
     kind: Ingress
     name: odre-server-ingress
   path: patch_ingress.yaml
+
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: gateway-ingress
+  path: patch_ingress.yaml
+

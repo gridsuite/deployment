@@ -90,6 +90,11 @@ Application:
 http://<MINIKUBE_IP>/study-app/
 ```
 
+Gateway 
+```html
+http://<MINIKUBE_IP>/gateway/
+```
+
 Swagger UI:
 ```html
 http://<MINIKUBE_IP>/case-server/swagger-ui.html
@@ -119,6 +124,12 @@ Application:
 ```html
 http://localhost
 ```
+
+Gateway 
+```html
+http://localhost:9000/
+```
+
 Swagger UI:
 ```html
 http://localhost:5000/swagger-ui.html  // case-server
