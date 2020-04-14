@@ -131,7 +131,7 @@ http://localhost:8096/swagger-ui.html  // odre-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 ```
-RabbitMQ management UI :
+RabbitMQ management UI (guest/guest) :
 ```html
 http://localhost:15672
 ```

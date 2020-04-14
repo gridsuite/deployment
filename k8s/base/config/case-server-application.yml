@@ -7,13 +7,12 @@ spring:
       max-file-size: 100MB
       max-request-size: 103MB
 
-  autoconfigure:
-    exclude:
-
   rabbitmq:
     addresses: rabbitmq
     port: 5672
   cloud:
+    function:
+      definition: publishCaseImport
     stream:
       bindings:
         publishCaseImport-out-0:
