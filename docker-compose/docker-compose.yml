@@ -71,7 +71,7 @@ services:
   odre-server:
     image: gridsuite/odre-server:latest
     ports:
-      - 8096:80
+      - 8090:80
     volumes:
       - $PWD/../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
 
@@ -91,3 +91,4 @@ services:
       - CLIENT_ID=my-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
+      - ISSUER_HOST=localhost:9090
