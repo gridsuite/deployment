@@ -30,9 +30,9 @@ resources:
   - single-line-diagram-server-deployment.yaml
   - single-line-diagram-server-ingress.yaml
   - single-line-diagram-server-service.yaml
-  - network-modification-diagram-server-deployment.yaml
-  - network-modification-diagram-server-ingress.yaml
-  - network-modification-diagram-server-service.yaml
+  - network-modification-server-deployment.yaml
+  - network-modification-server-ingress.yaml
+  - network-modification-server-service.yaml
   - study-app-deployment.yaml
   - study-app-ingress.yaml
   - study-app-service.yaml
