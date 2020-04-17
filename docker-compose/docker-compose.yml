@@ -96,4 +96,5 @@ services:
       - CLIENT_ID=my-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
       - ISSUER_HOST=localhost:9090

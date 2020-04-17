@@ -3,5 +3,6 @@
     "client_id" : "my-client",
     "redirect_uri": "http://localhost/sign-in-callback",
     "post_logout_redirect_uri" : "http://localhost/logout-callback",
+    "silent_redirect_uri" : "http://localhost/silent-renew-callback",
     "scope" : "openid"
 }
