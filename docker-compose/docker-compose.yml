@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 15672:15672
+
   case-server:
     image: powsybl/case-server:latest
     ports:
@@ -31,6 +36,13 @@ services:
       - 5005:80
     volumes:
       - $PWD/../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
+
+  network-modification-server:
+    image: gridsuite/network-modification-server:latest
+    ports:
+      - 5007:80
+    volumes:
+      - $PWD/../k8s/base/config/network-modification-server-application.yml:/config/application.yml:Z
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
@@ -91,5 +103,5 @@ services:
       - CLIENT_ID=my-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
       - ISSUER_HOST=localhost:9090
-

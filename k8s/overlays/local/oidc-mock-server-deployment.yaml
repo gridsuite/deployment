@@ -29,6 +29,8 @@ spec:
           value: "http://<TO COMPLETE>/study-app/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
           value: "http://<TO COMPLETE>/study-app/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/silent-renew-callback"
         - name: ISSUER_HOST
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX

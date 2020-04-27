@@ -95,6 +95,12 @@ patchesJson6902:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
-    name: gateway-ingress
+    name: network-modification-server-ingress
   path: patch_ingress.yaml
 
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: gateway-ingress
+  path: patch_ingress.yaml
