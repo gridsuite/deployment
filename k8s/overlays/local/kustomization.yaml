@@ -28,3 +28,7 @@ configMapGenerator:
   - name: study-app-configmap
     files:
       - idpSettings.json
+
+  - name: gateway-configmap
+    files:
+      - allowed-issuers.yml
