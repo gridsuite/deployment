@@ -1,1 +1,1 @@
-allowed-issuers: http://localhost
+allowed-issuers: http://<TO COMPLETE>/oidc-mock-server/

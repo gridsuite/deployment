@@ -1,1 +1,1 @@
-allowed-issuers: http://localhost
+allowed-issuers: http://172.17.0.1:9090
