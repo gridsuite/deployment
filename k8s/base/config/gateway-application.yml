@@ -9,7 +9,3 @@ backing-services:
     base-uri: http://case-server/
   study-server:
     base-uri: http://study-server/
-
-logging:
-  level:
-    org.gridsuite.gateway: DEBUG

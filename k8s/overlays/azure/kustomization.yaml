@@ -21,6 +21,7 @@ configMapGenerator:
     files:
       - idpSettings.json
   - name: gateway-configmap
+    behavior: merge
     files:
       - allowed-issuers.yml
 
