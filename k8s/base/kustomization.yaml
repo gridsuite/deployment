@@ -39,7 +39,9 @@ resources:
   - study-server-deployment.yaml
   - study-server-ingress.yaml
   - study-server-service.yaml
-
+  - gateway-deployment.yaml
+  - gateway-ingress.yaml
+  - gateway-service.yaml
 configMapGenerator:
   - name: case-server-configmap
     files:
@@ -71,3 +73,6 @@ configMapGenerator:
   - name: odre-server-configmap
     files:
       - application.yml=config/odre-server-application.yml
+  - name: gateway-configmap
+    files:
+      - application.yml=config/gateway-application.yml

@@ -80,6 +80,14 @@ services:
     volumes:
       - $PWD/../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
 
+  gateway:
+    image: gridsuite/gateway:latest
+    ports:
+      - 9000:80
+    volumes:
+      - $PWD/../k8s/base/config/gateway-application.yml:/config/application.yml:Z
+      - $PWD/allowed-issuers.yml:/config/allowed-issuers.yml:Z
+
   study-app:
     image: powsybl/study-app:latest
     ports:
@@ -97,4 +105,4 @@ services:
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
-      - ISSUER_HOST=localhost:9090
+      - ISSUER_HOST=172.17.0.1:9090

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    name: gateway
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: gateway
+  template:
+    metadata:
+      labels:
+        name: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: docker.io/gridsuite/gateway:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: gateway-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: gateway-configmap-volume
+          configMap:
+            name: gateway-configmap

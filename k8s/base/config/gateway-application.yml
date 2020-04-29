@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+geo-data-server:
+  base.url: http://geo-data-server/
+
+backing-services:
+  case:
+    base-uri: http://case-server/
+  study-server:
+    base-uri: http://study-server/
