@@ -42,6 +42,10 @@ resources:
   - gateway-deployment.yaml
   - gateway-ingress.yaml
   - gateway-service.yaml
+  - loadflow-server-deployment.yaml
+  - loadflow-server-ingress.yaml
+  - loadflow-server-service.yaml
+
 configMapGenerator:
   - name: case-server-configmap
     files:
@@ -76,3 +80,6 @@ configMapGenerator:
   - name: gateway-configmap
     files:
       - application.yml=config/gateway-application.yml
+  - name: loadflow-server-configmap
+    files:
+      - application.yml=config/loadflow-server-application.yml

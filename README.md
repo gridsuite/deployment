@@ -107,6 +107,7 @@ http://<MINIKUBE_IP>/odre-server/swagger-ui.html
 http://<MINIKUBE_IP>/single-line-diagram-server/swagger-ui.html
 http://<MINIKUBE_IP>/study-server/swagger-ui.html
 http://<MINIKUBE_IP>/network-modification-server/swagger-ui.html
+http://<MINIKUBE_IP>/loadflow-server/swagger-ui.html
 
 ```
 
@@ -144,6 +145,7 @@ http://localhost:8096/swagger-ui.html  // odre-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
+http://localhost:5008/swagger-ui.html  // loadflow-server
 
 ```
 RabbitMQ management UI (guest/guest) :

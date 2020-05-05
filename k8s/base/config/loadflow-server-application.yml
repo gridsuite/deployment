@@ -1,0 +1,5 @@
+server:
+  port: 80
+
+loadflow-server:
+  base-uri: http://loadflow-server/
