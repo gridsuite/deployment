@@ -11,4 +11,4 @@ spec:
     port: 80
     targetPort: 80
   selector:
-    name: ordre-server
+    name: odre-server
