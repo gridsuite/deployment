@@ -1,5 +1,5 @@
 server:
   port: 80
 
-loadflow-server:
-  base-uri: http://loadflow-server/
+network-store-server:
+  base-uri: http://network-store-server/
