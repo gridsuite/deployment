@@ -16,6 +16,8 @@ backing-services:
     base-uri: http://geo-data-server/
   network-map:
     base-uri: http://network-map-server/
+  network-modification:
+    base-uri: http://network-modification-server/
 
 spring:
   servlet:
