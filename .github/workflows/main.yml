@@ -16,6 +16,7 @@ on:
       - odre_server_updated
       - network_modification_server_updated
       - gateway_updated
+      - loadflow_server_updated
 
 jobs:
   build:

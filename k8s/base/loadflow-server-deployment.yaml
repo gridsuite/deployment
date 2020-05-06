@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadflow-server
+  labels:
+    name: loadflow-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: loadflow-server
+  template:
+    metadata:
+      labels:
+        name: loadflow-server
+    spec:
+      containers:
+      - name: loadflow-server
+        image: docker.io/gridsuite/loadflow-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: loadflow-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: loadflow-server-configmap-volume
+          configMap:
+            name: loadflow-server-configmap
