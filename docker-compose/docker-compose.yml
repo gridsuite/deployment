@@ -52,6 +52,12 @@ services:
     volumes:
       - $PWD/../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
 
+  notification-server:
+    image: gridsuite/notification-server:latest
+    ports:
+      - 5009:80
+    volumes:
+      - $PWD/../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
