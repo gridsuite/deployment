@@ -9,3 +9,5 @@ backing-services:
     base-uri: http://case-server/
   study-server:
     base-uri: http://study-server/
+  notification-server:
+    base-uri: http://notification-server/

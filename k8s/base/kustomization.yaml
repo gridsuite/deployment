@@ -45,6 +45,9 @@ resources:
   - loadflow-server-deployment.yaml
   - loadflow-server-ingress.yaml
   - loadflow-server-service.yaml
+  - notification-server-deployment.yaml
+  - notification-server-ingress.yaml
+  - notification-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -83,3 +86,6 @@ configMapGenerator:
   - name: loadflow-server-configmap
     files:
       - application.yml=config/loadflow-server-application.yml
+  - name: notification-server-configmap
+    files:
+      - application.yml=config/notification-server-application.yml
