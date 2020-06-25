@@ -74,7 +74,7 @@ cassandra.port: 9042
 
 Fill config files with the cluster ip :
 
-	k8s/overlays/local/idpSettings.json :
+k8s/overlays/local/idpSettings.json :
 ```properties
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
@@ -86,7 +86,7 @@ Fill config files with the cluster ip :
 }
 ```
 
-	k8s/overlays/local/oidc-mock-server-deployment.yaml :
+k8s/overlays/local/oidc-mock-server-deployment.yaml :
 ```properties
 spec:
       containers:
@@ -112,7 +112,6 @@ spec:
           value: "/oidc-mock-server"
       restartPolicy: Always
 ```
-
 
 k8s/overlays/local/allowed-issuers.yml
 ```properties
