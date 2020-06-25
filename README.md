@@ -71,9 +71,11 @@ Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
 cassandra.contact-points: "<YOUR_IP>"
 cassandra.port: 9042
 ```
+
 Fill config files with the cluster ip :
 	k8s/overlays/local/idpSettings.json :
-```{
+```properties
+{
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
     "client_id" : "my-client",
     "redirect_uri": "http://<TO COMPLETE>/study-app/sign-in-callback",
@@ -84,7 +86,8 @@ Fill config files with the cluster ip :
 ```
 
 	k8s/overlays/local/oidc-mock-server-deployment.yaml :
-```spec:
+```properties
+spec:
       containers:
       - name: oidc-mock-server
         image: docker.io/gridsuite/oidc-mock-server:latest
@@ -106,11 +109,12 @@ Fill config files with the cluster ip :
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX
           value: "/oidc-mock-server"
-      restartPolicy: Always```
+      restartPolicy: Always
+```
 
 
 k8s/overlays/local/allowed-issuers.yml
-```
+```properties
 allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
 ```
 
