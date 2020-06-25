@@ -73,6 +73,7 @@ cassandra.port: 9042
 ```
 
 Fill config files with the cluster ip :
+
 	k8s/overlays/local/idpSettings.json :
 ```properties
 {
