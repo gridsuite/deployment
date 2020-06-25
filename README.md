@@ -71,6 +71,49 @@ Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
 cassandra.contact-points: "<YOUR_IP>"
 cassandra.port: 9042
 ```
+Fill config files with the cluster ip :
+	k8s/overlays/local/idpSettings.json :
+```{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "my-client",
+    "redirect_uri": "http://<TO COMPLETE>/study-app/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/study-app/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/study-app/silent-renew-callback",
+    "scope" : "openid"
+}
+```
+
+	k8s/overlays/local/oidc-mock-server-deployment.yaml :
+```spec:
+      containers:
+      - name: oidc-mock-server
+        image: docker.io/gridsuite/oidc-mock-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DEBUG
+          value: "oidc-provider:*"
+        - name: CLIENT_ID
+          value: "my-client"
+        - name: CLIENT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/silent-renew-callback"
+        - name: ISSUER_HOST
+          value: "<TO COMPLETE>"
+        - name: ISSUER_PREFIX
+          value: "/oidc-mock-server"
+      restartPolicy: Always```
+
+
+k8s/overlays/local/allowed-issuers.yml
+```
+allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
+```
+
 
 Deploy k8s services:
 ```bash 
