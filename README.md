@@ -79,7 +79,7 @@ echo $MINIKUBE_IP;
 Fill config files with the MINIKUBE_IP :
 
 k8s/overlays/local/idpSettings.json :
-```properties
+```json
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
     "client_id" : "my-client",
@@ -91,7 +91,7 @@ k8s/overlays/local/idpSettings.json :
 ```
 
 k8s/overlays/local/oidc-mock-server-deployment.yaml :
-```properties
+```yaml
 spec:
       containers:
       - name: oidc-mock-server
@@ -118,7 +118,7 @@ spec:
 ```
 
 k8s/overlays/local/allowed-issuers.yml
-```properties
+```yaml
 allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
 ```
 
