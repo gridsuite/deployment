@@ -133,6 +133,7 @@ Verify all services and pods have been correctly started:
 kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
+
 Application:
 ```html
 http://<MINIKUBE_IP>/study-app/
