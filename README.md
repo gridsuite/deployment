@@ -72,7 +72,11 @@ cassandra.contact-points: "<YOUR_IP>"
 cassandra.port: 9042
 ```
 
-Fill config files with the cluster ip :
+```bash
+MINIKUBE_IP=`minikube ip`;
+echo $MINIKUBE_IP;
+```
+Fill config files with the MINIKUBE_IP :
 
 k8s/overlays/local/idpSettings.json :
 ```properties
@@ -129,9 +133,6 @@ Verify all services and pods have been correctly started:
 kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
-```bash 
-MINIKUBE_IP=`minikube ip`
-```
 Application:
 ```html
 http://<MINIKUBE_IP>/study-app/
