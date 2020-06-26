@@ -72,6 +72,57 @@ cassandra.contact-points: "<YOUR_IP>"
 cassandra.port: 9042
 ```
 
+```bash
+MINIKUBE_IP=`minikube ip`;
+echo $MINIKUBE_IP;
+```
+Fill config files with the MINIKUBE_IP :
+
+k8s/overlays/local/idpSettings.json :
+```json
+{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "my-client",
+    "redirect_uri": "http://<TO COMPLETE>/study-app/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/study-app/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/study-app/silent-renew-callback",
+    "scope" : "openid"
+}
+```
+
+k8s/overlays/local/oidc-mock-server-deployment.yaml :
+```yaml
+spec:
+      containers:
+      - name: oidc-mock-server
+        image: docker.io/gridsuite/oidc-mock-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DEBUG
+          value: "oidc-provider:*"
+        - name: CLIENT_ID
+          value: "my-client"
+        - name: CLIENT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI
+          value: "http://<TO COMPLETE>/study-app/silent-renew-callback"
+        - name: ISSUER_HOST
+          value: "<TO COMPLETE>"
+        - name: ISSUER_PREFIX
+          value: "/oidc-mock-server"
+      restartPolicy: Always
+```
+
+k8s/overlays/local/allowed-issuers.yml
+```yaml
+allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
+```
+
+
 Deploy k8s services:
 ```bash 
 kubectl apply -k k8s/overlays/local
@@ -82,9 +133,7 @@ Verify all services and pods have been correctly started:
 kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
-```bash 
-MINIKUBE_IP=`minikube ip`
-```
+
 Application:
 ```html
 http://<MINIKUBE_IP>/study-app/
