@@ -17,7 +17,7 @@ spec:
       containers:
       - name: notification-server
         image: docker.io/gridsuite/notification-server:latest
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         volumeMounts:
