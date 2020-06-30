@@ -17,7 +17,7 @@ spec:
       containers:
       - name: case-validation-server
         image: docker.io/gridsuite/case-validation-server:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         volumeMounts:

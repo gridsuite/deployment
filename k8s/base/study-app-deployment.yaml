@@ -17,7 +17,7 @@ spec:
       containers:
       - name: study-app
         image: docker.io/powsybl/study-app:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         volumeMounts:

@@ -17,7 +17,7 @@ spec:
       containers:
       - name: network-modification-server
         image: docker.io/gridsuite/network-modification-server:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         volumeMounts:
