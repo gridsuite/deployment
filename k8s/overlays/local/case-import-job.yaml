@@ -15,6 +15,19 @@ spec:
                 - name: secret-config-case-import-job-volume
                   mountPath: /root/.itools
               imagePullPolicy: IfNotPresent
+              env:
+                - name: SFTP_SERVER__USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: secret-case-sftp-server-credentials
+                      key: username
+                      optional: true
+                - name: SFTP_SERVER__PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secret-case-sftp-server-credentials
+                      key: password
+                      optional: true
           volumes:
             - name: secret-config-case-import-job-volume
               secret:
