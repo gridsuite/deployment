@@ -1,0 +1,13 @@
+sftp-server:
+  hostname: ip_sftp
+  username: username
+  password: password
+  cases-directory: ./cases
+  label: cases-sftp
+
+cassandra:
+  contact-points: ip_cassandra
+  port: 9042
+
+case-server:
+  url: http://ip_service
