@@ -12,7 +12,7 @@ spec:
             - name: case-import-job
               image: docker.io/gridsuite/case-import-job:latest
               volumeMounts:
-                - name: secret-config-case-import-job-volume
+                - name: config-case-import-job-volume
                   mountPath: /root/.itools
               imagePullPolicy: IfNotPresent
               env:
@@ -27,8 +27,8 @@ spec:
                       name: secret-case-sftp-server-credentials
                       key: password
           volumes:
-            - name: secret-config-case-import-job-volume
-              secret:
-                secretName: secret-config-case-import-job
+            - name: config-case-import-job-volume
+              configMap:
+                name: config-case-import-job
           restartPolicy: OnFailure
 
