@@ -25,6 +25,12 @@ configMapGenerator:
     files:
       - allowed-issuers.yml
 
+secretGenerator:
+  - name: secret-config-case-import-job
+    behavior: create
+    files:
+      - config.yml=case-import-job-configuration.yml
+
 # Patch ingress host
 patchesJson6902:
 - target:
