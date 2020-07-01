@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: case-import-job
+  name: case-import-cronjob
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:

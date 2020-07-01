@@ -1,7 +1,5 @@
 sftp-server:
   hostname: opde
-  username: <TO_COMPLETE>
-  password: <TO_COMPLETE>
   cases-directory: ./opde
   label: opde
 

@@ -27,7 +27,7 @@ configMapGenerator:
   - name: config-case-import-job
     behavior: merge
     files:
-      - config.yml=case-import-job-configuration.yml
+      - config.yml=case-import-job-config.yml
 
 # Patch ingress host
 patchesJson6902:
