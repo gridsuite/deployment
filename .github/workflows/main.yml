@@ -17,6 +17,8 @@ on:
       - network_modification_server_updated
       - gateway_updated
       - loadflow_server_updated
+      - case_import_job_updated
+      - notification_server_updated
 
 jobs:
   build:
