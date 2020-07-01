@@ -33,3 +33,7 @@ configMapGenerator:
     behavior: merge
     files:
       - allowed-issuers.yml
+
+  - name: case-import-job-configmap
+    files:
+      - config.yml=case-import-job-config.yml

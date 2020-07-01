@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: case-import-cronjob
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: case-import-job
+              image: docker.io/gridsuite/case-import-job:latest
+              volumeMounts:
+                - name: config-case-import-job-volume
+                  mountPath: /root/.itools
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: SFTP_SERVER__USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: secret-case-sftp-server-credentials
+                      key: username
+                      optional: true
+                - name: SFTP_SERVER__PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secret-case-sftp-server-credentials
+                      key: password
+                      optional: true
+          volumes:
+            - name: config-case-import-job-volume
+              configMap:
+                name: case-import-job-configmap
+          restartPolicy: OnFailure
+

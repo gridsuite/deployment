@@ -48,6 +48,7 @@ resources:
   - notification-server-deployment.yaml
   - notification-server-ingress.yaml
   - notification-server-service.yaml
+  - case-import-cronjob.yaml
 
 configMapGenerator:
   - name: case-server-configmap
