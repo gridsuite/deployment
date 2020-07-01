@@ -8,7 +8,6 @@ resources:
   - oidc-mock-server-deployment.yaml
   - oidc-mock-server-ingress.yaml
   - oidc-mock-server-service.yaml
-  - case-import-job.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -35,8 +34,7 @@ configMapGenerator:
     files:
       - allowed-issuers.yml
 
-secretGenerator:
-  - name: secret-config-case-import-job
-    behavior: create
+  - name: config-case-import-job
+    behavior: merge
     files:
       - config.yml=case-import-job-configuration.yml

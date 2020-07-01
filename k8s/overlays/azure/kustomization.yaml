@@ -24,7 +24,6 @@ configMapGenerator:
     behavior: merge
     files:
       - allowed-issuers.yml
-
   - name: config-case-import-job
     behavior: merge
     files:
