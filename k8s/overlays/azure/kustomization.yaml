@@ -27,6 +27,10 @@ configMapGenerator:
   - name: case-import-job-configmap
     files:
       - config.yml=case-import-job-config.yml
+  - name: merge-orchestrator-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
 
 # Patch ingress host
 patchesJson6902:
@@ -130,4 +134,11 @@ patchesJson6902:
     version: v1beta1
     kind: Ingress
     name: notification-server-ingress
+  path: patch_ingress.yaml
+
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: merge-orchestrator-server-ingress
   path: patch_ingress.yaml

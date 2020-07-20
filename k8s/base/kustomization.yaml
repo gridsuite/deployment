@@ -55,6 +55,9 @@ resources:
   - notification-server-ingress.yaml
   - notification-server-service.yaml
   - case-import-cronjob.yaml
+  - merge-orchestrator-server-deployment.yaml
+  - merge-orchestrator-server-ingress.yaml
+  - merge-orchestrator-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -102,3 +105,6 @@ configMapGenerator:
   - name: notification-server-configmap
     files:
       - application.yml=config/notification-server-application.yml
+  - name: merge-orchestrator-server-configmap
+    files:
+      - application.yml=config/merge-orchestrator-server-application.yml
