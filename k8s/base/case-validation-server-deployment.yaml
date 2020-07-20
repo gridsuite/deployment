@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case-validation-server
+  labels:
+    name: case-validation-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: case-validation-server
+  template:
+    metadata:
+      labels:
+        name: case-validation-server
+    spec:
+      containers:
+      - name: case-validation-server
+        image: docker.io/gridsuite/case-validation-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: case-validation-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: case-validation-server-configmap-volume
+          configMap:
+            name: case-validation-server-configmap
