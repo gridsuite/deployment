@@ -9,6 +9,9 @@ resources:
   - case-server-deployment.yaml
   - case-server-ingress.yaml
   - case-server-service.yaml
+  - case-validation-server-deployment.yaml
+  - case-validation-server-ingress.yaml
+  - case-validation-server-service.yaml
   - cgmes-gl-server-deployment.yaml
   - cgmes-gl-server-ingress.yaml
   - cgmes-gl-server-service.yaml
@@ -57,6 +60,9 @@ configMapGenerator:
   - name: case-server-configmap
     files:
       - application.yml=config/case-server-application.yml
+  - name: case-validation-server-configmap
+    files:
+      - application.yml=config/case-validation-server-application.yml
   - name: geo-data-server-configmap
     files:
       - application.yml=config/geo-data-server-application.yml
