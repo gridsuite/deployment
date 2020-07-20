@@ -59,6 +59,13 @@ services:
     volumes:
       - $PWD/../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
 
+  balances-adjustment-server:
+    image: gridsuite/balances-adjustment-server:latest
+    ports:
+      - 5010:80
+    volumes:
+      - $PWD/../k8s/base/config/balances-adjustment-server-application.yml:/config/application.yml:Z
+
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
     ports:
