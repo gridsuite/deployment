@@ -45,6 +45,9 @@ resources:
   - loadflow-server-deployment.yaml
   - loadflow-server-ingress.yaml
   - loadflow-server-service.yaml
+  - balances-adjustment-server-deployment.yaml
+  - balances-adjustment-server-ingress.yaml
+  - balances-adjustment-server-service.yaml
   - notification-server-deployment.yaml
   - notification-server-ingress.yaml
   - notification-server-service.yaml
@@ -87,6 +90,9 @@ configMapGenerator:
   - name: loadflow-server-configmap
     files:
       - application.yml=config/loadflow-server-application.yml
+  - name: balances-adjustment-server-configmap
+    files:
+      - application.yml=config/balances-adjustment-server-application.yml
   - name: notification-server-configmap
     files:
       - application.yml=config/notification-server-application.yml

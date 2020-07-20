@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: balances-adjustment-server
+  labels:
+    name: balances-adjustment-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: balances-adjustment-server
+  template:
+    metadata:
+      labels:
+        name: balances-adjustment-server
+    spec:
+      containers:
+        - name: balances-adjustment-server
+          image: docker.io/gridsuite/balances-adjustment-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config
+              name: balances-adjustment-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: balances-adjustment-server-configmap-volume
+          configMap:
+            name: balances-adjustment-server-configmap
