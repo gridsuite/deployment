@@ -102,6 +102,13 @@ services:
     volumes:
       - $PWD/../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
 
+  case-validation-server:
+    image: gridsuite/case-validation-server:latest
+    ports:
+      - 5011:80
+    volumes:
+      - $PWD/../k8s/base/config/case-validation-server-application.yml:/config/application.yml:Z
+
   gateway:
     image: gridsuite/gateway:latest
     ports:
