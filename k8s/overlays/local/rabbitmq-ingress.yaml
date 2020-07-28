@@ -10,5 +10,5 @@ spec:
       paths:
       - path: /rabbitmq(/|$)(.*)
         backend:
-          serviceName: oidc-mock-server
+          serviceName: rabbitmq
           servicePort: 80
