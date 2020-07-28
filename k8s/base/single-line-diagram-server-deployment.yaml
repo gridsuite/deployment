@@ -17,7 +17,7 @@ spec:
       containers:
       - name: single-line-diagram-server
         image: docker.io/powsybl/single-line-diagram-server:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         volumeMounts:

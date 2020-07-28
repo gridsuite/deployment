@@ -96,7 +96,7 @@ spec:
       containers:
       - name: oidc-mock-server
         image: docker.io/gridsuite/oidc-mock-server:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         env:
