@@ -10,5 +10,8 @@ spec:
   - name: dashboard
     port: 80
     targetPort: 15672
+  - name: api
+    port: 5672
+    targetPort: 5672
   selector:
     name: rabbitmq
