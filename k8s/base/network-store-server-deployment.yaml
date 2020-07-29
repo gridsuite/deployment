@@ -17,7 +17,7 @@ spec:
       containers:
       - name: network-store-server
         image: docker.io/powsybl/network-store-server:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         volumeMounts:
