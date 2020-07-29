@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: kibana
+  name: kibana
+spec:
+  type: ClusterIP
+  ports:
+    - name: kibana
+      port: 80
+      targetPort: 5601
+    - name: elasticsearch
+      port: 9200
+      targetPort: 9200
+  selector:
+    name: kibana
