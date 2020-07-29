@@ -39,3 +39,8 @@ configMapGenerator:
   - name: case-import-job-configmap
     files:
       - config.yml=case-import-job-config.yml
+
+  - name: merge-orchestrator-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
