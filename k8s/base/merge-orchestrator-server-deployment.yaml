@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merge-orchestrator-server
+  labels:
+    name: merge-orchestrator-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: merge-orchestrator-server
+  template:
+    metadata:
+      labels:
+        name: merge-orchestrator-server
+    spec:
+      containers:
+      - name: merge-orchestrator-server
+        image: docker.io/gridsuite/merge-orchestrator-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: merge-orchestrator-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: merge-orchestrator-server-configmap-volume
+          configMap:
+            name: merge-orchestrator-server-configmap

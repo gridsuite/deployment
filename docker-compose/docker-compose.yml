@@ -124,6 +124,14 @@ services:
     volumes:
       - $PWD/idpSettings.json:/usr/local/apache2/htdocs/study-app/idpSettings.json:Z
 
+  merge-orchestrator-server:
+    image: gridsuite/merge-orchestrator-server:latest
+    ports:
+      - 5020:80
+    volumes:
+      - $PWD/../k8s/base/config/merge-orchestrator-server-application.yml:/config/application.yml:Z
+      - $PWD/cassandra.properties:/config/cassandra.properties:Z
+
   mock_user_service:
     image: gridsuite/oidc-mock-server
     ports:
