@@ -58,6 +58,10 @@ resources:
   - merge-orchestrator-server-deployment.yaml
   - merge-orchestrator-server-ingress.yaml
   - merge-orchestrator-server-service.yaml
+  - fluentd-service-account.yaml
+  - fluentd-daemonset.yaml
+  - fluentd-cluster-role-binding.yaml
+  - fluentd-cluster-role.yaml
 
 configMapGenerator:
   - name: case-server-configmap
