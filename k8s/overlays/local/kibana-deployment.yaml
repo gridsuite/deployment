@@ -15,14 +15,16 @@ spec:
     spec:
       containers:
       - name: kibana
-        image: docker.io/sebp/elk
-        imagePullPolicy: IfNotPresent
-        resources:
-          limits:
-            cpu: 1000m
-          requests:
-            cpu: 100m
+        image: docker.elastic.co/kibana/kibana:7.5.2
+        imagePullPolicy: Always
         ports:
           - containerPort: 5601
-          - containerPort: 9200
+        volumeMounts:
+          - mountPath: /usr/share/kibana/config
+            name: kibana-configmap-volume
       restartPolicy: Always
+      volumes:
+        - name: kibana-configmap-volume
+          configMap:
+            name: kibana-configmap
+

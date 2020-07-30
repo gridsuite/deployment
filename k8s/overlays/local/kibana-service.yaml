@@ -7,11 +7,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: kibana
+    - name: dashboard
       port: 80
       targetPort: 5601
-    - name: elasticsearch
-      port: 9200
-      targetPort: 9200
   selector:
     name: kibana

@@ -11,9 +11,12 @@ resources:
   - rabbitmq-deployment.yaml
   - rabbitmq-ingress.yaml
   - rabbitmq-service.yaml
-  - elasticsearch-kibana-deployment.yaml
-  - elasticsearch-kibana-ingress.yaml
-  - elasticsearch-kibana-service.yaml
+  - kibana-deployment.yaml
+  - kibana-ingress.yaml
+  - kibana-service.yaml
+  - elasticsearch-deployment.yaml
+  - elasticsearch-ingress.yaml
+  - elasticsearch-service.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -48,3 +51,7 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+
+  - name: kibana-configmap
+    files:
+      - kibana.yml

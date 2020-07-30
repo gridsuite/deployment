@@ -108,3 +108,4 @@ configMapGenerator:
   - name: merge-orchestrator-server-configmap
     files:
       - application.yml=config/merge-orchestrator-server-application.yml
+

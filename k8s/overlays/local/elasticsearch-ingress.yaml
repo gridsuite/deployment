@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: kibana-ingress
+  name: elasticsearch-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -11,15 +11,15 @@ metadata:
     # but latest minikube 1.1.0 uses V0.23 (untested):
     # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/study-app"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^/kibana$ /kibana/ permanent;
-      proxy_set_header X-Forwarded-Prefix         /kibana/;
+      rewrite ^/elasticsearch$ /elasticsearch/ permanent;
+      proxy_set_header X-Forwarded-Prefix         /elasticsearch/;
     nginx.ingress.kubernetes.io/server-snippet: |
       merge_slashes off;
 spec:
   rules:
   - http:
       paths:
-      - path: /kibana(/|$)(.*)
+      - path: /elasticsearch(/|$)(.*)
         backend:
-          serviceName: kibana
-          servicePort: 80
+          serviceName: elasticsearch
+          servicePort: 9200
