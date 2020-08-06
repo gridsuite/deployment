@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merge-notification-server
+  labels:
+    name: merge-notification-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: merge-notification-server
+  template:
+    metadata:
+      labels:
+        name: merge-notification-server
+    spec:
+      containers:
+      - name: merge-notification-server
+        image: docker.io/gridsuite/merge-notification-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: merge-notification-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: merge-notification-server-configmap-volume
+          configMap:
+            name: merge-notification-server-configmap

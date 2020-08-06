@@ -59,6 +59,13 @@ services:
     volumes:
       - $PWD/../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
 
+  merge-notification-server:
+    image: gridsuite/merge-notification-server:latest
+    ports:
+      - 5002:80
+    volumes:
+      - $PWD/../k8s/base/config/merge-notification-server-application.yml:/config/application.yml:Z
+
   balances-adjustment-server:
     image: gridsuite/balances-adjustment-server:latest
     ports:
