@@ -18,4 +18,12 @@ spring:
         publishCaseImport-out-0:
           destination: case.import
 
+  data:
+    elasticsearch:
+      enabled : true
+      host: elasticsearch
+      port: 9200
+      index: case-server
+      type: metadatas
+
 case-store-directory: /cases

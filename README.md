@@ -203,6 +203,11 @@ RabbitMQ management UI (guest/guest) :
 ```html
 http://localhost:15672
 ```
+Kibana management UI :
+```html
+http://localhost:5601
+```
+In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
