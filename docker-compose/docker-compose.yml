@@ -143,3 +143,41 @@ services:
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      -  discovery.type=single-node
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.8.6
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.8.6
+    volumes:
+      - $PWD/pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - /var/lib/docker/containers/:/var/lib/docker/containers/:Z
+      - /home/benhamedcha/Documents/server.log:/server.log
+    depends_on:
+      - elasticsearch
+      - kibana
+
+  logspout:
+    image: gliderlabs/logspout:v3
+    command: 'udp://logstash:5000'
+    links:
+      - logstash
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock'
+    depends_on:
+      - elasticsearch
+      - logstash
+      - kibana
