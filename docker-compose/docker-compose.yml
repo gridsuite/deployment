@@ -154,12 +154,15 @@ services:
       - 9200:9200
       - 9300:9300
     environment:
-      -  discovery.type=single-node
+      - discovery.type=single-node
+      - LOGSPOUT=ignore
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.8.6
     ports:
       - 5601:5601
+    environment:
+      - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
 
@@ -168,8 +171,8 @@ services:
     volumes:
       - $PWD/pipelines.yml:/config/pipelines.yml:Z
       - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
-      - /var/lib/docker/containers/:/var/lib/docker/containers/:Z
-      - /home/benhamedcha/Documents/server.log:/server.log
+    environment:
+      - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
       - kibana
@@ -177,8 +180,10 @@ services:
   logspout:
     image: gliderlabs/logspout:v3
     command: 'udp://logstash:5000'
+    environment:
+      - LOGSPOUT=ignore
     volumes:
-      - '/var/run/docker.sock:/tmp/docker.sock'
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - elasticsearch
       - logstash
