@@ -173,8 +173,6 @@ services:
   logspout:
     image: gliderlabs/logspout:v3
     command: 'udp://logstash:5000'
-    links:
-      - logstash
     volumes:
       - '/var/run/docker.sock:/tmp/docker.sock'
     depends_on:
