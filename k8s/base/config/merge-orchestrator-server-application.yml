@@ -12,6 +12,8 @@ backing-services:
     base-uri: http://balances-adjustment-server/
   loadflow-server:
     base-uri: http://loadflow-server/
+  case-validation-server:
+    base-uri: http://case-validation-server/
 
 parameters:
   tsos: BE,NL
