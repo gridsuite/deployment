@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gridstudy
+  name: gridstudy-app
   labels:
-    name: gridstudy
+    name: gridstudy-app
     version: "1"
 spec:
   selector:
     matchLabels:
-      name: gridstudy
+      name: gridstudy-app
   template:
     metadata:
       labels:
-        name: gridstudy
+        name: gridstudy-app
     spec:
       containers:
-      - name: gridstudy
-        image: docker.io/powsybl/gridstudy:latest
+      - name: gridstudy-app
+        image: docker.io/powsybl/gridstudy-app:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -28,4 +28,4 @@ spec:
       volumes:
         - name: study-server-configmap-volume
           configMap:
-            name: gridstudy-configmap
+            name: gridstudy-app-configmap

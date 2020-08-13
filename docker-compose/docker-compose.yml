@@ -117,8 +117,8 @@ services:
       - $PWD/../k8s/base/config/gateway-application.yml:/config/application.yml:Z
       - $PWD/allowed-issuers.yml:/config/allowed-issuers.yml:Z
 
-  gridstudy:
-    image: powsybl/gridstudy:latest
+  gridstudy-app:
+    image: powsybl/study-app:latest
     ports:
       - 80:80
     volumes:

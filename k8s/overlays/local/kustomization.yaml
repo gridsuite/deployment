@@ -27,7 +27,7 @@ configMapGenerator:
     files:
       - cassandra.properties
 
-  - name: gridstudy-configmap
+  - name: gridstudy-app-configmap
     files:
       - idpSettings.json
 

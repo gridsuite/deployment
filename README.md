@@ -138,7 +138,7 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Application:
 ```html
-http://<MINIKUBE_IP>/gridstudy/
+http://<MINIKUBE_IP>/gridstudy-app/
 ```
 
 Gateway 

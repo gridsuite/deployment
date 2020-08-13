@@ -36,9 +36,9 @@ resources:
   - network-modification-server-deployment.yaml
   - network-modification-server-ingress.yaml
   - network-modification-server-service.yaml
-  - gridstudy-deployment.yaml
-  - gridstudy-ingress.yaml
-  - gridstudy-service.yaml
+  - gridstudy-app-deployment.yaml
+  - gridstudy-app-ingress.yaml
+  - gridstudy-app-service.yaml
   - study-server-deployment.yaml
   - study-server-ingress.yaml
   - study-server-service.yaml

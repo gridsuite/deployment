@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: gridstudy-ingress
+  name: gridstudy-app-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -21,5 +21,5 @@ spec:
       paths:
       - path: /gridstudy(/|$)(.*)
         backend:
-          serviceName: gridstudy
+          serviceName: gridstudy-app
           servicePort: 80
