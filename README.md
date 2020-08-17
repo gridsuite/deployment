@@ -34,6 +34,7 @@ CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrateg
 CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 CREATE KEYSPACE IF NOT EXISTS study WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS import_history WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -42,6 +43,7 @@ https://github.com/powsybl/powsybl-network-store/blob/master/network-store-serve
 https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
 https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.cql
 https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
+https://github.com/gridsuite/case-import-job/blob/master/src/main/resources/import_history.cql
 ```
 
 ### Minikube and kubectl setup
