@@ -117,12 +117,12 @@ services:
       - $PWD/../k8s/base/config/gateway-application.yml:/config/application.yml:Z
       - $PWD/allowed-issuers.yml:/config/allowed-issuers.yml:Z
 
-  study-app:
+  gridstudy-app:
     image: powsybl/study-app:latest
     ports:
       - 80:80
     volumes:
-      - $PWD/idpSettings.json:/usr/local/apache2/htdocs/study-app/idpSettings.json:Z
+      - $PWD/idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
 
   merge-orchestrator-server:
     image: gridsuite/merge-orchestrator-server:latest
