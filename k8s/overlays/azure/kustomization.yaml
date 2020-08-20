@@ -17,7 +17,7 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
-  - name: study-app-configmap
+  - name: gridstudy-app-configmap
     files:
       - idpSettings.json
   - name: gateway-configmap
@@ -27,6 +27,10 @@ configMapGenerator:
   - name: case-import-job-configmap
     files:
       - config.yml=case-import-job-config.yml
+  - name: merge-orchestrator-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
 
 # Patch ingress host
 patchesJson6902:
@@ -34,7 +38,7 @@ patchesJson6902:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
-    name: study-app-ingress
+    name: gridstudy-app-ingress
   path: patch_tls_ingress.yaml
 - target:
     group: networking.k8s.io
@@ -82,7 +86,7 @@ patchesJson6902:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
-    name: study-app-ingress
+    name: gridstudy-app-ingress
   path: patch_ingress.yaml
 - target:
     group: networking.k8s.io
@@ -130,4 +134,11 @@ patchesJson6902:
     version: v1beta1
     kind: Ingress
     name: notification-server-ingress
+  path: patch_ingress.yaml
+
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: merge-orchestrator-server-ingress
   path: patch_ingress.yaml
