@@ -29,6 +29,7 @@ resources:
   - notification-server-ingress.yaml
   - merge-orchestrator-server-ingress.yaml
   - merge-notification-server-ingress.yaml
+
 configMapGenerator:
   - name: network-store-server-configmap
     behavior: merge
@@ -67,3 +68,7 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+
+  - name: cgmes-assembling-job-configmap
+    files:
+      - config.yml=cgmes-assembling-job-config.yml

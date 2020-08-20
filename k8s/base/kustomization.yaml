@@ -46,6 +46,7 @@ resources:
   - merge-notification-server-service.yaml
   - cgmes-boundary-server-deployment.yaml
   - cgmes-boundary-server-service.yaml
+  - cgmes-assembling-cronjob.yaml
 
 configMapGenerator:
   - name: case-server-configmap
