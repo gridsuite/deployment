@@ -118,7 +118,7 @@ services:
       - $PWD/allowed-issuers.yml:/config/allowed-issuers.yml:Z
 
   gridstudy-app:
-    image: powsybl/study-app:latest
+    image: gridsuite/gridstudy-app:latest
     ports:
       - 80:80
     volumes:
