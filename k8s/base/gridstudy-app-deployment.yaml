@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gridstudy-app
-        image: docker.io/powsybl/study-app:latest
+        image: docker.io/gridsuite/gridstudy-app:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
