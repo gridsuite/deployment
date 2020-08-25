@@ -1,18 +1,11 @@
-spring:
-  application:
-    name: merge-notification-server
+server:
+  port: 80
 
+spring:
   rabbitmq:
-    addresses: localhost
+    addresses: rabbitmq
     port: 5672
 
-  cloud:
-    function:
-      definition: consumeNotification
-    stream:
-      bindings:
-        consumeNotification-in-0:
-          destination: merge
-
-server:
-  port: 5002
+logging:
+  level:
+    org.gridsuite.notification.server.input-broker-messages: DEBUG

@@ -20,6 +20,7 @@ on:
       - case_import_job_updated
       - notification_server_updated
       - merge_orchestrator_updated
+      - merge_notification_server_updated
 
 jobs:
   build:
