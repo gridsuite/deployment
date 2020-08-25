@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+spring:
+  rabbitmq:
+    addresses: rabbitmq
+    port: 5672
+
+logging:
+  level:
+    org.gridsuite.merge.notification.server.input-broker-messages: DEBUG
