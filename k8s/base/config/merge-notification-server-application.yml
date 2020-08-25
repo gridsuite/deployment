@@ -8,4 +8,4 @@ spring:
 
 logging:
   level:
-    org.gridsuite.notification.server.input-broker-messages: DEBUG
+    org.gridsuite.merge.notification.server.input-broker-messages: DEBUG
