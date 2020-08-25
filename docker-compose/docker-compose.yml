@@ -124,12 +124,12 @@ services:
       - $PWD/../k8s/base/config/gateway-application.yml:/config/application.yml:Z
       - $PWD/allowed-issuers.yml:/config/allowed-issuers.yml:Z
 
-  study-app:
-    image: powsybl/study-app:latest
+  gridstudy-app:
+    image: gridsuite/gridstudy-app:latest
     ports:
       - 80:80
     volumes:
-      - $PWD/idpSettings.json:/usr/local/apache2/htdocs/study-app/idpSettings.json:Z
+      - $PWD/idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
 
   merge-orchestrator-server:
     image: gridsuite/merge-orchestrator-server:latest
@@ -149,4 +149,8 @@ services:
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
+      - CLIENT_ID_2=my-client-2
+      - CLIENT_REDIRECT_URI_2=http://localhost:3000/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:3000/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:3000/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090

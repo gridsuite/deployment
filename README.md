@@ -41,7 +41,7 @@ Then copy paste following files content to cqlsh shell:
 https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
 https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
 https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.cql
-https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.cql
+https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
 ```
 
 ### Minikube and kubectl setup
@@ -85,9 +85,9 @@ k8s/overlays/local/idpSettings.json :
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
     "client_id" : "my-client",
-    "redirect_uri": "http://<TO COMPLETE>/study-app/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/study-app/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/study-app/silent-renew-callback",
+    "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
     "scope" : "openid"
 }
 ```
@@ -107,11 +107,11 @@ spec:
         - name: CLIENT_ID
           value: "my-client"
         - name: CLIENT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/study-app/sign-in-callback"
+          value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/study-app/logout-callback"
+          value: "http://<TO COMPLETE>/gridstudy/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/study-app/silent-renew-callback"
+          value: "http://<TO COMPLETE>/gridstudy/silent-renew-callback"
         - name: ISSUER_HOST
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX
@@ -138,7 +138,7 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Application:
 ```html
-http://<MINIKUBE_IP>/study-app/
+http://<MINIKUBE_IP>/gridstudy-app/
 ```
 
 Gateway 

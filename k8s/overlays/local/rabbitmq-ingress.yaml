@@ -9,7 +9,7 @@ metadata:
     # base url when behind a reverse proxy.
     # nginx-ingress-controller V0.24 has a simple alternative
     # but latest minikube 1.1.0 uses V0.23 (untested):
-    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/study-app"
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/gridstudy"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       rewrite ^/rabbitmq$ /rabbitmq/ permanent;
       proxy_set_header X-Forwarded-Prefix         /rabbitmq/;
