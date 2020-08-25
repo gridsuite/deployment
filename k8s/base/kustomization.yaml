@@ -36,9 +36,9 @@ resources:
   - network-modification-server-deployment.yaml
   - network-modification-server-ingress.yaml
   - network-modification-server-service.yaml
-  - study-app-deployment.yaml
-  - study-app-ingress.yaml
-  - study-app-service.yaml
+  - gridstudy-app-deployment.yaml
+  - gridstudy-app-ingress.yaml
+  - gridstudy-app-service.yaml
   - study-server-deployment.yaml
   - study-server-ingress.yaml
   - study-server-service.yaml
@@ -58,6 +58,9 @@ resources:
   - merge-orchestrator-server-deployment.yaml
   - merge-orchestrator-server-ingress.yaml
   - merge-orchestrator-server-service.yaml
+  - merge-notification-server-deployment.yaml
+  - merge-notification-server-ingress.yaml
+  - merge-notification-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -108,3 +111,6 @@ configMapGenerator:
   - name: merge-orchestrator-server-configmap
     files:
       - application.yml=config/merge-orchestrator-server-application.yml
+  - name: merge-notification-server-configmap
+    files:
+      - application.yml=config/merge-notification-server-application.yml

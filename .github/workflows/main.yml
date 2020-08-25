@@ -11,7 +11,7 @@ on:
       - network_map_server_updated
       - network_store_updated
       - single_line_diagram_server_updated
-      - study_app_updated
+      - gridstudy_app_updated
       - study_server_updated
       - odre_server_updated
       - network_modification_server_updated
@@ -20,6 +20,7 @@ on:
       - case_import_job_updated
       - notification_server_updated
       - merge_orchestrator_updated
+      - merge_notification_server_updated
 
 jobs:
   build:
