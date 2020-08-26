@@ -44,3 +44,8 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+
+  - name: cgmes-boundary-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties

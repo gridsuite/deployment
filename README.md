@@ -34,6 +34,7 @@ CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrateg
 CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 CREATE KEYSPACE IF NOT EXISTS study WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -42,6 +43,8 @@ https://github.com/powsybl/powsybl-network-store/blob/master/network-store-serve
 https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
 https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.cql
 https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
+https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
+
 ```
 
 ### Minikube and kubectl setup
@@ -160,6 +163,7 @@ http://<MINIKUBE_IP>/study-server/swagger-ui.html
 http://<MINIKUBE_IP>/network-modification-server/swagger-ui.html
 http://<MINIKUBE_IP>/loadflow-server/swagger-ui.html
 http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
+http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
@@ -207,6 +211,7 @@ http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
 http://localhost:5008/swagger-ui.html  // loadflow-server
 http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
+http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
 ```
 RabbitMQ management UI (guest/guest) :
 ```html

@@ -1,0 +1,13 @@
+server:
+  port: 80
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 103MB
+
+  rabbitmq:
+    addresses: rabbitmq
+    port: 5672
+

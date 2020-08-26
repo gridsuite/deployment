@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cgmes-boundary-server
+  labels:
+    name: cgmes-boundary-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: cgmes-boundary-server
+  template:
+    metadata:
+      labels:
+        name: cgmes-boundary-server
+    spec:
+      containers:
+      - name: cgmes-boundary-server
+        image: docker.io/gridsuite/cgmes-boundary-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: cgmes-boundary-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: cgmes-boundary-server-configmap-volume
+          configMap:
+            name: cgmes-boundary-server-configmap
