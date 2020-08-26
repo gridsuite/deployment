@@ -7,6 +7,19 @@ services:
       - 15672:15672
       - 5672:5672
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      -  discovery.type=single-node
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.8.6
+    ports:
+      - 5601:5601
+
   case-server:
     image: powsybl/case-server:latest
     ports:
@@ -154,3 +167,4 @@ services:
       - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:3000/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:3000/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
+
