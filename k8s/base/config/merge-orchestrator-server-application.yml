@@ -13,6 +13,10 @@ backing-services:
   loadflow-server:
     base-uri: http://loadflow-server/
 
+parameters:
+  tsos: BE,NL
+  process: TEST
+
 spring:
   rabbitmq:
     addresses: rabbitmq
