@@ -163,16 +163,25 @@ http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
-Install the orchestration tool docker-compose then: 
+Install the orchestration tool docker-compose then launch the desired profile :
+
 ```bash 
-cd docker-compose/
+cd docker-compose/all
+docker-compose up
+```
+```bash 
+cd docker-compose/study
+docker-compose up
+```
+```bash 
+cd docker-compose/merging
 docker-compose up
 ```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
 `172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
-You can now access to the application and the swagger UI of all the Spring services:
+You can now access to the application and the swagger UI of all the Spring services of the chosen profile:
 
 Application:
 ```html

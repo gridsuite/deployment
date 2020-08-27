@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+
+  study-server:
+    image: powsybl/study-server:latest
+    ports:
+      - 5001:80
+    volumes:
+      - $PWD/../../k8s/base/config/study-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+
+  geo-data-server:
+    image: powsybl/geo-data-server:latest
+    ports:
+      - 8087:80
+    volumes:
+      - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+
+  single-line-diagram-server:
+    image: powsybl/single-line-diagram-server:latest
+    ports:
+      - 5005:80
+    volumes:
+      - $PWD/../../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
+
+  network-modification-server:
+    image: gridsuite/network-modification-server:latest
+    ports:
+      - 5007:80
+    volumes:
+      - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/application.yml:Z
+
+  notification-server:
+    image: gridsuite/notification-server:latest
+    ports:
+      - 5009:80
+    volumes:
+      - $PWD/../../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
+
+  network-conversion-server:
+    image: powsybl/network-conversion-server:latest
+    ports:
+      - 5003:80
+    volumes:
+      - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+
+  network-map-server:
+    image: powsybl/network-map-server:latest
+    ports:
+      - 5006:80
+    volumes:
+      - $PWD/../../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
+
+  cgmes-gl-server:
+    image: powsybl/cgmes-gl-server:latest
+    ports:
+      - 8095:80
+    volumes:
+      - $PWD/../../k8s/base/config/cgmes-gl-server-application.yml:/config/application.yml:Z
+
+  odre-server:
+    image: gridsuite/odre-server:latest
+    ports:
+      - 8090:80
+    volumes:
+      - $PWD/../../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
+
+  gridstudy-app:
+    image: gridsuite/gridstudy-app:latest
+    ports:
+      - 80:80
+    volumes:
+      - $PWD/../idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
+

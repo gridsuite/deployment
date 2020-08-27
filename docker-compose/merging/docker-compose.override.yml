@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  merge-orchestrator-server:
+    image: gridsuite/merge-orchestrator-server:latest
+    ports:
+      - 5020:80
+    volumes:
+      - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+
+  merge-notification-server:
+    image: gridsuite/merge-notification-server:latest
+    ports:
+      - 5002:80
+    volumes:
+      - $PWD/../../k8s/base/config/merge-notification-server-application.yml:/config/application.yml:Z
+
+  balances-adjustment-server:
+    image: gridsuite/balances-adjustment-server:latest
+    ports:
+      - 5010:80
+    volumes:
+      - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/application.yml:Z
+
+  case-validation-server:
+    image: gridsuite/case-validation-server:latest
+    ports:
+      - 5011:80
+    volumes:
+      - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/application.yml:Z
