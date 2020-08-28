@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 15672:15672
+      - 5672:5672
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      -  discovery.type=single-node
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.8.6
+    ports:
+      - 5601:5601
+
+  case-server:
+    image: powsybl/case-server:latest
+
+    ports:
+      - 5000:80
+    volumes:
+      - $PWD/../../k8s/base/config/case-server-application.yml:/config/application.yml:Z
+      - $HOME/cases:/cases:Z
+
+  network-store-server:
+    image: powsybl/network-store-server:latest
+    ports:
+      - 8080:80
+    volumes:
+      - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+
+  loadflow-server:
+    image: gridsuite/loadflow-server:latest
+    ports:
+      - 5008:80
+    volumes:
+      - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
+
+  gateway:
+    image: gridsuite/gateway:latest
+    ports:
+      - 9000:80
+    volumes:
+      - $PWD/../../k8s/base/config/gateway-application.yml:/config/application.yml:Z
+      - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
+
+  mock_user_service:
+    image: gridsuite/oidc-mock-server
+    ports:
+      - 9090:9090
+    environment:
+      - PORT=9090
+      - CLIENT_ID=my-client
+      - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
+      - CLIENT_ID_2=my-client-2
+      - CLIENT_REDIRECT_URI_2=http://localhost:3000/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:3000/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:3000/silent-renew-callback
+      - ISSUER_HOST=172.17.0.1:9090
+
