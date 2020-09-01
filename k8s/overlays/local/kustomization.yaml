@@ -11,6 +11,23 @@ resources:
   - rabbitmq-deployment.yaml
   - rabbitmq-ingress.yaml
   - rabbitmq-service.yaml
+  - case-server-ingress.yaml
+  - case-validation-server-ingress.yaml
+  - cgmes-gl-server-ingress.yaml
+  - geo-data-server-ingress.yaml
+  - network-conversion-server-ingress.yaml
+  - network-map-server-ingress.yaml
+  - network-store-server-ingress.yaml
+  - odre-server-ingress.yaml
+  - single-line-diagram-server-ingress.yaml
+  - network-modification-server-ingress.yaml
+  - study-server-ingress.yaml
+  - gateway-ingress.yaml
+  - loadflow-server-ingress.yaml
+  - balances-adjustment-server-ingress.yaml
+  - notification-server-ingress.yaml
+  - merge-orchestrator-server-ingress.yaml
+  - merge-notification-server-ingress.yaml
 configMapGenerator:
   - name: network-store-server-configmap
     behavior: merge
