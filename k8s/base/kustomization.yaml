@@ -45,7 +45,6 @@ resources:
   - merge-notification-server-deployment.yaml
   - merge-notification-server-service.yaml
   - cgmes-boundary-server-deployment.yaml
-  - cgmes-boundary-server-ingress.yaml
   - cgmes-boundary-server-service.yaml
 
 configMapGenerator:

@@ -13,6 +13,7 @@ resources:
   - rabbitmq-service.yaml
   - case-server-ingress.yaml
   - case-validation-server-ingress.yaml
+  - cgmes-boundary-server-ingress.yaml
   - cgmes-gl-server-ingress.yaml
   - geo-data-server-ingress.yaml
   - network-conversion-server-ingress.yaml
