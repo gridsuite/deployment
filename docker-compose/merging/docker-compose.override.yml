@@ -30,3 +30,12 @@ services:
       - 5011:80
     volumes:
       - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/application.yml:Z
+
+  cgmes-boundary-server:
+    image: gridsuite/cgmes-boundary-server:latest
+    ports:
+      - 5021:80
+    volumes:
+      - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+

@@ -44,6 +44,8 @@ resources:
   - merge-orchestrator-server-service.yaml
   - merge-notification-server-deployment.yaml
   - merge-notification-server-service.yaml
+  - cgmes-boundary-server-deployment.yaml
+  - cgmes-boundary-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -97,3 +99,6 @@ configMapGenerator:
   - name: merge-notification-server-configmap
     files:
       - application.yml=config/merge-notification-server-application.yml
+  - name: cgmes-boundary-server-configmap
+    files:
+      - application.yml=config/cgmes-boundary-server-application.yml
