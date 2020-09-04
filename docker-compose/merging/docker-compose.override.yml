@@ -39,3 +39,8 @@ services:
       - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
 
+  cgmes-assembling-job:
+    build: cgmes-assembling-job
+    volumes:
+      - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
+      - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
