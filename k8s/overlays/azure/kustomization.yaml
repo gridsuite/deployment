@@ -31,6 +31,10 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+  - name: cgmes-boundary-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
 
 # Patch ingress host
 patchesJson6902:
@@ -44,101 +48,5 @@ patchesJson6902:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
-    name: case-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: cgmes-gl-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: geo-data-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: network-conversion-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: network-map-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: network-store-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: single-line-diagram-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
     name: gridstudy-app-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: study-server-ingress
-  path: patch_ingress.yaml
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: odre-server-ingress
-  path: patch_ingress.yaml
-
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: network-modification-server-ingress
-  path: patch_ingress.yaml
-
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: gateway-ingress
-  path: patch_ingress.yaml
-
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: loadflow-server-ingress
-  path: patch_ingress.yaml
-
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: case-validation-server-ingress
-  path: patch_ingress.yaml
-
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: notification-server-ingress
-  path: patch_ingress.yaml
-
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: merge-orchestrator-server-ingress
   path: patch_ingress.yaml
