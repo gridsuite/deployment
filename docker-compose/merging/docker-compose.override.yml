@@ -46,7 +46,7 @@ services:
       - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
 
   cgmes-assembling-job:
-    build: cgmes-assembling-job
+    build: merging/cgmes-assembling-job
     volumes:
       - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
       - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
