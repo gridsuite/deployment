@@ -50,3 +50,10 @@ services:
     volumes:
       - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
       - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
+
+  gridmerge-app:
+    image: gridsuite/gridmerge-app:latest
+    ports:
+      - 81:80
+    volumes:
+      - $PWD/../gridmerge-app-idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z

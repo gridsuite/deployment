@@ -72,5 +72,4 @@ services:
     ports:
       - 80:80
     volumes:
-      - $PWD/../idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
-
+      - $PWD/../gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z

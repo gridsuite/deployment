@@ -19,7 +19,10 @@ configMapGenerator:
       - cassandra.properties
   - name: gridstudy-app-configmap
     files:
-      - idpSettings.json
+      - idpSettings.json=gridstudy-app-idpSettings.json
+  - name: gridmerge-app-configmap
+    files:
+      - idpSettings.json=gridmerge-app-idpSettings.json
   - name: gateway-configmap
     behavior: merge
     files:
