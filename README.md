@@ -83,7 +83,7 @@ echo $MINIKUBE_IP;
 ```
 Fill config files with the MINIKUBE_IP :
 
-k8s/overlays/local/idpSettings.json :
+k8s/overlays/local/gridstudy-app-idpSettings.json :
 ```json
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
@@ -91,6 +91,18 @@ k8s/overlays/local/idpSettings.json :
     "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
     "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
     "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
+    "scope" : "openid"
+}
+```
+
+k8s/overlays/local/gridmerge-app-idpSettings.json
+```json
+{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "my-client",
+    "redirect_uri": "http://<TO COMPLETE>/gridmerge/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridmerge/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridmerge/silent-renew-callback",
     "scope" : "openid"
 }
 ```

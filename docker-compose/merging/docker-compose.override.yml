@@ -39,3 +39,9 @@ services:
       - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
 
+  gridmerge-app:
+    image: gridsuite/gridmerge-app:latest
+    ports:
+      - 80:80
+    volumes:
+      - $PWD/../idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z
