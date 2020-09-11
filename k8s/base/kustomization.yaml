@@ -26,6 +26,9 @@ resources:
   - single-line-diagram-server-service.yaml
   - network-modification-server-deployment.yaml
   - network-modification-server-service.yaml
+  - gridmerge-app-deployment.yaml
+  - gridmerge-app-ingress.yaml
+  - gridmerge-app-service.yaml
   - gridstudy-app-deployment.yaml
   - gridstudy-app-ingress.yaml
   - gridstudy-app-service.yaml
