@@ -1,0 +1,8 @@
+{
+    "authority" : "http://172.17.0.1:9090/",
+    "client_id" : "gridmerge-client",
+    "redirect_uri": "http://localhost:81/sign-in-callback",
+    "post_logout_redirect_uri" : "http://localhost:81/logout-callback",
+    "silent_redirect_uri" : "http://localhost:81/silent-renew-callback",
+    "scope" : "openid"
+}

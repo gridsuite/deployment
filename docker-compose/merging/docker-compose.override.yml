@@ -54,6 +54,6 @@ services:
   gridmerge-app:
     image: gridsuite/gridmerge-app:latest
     ports:
-      - 80:80
+      - 81:80
     volumes:
-      - $PWD/../idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z
+      - $PWD/../gridmerge-app-idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z

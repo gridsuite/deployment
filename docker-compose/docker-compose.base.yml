@@ -62,6 +62,10 @@ services:
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
+      - CLIENT_ID=gridmerge-client
+      - CLIENT_REDIRECT_URI=http://localhost:81/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:81/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost:81/silent-renew-callback
       - CLIENT_ID_2=my-client-2
       - CLIENT_REDIRECT_URI_2=http://localhost:3000/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:3000/logout-callback
