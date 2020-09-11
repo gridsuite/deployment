@@ -56,3 +56,15 @@ patchesJson6902:
     kind: Ingress
     name: gridstudy-app-ingress
   path: patch_ingress.yaml
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: gridmerge-app-ingress
+  path: patch_tls_ingress.yaml
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: gridmerge-app-ingress
+  path: patch_ingress.yaml
