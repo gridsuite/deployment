@@ -1,0 +1,1 @@
+*/5 * * * * . /root/project_env.sh; java -cp /app/resources:/app/classes:/app/libs/* org.gridsuite.cases.importer.job.SftpCaseAcquisitionJob >> /root/job-execution.log 2>&1

@@ -39,6 +39,18 @@ services:
       - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
 
+  case-import-job:
+    build: case-import-job
+    volumes:
+      - $PWD/../case-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
+
+  cgmes-assembling-job:
+    build: cgmes-assembling-job
+    volumes:
+      - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
+      - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
+
   gridmerge-app:
     image: gridsuite/gridmerge-app:latest
     ports:
