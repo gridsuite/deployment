@@ -29,11 +29,13 @@ cqlsh <YOUR_IP>
 
 To create keyspaces in a single node cluster:
 
-```sql
+```cql
 CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 CREATE KEYSPACE IF NOT EXISTS study WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -41,7 +43,9 @@ Then copy paste following files content to cqlsh shell:
 https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
 https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
 https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.cql
-https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.cql
+https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
+https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
+https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
 ```
 
 ### Minikube and kubectl setup
@@ -80,14 +84,26 @@ echo $MINIKUBE_IP;
 ```
 Fill config files with the MINIKUBE_IP :
 
-k8s/overlays/local/idpSettings.json :
+k8s/overlays/local/gridstudy-app-idpSettings.json :
 ```json
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
     "client_id" : "my-client",
-    "redirect_uri": "http://<TO COMPLETE>/study-app/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/study-app/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/study-app/silent-renew-callback",
+    "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
+    "scope" : "openid"
+}
+```
+
+k8s/overlays/local/gridmerge-app-idpSettings.json
+```json
+{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "gridmerge-client",
+    "redirect_uri": "http://<TO COMPLETE>/gridmerge/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridmerge/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridmerge/silent-renew-callback",
     "scope" : "openid"
 }
 ```
@@ -107,11 +123,11 @@ spec:
         - name: CLIENT_ID
           value: "my-client"
         - name: CLIENT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/study-app/sign-in-callback"
+          value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/study-app/logout-callback"
+          value: "http://<TO COMPLETE>/gridstudy/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/study-app/silent-renew-callback"
+          value: "http://<TO COMPLETE>/gridstudy/silent-renew-callback"
         - name: ISSUER_HOST
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX
@@ -138,7 +154,7 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Application:
 ```html
-http://<MINIKUBE_IP>/study-app/
+http://<MINIKUBE_IP>/gridstudy-app/
 ```
 
 Gateway 
@@ -160,19 +176,29 @@ http://<MINIKUBE_IP>/study-server/swagger-ui.html
 http://<MINIKUBE_IP>/network-modification-server/swagger-ui.html
 http://<MINIKUBE_IP>/loadflow-server/swagger-ui.html
 http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
+http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
-Install the orchestration tool docker-compose then: 
+Install the orchestration tool docker-compose then launch the desired profile :
+
 ```bash 
-cd docker-compose/
+cd docker-compose/all
+docker-compose up
+```
+```bash 
+cd docker-compose/study
+docker-compose up
+```
+```bash 
+cd docker-compose/merging
 docker-compose up
 ```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
 `172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
-You can now access to the application and the swagger UI of all the Spring services:
+You can now access to the application and the swagger UI of all the Spring services of the chosen profile:
 
 Application:
 ```html
@@ -198,11 +224,17 @@ http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
 http://localhost:5008/swagger-ui.html  // loadflow-server
 http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
+http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
 ```
 RabbitMQ management UI (guest/guest) :
 ```html
 http://localhost:15672
 ```
+Kibana management UI :
+```html
+http://localhost:5601
+```
+In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 

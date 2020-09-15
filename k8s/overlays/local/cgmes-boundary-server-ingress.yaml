@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: study-app-ingress
+  name: cgmes-boundary-server-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -9,17 +9,14 @@ metadata:
     # base url when behind a reverse proxy.
     # nginx-ingress-controller V0.24 has a simple alternative
     # but latest minikube 1.1.0 uses V0.23 (untested):
-    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/study-app"
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/cgmes-boundary-server"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^/study-app$ /study-app/ permanent;
-      proxy_set_header X-Forwarded-Prefix         /study-app/;
-    nginx.ingress.kubernetes.io/server-snippet: |
-      merge_slashes off;
+      proxy_set_header X-Forwarded-Prefix         /cgmes-boundary-server/;
 spec:
   rules:
   - http:
       paths:
-      - path: /study-app(/|$)(.*)
+      - path: /cgmes-boundary-server(/|$)(.*)
         backend:
-          serviceName: study-app
+          serviceName: cgmes-boundary-server
           servicePort: 80

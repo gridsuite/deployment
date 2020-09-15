@@ -1,0 +1,16 @@
+sftp-server:
+  hostname: <TO_COMPLETE>
+  username: <TO_COMPLETE>
+  password: <TO_COMPLETE>
+  cases-directory: ./opde
+  label: opde
+
+cassandra:
+  contact-points: <TO_COMPLETE>
+  port: 9042
+
+case-server:
+  url: http://case-server/
+
+cgmes-boundary-server:
+  url: http://cgmes-boundary-server/

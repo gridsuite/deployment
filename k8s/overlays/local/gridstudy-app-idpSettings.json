@@ -1,0 +1,8 @@
+{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "my-client",
+    "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
+    "scope" : "openid"
+}

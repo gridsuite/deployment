@@ -9,5 +9,9 @@ backing-services:
     base-uri: http://case-server/
   study-server:
     base-uri: http://study-server/
+  merge-orchestrator-server:
+    base-uri: http://merge-orchestrator-server/
   notification-server:
     base-uri: http://notification-server/
+  merge-notification-server:
+    base-uri: http://merge-notification-server/
