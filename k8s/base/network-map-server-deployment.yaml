@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: network-map
-        image: docker.io/powsybl/network-map-server:latest
+        image: docker.io/gridsuite/network-map-server:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
