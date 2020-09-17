@@ -37,6 +37,13 @@ services:
       - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
 
+  network-conversion-server:
+    image: powsybl/network-conversion-server:latest
+    ports:
+      - 5003:80
+    volumes:
+      - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+
   loadflow-server:
     image: gridsuite/loadflow-server:latest
     ports:
