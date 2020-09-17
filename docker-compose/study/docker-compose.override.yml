@@ -47,7 +47,7 @@ services:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
 
   network-map-server:
-    image: powsybl/network-map-server:latest
+    image: gridsuite/network-map-server:latest
     ports:
       - 5006:80
     volumes:
