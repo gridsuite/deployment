@@ -23,6 +23,7 @@ on:
       - merge_notification_server_updated
       - cgmes_boundary_server_updated
       - cgmes_assembling_job_updated
+      - gridmerge_app_updated
 
 jobs:
   build:
