@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: geo-data-server
-        image: docker.io/powsybl/geo-data-server:latest
+        image: docker.io/gridsuite/geo-data-server:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
