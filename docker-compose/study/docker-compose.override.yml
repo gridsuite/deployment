@@ -11,7 +11,7 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
 
   geo-data-server:
-    image: powsybl/geo-data-server:latest
+    image: gridsuite/geo-data-server:latest
     ports:
       - 8087:80
     volumes:

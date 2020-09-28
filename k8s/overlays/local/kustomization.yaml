@@ -11,6 +11,12 @@ resources:
   - rabbitmq-deployment.yaml
   - rabbitmq-ingress.yaml
   - rabbitmq-service.yaml
+  - kibana-deployment.yaml
+  - kibana-ingress.yaml
+  - kibana-service.yaml
+  - elasticsearch-deployment.yaml
+  - elasticsearch-ingress.yaml
+  - elasticsearch-service.yaml
   - case-server-ingress.yaml
   - case-validation-server-ingress.yaml
   - cgmes-boundary-server-ingress.yaml
@@ -67,6 +73,10 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+
+  - name: kibana-configmap
+    files:
+      - kibana.yml
 
   - name: cgmes-boundary-server-configmap
     behavior: merge
