@@ -39,13 +39,6 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
 
-  network-conversion-server:
-    image: powsybl/network-conversion-server:latest
-    ports:
-      - 5003:80
-    volumes:
-      - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
-
   network-map-server:
     image: gridsuite/network-map-server:latest
     ports:

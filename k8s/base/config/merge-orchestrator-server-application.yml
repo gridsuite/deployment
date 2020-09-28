@@ -14,6 +14,8 @@ backing-services:
     base-uri: http://loadflow-server/
   case-validation-server:
     base-uri: http://case-validation-server/
+  network-conversion:
+    base-uri: http://network-conversion-server/
 
 parameters:
   tsos: BE,NL
