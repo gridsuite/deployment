@@ -1,5 +1,5 @@
 acquisition-server:
-  hostname: <TO_COMPLETE>
+  url: <TO_COMPLETE>
   username: <TO_COMPLETE>
   password: <TO_COMPLETE>
   cases-directory: ./opde
