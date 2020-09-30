@@ -16,13 +16,13 @@ spec:
                   mountPath: /root/.itools
               imagePullPolicy: IfNotPresent
               env:
-                - name: SFTP_SERVER__USERNAME
+                - name: ACQUISITION_SERVER__USERNAME
                   valueFrom:
                     secretKeyRef:
                       name: secret-case-sftp-server-credentials
                       key: username
                       optional: true
-                - name: SFTP_SERVER__PASSWORD
+                - name: ACQUISITION_SERVER__PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: secret-case-sftp-server-credentials
