@@ -225,6 +225,7 @@ http://localhost:5007/swagger-ui.html  // network-modification-server
 http://localhost:5008/swagger-ui.html  // loadflow-server
 http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
 http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
+http://localhost:5022/swagger-ui.html  // actions-server
 ```
 RabbitMQ management UI (guest/guest) :
 ```html
