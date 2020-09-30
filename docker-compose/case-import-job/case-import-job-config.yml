@@ -1,4 +1,4 @@
-sftp-server:
+acquisition-server:
   hostname: <TO_COMPLETE>
   username: <TO_COMPLETE>
   password: <TO_COMPLETE>
