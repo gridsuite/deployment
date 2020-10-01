@@ -74,7 +74,7 @@ services:
     environment:
       - PORT=9090
       - CLIENT_COUNT=3
-      - CLIENT_ID=my-client
+      - CLIENT_ID=gridstudy-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback

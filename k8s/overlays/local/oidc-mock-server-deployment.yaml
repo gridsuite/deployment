@@ -24,7 +24,7 @@ spec:
         - name: DEBUG
           value: "oidc-provider:*"
         - name: CLIENT_ID
-          value: "my-client"
+          value: "gridstudy-client"
         - name: CLIENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI

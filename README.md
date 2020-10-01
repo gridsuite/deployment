@@ -88,7 +88,7 @@ k8s/overlays/local/gridstudy-app-idpSettings.json :
 ```json
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "my-client",
+    "client_id" : "gridstudy-client",
     "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
     "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
     "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
@@ -121,7 +121,7 @@ spec:
         - name: DEBUG
           value: "oidc-provider:*"
         - name: CLIENT_ID
-          value: "my-client"
+          value: "gridstudy-client"
         - name: CLIENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
