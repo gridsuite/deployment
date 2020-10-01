@@ -108,6 +108,18 @@ k8s/overlays/local/gridmerge-app-idpSettings.json
 }
 ```
 
+k8s/overlays/local/gridactions-app-idpSettings.json
+```json
+{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "gridactions-client",
+    "redirect_uri": "http://<TO COMPLETE>/gridactions/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridactions/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridactions/silent-renew-callback",
+    "scope" : "openid"
+}
+```
+
 k8s/overlays/local/oidc-mock-server-deployment.yaml :
 ```yaml
 spec:
