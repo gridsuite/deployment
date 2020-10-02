@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps-urls
+  labels:
+    name: apps-urls
+spec:
+  selector:
+    matchLabels:
+      name: apps-urls
+  template:
+    metadata:
+      labels:
+        name: apps-urls
+    spec:
+      containers:
+        - name: apps-urls
+          image: httpd:2.4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/local/apache2/htdocs
+              name: apps-urls-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: apps-urls-configmap-volume
+          configMap:
+            name: apps-urls-configmap

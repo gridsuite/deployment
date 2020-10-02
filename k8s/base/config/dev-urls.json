@@ -1,0 +1,8 @@
+[{
+  "name" : "merge",
+  "url"  : "localhost://localhost:81"
+},
+  {
+    "name" : "study",
+    "url"  : "localhost://localhost:80"
+  }]
