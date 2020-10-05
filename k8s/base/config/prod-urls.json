@@ -1,8 +1,8 @@
 [{
-  "name" : "merge",
-  "url"  : "/merge"
+  "name" : "Merge",
+  "url"  : "/gridmerge"
 },
   {
-    "name" : "study",
-    "url"  : "/study"
+    "name" : "Study",
+    "url"  : "/gridstudy"
   }]

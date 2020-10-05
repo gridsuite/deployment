@@ -1,8 +1,8 @@
 [{
-  "name" : "merge",
-  "url"  : "localhost://localhost:81"
+  "name" : "Merge",
+  "url"  : "http://localhost:81"
 },
   {
-    "name" : "study",
-    "url"  : "localhost://localhost:80"
+    "name" : "Study",
+    "url"  : "http://localhost:80"
   }]
