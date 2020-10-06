@@ -41,7 +41,7 @@ services:
     command: 'udp://logstash:5000'
     environment:
       - LOGSPOUT=ignore
-      - filter.name=gridsuite*
+      - filter.name=$LOGSPOUT_FILTER
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
