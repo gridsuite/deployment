@@ -136,7 +136,7 @@ spec:
           value: "oidc-provider:*"
         - name: CLIENT_ID
           value: "gridstudy-client"
-        - name: CLIENTS_COUNT
+        - name: CLIENT_COUNT
           value: 3
         - name: CLIENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
