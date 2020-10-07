@@ -1,5 +1,5 @@
-sftp-server:
-  hostname: <TO_COMPLETE>
+acquisition-server:
+  url: <TO_COMPLETE>
   username: <TO_COMPLETE>
   password: <TO_COMPLETE>
   cases-directory: ./opde
