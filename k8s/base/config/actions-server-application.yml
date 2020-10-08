@@ -1,5 +1,9 @@
 server:
   port: 80
 
-actions-server:
-  base.url: http://actions-server/
+network-store-server:
+  base-uri: http://network-store-server/
+
+logging:
+  level:
+    ROOT: INFO
