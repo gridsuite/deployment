@@ -73,7 +73,11 @@ services:
       - 9090:9090
     environment:
       - PORT=9090
+<<<<<<< HEAD
       - CLIENT_COUNT=4
+=======
+      - CLIENT_COUNT=3
+>>>>>>> Replace my-client for GridStudy directly by gridstudy-client
       - CLIENT_ID=gridstudy-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
