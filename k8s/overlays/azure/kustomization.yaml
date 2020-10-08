@@ -41,6 +41,9 @@ configMapGenerator:
   - name: cgmes-assembling-job-configmap
     files:
       - config.yml=cgmes-assembling-job-config.yml
+  - name: gridactions-app-configmap
+    files:
+      - idpSettings.json=gridactions-app-idpSettings.json
 
 # Patch ingress host
 patchesJson6902:
@@ -67,4 +70,16 @@ patchesJson6902:
     version: v1beta1
     kind: Ingress
     name: gridmerge-app-ingress
+  path: patch_ingress.yaml
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: gridactions-app-ingress
+  path: patch_tls_ingress.yaml
+- target:
+    group: networking.k8s.io
+    version: v1beta1
+    kind: Ingress
+    name: gridactions-app-ingress
   path: patch_ingress.yaml

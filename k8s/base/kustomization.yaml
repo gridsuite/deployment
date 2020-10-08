@@ -56,6 +56,9 @@ resources:
   - cgmes-assembling-cronjob.yaml
   - actions-server-deployment.yaml
   - actions-server-service.yaml
+  - gridactions-app-deployment.yaml
+  - gridactions-app-ingress.yaml
+  - gridactions-app-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
