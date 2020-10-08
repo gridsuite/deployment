@@ -54,6 +54,8 @@ resources:
   - cgmes-boundary-server-deployment.yaml
   - cgmes-boundary-server-service.yaml
   - cgmes-assembling-cronjob.yaml
+  - actions-server-deployment.yaml
+  - actions-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -110,3 +112,6 @@ configMapGenerator:
   - name: cgmes-boundary-server-configmap
     files:
       - application.yml=config/cgmes-boundary-server-application.yml
+  - name: actions-server-configmap
+    files:
+      - application.yml=config/actions-server-application.yml
