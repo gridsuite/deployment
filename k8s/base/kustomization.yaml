@@ -117,13 +117,10 @@ configMapGenerator:
   - name: cgmes-boundary-server-configmap
     files:
       - application.yml=config/cgmes-boundary-server-application.yml
-<<<<<<< HEAD
+  - name: actions-server-configmap
+    files:
+      - application.yml=config/actions-server-application.yml
   - name: apps-urls-configmap
     files:
       - config/dev-urls.json
       - config/prod-urls.json
-=======
-  - name: actions-server-configmap
-    files:
-      - application.yml=config/actions-server-application.yml
->>>>>>> master
