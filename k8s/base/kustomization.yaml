@@ -54,6 +54,11 @@ resources:
   - cgmes-boundary-server-deployment.yaml
   - cgmes-boundary-server-service.yaml
   - cgmes-assembling-cronjob.yaml
+  - actions-server-deployment.yaml
+  - actions-server-service.yaml
+  - gridactions-app-deployment.yaml
+  - gridactions-app-ingress.yaml
+  - gridactions-app-service.yaml
   - apps-urls-deployment.yaml
   - apps-urls-service.yaml
 
@@ -112,7 +117,13 @@ configMapGenerator:
   - name: cgmes-boundary-server-configmap
     files:
       - application.yml=config/cgmes-boundary-server-application.yml
+<<<<<<< HEAD
   - name: apps-urls-configmap
     files:
       - config/dev-urls.json
       - config/prod-urls.json
+=======
+  - name: actions-server-configmap
+    files:
+      - application.yml=config/actions-server-application.yml
+>>>>>>> master
