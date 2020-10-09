@@ -23,14 +23,32 @@ spec:
         env:
         - name: DEBUG
           value: "oidc-provider:*"
+        - name: CLIENT_COUNT
+          value: "3"
         - name: CLIENT_ID
-          value: "my-client"
+          value: "gridstudy-client"
         - name: CLIENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/silent-renew-callback"
+        - name: CLIENT_ID_2
+          value: "gridmerge-client"
+        - name: CLIENT_REDIRECT_URI_2
+          value: "http://<TO COMPLETE>/gridmerge/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI_2
+          value: "http://<TO COMPLETE>/gridmerge/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI_2
+          value: "http://<TO COMPLETE>/gridmerge/silent-renew-callback"
+        - name: CLIENT_ID_3
+          value: "gridactions-client"
+        - name: CLIENT_REDIRECT_URI_3
+          value: "http://<TO COMPLETE>/gridactions/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI_3
+          value: "http://<TO COMPLETE>/gridactions/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI_3
+          value: "http://<TO COMPLETE>/gridactions/silent-renew-callback"
         - name: ISSUER_HOST
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX

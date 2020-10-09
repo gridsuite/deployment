@@ -29,6 +29,14 @@ services:
       - $PWD/../../k8s/base/config/case-server-application.yml:/config/application.yml:Z
       - $HOME/cases:/cases:Z
 
+  actions-server:
+    image: gridsuite/actions-server:latest
+    ports:
+      - 5022:80
+    volumes:
+      - $PWD/../../k8s/base/config/actions-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:
@@ -65,8 +73,8 @@ services:
       - 9090:9090
     environment:
       - PORT=9090
-      - CLIENT_COUNT=3
-      - CLIENT_ID=my-client
+      - CLIENT_COUNT=4
+      - CLIENT_ID=gridstudy-client
       - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
@@ -78,5 +86,9 @@ services:
       - CLIENT_REDIRECT_URI_3=http://localhost:81/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:81/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:81/silent-renew-callback
+      - CLIENT_ID_4=gridactions-client
+      - CLIENT_REDIRECT_URI_4=http://localhost:82/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
 
