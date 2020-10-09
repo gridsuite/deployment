@@ -2,7 +2,11 @@
   "name" : "Merge",
   "url"  : "/gridmerge"
 },
-  {
-    "name" : "Study",
-    "url"  : "/gridstudy"
-  }]
+{
+  "name" : "Study",
+  "url"  : "/gridstudy"
+},
+{
+  "name" : "Actions",
+  "url"  : "/actions"
+}]

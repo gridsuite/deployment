@@ -2,7 +2,11 @@
   "name" : "Merge",
   "url"  : "http://localhost:81"
 },
-  {
-    "name" : "Study",
-    "url"  : "http://localhost:80"
-  }]
+{
+  "name" : "Study",
+  "url"  : "http://localhost:80"
+},
+{
+  "name" : "Actions",
+  "url"  : "http://localhost:82"
+}]
