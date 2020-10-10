@@ -3,7 +3,7 @@ version: '3'
 services:
 
   study-server:
-    image: gridsuite/study-server:latest
+    image: study-server-dev:latest
     ports:
       - 5001:80
     volumes:
@@ -66,3 +66,12 @@ services:
       - 80:80
     volumes:
       - $PWD/../gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
+
+  security-analysis-server:
+    image: gridsuite/security-analysis-server:latest
+    ports:
+      - 5023:80
+    volumes:
+      - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
