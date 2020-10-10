@@ -3,7 +3,7 @@ version: '3'
 services:
 
   study-server:
-    image: study-server-dev:latest
+    image: gridsuite/study-server:latest
     ports:
       - 5001:80
     volumes:
