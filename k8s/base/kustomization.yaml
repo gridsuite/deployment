@@ -59,8 +59,8 @@ resources:
   - gridactions-app-deployment.yaml
   - gridactions-app-ingress.yaml
   - gridactions-app-service.yaml
-  - apps-urls-deployment.yaml
-  - apps-urls-service.yaml
+  - apps-metadata-service-deployment.yaml
+  - apps-metadata-service-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -120,7 +120,7 @@ configMapGenerator:
   - name: actions-server-configmap
     files:
       - application.yml=config/actions-server-application.yml
-  - name: apps-urls-configmap
+  - name: apps-metadata-service-configmap
     files:
       - config/dev-urls.json
       - config/prod-urls.json

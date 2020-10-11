@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: apps-urls
-  name: apps-urls
+    name: apps-metadata-service
+  name: apps-metadata-service
 spec:
   type: ClusterIP
   ports:
-    - name: apps-urls
+    - name: apps-metadata-service
       port: 80
       targetPort: 80
   selector:
-    name: apps-urls
+    name: apps-metadata-service
