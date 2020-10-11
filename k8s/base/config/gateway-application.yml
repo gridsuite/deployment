@@ -8,12 +8,12 @@ backing-services:
   case:
     base-uri: http://case-server/
   study-server:
-    base-uri: http://172.17.0.1:5001/
+    base-uri: http://study-server/
   merge-orchestrator-server:
-    base-uri: http://172.17.0.1:5020/
+    base-uri: http://merge-orchestrator-server/
   notification-server:
     base-uri: http://notification-server/
   merge-notification-server:
     base-uri: http://merge-notification-server/
   actions-server:
-    base-uri: http://172.17.0.1:5022/
+    base-uri: http://actions-server/
