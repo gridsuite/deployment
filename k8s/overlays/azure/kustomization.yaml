@@ -44,7 +44,7 @@ configMapGenerator:
   - name: gridactions-app-configmap
     files:
       - idpSettings.json=gridactions-app-idpSettings.json
-  - name: actions-configmap
+  - name: actions-server-configmap
     behavior: merge
     files:
       - cassandra.properties
