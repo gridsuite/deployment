@@ -35,6 +35,8 @@ resources:
   - notification-server-ingress.yaml
   - merge-orchestrator-server-ingress.yaml
   - merge-notification-server-ingress.yaml
+  - actions-server-ingress.yaml
+  - security-analysis-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
