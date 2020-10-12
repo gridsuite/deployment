@@ -61,6 +61,8 @@ resources:
   - gridactions-app-service.yaml
   - apps-metadata-server-deployment.yaml
   - apps-metadata-server-service.yaml
+  - security-analysis-server-deployment.yaml
+  - security-analysis-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -124,3 +126,6 @@ configMapGenerator:
     files:
       - config/dev-urls.json
       - config/prod-urls.json
+  - name: security-analysis-server-configmap
+    files:
+      - application.yml=config/security-analysis-server-application.yml

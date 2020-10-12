@@ -68,3 +68,12 @@ services:
       - $PWD/../gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridstudy/env.json:Z
 
+
+  security-analysis-server:
+    image: gridsuite/security-analysis-server:latest
+    ports:
+      - 5023:80
+    volumes:
+      - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z

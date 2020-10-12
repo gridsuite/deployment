@@ -1,0 +1,15 @@
+server:
+  port: 80
+
+network-store-server:
+  base-uri: http://network-store-server/
+
+actions-server:
+  base-uri: http://actions-server/
+
+securityAnalysisFactoryClass: com.rte_france.powsybl.hades2.Hades2SecurityAnalysisFactory
+
+spring:
+  rabbitmq:
+    addresses: rabbitmq
+    port: 5672

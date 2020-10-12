@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: security-analysis-server
+  labels:
+    name: security-analysis-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: security-analysis-server
+  template:
+    metadata:
+      labels:
+        name: security-analysis-server
+    spec:
+      containers:
+        - name: security-analysis-server
+          image: docker.io/gridsuite/security-analysis-server:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config
+              name: security-analysis-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: security-analysis-server-configmap-volume
+          configMap:
+            name: security-analysis-server-configmap

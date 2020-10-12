@@ -48,6 +48,10 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+  - name: security-analysis-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
 
 # Patch ingress host
 patchesJson6902:
