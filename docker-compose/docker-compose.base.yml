@@ -92,7 +92,7 @@ services:
       - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
 
-  apps-metadata-service:
+  apps-metadata-server:
     image: httpd:2.4
     ports:
       - 8070:80
