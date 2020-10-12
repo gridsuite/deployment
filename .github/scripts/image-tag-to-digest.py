@@ -44,16 +44,17 @@ def get_digest(repository, tag, token):
 def update_images(containers):
     for container in containers:
         image = container['image']
+        # only process our images
+        if "powsybl" in image or "gridsuite" in image:
+            # parse image and get tag
+            (registry, repository, tag) = parse_image(image)
 
-        # parse image and get tag
-        (registry, repository, tag) = parse_image(image)
-
-        # get digest from tag (only works with docker.io)
-        if registry == 'docker.io':
-            token = get_token(repository)
-            digest = get_digest(repository, tag, token)
-            # replace tag by digest
-            container['image'] = repository + '@' + digest
+            # get digest from tag (only works with docker.io)
+            if registry == 'docker.io':
+                token = get_token(repository)
+                digest = get_digest(repository, tag, token)
+                # replace tag by digest
+                container['image'] = repository + '@' + digest
 
 documents = list(yaml.load_all(sys.stdin.read(), Loader=yaml.FullLoader))
 for document in documents:
