@@ -1,0 +1,15 @@
+[{
+  "name" : "Merge",
+  "url"  : "/gridmerge",
+  "appColor" : "#2D9BF0"
+},
+{
+  "name" : "Study",
+  "url"  : "/gridstudy",
+  "appColor" : "#0CA789"
+},
+{
+  "name" : "Actions",
+  "url"  : "/actions",
+  "appColor" : "#DA0063"
+}]

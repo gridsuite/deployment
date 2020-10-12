@@ -66,3 +66,5 @@ services:
       - 80:80
     volumes:
       - $PWD/../gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
+      - $PWD/../env.json:/usr/local/apache2/htdocs/gridstudy/env.json:Z
+

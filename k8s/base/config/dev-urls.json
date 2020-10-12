@@ -1,0 +1,16 @@
+[{
+  "name" : "Merge",
+  "url"  : "http://localhost:81",
+  "appColor" : "#2D9BF0"
+},
+{
+  "name" : "Study",
+  "url"  : "http://localhost:80",
+  "appColor" : "#0CA789"
+
+},
+{
+  "name" : "Actions",
+  "url"  : "http://localhost:82",
+  "appColor" : "#DA0063"
+}]
