@@ -75,9 +75,9 @@ services:
       - PORT=9090
       - CLIENT_COUNT=4
       - CLIENT_ID=gridstudy-client
-      - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
+      - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost:80/silent-renew-callback
       - CLIENT_ID_2=my-client-2
       - CLIENT_REDIRECT_URI_2=http://localhost:3000/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:3000/logout-callback
