@@ -129,3 +129,6 @@ configMapGenerator:
   - name: security-analysis-server-configmap
     files:
       - application.yml=config/security-analysis-server-application.yml
+  - name: security-analysis-server-itools-configmap
+    files:
+      - config.yml=config/security-analysis-server-config.yml

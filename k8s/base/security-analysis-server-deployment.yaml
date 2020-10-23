@@ -23,8 +23,13 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: security-analysis-server-configmap-volume
+            - mountPath: /root/.itools
+              name: security-analysis-server-itools-configmap-volume
       restartPolicy: Always
       volumes:
         - name: security-analysis-server-configmap-volume
           configMap:
             name: security-analysis-server-configmap
+        - name: security-analysis-server-itools-configmap-volume
+          configMap:
+            name: security-analysis-server-itools-configmap
