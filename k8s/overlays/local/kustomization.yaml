@@ -35,6 +35,8 @@ resources:
   - notification-server-ingress.yaml
   - merge-orchestrator-server-ingress.yaml
   - merge-notification-server-ingress.yaml
+  - actions-server-ingress.yaml
+  - security-analysis-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -86,3 +88,17 @@ configMapGenerator:
   - name: cgmes-assembling-job-configmap
     files:
       - config.yml=cgmes-assembling-job-config.yml
+
+  - name: gridactions-app-configmap
+    files:
+      - idpSettings.json=gridactions-app-idpSettings.json
+
+  - name: actions-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+
+  - name: security-analysis-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties

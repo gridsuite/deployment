@@ -20,6 +20,10 @@ backing-services:
     base-uri: http://network-modification-server/
   loadflow:
     base-uri: http://loadflow-server/
+  actions-server:
+    base-uri: http://actions-server/
+  security-analysis-server:
+    base-uri: http://security-analysis-server/
 
 spring:
   servlet:

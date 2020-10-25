@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  gridactions-app:
+    image: gridsuite/gridactions-app:latest
+    ports:
+      - 82:80
+    volumes:
+      - $PWD/../gridactions-app-idpSettings.json:/usr/local/apache2/htdocs/gridactions/idpSettings.json:Z
+      - $PWD/../env.json:/usr/local/apache2/htdocs/gridactions/env.json:Z

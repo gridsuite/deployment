@@ -54,6 +54,15 @@ resources:
   - cgmes-boundary-server-deployment.yaml
   - cgmes-boundary-server-service.yaml
   - cgmes-assembling-cronjob.yaml
+  - actions-server-deployment.yaml
+  - actions-server-service.yaml
+  - gridactions-app-deployment.yaml
+  - gridactions-app-ingress.yaml
+  - gridactions-app-service.yaml
+  - apps-metadata-server-deployment.yaml
+  - apps-metadata-server-service.yaml
+  - security-analysis-server-deployment.yaml
+  - security-analysis-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -110,3 +119,16 @@ configMapGenerator:
   - name: cgmes-boundary-server-configmap
     files:
       - application.yml=config/cgmes-boundary-server-application.yml
+  - name: actions-server-configmap
+    files:
+      - application.yml=config/actions-server-application.yml
+  - name: apps-metadata-server-configmap
+    files:
+      - config/dev-urls.json
+      - config/prod-urls.json
+  - name: security-analysis-server-configmap
+    files:
+      - application.yml=config/security-analysis-server-application.yml
+  - name: security-analysis-server-itools-configmap
+    files:
+      - config.yml=config/security-analysis-server-config.yml

@@ -58,6 +58,14 @@ services:
       - $PWD/../../k8s/base/config/case-server-application.yml:/config/application.yml:Z
       - $HOME/cases:/cases:Z
 
+  actions-server:
+    image: gridsuite/actions-server:latest
+    ports:
+      - 5022:80
+    volumes:
+      - $PWD/../../k8s/base/config/actions-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:
@@ -94,11 +102,11 @@ services:
       - 9090:9090
     environment:
       - PORT=9090
-      - CLIENT_COUNT=3
-      - CLIENT_ID=my-client
-      - CLIENT_REDIRECT_URI=http://localhost/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI=http://localhost/silent-renew-callback
+      - CLIENT_COUNT=4
+      - CLIENT_ID=gridstudy-client
+      - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost:80/silent-renew-callback
       - CLIENT_ID_2=my-client-2
       - CLIENT_REDIRECT_URI_2=http://localhost:3000/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:3000/logout-callback
@@ -107,5 +115,17 @@ services:
       - CLIENT_REDIRECT_URI_3=http://localhost:81/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:81/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:81/silent-renew-callback
+      - CLIENT_ID_4=gridactions-client
+      - CLIENT_REDIRECT_URI_4=http://localhost:82/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
+
+  apps-metadata-server:
+    image: httpd:2.4
+    ports:
+      - 8070:80
+    volumes:
+      - $PWD/../../k8s/base/config/dev-urls.json:/usr/local/apache2/htdocs/dev-urls.json:Z
+      - $PWD/../../k8s/base/config/prod-urls.json:/usr/local/apache2/htdocs/prod-urls.json:Z
 

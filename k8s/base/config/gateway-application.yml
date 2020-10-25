@@ -15,3 +15,5 @@ backing-services:
     base-uri: http://notification-server/
   merge-notification-server:
     base-uri: http://merge-notification-server/
+  actions-server:
+    base-uri: http://actions-server/

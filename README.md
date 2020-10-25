@@ -36,6 +36,8 @@ CREATE KEYSPACE IF NOT EXISTS study WITH REPLICATION = { 'class' : 'SimpleStrate
 CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS actions WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -46,6 +48,8 @@ https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.c
 https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
 https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
+https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.cql
+https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
 ```
 
 ### Minikube and kubectl setup
@@ -88,7 +92,7 @@ k8s/overlays/local/gridstudy-app-idpSettings.json :
 ```json
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "my-client",
+    "client_id" : "gridstudy-client",
     "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
     "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
     "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
@@ -108,6 +112,18 @@ k8s/overlays/local/gridmerge-app-idpSettings.json
 }
 ```
 
+k8s/overlays/local/gridactions-app-idpSettings.json
+```json
+{
+    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "client_id" : "gridactions-client",
+    "redirect_uri": "http://<TO COMPLETE>/gridactions/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridactions/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/gridactions/silent-renew-callback",
+    "scope" : "openid"
+}
+```
+
 k8s/overlays/local/oidc-mock-server-deployment.yaml :
 ```yaml
 spec:
@@ -121,13 +137,31 @@ spec:
         - name: DEBUG
           value: "oidc-provider:*"
         - name: CLIENT_ID
-          value: "my-client"
+          value: "gridstudy-client"
+        - name: CLIENT_COUNT
+          value: 3
         - name: CLIENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI
           value: "http://<TO COMPLETE>/gridstudy/silent-renew-callback"
+        - name: CLIENT_ID_2
+          value: "gridmerge-client"
+        - name: CLIENT_REDIRECT_URI_2
+          value: "http://<TO COMPLETE>/gridmerge/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI_2
+          value: "http://<TO COMPLETE>/gridmerge/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI_2
+          value: "http://<TO COMPLETE>/gridmerge/silent-renew-callback"
+        - name: CLIENT_ID_3
+          value: "gridactions-client"
+        - name: CLIENT_REDIRECT_URI_3
+          value: "http://<TO COMPLETE>/gridactions/sign-in-callback"
+        - name: CLIENT_LOGOUT_REDIRECT_URI_3
+          value: "http://<TO COMPLETE>/gridactions/logout-callback"
+        - name: CLIENT_SILENT_REDIRECT_URI_3
+          value: "http://<TO COMPLETE>/gridactions/silent-renew-callback"
         - name: ISSUER_HOST
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX
@@ -152,9 +186,11 @@ kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
 
-Application:
+Applications:
 ```html
 http://<MINIKUBE_IP>/gridstudy-app/
+http://<MINIKUBE_IP>/gridmerge-app/
+http://<MINIKUBE_IP>/gridactions-app/
 ```
 
 Gateway 
@@ -177,13 +213,15 @@ http://<MINIKUBE_IP>/network-modification-server/swagger-ui.html
 http://<MINIKUBE_IP>/loadflow-server/swagger-ui.html
 http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
 http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
+http://<MINIKUBE_IP>/actions-server/swagger-ui.html
+http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
 Install the orchestration tool docker-compose then launch the desired profile :
 
 ```bash 
-cd docker-compose/all
+cd docker-compose/suite
 docker-compose up
 ```
 ```bash 
@@ -194,15 +232,22 @@ docker-compose up
 cd docker-compose/merging
 docker-compose up
 ```
+
+```bash 
+cd docker-compose/actions
+docker-compose up
+```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
 `172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
-You can now access to the application and the swagger UI of all the Spring services of the chosen profile:
+You can now access to all applications and swagger UIs of the Spring services of the chosen profile:
 
-Application:
+Applications:
 ```html
-http://localhost
+http://localhost:80 // gridstudy
+http://localhost:81 // gridmerge
+http://localhost:82 // gridactions
 ```
 
 Gateway 
@@ -225,12 +270,17 @@ http://localhost:5007/swagger-ui.html  // network-modification-server
 http://localhost:5008/swagger-ui.html  // loadflow-server
 http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
 http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
+http://localhost:5022/swagger-ui.html  // actions-server
+http://localhost:5023/swagger-ui.html  // security-analysis-server
 ```
-RabbitMQ management UI (guest/guest) :
+RabbitMQ management UI:
 ```html
 http://localhost:15672
+default credentials : 
+   - username : guest
+   - password : guest
 ```
-Kibana management UI :
+Kibana management UI:
 ```html
 http://localhost:5601
 ```
