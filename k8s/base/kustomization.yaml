@@ -124,8 +124,7 @@ configMapGenerator:
       - application.yml=config/actions-server-application.yml
   - name: apps-metadata-server-configmap
     files:
-      - config/dev-urls.json
-      - config/prod-urls.json
+      - config/apps-metadata.json
   - name: security-analysis-server-configmap
     files:
       - application.yml=config/security-analysis-server-application.yml

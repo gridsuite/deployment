@@ -57,4 +57,3 @@ services:
       - 81:80
     volumes:
       - $PWD/../gridmerge-app-idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z
-      - $PWD/../env.json:/usr/local/apache2/htdocs/gridmerge/env.json:Z
