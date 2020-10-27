@@ -61,6 +61,7 @@ resources:
   - gridactions-app-service.yaml
   - apps-metadata-server-deployment.yaml
   - apps-metadata-server-service.yaml
+  - apps-metadata-server-ingress.yaml
   - security-analysis-server-deployment.yaml
   - security-analysis-server-service.yaml
 
