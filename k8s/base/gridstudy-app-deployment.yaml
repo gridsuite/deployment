@@ -29,6 +29,9 @@ spec:
           name: gridstudy-app-env-configmap-volume
       restartPolicy: Always
       volumes:
+        - name: gridstudy-app-configmap-volume
+          configMap:
+            name: gridstudy-app-configmap
         - name: gridstudy-app-env-configmap-volume
           configMap:
             name: gridstudy-app-env-configmap
