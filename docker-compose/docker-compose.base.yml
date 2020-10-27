@@ -97,5 +97,5 @@ services:
     ports:
       - 8070:80
     volumes:
-      - $PWD/../../k8s/base/config/apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
+      - $PWD/../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
 
