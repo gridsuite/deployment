@@ -69,10 +69,6 @@ configMapGenerator:
   - name: gridmerge-app-env-configmap
     files:
       - env.json=env.json
-      -
-  - name: gridactions-app-env-configmap
-    files:
-      - env.json=env.json
 
   - name: gateway-configmap
     behavior: merge
@@ -104,6 +100,10 @@ configMapGenerator:
   - name: gridactions-app-configmap
     files:
       - idpSettings.json=gridactions-app-idpSettings.json
+
+  - name: gridactions-app-env-configmap
+    files:
+      - env.json=env.json
 
   - name: actions-server-configmap
     behavior: merge
