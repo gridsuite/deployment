@@ -11,7 +11,7 @@ metadata:
     # but latest minikube 1.1.0 uses V0.23 (untested):
     # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/apps-metadata"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^/apps-metadata /apps-metadata/ permanent;
+      rewrite ^/apps-metadata$ /apps-metadata/ permanent;
       proxy_set_header X-Forwarded-Prefix         /apps-metadata/;
     nginx.ingress.kubernetes.io/server-snippet: |
       merge_slashes off;
