@@ -34,7 +34,6 @@ services:
       - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
-      - kibana
 
   logspout:
     image: gliderlabs/logspout:v3
