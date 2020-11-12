@@ -38,10 +38,9 @@ services:
 
   logspout:
     image: gliderlabs/logspout:v3
-    command: 'udp://logstash:5000'
+    command: 'udp://logstash:5000?filter.name=grid*'
     environment:
       - LOGSPOUT=ignore
-      - filter.name=$LOGSPOUT_FILTER
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
