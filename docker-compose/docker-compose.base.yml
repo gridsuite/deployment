@@ -44,9 +44,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
-      - elasticsearch
       - logstash
-      - kibana
 
   case-server:
     image: powsybl/case-server:latest
