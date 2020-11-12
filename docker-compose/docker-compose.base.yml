@@ -13,12 +13,37 @@ services:
       - 9200:9200
       - 9300:9300
     environment:
-      -  discovery.type=single-node
+      - discovery.type=single-node
+      - LOGSPOUT=ignore
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.8.6
     ports:
       - 5601:5601
+    environment:
+      - LOGSPOUT=ignore
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.8.6
+    volumes:
+      - $PWD/../pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/../logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+    environment:
+      - LOGSPOUT=ignore
+    depends_on:
+      - elasticsearch
+
+  logspout:
+    image: gliderlabs/logspout:v3
+    command: 'udp://logstash:5000?filter.name=grid*'
+    environment:
+      - LOGSPOUT=ignore
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - logstash
 
   case-server:
     image: powsybl/case-server:latest
