@@ -122,6 +122,7 @@ services:
     ports:
       - 8070:80
     volumes:
-      - $PWD/../../k8s/base/config/dev-urls.json:/usr/local/apache2/htdocs/dev-urls.json:Z
-      - $PWD/../../k8s/base/config/prod-urls.json:/usr/local/apache2/htdocs/prod-urls.json:Z
+      - $PWD/../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
+      - $PWD/../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/gridapps-metadata-httpd.conf:Z
+
 

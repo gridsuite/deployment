@@ -24,8 +24,14 @@ spec:
         - mountPath: /usr/local/apache2/htdocs/gridstudy/idpSettings.json
           subPath: idpSettings.json
           name: gridstudy-app-configmap-volume
+        - mountPath: /usr/local/apache2/htdocs/gridstudy/env.json
+          subPath: env.json
+          name: gridstudy-app-env-configmap-volume
       restartPolicy: Always
       volumes:
         - name: gridstudy-app-configmap-volume
           configMap:
             name: gridstudy-app-configmap
+        - name: gridstudy-app-env-configmap-volume
+          configMap:
+            name: gridstudy-app-env-configmap
