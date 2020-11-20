@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: gridactions-app-ingress
   annotations:
+    nginx.ingress.kubernetes.io/service-upstream: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     # springfox swagger-ui uses X-Forwarded-Prefix to find the
