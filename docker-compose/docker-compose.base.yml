@@ -36,10 +36,11 @@ services:
       - elasticsearch
 
   logspout:
-    image: gliderlabs/logspout:v3
+    image: gliderlabs/logspout:v3.2.12
     command: 'udp://logstash:5000?filter.name=grid*'
     environment:
       - LOGSPOUT=ignore
+      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }} }\n"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
