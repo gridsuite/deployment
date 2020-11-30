@@ -84,6 +84,21 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
 
+  config-server:
+    image: gridsuite/config-server:latest
+    ports:
+      - 5011:80
+    volumes:
+      - $PWD/../../k8s/base/config/config-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      
+  config-notification-server:
+    image: gridsuite/config-notification-server:latest
+    ports:
+      - 5010:80
+    volumes:
+      - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/application.yml:Z
+
   gateway:
     image: gridsuite/gateway:latest
     ports:

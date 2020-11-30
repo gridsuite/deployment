@@ -37,6 +37,8 @@ resources:
   - merge-notification-server-ingress.yaml
   - actions-server-ingress.yaml
   - security-analysis-server-ingress.yaml
+  - config-server-ingress.yaml
+  - config-notification-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -111,6 +113,11 @@ configMapGenerator:
       - cassandra.properties
 
   - name: security-analysis-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+
+  - name: config-server-configmap
     behavior: merge
     files:
       - cassandra.properties

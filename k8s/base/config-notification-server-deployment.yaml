@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-notification-server
+  labels:
+    name: config-notification-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: config-notification-server
+  template:
+    metadata:
+      labels:
+        name: config-notification-server
+    spec:
+      containers:
+      - name: config-notification-server
+        image: docker.io/gridsuite/config-notification-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: config-notification-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: config-notification-server-configmap-volume
+          configMap:
+            name: config-notification-server-configmap
