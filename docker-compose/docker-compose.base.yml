@@ -87,7 +87,7 @@ services:
   config-server:
     image: gridsuite/config-server:latest
     ports:
-      - 5011:80
+      - 5025:80
     volumes:
       - $PWD/../../k8s/base/config/config-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
@@ -95,7 +95,7 @@ services:
   config-notification-server:
     image: gridsuite/config-notification-server:latest
     ports:
-      - 5010:80
+      - 5024:80
     volumes:
       - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/application.yml:Z
 
