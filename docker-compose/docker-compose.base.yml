@@ -124,6 +124,6 @@ services:
       - 8070:80
     volumes:
       - $PWD/../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
-      - $PWD/../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/gridapps-metadata-httpd.conf:Z
+      - $PWD/../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/httpd.conf:Z
 
 
