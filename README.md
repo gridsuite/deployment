@@ -38,6 +38,7 @@ CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'Sim
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS actions WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -50,6 +51,7 @@ https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resource
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
 https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.cql
 https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
+https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
 ```
 
 ### Minikube and kubectl setup
@@ -215,6 +217,7 @@ http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
 http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
 http://<MINIKUBE_IP>/actions-server/swagger-ui.html
 http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
+http://<MINIKUBE_IP>/config-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
@@ -272,6 +275,7 @@ http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
 http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
 http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
+http://localhost:5025/swagger-ui.html  // config-server
 ```
 RabbitMQ management UI:
 ```html
