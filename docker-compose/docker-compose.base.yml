@@ -35,16 +35,21 @@ services:
     depends_on:
       - elasticsearch
 
+  socat:
+    image: alpine/socat
+    command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+
   logspout:
-    image: gliderlabs/logspout:v3.2.12
-    command: 'udp://logstash:5000?filter.name=grid*'
+    image: gliderlabs/logspout:v3.2.13
+    command: 'tcp://socat:5000?filter.name=grid*'
     environment:
       - LOGSPOUT=ignore
-      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }} }\n"
+      - BACKLOG=false
+      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
-      - logstash
+      - socat
 
   case-server:
     image: powsybl/case-server:latest
