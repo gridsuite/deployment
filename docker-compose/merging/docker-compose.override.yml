@@ -9,6 +9,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
 
   merge-notification-server:
     image: gridsuite/merge-notification-server:latest
@@ -16,6 +18,8 @@ services:
       - 5002:80
     volumes:
       - $PWD/../../k8s/base/config/merge-notification-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   balances-adjustment-server:
     image: gridsuite/balances-adjustment-server:latest
@@ -23,6 +27,8 @@ services:
       - 5010:80
     volumes:
       - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   case-validation-server:
     image: gridsuite/case-validation-server:latest
@@ -30,6 +36,8 @@ services:
       - 5011:80
     volumes:
       - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   cgmes-boundary-server:
     image: gridsuite/cgmes-boundary-server:latest
@@ -38,18 +46,24 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
 
   case-import-job:
     build: case-import-job
     volumes:
       - $PWD/../case-import-job/job-crontab:/root/job-crontab:Z
       - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
+    depends_on:
+      - logspout
 
   cgmes-assembling-job:
     build: merging/cgmes-assembling-job
     volumes:
       - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
       - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
+    depends_on:
+      - logspout
 
   gridmerge-app:
     image: gridsuite/gridmerge-app:latest
@@ -58,3 +72,5 @@ services:
     volumes:
       - $PWD/../gridmerge-app-idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridmerge/env.json:Z
+    depends_on:
+      - logspout

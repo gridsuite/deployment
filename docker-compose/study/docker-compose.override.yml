@@ -9,6 +9,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/study-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
 
   geo-data-server:
     image: gridsuite/geo-data-server:latest
@@ -17,6 +19,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
 
   single-line-diagram-server:
     image: powsybl/single-line-diagram-server:latest
@@ -24,6 +28,8 @@ services:
       - 5005:80
     volumes:
       - $PWD/../../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   network-modification-server:
     image: gridsuite/network-modification-server:latest
@@ -31,6 +37,8 @@ services:
       - 5007:80
     volumes:
       - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   notification-server:
     image: gridsuite/notification-server:latest
@@ -38,6 +46,8 @@ services:
       - 5009:80
     volumes:
       - $PWD/../../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   network-map-server:
     image: gridsuite/network-map-server:latest
@@ -45,6 +55,8 @@ services:
       - 5006:80
     volumes:
       - $PWD/../../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   cgmes-gl-server:
     image: powsybl/cgmes-gl-server:latest
@@ -52,6 +64,8 @@ services:
       - 8095:80
     volumes:
       - $PWD/../../k8s/base/config/cgmes-gl-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   odre-server:
     image: gridsuite/odre-server:latest
@@ -59,6 +73,8 @@ services:
       - 8090:80
     volumes:
       - $PWD/../../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   gridstudy-app:
     image: gridsuite/gridstudy-app:latest
@@ -67,6 +83,8 @@ services:
     volumes:
       - $PWD/../gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridstudy/env.json:Z
+    depends_on:
+      - logspout
 
   security-analysis-server:
     image: gridsuite/security-analysis-server:latest
@@ -76,3 +94,5 @@ services:
       - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/application.yml:Z
       - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/root/.itools/config.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
