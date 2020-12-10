@@ -6,6 +6,8 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    depends_on:
+      - logspout
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
@@ -35,15 +37,21 @@ services:
     depends_on:
       - elasticsearch
 
+  socat:
+    image: alpine/socat
+    command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+
   logspout:
-    image: gliderlabs/logspout:v3
-    command: 'udp://logstash:5000?filter.name=grid*'
+    image: gliderlabs/logspout:v3.2.13
+    command: 'tcp://socat:5000?filter.name=grid*'
     environment:
       - LOGSPOUT=ignore
+      - BACKLOG=false
+      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
-      - logstash
+      - socat
 
   case-server:
     image: powsybl/case-server:latest
@@ -53,6 +61,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/case-server-application.yml:/config/application.yml:Z
       - $HOME/cases:/cases:Z
+    depends_on:
+      - logspout
 
   actions-server:
     image: gridsuite/actions-server:latest
@@ -61,6 +71,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/actions-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
 
   network-store-server:
     image: powsybl/network-store-server:latest
@@ -69,6 +81,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
@@ -76,6 +90,8 @@ services:
       - 5003:80
     volumes:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   loadflow-server:
     image: gridsuite/loadflow-server:latest
@@ -83,6 +99,8 @@ services:
       - 5008:80
     volumes:
       - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
 
   config-server:
     image: gridsuite/config-server:latest
@@ -106,6 +124,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/gateway-application.yml:/config/application.yml:Z
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
+    depends_on:
+      - logspout
 
   mock_user_service:
     image: gridsuite/oidc-mock-server
@@ -131,6 +151,8 @@ services:
       - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
+    depends_on:
+      - logspout
 
   apps-metadata-server:
     image: httpd:2.4
@@ -139,5 +161,7 @@ services:
     volumes:
       - $PWD/../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
       - $PWD/../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/httpd.conf:Z
+    depends_on:
+      - logspout
 
 
