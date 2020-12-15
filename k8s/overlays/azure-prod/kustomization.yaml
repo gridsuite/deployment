@@ -62,6 +62,10 @@ configMapGenerator:
     files:
       - cassandra.properties
 
+images:
+  - name: actions-server
+    newTag: v0.0.1
+
 # Patch ingress host
 patchesJson6902:
   - target:
