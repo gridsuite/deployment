@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/tls
+  value: [ { "hosts": [ "gridsuite-ingress.francecentral.cloudapp.azure.com" ], "secretName": "gridsuite-ingress-manual-tls" } ]
+- op: add
+  path: /metadata/annotations/cert-manager.io~1cluster-issuer
+  value: letsencrypt-prod
+

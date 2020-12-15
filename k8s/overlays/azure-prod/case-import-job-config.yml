@@ -1,0 +1,11 @@
+acquisition-server:
+  url: sftp://opde
+  cases-directory: ./opde
+  label: opde
+
+cassandra:
+  contact-points: 10.0.0.5
+  port: 9042
+
+case-server:
+  url: http://case-server/
