@@ -63,7 +63,8 @@ configMapGenerator:
       - cassandra.properties
 
 images:
-  - name: actions-server
+  - name: docker.io/gridsuite/actions-server:latest
+    newName: docker.io/gridsuite/actions-server
     newTag: v0.0.1
 
 # Patch ingress host
