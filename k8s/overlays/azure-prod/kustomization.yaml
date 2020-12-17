@@ -63,8 +63,77 @@ configMapGenerator:
       - cassandra.properties
 
 images:
+  - name: docker.io/gridsuite/gridactions-app:latest
+    newName: docker.io/gridsuite/gridactions-app
+    newTag: v0.0.1
+
+  - name: docker.io/gridsuite/gridmerge-app:latest
+    newName: docker.io/gridsuite/gridmerge-app
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/merge-orchestrator-server:latest
+    newName: docker.io/gridsuite/merge-orchestrator-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/merge-notification-server:latest
+    newName: docker.io/gridsuite/merge-notification-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/balances-adjustment-server:latest
+    newName: docker.io/gridsuite/balances-adjustment-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/case-validation-server:latest
+    newName: docker.io/gridsuite/case-validation-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/cgmes-boundary-server:latest
+    newName: docker.io/gridsuite/cgmes-boundary-server
+    newTag: v0.0.1
+
+  - name: docker.io/gridsuite/gridstudy-app:latest
+    newName: docker.io/gridsuite/gridstudy-app
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/study-server:latest
+    newName: docker.io/gridsuite/study-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/geo-data-server:latest
+    newName: docker.io/gridsuite/geo-data-server
+    newTag: v0.0.1
+  - name: docker.io/powsybl/single-line-diagram-server:latest
+    newName: docker.io/powsybl/single-line-diagram-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/network-modification-server:latest
+    newName: docker.io/gridsuite/network-modification-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/notification-server:latest
+    newName: docker.io/gridsuite/notification-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/network-map-server:latest
+    newName: docker.io/gridsuite/network-map-server
+    newTag: v0.0.1
+  - name: docker.io/powsybl/cgmes-gl-server:latest
+    newName: docker.io/powsybl/cgmes-gl-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/odre-server:latest
+    newName: docker.io/gridsuite/odre-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/security-analysis-server:latest
+    newName: docker.io/gridsuite/security-analysis-server
+    newTag: v0.0.1
+
+  - name: docker.io/powsybl/case-server:latest
+    newName: docker.io/powsybl/case-server
+    newTag: v0.0.1
   - name: docker.io/gridsuite/actions-server:latest
     newName: docker.io/gridsuite/actions-server
+    newTag: v0.0.1
+  - name: docker.io/powsybl/network-store-server:latest
+    newName: docker.io/powsybl/network-store-server
+    newTag: v0.0.1
+  - name: docker.io/powsybl/network-conversion-server:latest
+    newName: docker.io/powsybl/network-conversion-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/loadflow-server:latest
+    newName: docker.io/gridsuite/loadflow-server
+    newTag: v0.0.1
+  - name: docker.io/gridsuite/gateway:latest
+    newName: docker.io/gridsuite/gateway
     newTag: v0.0.1
 
 # Patch ingress host
