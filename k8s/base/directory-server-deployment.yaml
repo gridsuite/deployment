@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory-server
+  labels:
+    name: directory-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: directory-server
+  template:
+    metadata:
+      labels:
+        name: directory-server
+    spec:
+      containers:
+      - name: directory-server
+        image: docker.io/gridsuite/directory-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /config
+          name: directory-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: directory-server-configmap-volume
+          configMap:
+            name: directory-server-configmap
