@@ -96,3 +96,13 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+
+  directory-server:
+    image: gridsuite/directory-server:latest
+    ports:
+      - 5024:80
+    volumes:
+      - $PWD/../../k8s/base/config/directory-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout

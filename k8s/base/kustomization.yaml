@@ -64,6 +64,8 @@ resources:
   - apps-metadata-server-ingress.yaml
   - security-analysis-server-deployment.yaml
   - security-analysis-server-service.yaml
+  - directory-server-deployment.yaml
+  - directory-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -132,3 +134,6 @@ configMapGenerator:
   - name: security-analysis-server-itools-configmap
     files:
       - config.yml=config/security-analysis-server-config.yml
+  - name: directory-server-configmap
+    files:
+      - application.yml=config/directory-server-application.yml
