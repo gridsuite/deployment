@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    name: config-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: config-server
+  template:
+    metadata:
+      labels:
+        name: config-server
+    spec:
+      containers:
+        - name: config
+          image: docker.io/gridsuite/config-server:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config
+              name: config-server-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: config-server-configmap-volume
+          configMap:
+            name: config-server-configmap

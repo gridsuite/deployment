@@ -27,6 +27,8 @@ on:
       - gridactions_app_updated
       - actions_server_updated
       - security_analysis_server_updated
+      - config_server_updated
+      - config_notification_server_updated
 
 jobs:
   build:
