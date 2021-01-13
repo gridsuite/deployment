@@ -54,6 +54,40 @@ https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resou
 https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
 ```
 
+##PostgresSql installation
+
+- Postgres local Installation from code sources:
+
+Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
+ then unzip the downloaded file.
+
+`cd postgresql-13.1` 
+
+` ./configure --without-readline  --prefix=/path/to/where/you/want/to/install/postgres` 
+if you haven’t readline installed you can install it first or add --without-readline to the ./configure command
+
+`make`
+ you can add -jX for parallel installation where X in a number >= 2 
+ 
+`make install`
+(You can find the installation details in the Install file)
+
+Now you can launch postgres server:
+ `cd /path/to/where/you/want/to/install/postgres`
+ `bin/postgres -D /path/to/where/you/have/installed/postgres`
+
+from another terminal you can launch the postgres client:
+`bin/psql postgres`
+
+- If you want an alternative to run postgres, you can use the postgres official docker image:
+
+launch the server using docker: 
+`docker run -p 5432:5432 --env POSTGRES_PASSWORD=postgres --env POSTGRES_USER=postgres postgres:13.1`
+
+launch the client using docker:
+`docker exec -it $(docker ps -aqf "ancestor=postgres:13") psql -U postgres`
+
+
 ### Minikube and kubectl setup
 
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
