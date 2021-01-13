@@ -84,6 +84,7 @@ If you want readline library to be used by your psql client,  install it in your
 
 (You can find the installation details in the Install file) then:
 
+
 `$ cd /path/to/where/you/want/to/install/postgres`
 
 Init the database:
