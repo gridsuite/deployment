@@ -72,18 +72,23 @@ Download code sources from the following link: https://www.postgresql.org/ftp/so
 `$ cd postgresql-13.1` 
 
 ` $ ./configure --without-readline --prefix=/path/to/where/you/want/to/install/postgres/data` 
+
 If you want readline library to be used by your psql client,  install it in your machine and remove --without-readline from the
  ./configure command.
 
 `$ make`
+
  you can add -jX for parallel installation where X in a number >= 2 
  
 `$ make install`
-(You can find the installation details in the Install file)
 
-then `$ cd /path/to/where/you/want/to/install/postgres`
+(You can find the installation details in the Install file) then:
 
-Init the database: `$ bin/initdb -D ./data`
+`$ cd /path/to/where/you/want/to/install/postgres`
+
+Init the database:
+ 
+ `$ bin/initdb -D ./data`
 
 Now you can launch postgres server:
  
