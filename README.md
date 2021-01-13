@@ -21,6 +21,9 @@ rpc_address: "0.0.0.0"
 broadcast_rpc_address: "<YOUR_IP>"
 ```
 
+To start the cassandra server: `cd /path/to/cassandra/folder`
+then `bin/cassandra -f`
+
 ## Cassandra scheme setup
 
 ```bash
@@ -56,6 +59,11 @@ https://github.com/gridsuite/config-server/blob/master/src/main/resources/config
 
 ##PostgresSql installation
 
+postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
+To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
+are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
+feel free to install and run postgresql with your system package manager or with a dedicate docker container.
+
 - Postgres local Installation from code sources:
 
 Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
@@ -63,7 +71,7 @@ Download code sources from the following link: https://www.postgresql.org/ftp/so
 
 `cd postgresql-13.1` 
 
-` ./configure --without-readline  --prefix=/path/to/where/you/want/to/install/postgres/data` 
+` ./configure --prefix=/path/to/where/you/want/to/install/postgres/data` 
 if you haven’t readline installed you can install it first or add --without-readline to the ./configure command
 
 `make`
@@ -72,22 +80,16 @@ if you haven’t readline installed you can install it first or add --without-re
 `make install`
 (You can find the installation details in the Install file)
 
+then `cd /path/to/where/you/want/to/install/postgres` and create data directory  `mkdir data`
+
+Init the database: `bin/initdb -D ./data`
+
 Now you can launch postgres server:
- `cd /path/to/where/you/want/to/install/postgres`
- `bin/initdb -D /path/to/where/you/have/installed/postgres/data`
- `bin/postgres -D /path/to/where/you/have/installed/postgres/data`
+ 
+ `bin/postgres -D ./data`
 
 from another terminal you can launch the postgres client:
 `bin/psql postgres`
-
-- If you want an alternative to run postgres, you can use the postgres official docker image:
-
-launch the server using docker: 
-`docker run -p 5432:5432 --env POSTGRES_PASSWORD=postgres --env POSTGRES_USER=postgres postgres:13.1`
-
-launch the client using docker:
-`docker exec -it $(docker ps -aqf "ancestor=postgres:13") psql -U postgres`
-
 
 ### Minikube and kubectl setup
 
