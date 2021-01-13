@@ -63,7 +63,7 @@ Download code sources from the following link: https://www.postgresql.org/ftp/so
 
 `cd postgresql-13.1` 
 
-` ./configure --without-readline  --prefix=/path/to/where/you/want/to/install/postgres` 
+` ./configure --without-readline  --prefix=/path/to/where/you/want/to/install/postgres/data` 
 if you haven’t readline installed you can install it first or add --without-readline to the ./configure command
 
 `make`
@@ -74,7 +74,8 @@ if you haven’t readline installed you can install it first or add --without-re
 
 Now you can launch postgres server:
  `cd /path/to/where/you/want/to/install/postgres`
- `bin/postgres -D /path/to/where/you/have/installed/postgres`
+ `bin/initdb -D /path/to/where/you/have/installed/postgres/data`
+ `bin/postgres -D /path/to/where/you/have/installed/postgres/data`
 
 from another terminal you can launch the postgres client:
 `bin/psql postgres`
