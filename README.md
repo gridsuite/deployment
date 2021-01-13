@@ -64,7 +64,7 @@ To get a postgresql folder where you can just run postgresql, you have to compil
 are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
 feel free to install and run postgresql with your system package manager or with a dedicate docker container.
 
-- Postgres local Installation from code sources:
+**Postgres local Installation from code sources:**
 
 Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
  then unzip the downloaded file.
