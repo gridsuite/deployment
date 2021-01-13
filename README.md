@@ -1,6 +1,6 @@
 # GridSuite deployment
 
-## Study application local install
+## Gridsuite local install
 
 ### Cassandra install
 
@@ -24,10 +24,10 @@ broadcast_rpc_address: "<YOUR_IP>"
 To start the cassandra server: `cd /path/to/cassandra/folder`
 then `bin/cassandra -f`
 
-## Cassandra scheme setup
+### Cassandra schema setup
 
 ```bash
-cqlsh <YOUR_IP>
+bin/cqlsh
 ```
 
 To create keyspaces in a single node cluster:
@@ -57,9 +57,9 @@ https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resou
 https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
 ```
 
-##PostgresSql installation
+### PostgresSql installation
 
-postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
+Postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
 To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
 are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
 feel free to install and run postgresql with your system package manager or with a dedicate docker container.
@@ -80,7 +80,7 @@ if you haven’t readline installed you can install it first or add --without-re
 `make install`
 (You can find the installation details in the Install file)
 
-then `cd /path/to/where/you/want/to/install/postgres` and create data directory  `mkdir data`
+then `cd /path/to/where/you/want/to/install/postgres`
 
 Init the database: `bin/initdb -D ./data`
 
@@ -88,8 +88,10 @@ Now you can launch postgres server:
  
  `bin/postgres -D ./data`
 
-from another terminal you can launch the postgres client:
-`bin/psql postgres`
+### Postgres schema setup
+```bash
+bin/psql postgres
+```
 
 ### Minikube and kubectl setup
 
