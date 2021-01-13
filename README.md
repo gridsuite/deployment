@@ -82,7 +82,7 @@ If you want readline library to be used by your psql client,  install it in your
  
 `$ make install`
 
-(You can find the installation details in the Install file) then:
+(You can find the installation details in the INSTALL file) then:
 
 
 `$ cd /path/to/where/you/want/to/install/postgres`
