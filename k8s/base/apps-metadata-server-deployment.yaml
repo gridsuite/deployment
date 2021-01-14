@@ -16,7 +16,7 @@ spec:
       containers:
         - name: apps-metadata-server
           image: httpd:2.4
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           volumeMounts:
