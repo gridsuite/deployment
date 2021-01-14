@@ -61,6 +61,10 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+  - name: config-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
 
 images:
   - name: docker.io/gridsuite/gridactions-app:latest
