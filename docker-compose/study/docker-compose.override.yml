@@ -100,7 +100,7 @@ services:
   directory-server:
     image: gridsuite/directory-server:latest
     ports:
-      - 5024:80
+      - 5026:80
     volumes:
       - $PWD/../../k8s/base/config/directory-server-application.yml:/config/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
