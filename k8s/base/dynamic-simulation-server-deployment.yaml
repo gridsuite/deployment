@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamic-simulation-server
+  labels:
+    name: dynamic-simulation-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: dynamic-simulation-server
+  template:
+    metadata:
+      labels:
+        name: dynamic-simulation-server
+    spec:
+      containers:
+        - name: dynamic-simulation
+          image: docker.io/gridsuite/dynamic-simulation-server:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config
+              name: dynamic-simulation-server-configmap-volume
+            - mountPath: /dynawo-config
+              name: dynawo-config-configmap-volume
+            - mountPath: /.itools
+              name: dynawo-itools-configmap-volume
+      restartPolicy: Always
+      volumes:
+        - name: dynamic-simulation-server-configmap-volume
+          configMap:
+            name: dynamic-simulation-server-configmap
+        - name: dynawo-config-configmap-volume
+          configMap:
+            name: dynawo-config-configmap
+        - name: dynawo-itools-configmap-volume
+          configMap:
+            name: dynawo-itools-configmap
