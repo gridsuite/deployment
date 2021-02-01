@@ -1,6 +1,6 @@
 # GridSuite deployment
 
-## Study application local install
+## Gridsuite local install
 
 ### Cassandra install
 
@@ -21,10 +21,13 @@ rpc_address: "0.0.0.0"
 broadcast_rpc_address: "<YOUR_IP>"
 ```
 
-## Cassandra scheme setup
+To start the cassandra server: `cd /path/to/cassandra/folder`
+then `bin/cassandra -f`
+
+### Cassandra schema setup
 
 ```bash
-cqlsh <YOUR_IP>
+$ bin/cqlsh
 ```
 
 To create keyspaces in a single node cluster:
@@ -54,28 +57,71 @@ https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resou
 https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
 ```
 
+### PostgresSql installation
+
+Postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
+To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
+are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
+feel free to install and run postgresql with your system package manager or with a dedicate docker container.
+
+**Postgres local Installation from code sources:**
+
+Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
+ then unzip the downloaded file.
+
+`$ cd postgresql-13.1` 
+
+` $ ./configure --without-readline --prefix=/path/to/where/you/want/to/install/postgres/data` 
+
+If you want readline library to be used by your psql client,  install it in your machine and remove --without-readline from the
+ ./configure command.
+
+`$ make`
+
+ you can add -jX for parallel installation where X in a number >= 2 
+ 
+`$ make install`
+
+(You can find the installation details in the INSTALL file) then:
+
+
+`$ cd /path/to/where/you/want/to/install/postgres`
+
+Init the database:
+ 
+ `$ bin/initdb -D ./data`
+
+Now you can launch postgres server:
+ 
+ `$ bin/postgres -D ./data`
+
+### Postgres schema setup
+```bash
+$ bin/psql postgres
+```
+
 ### Minikube and kubectl setup
 
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
 
 Start minikube and activate ingress support:
 ```bash
-minikube start --memory 8192
-minikube addons enable ingress
+$ minikube start --memory 8192
+$ minikube addons enable ingress
 ```
 
 Verify everything is ok with:
 ```bash
-minikube status
-minikube kubectl cluster-info
+$ minikube status
+$ minikube kubectl cluster-info
 ```
 
 ### K8s deployment
 
 Clone deployment repository:
 ```bash 
-git clone https://github.com/gridsuite/deployment.git
-cd deployment
+$ git clone https://github.com/gridsuite/deployment.git
+$ cd deployment
 ```
 
 Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
@@ -85,8 +131,8 @@ cassandra.port: 9042
 ```
 
 ```bash
-MINIKUBE_IP=`minikube ip`;
-echo $MINIKUBE_IP;
+$ MINIKUBE_IP=`minikube ip`;
+$ echo $MINIKUBE_IP;
 ```
 Fill config files with the MINIKUBE_IP :
 
@@ -179,12 +225,12 @@ allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
 
 Deploy k8s services:
 ```bash 
-kubectl apply -k k8s/overlays/local
+$ apply -k k8s/overlays/local
 ```
 
 Verify all services and pods have been correctly started:
 ```bash 
-kubectl get all
+$ kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
 
@@ -224,21 +270,21 @@ http://<MINIKUBE_IP>/config-server/swagger-ui.html
 Install the orchestration tool docker-compose then launch the desired profile :
 
 ```bash 
-cd docker-compose/suite
-docker-compose up
+$ cd docker-compose/suite
+$ docker-compose up
 ```
 ```bash 
-cd docker-compose/study
-docker-compose up
+$ cd docker-compose/study
+$ docker-compose up
 ```
 ```bash 
-cd docker-compose/merging
-docker-compose up
+$ cd docker-compose/merging
+$ docker-compose up
 ```
 
 ```bash 
-cd docker-compose/actions
-docker-compose up
+$ cd docker-compose/actions
+$ docker-compose up
 ```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
 `172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
