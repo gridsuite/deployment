@@ -96,3 +96,15 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+      
+  dynamic-simulation-server:
+    image: gridsuite/dynamic-simulation-server:latest
+    ports:
+      - 5032:80
+    volumes:
+      - $PWD/../../k8s/base/config/dynamic-simulation-server-application.yml:/config/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../../k8s/base/config/dynawo-itools-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
+    depends_on:
+      - logspout
