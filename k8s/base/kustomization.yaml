@@ -68,6 +68,8 @@ resources:
   - config-server-service.yaml
   - config-notification-server-deployment.yaml
   - config-notification-server-service.yaml
+  - dynamic-simulation-server-deployment.yaml
+  - dynamic-simulation-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -142,3 +144,14 @@ configMapGenerator:
   - name: config-notification-server-configmap
     files:
       - application.yml=config/config-notification-server-application.yml
+  - name: dynamic-simulation-server-configmap
+    files:
+      - application.yml=config/dynamic-simulation-server-application.yml
+  - name: dynawo-config-configmap
+    files:
+      - models.par=config/dynamic-simulation/models.par
+      - network.par=config/dynamic-simulation/network.par
+      - solvers.par=config/dynamic-simulation/solvers.par
+  - name: dynawo-itools-configmap
+    files:
+      - config.yml=config/dynawo-itools-config.yml

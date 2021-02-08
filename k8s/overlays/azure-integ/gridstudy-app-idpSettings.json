@@ -1,0 +1,8 @@
+{
+    "authority" : "https://login.microsoftonline.com/common/v2.0",
+    "client_id" : "e85332cb-7898-4f2a-a2da-7963d168acee",
+    "redirect_uri": "https://gridsuite-ingress.francecentral.cloudapp.azure.com/gridstudy/sign-in-callback",
+    "post_logout_redirect_uri" : "https://gridsuite-ingress.francecentral.cloudapp.azure.com/gridstudy/logout-callback",
+    "silent_redirect_uri" : "https://gridsuite-ingress.francecentral.cloudapp.azure.com/gridstudy/silent-renew-callback",
+    "scope" : "openid User.read profile"
+}

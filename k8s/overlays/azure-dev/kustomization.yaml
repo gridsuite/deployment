@@ -2,21 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
-  - ../../base
+  - ../azure-commons
 
 configMapGenerator:
-  - name: network-store-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
-  - name: geo-data-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
-  - name: study-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
   - name: gridstudy-app-configmap
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
@@ -29,42 +17,12 @@ configMapGenerator:
   - name: gridmerge-app-env-configmap
     files:
       - env.json=env.json
-  - name: gateway-configmap
-    behavior: merge
-    files:
-      - allowed-issuers.yml
-  - name: case-import-job-configmap
-    files:
-      - config.yml=case-import-job-config.yml
-  - name: merge-orchestrator-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
-  - name: cgmes-boundary-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
-  - name: cgmes-assembling-job-configmap
-    files:
-      - config.yml=cgmes-assembling-job-config.yml
   - name: gridactions-app-configmap
     files:
       - idpSettings.json=gridactions-app-idpSettings.json
   - name: gridactions-app-env-configmap
     files:
       - env.json=env.json
-  - name: actions-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
-  - name: security-analysis-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
-  - name: config-server-configmap
-    behavior: merge
-    files:
-      - cassandra.properties
 
 # Patch ingress host
 patchesJson6902:
