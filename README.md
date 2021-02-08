@@ -94,12 +94,30 @@ Init the database:
 Now you can launch postgres server:
  
  `$ bin/postgres -D ./data`
+ 
+or if you want postgres to listen to all addresses, so it can respond to docker-compose deployment, you can use : 
+
+`$ bin/postgres -D ./data --listen_addresses='*'`
+
+If you plan to use postgres on your localhost and make requests from docker-compose you need to follow these steps : 
+
+ `$ cd /path/to/where/you/want/to/install/postgres/data` 
+ 
+Open the file `pg_hba.conf` and add the following line to it : 
+ 
+ `host  all  all 0.0.0.0/0 md5`
 
 ### Postgres schema setup
 ```bash
 $ bin/psql postgres
+$ create database ds;
+$ \c ds;
 ```
 
+Then copy the content of the following file to the psql: 
+```html
+https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql
+```
 ### Minikube and kubectl setup
 
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
@@ -225,7 +243,7 @@ allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
 
 Deploy k8s services:
 ```bash 
-$ apply -k k8s/overlays/local
+$ kubectl apply -k k8s/overlays/local
 ```
 
 Verify all services and pods have been correctly started:
