@@ -58,7 +58,7 @@ jobs:
           BASTION_KEY: ${{secrets.BASTION_KEY}}
 
       - name: Deploy to Azure
-        run: kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+        run: kubectl kustomize k8s/overlays/azure-dev | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
 
       - name: Delete key
         run: rm key

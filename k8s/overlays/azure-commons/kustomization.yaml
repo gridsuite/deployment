@@ -1,0 +1,53 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base
+
+configMapGenerator:
+  - name: network-store-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: geo-data-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: study-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: gateway-configmap
+    behavior: merge
+    files:
+      - allowed-issuers.yml
+  - name: case-import-job-configmap
+    files:
+      - config.yml=case-import-job-config.yml
+  - name: merge-orchestrator-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: cgmes-boundary-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: cgmes-assembling-job-configmap
+    files:
+      - config.yml=cgmes-assembling-job-config.yml
+  - name: actions-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: security-analysis-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: config-server-configmap
+    behavior: merge
+    files:
+      - cassandra.properties
+  - name: dynamic-simulation-server-configmap
+    behavior: merge
+    files:
+      - database.properties
