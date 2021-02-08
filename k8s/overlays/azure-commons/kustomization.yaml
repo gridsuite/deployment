@@ -47,3 +47,7 @@ configMapGenerator:
     behavior: merge
     files:
       - cassandra.properties
+  - name: dynamic-simulation-server-configmap
+    behavior: merge
+    files:
+      - database.properties
