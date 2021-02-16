@@ -8,7 +8,7 @@ services:
       - 5001:80
     volumes:
       - $PWD/../../k8s/base/config/study-server-application.yml:/config/application.yml:Z
-      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
 

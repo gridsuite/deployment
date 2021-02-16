@@ -49,22 +49,6 @@ services:
     depends_on:
       - logspout
 
-  case-import-job:
-    build: case-import-job
-    volumes:
-      - $PWD/../case-import-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
-    depends_on:
-      - logspout
-
-  cgmes-assembling-job:
-    build: merging/cgmes-assembling-job
-    volumes:
-      - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
-      - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
-    depends_on:
-      - logspout
-
   gridmerge-app:
     image: gridsuite/gridmerge-app:latest
     ports:

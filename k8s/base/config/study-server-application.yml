@@ -1,9 +1,39 @@
-server:
-  port: 80
+server :
+  port : 5001
 
-network-store-server:
-  base-uri: http://network-store-server/
-  preloading-strategy: COLLECTION
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 103MB
+  codec:
+    max-in-memory-size: 100MB
+
+  rabbitmq:
+    addresses: localhost
+    port: 5672
+
+  cloud:
+    function:
+      definition: publishStudyUpdate;consumeSaResult
+    stream:
+      bindings:
+        publishStudyUpdate-out-0:
+          destination: study.update
+        consumeSaResult-in-0:
+          destination: sa.result
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    properties:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.format_sql: false
 
 backing-services:
   case:
@@ -27,11 +57,6 @@ backing-services:
   dynamic-simulation-server:
     base-uri: http://dynamic-simulation-server/
 
-spring:
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 103MB
-  rabbitmq:
-    addresses: rabbitmq
-    port: 5672
+network-store-server:
+  preloading-strategy: COLLECTION
+  base-uri: http://localhost:8080/
