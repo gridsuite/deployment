@@ -21,4 +21,5 @@ backing-services:
     base-uri: http://config-server/
   config-notification-server:
     base-uri: http://config-notification-server/
-    
+  directory-server:
+    base-uri: http://directory-server/

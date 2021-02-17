@@ -109,13 +109,15 @@ Open the file `pg_hba.conf` and add the following line to it :
 ```bash
 $ bin/psql postgres
 $ create database ds;
+$ create database directory;
 $ create database study;
 ```
 
-Then copy the content of the following file to the psql: 
+Then initialize the schemas for the databases: 
 ```html
-https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql
-https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql
+$ \c ds; # and copy https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql content to psql
+$ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/main/src/main/resources/schema.sql content to psql
+$ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 ```
 ### Minikube and kubectl setup
 
@@ -281,6 +283,7 @@ http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
 http://<MINIKUBE_IP>/actions-server/swagger-ui.html
 http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
 http://<MINIKUBE_IP>/config-server/swagger-ui.html
+http://<MINIKUBE_IP>/directory-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
@@ -339,6 +342,7 @@ http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
 http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
+http://localhost:5026/swagger-ui.html  // directory-server
 ```
 RabbitMQ management UI:
 ```html

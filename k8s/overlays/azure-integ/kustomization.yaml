@@ -84,6 +84,8 @@ images:
     digest: 1ba1e6c93fcd7cbfa7b122378a8c2bb26968d23b467915777b0598ab5278a81e
   - name: docker.io/gridsuite/cgmes-assembling-job
     digest: 38237f9ad50da707bfd20dd731dd05b73ff0b31b099ea1e8c6a224394ec91c76
+  - name: docker.io/gridsuite/directory-server
+    digest: 440b0813942a5855b392f1f19948e2448b2cfda8d7a348b8931f0843682c51fe
 
 # Patch ingress host
 patchesJson6902:
