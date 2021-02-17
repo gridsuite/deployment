@@ -40,7 +40,8 @@ resources:
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
-  
+  - directory-server-ingress.yaml
+
 configMapGenerator:
   - name: network-store-server-configmap
     behavior: merge
@@ -128,3 +129,7 @@ configMapGenerator:
     files:
       - database.properties
 
+  - name: directory-server-configmap
+    behavior: merge
+    files:
+      - database.properties
