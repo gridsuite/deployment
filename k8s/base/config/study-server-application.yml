@@ -1,6 +1,31 @@
-server :
-  port : 5001
+server:
+  port: 80
 
+network-store-server:
+  base-uri: http://network-store-server/
+  preloading-strategy: COLLECTION
+
+backing-services:
+  case:
+    base-uri: http://case-server/
+  single-line-diagram:
+    base-uri: http://single-line-diagram-server/
+  network-conversion:
+    base-uri: http://network-conversion-server/
+  geo-data:
+    base-uri: http://geo-data-server/
+  network-map:
+    base-uri: http://network-map-server/
+  network-modification:
+    base-uri: http://network-modification-server/
+  loadflow:
+    base-uri: http://loadflow-server/
+  actions-server:
+    base-uri: http://actions-server/
+  security-analysis-server:
+    base-uri: http://security-analysis-server/
+  dynamic-simulation-server:
+    base-uri: http://dynamic-simulation-server/
 spring:
   servlet:
     multipart:
@@ -10,7 +35,7 @@ spring:
     max-in-memory-size: 100MB
 
   rabbitmq:
-    addresses: localhost
+    addresses: rabbitmq
     port: 5672
 
   cloud:
@@ -35,28 +60,6 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate.format_sql: false
 
-backing-services:
-  case:
-    base-uri: http://case-server/
-  single-line-diagram:
-    base-uri: http://single-line-diagram-server/
-  network-conversion:
-    base-uri: http://network-conversion-server/
-  geo-data:
-    base-uri: http://geo-data-server/
-  network-map:
-    base-uri: http://network-map-server/
-  network-modification:
-    base-uri: http://network-modification-server/
-  loadflow:
-    base-uri: http://loadflow-server/
-  actions-server:
-    base-uri: http://actions-server/
-  security-analysis-server:
-    base-uri: http://security-analysis-server/
-  dynamic-simulation-server:
-    base-uri: http://dynamic-simulation-server/
 
-network-store-server:
-  preloading-strategy: COLLECTION
-  base-uri: http://localhost:8080/
+
+
