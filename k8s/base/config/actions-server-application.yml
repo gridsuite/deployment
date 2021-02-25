@@ -1,19 +1,6 @@
 server:
   port: 80
 
-spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: false
-    hibernate:
-      ddl-auto: validate
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
-    properties:
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-      hibernate.format_sql: false
-
 network-store-server:
   base-uri: http://network-store-server/
 
