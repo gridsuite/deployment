@@ -16,6 +16,8 @@ backing-services:
     base-uri: http://case-validation-server/
   network-conversion:
     base-uri: http://network-conversion-server/
+  cgmes-boundary-server:
+    base-uri: http://cgmes-boundary-server/
 
 parameters:
   tsos: BE,NL
