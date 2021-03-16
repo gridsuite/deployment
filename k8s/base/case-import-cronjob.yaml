@@ -10,6 +10,13 @@ spec:
         spec:
           containers:
             - name: case-import-job
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "1"
+                limits:
+                  memory: "512Mi"
+                  cpu: "1"
               image: docker.io/gridsuite/case-import-job:latest
               volumeMounts:
                 - name: config-case-import-job-volume
