@@ -4,6 +4,7 @@ acquisition-server:
   password: <TO_COMPLETE>
   cases-directory: ./opde
   label: opde
+  dependencies-strict-mode: false
 
 cassandra:
   contact-points: <TO_COMPLETE>
