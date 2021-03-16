@@ -10,6 +10,13 @@ spec:
         spec:
           containers:
             - name: cgmes-assembling-job
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "1"
+                limits:
+                  memory: "512Mi"
+                  cpu: "1"
               image: docker.io/gridsuite/cgmes-assembling-job:latest
               volumeMounts:
                 - name: config-cgmes-assembling-job-volume
