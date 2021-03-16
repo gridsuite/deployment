@@ -29,10 +29,10 @@ spec:
           name: case-server-storage
         resources:
           requests:
-            memory: "640Mi"
+            memory: "384Mi"
             cpu: "50m"
           limits:
-            memory: "640Mi"
+            memory: "384Mi"
             cpu: "100m"
       restartPolicy: Always
       volumes:
