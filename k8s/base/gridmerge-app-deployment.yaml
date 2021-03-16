@@ -30,10 +30,8 @@ spec:
         resources:
           requests:
             memory: "128Mi"
-            cpu: "50m"
           limits:
             memory: "128Mi"
-            cpu: "100m"
       restartPolicy: Always
       volumes:
         - name: gridmerge-app-configmap-volume
