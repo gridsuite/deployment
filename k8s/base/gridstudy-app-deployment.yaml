@@ -27,6 +27,11 @@ spec:
         - mountPath: /usr/local/apache2/htdocs/gridstudy/env.json
           subPath: env.json
           name: gridstudy-app-env-configmap-volume
+        resources:
+          requests:
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
       restartPolicy: Always
       volumes:
         - name: gridstudy-app-configmap-volume

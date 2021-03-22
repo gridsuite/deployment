@@ -23,6 +23,11 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: odre-server-configmap-volume
+        resources:
+          requests:
+            memory: "256Mi"
+          limits:
+            memory: "256Mi"
       restartPolicy: Always
       volumes:
         - name: odre-server-configmap-volume
