@@ -29,9 +29,9 @@ spec:
           name: case-server-storage
         resources:
           requests:
-            memory: "384Mi"
+            memory: "1Gi"
           limits:
-            memory: "384Mi"
+            memory: "1Gi"
       restartPolicy: Always
       volumes:
         - name: case-server-configmap-volume
