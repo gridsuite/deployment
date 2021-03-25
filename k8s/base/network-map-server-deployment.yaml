@@ -23,6 +23,11 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-map-server-configmap-volume
+        resources:
+          requests:
+            memory: "512Mi"
+          limits:
+            memory: "512Mi"
       restartPolicy: Always
       volumes:
         - name: network-map-server-configmap-volume

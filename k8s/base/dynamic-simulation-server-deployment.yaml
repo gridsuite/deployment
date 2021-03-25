@@ -27,6 +27,11 @@ spec:
               name: dynawo-config-configmap-volume
             - mountPath: /root/.itools
               name: dynawo-itools-configmap-volume
+          resources:
+            requests:
+              memory: "512Mi"
+            limits:
+              memory: "512Mi"
       restartPolicy: Always
       volumes:
         - name: dynamic-simulation-server-configmap-volume

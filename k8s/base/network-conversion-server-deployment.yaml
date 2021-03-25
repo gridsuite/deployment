@@ -23,6 +23,11 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-conversion-server-configmap-volume
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "1Gi"
       restartPolicy: Always
       volumes:
         - name: network-conversion-server-configmap-volume

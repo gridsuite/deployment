@@ -27,6 +27,11 @@ spec:
           name: case-server-configmap-volume
         - mountPath: /cases
           name: case-server-storage
+        resources:
+          requests:
+            memory: "384Mi"
+          limits:
+            memory: "384Mi"
       restartPolicy: Always
       volumes:
         - name: case-server-configmap-volume

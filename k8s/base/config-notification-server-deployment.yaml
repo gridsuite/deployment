@@ -23,6 +23,11 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config-notification-server-configmap-volume
+        resources:
+          requests:
+            memory: "256Mi"
+          limits:
+            memory: "256Mi"
       restartPolicy: Always
       volumes:
         - name: config-notification-server-configmap-volume
