@@ -18,6 +18,9 @@ spec:
       - name: network-map
         image: docker.io/gridsuite/network-map-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 80
         volumeMounts:
@@ -25,9 +28,9 @@ spec:
           name: network-map-server-configmap-volume
         resources:
           requests:
-            memory: "512Mi"
+            memory: "1Gi"
           limits:
-            memory: "512Mi"
+            memory: "1Gi"
       restartPolicy: Always
       volumes:
         - name: network-map-server-configmap-volume
