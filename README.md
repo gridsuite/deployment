@@ -105,7 +105,7 @@ Open the file `pg_hba.conf` and add the following line to it :
  
  `host  all  all 0.0.0.0/0 md5`
  
-set the password of the user "postgres" to "postgres" because that's what we configured in the default deployment:
+Set the password of the user "postgres" to "postgres" because that's what we configured in the default deployment:
 ```
 $ bin/psql postgres
 psql (13.1)
