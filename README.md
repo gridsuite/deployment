@@ -104,10 +104,20 @@ If you plan to use postgres on your localhost and make requests from docker-comp
 Open the file `pg_hba.conf` and add the following line to it : 
  
  `host  all  all 0.0.0.0/0 md5`
+ 
+Set the password of the user "postgres" to "postgres" because that's what we configured in the default deployment:
+```
+$ bin/psql postgres
+psql (13.1)
+Type "help" for help.
+
+postgres=# CREATE USER postgres WITH PASSWORD 'postgres';
+CREATE ROLE
+```
 
 ### Postgres schema setup
 ```bash
-$ bin/psql postgres
+$ bin/psql -U postgres postgres
 $ create database ds;
 $ create database directory;
 $ create database study;

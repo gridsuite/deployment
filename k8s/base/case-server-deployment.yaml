@@ -20,6 +20,9 @@ spec:
       - name: case-server
         image: docker.io/powsybl/case-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 80
         volumeMounts:
