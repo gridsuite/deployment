@@ -16,7 +16,7 @@ configMapGenerator:
   - name: study-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
   - name: gateway-configmap
     behavior: merge
     files:

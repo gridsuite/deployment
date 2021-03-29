@@ -18,6 +18,9 @@ spec:
       - name: loadflow-server
         image: docker.io/gridsuite/loadflow-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 80
         volumeMounts:
@@ -25,9 +28,9 @@ spec:
           name: loadflow-server-configmap-volume
         resources:
           requests:
-            memory: "256Mi"
+            memory: "1Gi"
           limits:
-            memory: "256Mi"
+            memory: "1Gi"
       restartPolicy: Always
       volumes:
         - name: loadflow-server-configmap-volume
