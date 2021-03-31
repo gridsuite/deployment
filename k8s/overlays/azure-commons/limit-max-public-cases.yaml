@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
       - name: case-server
-        args: ["-Dmax-public-cases=10000"]
+        args: ["--max-public-cases=10000"]
