@@ -29,6 +29,7 @@ on:
       - security_analysis_server_updated
       - config_server_updated
       - config_notification_server_updated
+      - cgmes_boundary_import_job_updated
 
 jobs:
   build:

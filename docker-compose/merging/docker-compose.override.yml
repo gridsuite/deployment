@@ -74,3 +74,10 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
+
+  cgmes-boundary-import-job:
+    build: merging/cgmes-boundary-import-job
+    volumes:
+      - $PWD/cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
+
