@@ -65,59 +65,37 @@ feel free to install and run postgresql with your system package manager or with
 **Postgres local Installation from code sources:**
 
 Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
- then unzip the downloaded file.
+ then unzip the downloaded file. For the simplest installation, copy paste the following commands in the unzipped folder (you can change POSTGRES_HOME if you want): 
 
-`$ cd postgresql-13.1` 
-
-` $ ./configure --without-readline --prefix=/path/to/where/you/want/to/install/postgres/data` 
-
-If you want readline library to be used by your psql client,  install it in your machine and remove --without-readline from the
- ./configure command.
-
-`$ make`
-
- you can add -jX for parallel installation where X in a number >= 2 
- 
-`$ make install`
-
-(You can find the installation details in the INSTALL file) then:
-
-
-`$ cd /path/to/where/you/want/to/install/postgres`
-
-Init the database:
- 
- `$ bin/initdb -D ./data`
-
-Now you can launch postgres server:
- 
- `$ bin/postgres -D ./data`
- 
-or if you want postgres to listen to all addresses, so it can respond to docker-compose deployment, you can use : 
-
-`$ bin/postgres -D ./data --listen_addresses='*'`
-
-If you plan to use postgres on your localhost and make requests from docker-compose you need to follow these steps : 
-
- `$ cd /path/to/where/you/want/to/install/postgres/data` 
- 
-Open the file `pg_hba.conf` and add the following line to it : 
- 
- `host  all  all 0.0.0.0/0 md5`
- 
-Set the password of the user "postgres" to "postgres" because that's what we configured in the default deployment:
+```shell
+#!/bin/bash
+POSTGRES_HOME="$HOME/postgres";
+./configure --without-readline --without-zlib --prefix="$POSTGRES_HOME";
+make;
+make install;
+cd "$POSTGRES_HOME";
+bin/initdb -D ./data;
+echo "host  all  all 0.0.0.0/0 md5" >> data/pg_hba.conf;
+bin/pg_ctl -D ./data start;
+bin/psql postgres -c  "CREATE USER postgres WITH PASSWORD 'postgres' SUPERUSER;";
+bin/pg_ctl -D ./data stop;
 ```
-$ bin/psql postgres
-psql (13.1)
-Type "help" for help.
 
-postgres=# CREATE USER postgres WITH PASSWORD 'postgres';
-CREATE ROLE
+To start the server each time you want to work, cd in the POSTGRES_HOME folder you used during install and run
+```shell
+$ bin/postgres -D ./data --listen_addresses='*'
 ```
+
+Bonus note: for more convenient options when developping (instead of this easy procedure for installing and just running the system), you can do these bonus steps:
+- use `-j8` during the make phase if you have a beefy machine to speed up compilation
+- install libreadline dev (fedora package: readline-devel, ubuntu: libreadline-dev) and remove `--without-readline` (this gives you navigability using arrows in the psql client if you use it often to run queries manually to diagnose or debug)
+- install zlib dev (fedora pacakge: zlib-devel , ubuntu: zlib1g-dev) and remove `--without-zlib` (this gives you compressed exports if you want to backup your databases..)
+- compile auto_explain (cd in the source folder in contrib/auto_explain, run make, make install) and configure it (add `shared_preload_libraries = 'auto_explain'` and
+`auto_explain.log_min_duration = 0` at the end postgresql.conf to log every query on the console for example). this requires a restart of postgres.
 
 ### Postgres schema setup
 ```bash
-$ bin/psql -U postgres postgres
+$ bin/psql postgres
 $ create database ds;
 $ create database directory;
 $ create database study;
