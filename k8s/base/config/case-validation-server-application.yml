@@ -3,3 +3,7 @@ server:
 
 network-store-server:
   base-uri: http://network-store-server/
+
+backing-services:
+  loadflow-server:
+    base-uri: http://loadflow-server/
