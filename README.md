@@ -38,7 +38,6 @@ CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStr
 CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS actions WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
@@ -50,7 +49,6 @@ https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main
 https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
 https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
-https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.cql
 https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
 https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
 ```
@@ -94,11 +92,13 @@ Bonus note: for more convenient options when developping (instead of this easy p
 `auto_explain.log_min_duration = 0` at the end postgresql.conf to log every query on the console for example). this requires a restart of postgres.
 
 ### Postgres schema setup
+
 ```bash
 $ bin/psql postgres
 $ create database ds;
 $ create database directory;
 $ create database study;
+$ create database actions;
 ```
 
 Then initialize the schemas for the databases: 
@@ -106,7 +106,9 @@ Then initialize the schemas for the databases:
 $ \c ds; # and copy https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql content to psql
 $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/main/src/main/resources/schema.sql content to psql
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
+$ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/main/src/main/resources/actions.sql content to psql
 ```
+
 ### Minikube and kubectl setup
 
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
