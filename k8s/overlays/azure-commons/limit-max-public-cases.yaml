@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: case-server
+        args: ["--max-public-cases=10000"]
