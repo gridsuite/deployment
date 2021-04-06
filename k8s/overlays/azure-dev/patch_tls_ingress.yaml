@@ -1,6 +1,6 @@
 - op: add
   path: /spec/tls
-  value: [ { "hosts": [ "demo.powsybl.org" ], "secretName": "demo-gridstudy-prod-cert" } ]
+  value: [ { "hosts": [ "demo.gridsuite.org" ], "secretName": "demo-gridstudy-prod-cert" } ]
 - op: add
   path: /metadata/annotations/cert-manager.io~1cluster-issuer
   value: letsencrypt-prod
