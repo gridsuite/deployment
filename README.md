@@ -106,7 +106,7 @@ Then initialize the schemas for the databases:
 $ \c ds; # and copy https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql content to psql
 $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/main/src/main/resources/schema.sql content to psql
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
-$ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/main/src/main/resources/actions.sql content to psql
+$ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
 ```
 
 ### Minikube and kubectl setup
