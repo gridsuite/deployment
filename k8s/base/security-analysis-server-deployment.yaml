@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-XX:MaxRAMPercentage=75"
+            value: "-XX:MaxRAMPercentage=50"
           ports:
             - containerPort: 80
           volumeMounts:
@@ -30,9 +30,9 @@ spec:
               name: security-analysis-server-itools-configmap-volume
           resources:
             requests:
-              memory: "1Gi"
+              memory: "1.5Gi"
             limits:
-              memory: "1Gi"
+              memory: "1.5Gi"
       restartPolicy: Always
       volumes:
         - name: security-analysis-server-configmap-volume
