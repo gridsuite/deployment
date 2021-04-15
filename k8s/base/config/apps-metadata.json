@@ -10,6 +10,6 @@
 },
 {
   "name" : "Actions",
-  "url"  : "/gridactions",
+  "url"  : "/griddata",
   "appColor" : "#DA0063"
 }]

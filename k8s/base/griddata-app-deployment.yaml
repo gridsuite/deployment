@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: griddata-app
+  labels:
+    name: griddata-app
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: griddata-app
+  template:
+    metadata:
+      labels:
+        name: griddata-app
+    spec:
+      containers:
+      - name: griddata-app
+        image: docker.io/gridsuite/griddata-app:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/apache2/htdocs/griddata/idpSettings.json
+          subPath: idpSettings.json
+          name: griddata-app-configmap-volume
+        - mountPath: /usr/local/apache2/htdocs/griddata/env.json
+          subPath: env.json
+          name: griddata-app-env-configmap-volume
+        resources:
+          requests:
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
+      restartPolicy: Always
+      volumes:
+        - name: griddata-app-configmap-volume
+          configMap:
+            name: griddata-app-configmap
+        - name: griddata-app-env-configmap-volume
+          configMap:
+            name: griddata-app-env-configmap

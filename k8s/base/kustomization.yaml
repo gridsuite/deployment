@@ -56,9 +56,9 @@ resources:
   - cgmes-assembling-cronjob.yaml
   - actions-server-deployment.yaml
   - actions-server-service.yaml
-  - gridactions-app-deployment.yaml
-  - gridactions-app-ingress.yaml
-  - gridactions-app-service.yaml
+  - griddata-app-deployment.yaml
+  - griddata-app-ingress.yaml
+  - griddata-app-service.yaml
   - apps-metadata-server-deployment.yaml
   - apps-metadata-server-service.yaml
   - apps-metadata-server-ingress.yaml

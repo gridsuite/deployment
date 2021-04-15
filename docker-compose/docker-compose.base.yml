@@ -146,7 +146,7 @@ services:
       - CLIENT_REDIRECT_URI_3=http://localhost:81/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:81/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:81/silent-renew-callback
-      - CLIENT_ID_4=gridactions-client
+      - CLIENT_ID_4=griddata-client
       - CLIENT_REDIRECT_URI_4=http://localhost:82/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback

@@ -1,8 +1,0 @@
-{
-    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "gridactions-client",
-    "redirect_uri": "http://<TO COMPLETE>/gridactions/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridactions/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/gridactions/silent-renew-callback",
-    "scope" : "openid"
-}

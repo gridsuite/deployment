@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: gridactions-app-ingress
+  name: griddata-app-ingress
   annotations:
     nginx.ingress.kubernetes.io/service-upstream: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -10,17 +10,17 @@ metadata:
     # base url when behind a reverse proxy.
     # nginx-ingress-controller V0.24 has a simple alternative
     # but latest minikube 1.1.0 uses V0.23 (untested):
-    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/gridactions"
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/griddata"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^/gridactions$ /gridactions/ permanent;
-      proxy_set_header X-Forwarded-Prefix         /gridactions/;
+      rewrite ^/griddata$ /griddata/ permanent;
+      proxy_set_header X-Forwarded-Prefix         /griddata/;
     nginx.ingress.kubernetes.io/server-snippet: |
       merge_slashes off;
 spec:
   rules:
   - http:
       paths:
-      - path: /gridactions(/|$)(.*)
+      - path: /griddata(/|$)(.*)
         backend:
-          serviceName: gridactions-app
+          serviceName: griddata-app
           servicePort: 80

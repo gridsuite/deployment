@@ -169,14 +169,14 @@ k8s/overlays/local/gridmerge-app-idpSettings.json
 }
 ```
 
-k8s/overlays/local/gridactions-app-idpSettings.json
+k8s/overlays/local/griddata-app-idpSettings.json
 ```json
 {
     "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "gridactions-client",
-    "redirect_uri": "http://<TO COMPLETE>/gridactions/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridactions/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/gridactions/silent-renew-callback",
+    "client_id" : "griddata-client",
+    "redirect_uri": "http://<TO COMPLETE>/griddata/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<TO COMPLETE>/griddata/logout-callback",
+    "silent_redirect_uri" : "http://<TO COMPLETE>/griddata/silent-renew-callback",
     "scope" : "openid"
 }
 ```
@@ -212,13 +212,13 @@ spec:
         - name: CLIENT_SILENT_REDIRECT_URI_2
           value: "http://<TO COMPLETE>/gridmerge/silent-renew-callback"
         - name: CLIENT_ID_3
-          value: "gridactions-client"
+          value: "griddata-client"
         - name: CLIENT_REDIRECT_URI_3
-          value: "http://<TO COMPLETE>/gridactions/sign-in-callback"
+          value: "http://<TO COMPLETE>/griddata/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI_3
-          value: "http://<TO COMPLETE>/gridactions/logout-callback"
+          value: "http://<TO COMPLETE>/griddata/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI_3
-          value: "http://<TO COMPLETE>/gridactions/silent-renew-callback"
+          value: "http://<TO COMPLETE>/griddata/silent-renew-callback"
         - name: ISSUER_HOST
           value: "<TO COMPLETE>"
         - name: ISSUER_PREFIX
@@ -247,7 +247,7 @@ Applications:
 ```html
 http://<MINIKUBE_IP>/gridstudy-app/
 http://<MINIKUBE_IP>/gridmerge-app/
-http://<MINIKUBE_IP>/gridactions-app/
+http://<MINIKUBE_IP>/griddata-app/
 ```
 
 Gateway 
@@ -306,7 +306,7 @@ Applications:
 ```html
 http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
-http://localhost:82 // gridactions
+http://localhost:82 // griddata
 ```
 
 Gateway 
