@@ -23,3 +23,5 @@ backing-services:
     base-uri: http://config-notification-server/
   directory-server:
     base-uri: http://directory-server/
+  cgmes-boundary-server:
+    base-uri: http://cgmes-boundary-server/
