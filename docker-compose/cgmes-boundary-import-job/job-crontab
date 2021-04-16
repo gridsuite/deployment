@@ -1,0 +1,1 @@
+*/30 * * * * . /root/project_env.sh; java -cp /app/resources:/app/classes:/app/libs/* org.gridsuite.boundary.importer.job.BoundaryAcquisitionJob >> /root/job-execution.log 2>&1
