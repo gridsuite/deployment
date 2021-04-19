@@ -27,6 +27,12 @@ spec:
         - mountPath: /usr/local/apache2/htdocs/gridmerge/env.json
           subPath: env.json
           name: gridmerge-app-env-configmap-volume
+        - mountPath: /usr/local/apache2/logs
+          name: logs-emptydir
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "128Mi"
@@ -40,3 +46,5 @@ spec:
         - name: gridmerge-app-env-configmap-volume
           configMap:
             name: gridmerge-app-env-configmap
+        - name: logs-emptydir
+          emptyDir: {}

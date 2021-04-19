@@ -23,6 +23,14 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: gateway-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        - mountPath: /?
+          name: app-emptydir
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "256Mi"
@@ -33,3 +41,7 @@ spec:
         - name: gateway-configmap-volume
           configMap:
             name: gateway-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
+        - name: app-emptydir
+          emptyDir: {}

@@ -26,6 +26,14 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: loadflow-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        - mountPath: /?
+          name: app-emptydir
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "1Gi"
@@ -36,3 +44,7 @@ spec:
         - name: loadflow-server-configmap-volume
           configMap:
             name: loadflow-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
+        - name: app-emptydir
+          emptyDir: {}

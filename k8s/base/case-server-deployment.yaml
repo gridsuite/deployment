@@ -30,6 +30,14 @@ spec:
           name: case-server-configmap-volume
         - mountPath: /cases
           name: case-server-storage
+        - mountPath: /tmp
+          name: tmp-emptydir
+        - mountPath: /?
+          name: app-emptydir
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "1Gi"
@@ -43,3 +51,7 @@ spec:
         - name: case-server-storage
           persistentVolumeClaim:
             claimName: case-server-claim
+        - name: tmp-emptydir
+          emptyDir: {}
+        - name: app-emptydir
+          emptyDir: {}

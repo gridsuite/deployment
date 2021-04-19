@@ -26,8 +26,16 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: security-analysis-server-configmap-volume
-            - mountPath: /root/.itools
+            - mountPath: /?/.itools
               name: security-analysis-server-itools-configmap-volume
+            - mountPath: /tmp
+              name: tmp-emptydir
+            - mountPath: /?
+              name: app-emptydir
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
           resources:
             requests:
               memory: "1.5Gi"
@@ -41,3 +49,7 @@ spec:
         - name: security-analysis-server-itools-configmap-volume
           configMap:
             name: security-analysis-server-itools-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
+        - name: app-emptydir
+          emptyDir: {}

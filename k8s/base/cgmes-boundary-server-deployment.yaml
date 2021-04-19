@@ -23,6 +23,14 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: cgmes-boundary-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        - mountPath: /?
+          name: app-emptydir
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "256Mi"
@@ -33,3 +41,7 @@ spec:
         - name: cgmes-boundary-server-configmap-volume
           configMap:
             name: cgmes-boundary-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
+        - name: app-emptydir
+          emptyDir: {}

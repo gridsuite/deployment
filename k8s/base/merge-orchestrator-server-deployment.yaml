@@ -26,6 +26,14 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: merge-orchestrator-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        - mountPath: /?
+          name: app-emptydir
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "1Gi"
@@ -36,3 +44,7 @@ spec:
         - name: merge-orchestrator-server-configmap-volume
           configMap:
             name: merge-orchestrator-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
+        - name: app-emptydir
+          emptyDir: {}
