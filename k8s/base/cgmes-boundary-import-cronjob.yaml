@@ -18,7 +18,15 @@ spec:
               image: docker.io/gridsuite/cgmes-boundary-import-job:latest
               volumeMounts:
                 - name: config-cgmes-boundary-import-job-volume
-                  mountPath: /root/.itools
+                  mountPath: /?/.itools
+                - mountPath: /tmp
+                  name: tmp-emptydir
+                - mountPath: /?
+                  name: app-emptydir
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 1000
+                readOnlyRootFilesystem: true
               imagePullPolicy: IfNotPresent
               env:
                 - name: ACQUISITION_SERVER__USERNAME
@@ -37,5 +45,9 @@ spec:
             - name: config-cgmes-boundary-import-job-volume
               configMap:
                 name: cgmes-boundary-import-job-configmap
+            - name: tmp-emptydir
+              emptyDir: {}
+            - name: app-emptydir
+              emptyDir: {}
           restartPolicy: OnFailure
 
