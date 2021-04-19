@@ -2,6 +2,9 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: cgmes-boundary-import-cronjob
+  labels:
+    app: gridsuite
+    name: cgmes-boundary-import-cronjob
 spec:
   schedule: "*/30 * * * *"
   jobTemplate:

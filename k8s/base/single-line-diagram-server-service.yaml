@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    app: gridsuite
     name: single-line-diagram-server
   name: single-line-diagram-server
 spec:

@@ -5,6 +5,7 @@ metadata:
   labels:
     name: actions-server
     version: "1"
+    app: gridsuite
 spec:
   selector:
     matchLabels:
@@ -12,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: actions-server
     spec:
       containers:

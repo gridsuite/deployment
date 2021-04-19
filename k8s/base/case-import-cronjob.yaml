@@ -2,6 +2,9 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: case-import-cronjob
+  labels:
+    app: gridsuite
+    name: case-import-cronjob
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:

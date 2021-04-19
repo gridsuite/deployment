@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: security-analysis-server
   labels:
+    app: gridsuite
     name: security-analysis-server
     version: "1"
 spec:
@@ -12,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: security-analysis-server
     spec:
       containers:

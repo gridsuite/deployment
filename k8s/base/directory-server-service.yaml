@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    app: gridsuite
     name: directory-server
   name: directory-server
 spec:

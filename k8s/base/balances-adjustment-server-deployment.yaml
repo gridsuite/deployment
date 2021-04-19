@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: balances-adjustment-server
   labels:
+    app: gridsuite
     name: balances-adjustment-server
     version: "1"
 spec:
@@ -12,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: balances-adjustment-server
     spec:
       containers:

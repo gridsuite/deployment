@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: apps-metadata-server
   labels:
+    app: gridsuite
     name: apps-metadata-server
 spec:
   selector:
@@ -11,6 +12,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: apps-metadata-server
     spec:
       containers:

@@ -2,6 +2,9 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: cgmes-assembling-cronjob
+  labels:
+    app: gridsuite
+    name: cgmes-assembling-cronjob
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:

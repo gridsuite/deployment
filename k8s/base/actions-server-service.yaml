@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     name: actions-server
+    app: gridsuite
   name: actions-server
 spec:
   type: ClusterIP

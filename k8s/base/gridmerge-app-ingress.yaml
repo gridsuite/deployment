@@ -2,6 +2,9 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: gridmerge-app-ingress
+  labels:
+    app: gridsuite
+    name: gridmerge-app-ingress
   annotations:
     nginx.ingress.kubernetes.io/service-upstream: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"

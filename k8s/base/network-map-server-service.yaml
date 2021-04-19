@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    app: gridsuite
     name: network-map-server
   name: network-map-server
 spec:

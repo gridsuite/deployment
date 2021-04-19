@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: case-server
   labels:
+    app: gridsuite
     name: case-server
     version: "1"
 spec:
@@ -14,6 +15,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: case-server
     spec:
       containers:

@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: gridactions-app
   labels:
+    app: gridsuite
     name: gridactions-app
     version: "1"
 spec:
@@ -12,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: gridactions-app
     spec:
       containers:

@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: network-conversion-server
   labels:
+    app: gridsuite
     name: network-conversion-server
     version: "1"
 spec:
@@ -12,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: network-conversion-server
     spec:
       containers:

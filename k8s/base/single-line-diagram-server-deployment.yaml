@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: single-line-diagram-server
   labels:
+    app: gridsuite
     name: single-line-diagram-server
     version: "1"
 spec:
@@ -12,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: gridsuite
         name: single-line-diagram-server
     spec:
       containers:

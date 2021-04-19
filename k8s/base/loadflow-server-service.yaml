@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    app: gridsuite
     name: loadflow-server
   name: loadflow-server
 spec:
