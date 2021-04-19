@@ -44,7 +44,8 @@ spec:
           failureThreshold: 1
           successThreshold: 1
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
