@@ -1,0 +1,10 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "e": "AQAB",
+      "kid": "gridsuite-sa-provider",
+      "n": "zt0SBGTN4tvx4dl3NZWylgjYEaaGjElQeNPHGaPIj7MPZsJU4NwQT75ULQ7PQNtG-pjj_Jt7VhV9ZK3e0KWKSkE-3UU2zUM21o8yhVE4LeT36yI2oERKuUd4vrAl6lsiGw6V27E2XTea9bcC5K2S1tyAvHEiYurR9rsiwCIktDfZc0ZJUSHJ-mcHHv_keTg4E47zeiMdUVfDP_sZR_EUhso_Wtt8aqkColRzHTgiCLo9463QW5iVlO-F3wQriywTONVob6t0s_MsGZ05s5NHbLAJwVWbyT8pdgG34WxxTl4ID2rfzDDadP7V5LqpYTf8s1XMZgZlD2NO4gwM8PK8gQ"
+    }
+  ]
+}
