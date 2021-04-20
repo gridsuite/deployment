@@ -1,0 +1,24 @@
+- op: add
+  path: /spec/template/spec/volumes/0/configMap/items
+  value:
+#TODO can we avoid repeating all keys here just to put openid-configuration in the .well-known folder??
+    - key: apps-metadata.json
+      path: apps-metadata.json
+    - key: keys
+      path: keys
+    - key: openid-configuration
+      path: .well-known/openid-configuration
+- op: add
+  path: /spec/template/spec/volumes/1
+  value:
+      name: apps-metadata-server-configmap-httpdconf-volume
+      configMap:
+        name: apps-metadata-server-httpdconf-configmap
+
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/1
+  value:
+    name: apps-metadata-server-configmap-httpdconf-volume
+    mountPath: /usr/local/apache2/conf/httpd.conf
+    subPath: httpd.conf
+
