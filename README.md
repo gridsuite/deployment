@@ -136,8 +136,8 @@ $ cd deployment
 Set Cassandra and Postgresql hostname. If you are using minkube, you can use DNS "minikube.host.internal" to access your local database deployemnt
 ```bash
 $ cd ./k8s/overlay/local/
-$ sed -i -e "s/<CASSANDRA_HOST>/minikube.host.internal/g" *
-$ sed -i -e "s/<PG_HOST>/minikube.host.internal/g" *
+$ sed -i "s/<CASSANDRA_HOST>/minikube.host.internal/g" *
+$ sed -i "s/<PG_HOST>/minikube.host.internal/g" *
 ```
 
 If you want to use an IP directly, then
