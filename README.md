@@ -135,29 +135,37 @@ $ cd deployment
 
 Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
 ```properties
-cassandra.contact-points: "<YOUR_IP>"
-cassandra.port: 9042
+cassandra.contact-points=<CASSANDRA_IP>
+cassandra.port=9042
 ```
 
-```bash
-$ MINIKUBE_IP=`minikube ip`;
-$ echo $MINIKUBE_IP;
+Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
+```properties
+dbVendor=postgresql
+host=<PG_IP>
 ```
-Fill config files with the MINIKUBE_IP in ./k8s/overlays/local/ :
+
+Get you ingress ip, with minikube for example
+```bash
+$ INGRESS_HOST=`minikube ip`;
+$ echo $INGRESS_HOST;
+```
+
+Fill config files with the INGRESS_HOST in ./k8s/overlays/local/ :
 
 ```
 $ cd ./k8s/overlay/local/
-$ sed -i -e "s/<TO_COMPLETE>/${MINIKUBE_IP}/g" *
+$ sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g" *
 ```
 
 k8s/overlays/local/gridstudy-app-idpSettings.json :
 ```json
 {
-    "authority" : "http://<TO_COMPLETE>/oidc-mock-server/",
+    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
     "client_id" : "gridstudy-client",
-    "redirect_uri": "http://<TO_COMPLETE>/gridstudy/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO_COMPLETE>/gridstudy/logout-callback",
-    "silent_redirect_uri" : "http://<TO_COMPLETE>/gridstudy/silent-renew-callback",
+    "redirect_uri": "http://<INGRESS_HOST>/gridstudy/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridstudy/logout-callback",
+    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridstudy/silent-renew-callback",
     "scope" : "openid"
 }
 ```
@@ -165,11 +173,11 @@ k8s/overlays/local/gridstudy-app-idpSettings.json :
 k8s/overlays/local/gridmerge-app-idpSettings.json
 ```json
 {
-    "authority" : "http://<TO_COMPLETE>/oidc-mock-server/",
+    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
     "client_id" : "gridmerge-client",
-    "redirect_uri": "http://<TO_COMPLETE>/gridmerge/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO_COMPLETE>/gridmerge/logout-callback",
-    "silent_redirect_uri" : "http://<TO_COMPLETE>/gridmerge/silent-renew-callback",
+    "redirect_uri": "http://<INGRESS_HOST>/gridmerge/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridmerge/logout-callback",
+    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridmerge/silent-renew-callback",
     "scope" : "openid"
 }
 ```
@@ -177,11 +185,11 @@ k8s/overlays/local/gridmerge-app-idpSettings.json
 k8s/overlays/local/gridactions-app-idpSettings.json
 ```json
 {
-    "authority" : "http://<TO_COMPLETE>/oidc-mock-server/",
+    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
     "client_id" : "gridactions-client",
-    "redirect_uri": "http://<TO_COMPLETE>/gridactions/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO_COMPLETE>/gridactions/logout-callback",
-    "silent_redirect_uri" : "http://<TO_COMPLETE>/gridactions/silent-renew-callback",
+    "redirect_uri": "http://<INGRESS_HOST>/gridactions/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridactions/logout-callback",
+    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridactions/silent-renew-callback",
     "scope" : "openid"
 }
 ```
@@ -203,29 +211,29 @@ spec:
         - name: CLIENT_COUNT
           value: 3
         - name: CLIENT_REDIRECT_URI
-          value: "http://<TO_COMPLETE>/gridstudy/sign-in-callback"
+          value: "http://<INGRESS_HOST>/gridstudy/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://<TO_COMPLETE>/gridstudy/logout-callback"
+          value: "http://<INGRESS_HOST>/gridstudy/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI
-          value: "http://<TO_COMPLETE>/gridstudy/silent-renew-callback"
+          value: "http://<INGRESS_HOST>/gridstudy/silent-renew-callback"
         - name: CLIENT_ID_2
           value: "gridmerge-client"
         - name: CLIENT_REDIRECT_URI_2
-          value: "http://<TO_COMPLETE>/gridmerge/sign-in-callback"
+          value: "http://<INGRESS_HOST>/gridmerge/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI_2
-          value: "http://<TO_COMPLETE>/gridmerge/logout-callback"
+          value: "http://<INGRESS_HOST>/gridmerge/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI_2
-          value: "http://<TO_COMPLETE>/gridmerge/silent-renew-callback"
+          value: "http://<INGRESS_HOST>/gridmerge/silent-renew-callback"
         - name: CLIENT_ID_3
           value: "gridactions-client"
         - name: CLIENT_REDIRECT_URI_3
-          value: "http://<TO_COMPLETE>/gridactions/sign-in-callback"
+          value: "http://<INGRESS_HOST>/gridactions/sign-in-callback"
         - name: CLIENT_LOGOUT_REDIRECT_URI_3
-          value: "http://<TO_COMPLETE>/gridactions/logout-callback"
+          value: "http://<INGRESS_HOST>/gridactions/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI_3
-          value: "http://<TO_COMPLETE>/gridactions/silent-renew-callback"
+          value: "http://<INGRESS_HOST>/gridactions/silent-renew-callback"
         - name: ISSUER_HOST
-          value: "<TO_COMPLETE>"
+          value: "<INGRESS_HOST>"
         - name: ISSUER_PREFIX
           value: "/oidc-mock-server"
       restartPolicy: Always
@@ -233,7 +241,7 @@ spec:
 
 k8s/overlays/local/allowed-issuers.yml
 ```yaml
-allowed-issuers: http://<TO_COMPLETE>/oidc-mock-server
+allowed-issuers: http://<INGRESS_HOST>/oidc-mock-server
 ```
 
 

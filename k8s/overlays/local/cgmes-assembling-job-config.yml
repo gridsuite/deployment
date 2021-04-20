@@ -1,13 +1,13 @@
 acquisition-server:
-  url: <TO_COMPLETE>
-  username: <TO_COMPLETE>
-  password: <TO_COMPLETE>
+  url: <INGRESS_HOST>
+  username: <INGRESS_HOST>
+  password: <INGRESS_HOST>
   cases-directory: ./opde
   label: opde
   dependencies-strict-mode: false
 
 cassandra:
-  contact-points: <TO_COMPLETE>
+  contact-points: <INGRESS_HOST>
   port: 9042
 
 case-server:

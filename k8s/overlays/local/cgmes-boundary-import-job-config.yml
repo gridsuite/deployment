@@ -1,7 +1,7 @@
 acquisition-server:
-  url: <TO_COMPLETE>
-  username: <TO_COMPLETE>
-  password: <TO_COMPLETE>
+  url: <INGRESS_HOST>
+  username: <INGRESS_HOST>
+  password: <INGRESS_HOST>
   cgmes-boundary-directory: ./boundaries
 
 cgmes-boundary-server:

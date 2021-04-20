@@ -1,0 +1,7 @@
+kind: "Service"
+apiVersion: "v1"
+metadata:
+  name: "cassandra"
+spec:
+  externalName: "<CASSANDRA_HOST>"
+  type: ExternalName
