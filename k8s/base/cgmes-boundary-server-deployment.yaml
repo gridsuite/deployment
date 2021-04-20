@@ -25,9 +25,9 @@ spec:
           name: cgmes-boundary-server-configmap-volume
         resources:
           requests:
-            memory: "256Mi"
+            memory: "384Mi"
           limits:
-            memory: "256Mi"
+            memory: "384Mi"
       restartPolicy: Always
       volumes:
         - name: cgmes-boundary-server-configmap-volume
