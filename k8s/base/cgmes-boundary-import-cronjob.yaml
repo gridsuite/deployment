@@ -1,0 +1,41 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cgmes-boundary-import-cronjob
+spec:
+  schedule: "*/30 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cgmes-boundary-import-job
+              resources:
+                requests:
+                  memory: "512Mi"
+                limits:
+                  memory: "512Mi"
+              image: docker.io/gridsuite/cgmes-boundary-import-job:latest
+              volumeMounts:
+                - name: config-cgmes-boundary-import-job-volume
+                  mountPath: /root/.itools
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: ACQUISITION_SERVER__USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: secret-case-sftp-server-credentials
+                      key: username
+                      optional: true
+                - name: ACQUISITION_SERVER__PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secret-case-sftp-server-credentials
+                      key: password
+                      optional: true
+          volumes:
+            - name: config-cgmes-boundary-import-job-volume
+              configMap:
+                name: cgmes-boundary-import-job-configmap
+          restartPolicy: OnFailure
+
