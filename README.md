@@ -133,6 +133,15 @@ $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
 
+Set Cassandra and Postgresql hostname. If you are using minkube, you can use DNS "minikube.host.internal" to access your local database deployemnt
+```bash
+$ cd ./k8s/overlay/local/
+$ sed -i -e "s/<CASSANDRA_HOST>/minikube.host.internal/g" *
+$ sed -i -e "s/<PG_HOST>/minikube.host.internal/g" *
+```
+
+If you want to use an IP directly, then
+
 Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
 ```properties
 cassandra.contact-points=<CASSANDRA_IP>
@@ -152,8 +161,7 @@ $ echo $INGRESS_HOST;
 ```
 
 Fill config files with the INGRESS_HOST in ./k8s/overlays/local/ :
-
-```
+```bash
 $ cd ./k8s/overlay/local/
 $ sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g" *
 ```
