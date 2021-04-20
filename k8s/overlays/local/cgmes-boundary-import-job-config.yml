@@ -1,0 +1,8 @@
+acquisition-server:
+  url: <TO_COMPLETE>
+  username: <TO_COMPLETE>
+  password: <TO_COMPLETE>
+  cgmes-boundary-directory: ./boundaries
+
+cgmes-boundary-server:
+  url: http://cgmes-boundary-server/

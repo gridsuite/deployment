@@ -2,6 +2,7 @@ acquisition-server:
   url: sftp://opde
   cases-directory: ./opde
   label: opde
+  dependencies-strict-mode: false
 
 cassandra:
   contact-points: 10.0.0.5
