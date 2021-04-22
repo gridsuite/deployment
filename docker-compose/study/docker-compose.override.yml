@@ -37,6 +37,7 @@ services:
       - 5007:80
     volumes:
       - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
 
