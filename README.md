@@ -99,6 +99,7 @@ $ create database ds;
 $ create database directory;
 $ create database study;
 $ create database actions;
+$ create database networkmodifications;
 ```
 
 Then initialize the schemas for the databases: 
@@ -107,6 +108,7 @@ $ \c ds; # and copy https://github.com/gridsuite/dynamic-simulation-server/blob/
 $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/main/src/main/resources/schema.sql content to psql
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
+$ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
 ```
 
 ### Minikube and kubectl setup

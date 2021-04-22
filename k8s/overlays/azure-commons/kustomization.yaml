@@ -58,6 +58,10 @@ configMapGenerator:
   - name: cgmes-boundary-import-job-configmap
     files:
       - config.yml=cgmes-boundary-import-job-config.yml
+  - name: network-modification-server-configmap
+    behavior: merge
+    files:
+      - database.properties
 
 patchesStrategicMerge:
 - limit-max-public-cases.yaml
