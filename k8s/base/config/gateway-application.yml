@@ -17,6 +17,8 @@ backing-services:
     base-uri: http://merge-notification-server/
   actions-server:
     base-uri: http://actions-server/
+  filter-server:
+    base-uri: http://filter-server/
   config-server:
     base-uri: http://config-server/
   config-notification-server:
@@ -25,3 +27,4 @@ backing-services:
     base-uri: http://directory-server/
   cgmes-boundary-server:
     base-uri: http://cgmes-boundary-server/
+

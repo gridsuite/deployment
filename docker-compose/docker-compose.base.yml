@@ -74,6 +74,16 @@ services:
     depends_on:
       - logspout
 
+  filter-server:
+    image: gridsuite/filter-server:latest
+    ports:
+      - 5027:80
+    volumes:
+      - $PWD/../../k8s/base/config/filter-server-application.yml:/config/application.yml:Z
+      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    depends_on:
+      - logspout
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:

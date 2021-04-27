@@ -40,6 +40,7 @@ CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'Sim
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE IF NOT EXISTS filters WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -51,6 +52,7 @@ https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resource
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
 https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
 https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
+https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filters.cql
 ```
 
 ### PostgresSql installation
@@ -335,6 +337,7 @@ http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
 http://localhost:5026/swagger-ui.html  // directory-server
+http://localhost:5027/swagger-ui.html  // filter-server
 ```
 RabbitMQ management UI:
 ```html

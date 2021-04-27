@@ -7,6 +7,9 @@ network-store-server:
 actions-server:
   base-uri: http://actions-server/
 
+filter-server:
+  base-uri: http://filter-server/
+
 securityAnalysisFactoryClass: com.rte_france.powsybl.hades2.Hades2SecurityAnalysisFactory
 
 spring:
