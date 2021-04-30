@@ -1,2 +1,4 @@
 server:
   port: 80
+
+cassandra-keyspace: iidm
