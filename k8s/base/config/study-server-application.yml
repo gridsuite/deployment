@@ -22,8 +22,6 @@ backing-services:
     base-uri: http://loadflow-server/
   actions-server:
     base-uri: http://actions-server/
-  filter-server:
-    base-uri: http://filter-server/
   security-analysis-server:
     base-uri: http://security-analysis-server/
   dynamic-simulation-server:
