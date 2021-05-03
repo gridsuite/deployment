@@ -40,7 +40,6 @@ CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'Sim
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
-CREATE KEYSPACE IF NOT EXISTS filters WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
 Then copy paste following files content to cqlsh shell:
@@ -52,7 +51,6 @@ https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resource
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
 https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
 https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
-https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filters.cql
 ```
 
 ### PostgresSql installation
@@ -102,6 +100,7 @@ $ create database directory;
 $ create database study;
 $ create database actions;
 $ create database networkmodifications;
+$ create database filters;
 ```
 
 Then initialize the schemas for the databases: 
@@ -111,6 +110,7 @@ $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/ma
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
 $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
+# \c filters # and copy https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filters.sql
 ```
 
 ### Minikube and kubectl setup

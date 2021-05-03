@@ -118,7 +118,7 @@ configMapGenerator:
   - name: filter-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: security-analysis-server-configmap
     behavior: merge
