@@ -11,6 +11,8 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   merge-notification-server:
     image: gridsuite/merge-notification-server:latest
@@ -20,6 +22,8 @@ services:
       - $PWD/../../k8s/base/config/merge-notification-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   balances-adjustment-server:
     image: gridsuite/balances-adjustment-server:latest
@@ -29,6 +33,8 @@ services:
       - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   case-validation-server:
     image: gridsuite/case-validation-server:latest
@@ -38,6 +44,8 @@ services:
       - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   cgmes-boundary-server:
     image: gridsuite/cgmes-boundary-server:latest
@@ -48,6 +56,8 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   case-import-job:
     build: case-import-job
