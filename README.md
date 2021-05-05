@@ -35,7 +35,6 @@ To create keyspaces in a single node cluster:
 ```cql
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
-CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
@@ -76,7 +75,6 @@ $ bin/cqlsh
 ```
 Copy paste following files content to cqlsh shell:
 ```html
-https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
 https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
 https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
@@ -130,6 +128,7 @@ $ create database directory;
 $ create database study;
 $ create database actions;
 $ create database networkmodifications;
+$ create database merge_orchestrator;
 ```
 
 Then initialize the schemas for the databases: 
@@ -139,6 +138,7 @@ $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/ma
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
 $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
+$ \c merge_orchestrator; # and copy https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.sql content to psql
 ```
 
 ### Minikube and kubectl setup
