@@ -33,8 +33,8 @@ $ bin/cqlsh
 To create keyspaces in a single node cluster:
 
 ```cql
-CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
@@ -42,10 +42,40 @@ CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy',
 CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
-Then copy paste following files content to cqlsh shell:
+Then (for network store cassandra database) :
+```bash
+$ bin/cqlsh -f <KEYSPACE_NAME_NETWORK_STORE>
+```
+Copy paste following files content to cqlsh shell:
 ```html
 https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
+```
+Change Cassandra keyspace name in k8s/base/config/network-store-server-application.yml
+```properties
+cassandra-keyspace: <KEYSPACE_NAME_NETWORK_STORE>
+```
+
+
+Then (for geo-data cassandra database) :
+```bash
+$ bin/cqlsh -f <KEYSPACE_NAME_GEO_DATA>
+```
+Copy paste following files content to cqlsh shell:
+```html
 https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
+```
+Change Cassandra keyspace name in k8s/base/config/geo-data-server-application.yml
+```properties
+cassandra-keyspace: <KEYSPACE_NAME_GEO_DATA>
+```
+
+
+Then (for other cassandra databases) :
+```bash
+$ bin/cqlsh
+```
+Copy paste following files content to cqlsh shell:
+```html
 https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
 https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
 https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
@@ -99,6 +129,7 @@ $ create database ds;
 $ create database directory;
 $ create database study;
 $ create database actions;
+$ create database networkmodifications;
 ```
 
 Then initialize the schemas for the databases: 
@@ -107,6 +138,7 @@ $ \c ds; # and copy https://github.com/gridsuite/dynamic-simulation-server/blob/
 $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/main/src/main/resources/schema.sql content to psql
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
+$ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
 ```
 
 ### Minikube and kubectl setup

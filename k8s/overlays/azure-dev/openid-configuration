@@ -1,0 +1,4 @@
+{
+  "jwks_uri": "https://demo.gridsuite.org/apps-metadata/keys",
+  "issuer": "https://demo.gridsuite.org/apps-metadata"
+}
