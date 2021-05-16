@@ -7,3 +7,5 @@ network-store-server:
 
 network-geo-data:
   iterations: 5
+
+cassandra-keyspace: geo_data
