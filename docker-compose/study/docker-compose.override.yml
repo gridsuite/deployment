@@ -11,6 +11,8 @@ services:
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   geo-data-server:
     image: gridsuite/geo-data-server:latest
@@ -21,6 +23,8 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   single-line-diagram-server:
     image: powsybl/single-line-diagram-server:latest
@@ -30,6 +34,8 @@ services:
       - $PWD/../../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   network-modification-server:
     image: gridsuite/network-modification-server:latest
@@ -40,6 +46,8 @@ services:
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   notification-server:
     image: gridsuite/notification-server:latest
@@ -49,6 +57,8 @@ services:
       - $PWD/../../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   network-map-server:
     image: gridsuite/network-map-server:latest
@@ -58,6 +68,8 @@ services:
       - $PWD/../../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   cgmes-gl-server:
     image: powsybl/cgmes-gl-server:latest
@@ -67,6 +79,8 @@ services:
       - $PWD/../../k8s/base/config/cgmes-gl-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   odre-server:
     image: gridsuite/odre-server:latest
@@ -76,6 +90,8 @@ services:
       - $PWD/../../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   gridstudy-app:
     image: gridsuite/gridstudy-app:latest
@@ -97,6 +113,8 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   dynamic-simulation-server:
     image: gridsuite/dynamic-simulation-server:latest
@@ -107,6 +125,8 @@ services:
       - $PWD/../database.properties:/config/database.properties:Z
       - $PWD/../../k8s/base/config/dynawo-itools-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   directory-server:
     image: gridsuite/directory-server:latest
@@ -117,3 +137,5 @@ services:
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m

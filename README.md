@@ -21,6 +21,8 @@ rpc_address: "0.0.0.0"
 broadcast_rpc_address: "<YOUR_IP>"
 ```
 
+During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options. Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
+
 To start the cassandra server: `cd /path/to/cassandra/folder`
 then `bin/cassandra -f`
 

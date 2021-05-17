@@ -63,6 +63,8 @@ services:
       - $HOME/cases:/cases:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   actions-server:
     image: gridsuite/actions-server:latest
@@ -73,6 +75,8 @@ services:
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   network-store-server:
     image: powsybl/network-store-server:latest
@@ -83,6 +87,8 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
@@ -92,6 +98,8 @@ services:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   loadflow-server:
     image: gridsuite/loadflow-server:latest
@@ -101,6 +109,8 @@ services:
       - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   config-server:
     image: gridsuite/config-server:latest
@@ -109,6 +119,8 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/config-server-application.yml:/config/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
       
   config-notification-server:
     image: gridsuite/config-notification-server:latest
@@ -116,6 +128,8 @@ services:
       - 5024:80
     volumes:
       - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/application.yml:Z
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   gateway:
     image: gridsuite/gateway:latest
@@ -126,6 +140,8 @@ services:
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   mock_user_service:
     image: gridsuite/oidc-mock-server
