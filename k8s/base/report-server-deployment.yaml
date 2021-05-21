@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: report-server
+  labels:
+    name: report-server
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: report-server
+  template:
+    metadata:
+      labels:
+        name: report-server
+    spec:
+      containers:
+        - name: report-server
+          image: docker.io/gridsuite/report-server:latest
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: JAVA_TOOL_OPTIONS
+            value: "-XX:MaxRAMPercentage=75"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config
+              name: report-server-configmap-volume
+          resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "1Gi"
+      restartPolicy: Always
+      volumes:
+        - name: report-server-configmap-volume
+          configMap:
+            name: report-server-configmap

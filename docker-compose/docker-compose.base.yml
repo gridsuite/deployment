@@ -78,6 +78,16 @@ services:
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
 
+  report-server:
+    image: gridsuite/report-server:latest
+    ports:
+      - 5028:80
+    volumes:
+      - $PWD/../../k8s/base/config/report-server-application.yml:/config/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
+    depends_on:
+      - logspout
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:
