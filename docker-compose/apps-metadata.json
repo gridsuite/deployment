@@ -13,4 +13,9 @@
   "name" : "Actions",
   "url"  : "http://localhost:82",
   "appColor" : "#DA0063"
+},
+{
+  "name" : "Explore",
+  "url"  : "http://localhost:83",
+  "appColor" : "#33AFED"
 }]

@@ -127,15 +127,3 @@ services:
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
-
-  directory-server:
-    image: gridsuite/directory-server:latest
-    ports:
-      - 5026:80
-    volumes:
-      - $PWD/../../k8s/base/config/directory-server-application.yml:/config/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
