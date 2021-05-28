@@ -78,6 +78,17 @@ services:
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
 
+  dynamic-mapping-server:
+    image: gridsuite/dynamic-mapping-server:latest
+    ports:
+      - 5036:80
+    volumes:
+      - $PWD/../database.properties:/config/database.properties:Z
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:

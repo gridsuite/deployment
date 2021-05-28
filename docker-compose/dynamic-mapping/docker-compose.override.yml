@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  gridactions-app:
+    image: gridsuite/griddyna-app:latest
+    ports:
+      - 83:80
+    volumes:
+      - $PWD/../griddyna-app-idpSettings.json:/usr/local/apache2/htdocs/griddyna/idpSettings.json:Z
+      - $PWD/../env.json:/usr/local/apache2/htdocs/griddyna/env.json:Z
+    depends_on:
+      - logspout
