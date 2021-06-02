@@ -142,7 +142,7 @@ $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/ma
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
 $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
-$ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-server/blob/init/src/main/resources/mappings.sqlcontent to psql
+$ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-server/blob/init/src/main/resources/mappings.sql and https://github.com/gridsuite/dynamic-mapping-server/blob/init/src/main/resources/IEEE14Models.sql content to psql
 ```
 
 ### Minikube and kubectl setup
