@@ -87,7 +87,7 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   network-store-server:
     image: powsybl/network-store-server:latest
