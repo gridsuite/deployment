@@ -132,6 +132,7 @@ $ create database actions;
 $ create database networkmodifications;
 $ create database reports;
 $ create database merge_orchestrator;
+$ create database reports;
 ```
 
 Then initialize the schemas for the databases: 
@@ -142,6 +143,7 @@ $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
 $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
 $ \c merge_orchestrator; # and copy https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.sql content to psql
+$ \c reports; # and copy https://github.com/gridsuite/report-server/blob/master/src/main/resources/reports.sql content to psql
 ```
 
 ### Minikube and kubectl setup
@@ -308,6 +310,7 @@ http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
 http://<MINIKUBE_IP>/actions-server/swagger-ui.html
 http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
 http://<MINIKUBE_IP>/config-server/swagger-ui.html
+http://<MINIKUBE_IP>/report-server/swagger-ui.html
 http://<MINIKUBE_IP>/directory-server/swagger-ui.html
 ```
 
@@ -368,7 +371,7 @@ http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
 http://localhost:5026/swagger-ui.html  // directory-server
-http://localhost:5027/swagger-ui.html  // report-server
+http://localhost:5028/swagger-ui.html  // report-server
 ```
 RabbitMQ management UI:
 ```html
