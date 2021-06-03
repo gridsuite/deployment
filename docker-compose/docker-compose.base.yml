@@ -87,6 +87,8 @@ services:
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   network-store-server:
     image: powsybl/network-store-server:latest
