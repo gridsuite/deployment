@@ -4,7 +4,7 @@ services:
   gridexplore-app:
     image: gridsuite/gridexplore-app:latest
     ports:
-      - 83:80
+      - 84:80
     volumes:
       - $PWD/../gridexplore-app-idpSettings.json:/usr/local/apache2/htdocs/gridexplore/idpSettings.json:Z
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridexplore/env.json:Z
