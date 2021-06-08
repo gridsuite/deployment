@@ -117,6 +117,9 @@ configMapGenerator:
   - name: loadflow-server-configmap
     files:
       - application.yml=config/loadflow-server-application.yml
+  - name: loadflow-server-itools-configmap
+    files:
+      - config.yml=config/loadflow-server-config.yml
   - name: balances-adjustment-server-configmap
     files:
       - application.yml=config/balances-adjustment-server-application.yml
