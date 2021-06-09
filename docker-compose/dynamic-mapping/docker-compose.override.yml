@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  gridactions-app:
+  griddyna-app:
     image: gridsuite/griddyna-app:latest
     ports:
       - 83:80
