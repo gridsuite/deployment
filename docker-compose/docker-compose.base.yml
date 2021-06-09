@@ -78,6 +78,17 @@ services:
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
 
+  dynamic-mapping-server:
+    image: gridsuite/dynamic-mapping-server:latest
+    ports:
+      - 5036:80
+    volumes:
+      - $PWD/../database.properties:/config/database.properties:Z
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:
@@ -150,7 +161,7 @@ services:
       - 9090:9090
     environment:
       - PORT=9090
-      - CLIENT_COUNT=5
+      - CLIENT_COUNT=6
       - CLIENT_ID=gridstudy-client
       - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
@@ -167,10 +178,14 @@ services:
       - CLIENT_REDIRECT_URI_4=http://localhost:82/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
-      - CLIENT_ID_5=gridexplore-client
-      - CLIENT_REDIRECT_URI_5=http://localhost:84/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:84/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:84/silent-renew-callback
+      - CLIENT_ID_5=griddyna-client
+      - CLIENT_REDIRECT_URI_5=http://localhost:83/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:83/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:83/silent-renew-callback
+      - CLIENT_ID_6=gridexplore-client
+      - CLIENT_REDIRECT_URI_6=http://localhost:84/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:84/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:84/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
     depends_on:
       - logspout
