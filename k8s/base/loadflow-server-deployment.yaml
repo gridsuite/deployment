@@ -26,6 +26,8 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: loadflow-server-configmap-volume
+        - mountPath: /root/.itools
+          name: loadflow-server-itools-configmap-volume
         resources:
           requests:
             memory: "1Gi"
@@ -36,3 +38,6 @@ spec:
         - name: loadflow-server-configmap-volume
           configMap:
             name: loadflow-server-configmap
+        - name: loadflow-server-itools-configmap-volume
+          configMap:
+            name: loadflow-server-itools-configmap
