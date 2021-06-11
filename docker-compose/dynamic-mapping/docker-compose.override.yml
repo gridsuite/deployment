@@ -10,3 +10,15 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/griddyna/env.json:Z
     depends_on:
       - logspout
+
+  dynamic-mapping-server:
+    image: gridsuite/dynamic-mapping-server:latest
+    ports:
+      - 5036:80
+    volumes:
+      - $PWD/../../k8s/base/config/dynamic-mapping-server-application.yml:/config/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
