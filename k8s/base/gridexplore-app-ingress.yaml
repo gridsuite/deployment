@@ -15,7 +15,7 @@ metadata:
       rewrite ^/gridexplore$ /gridexplore/ permanent;
       proxy_set_header X-Forwarded-Prefix         /gridexplore/;
     nginx.ingress.kubernetes.io/server-snippet: |
-      explore_slashes off;
+      merge_slashes off;
 spec:
   rules:
   - http:
