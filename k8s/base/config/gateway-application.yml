@@ -27,4 +27,5 @@ backing-services:
     base-uri: http://directory-server/
   cgmes-boundary-server:
     base-uri: http://cgmes-boundary-server/
-
+  dynamic-mapping-server:
+    base-uri: http://dynamic-mapping-server/

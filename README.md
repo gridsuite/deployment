@@ -21,6 +21,8 @@ rpc_address: "0.0.0.0"
 broadcast_rpc_address: "<YOUR_IP>"
 ```
 
+During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options. Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
+
 To start the cassandra server: `cd /path/to/cassandra/folder`
 then `bin/cassandra -f`
 
@@ -130,6 +132,7 @@ $ create database directory;
 $ create database study;
 $ create database actions;
 $ create database networkmodifications;
+$ create database dynamicmappings
 $ create database filters;
 ```
 
@@ -140,6 +143,7 @@ $ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/ma
 $ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
 $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
 $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
+$ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/mappings.sql and https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/IEEE14Models.sql content to psql
 # \c filters # and copy https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filters.sql content to psql
 ```
 
@@ -330,6 +334,11 @@ $ docker-compose up
 $ cd docker-compose/actions
 $ docker-compose up
 ```
+
+```bash 
+$ cd docker-compose/dynamic-mapping
+$ docker-compose up
+```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
 `172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
@@ -341,6 +350,7 @@ Applications:
 http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
 http://localhost:82 // gridactions
+http://localhost:83 // griddyna
 ```
 
 Gateway 
@@ -367,6 +377,7 @@ http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
 http://localhost:5026/swagger-ui.html  // directory-server
+http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
 http://localhost:5027/swagger-ui.html  // filter-server
 ```
 RabbitMQ management UI:
