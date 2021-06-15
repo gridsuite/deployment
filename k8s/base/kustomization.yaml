@@ -56,6 +56,8 @@ resources:
   - cgmes-assembling-cronjob.yaml
   - actions-server-deployment.yaml
   - actions-server-service.yaml
+  - filter-server-deployment.yaml
+  - filter-server-service.yaml
   - gridactions-app-deployment.yaml
   - gridactions-app-ingress.yaml
   - gridactions-app-service.yaml
@@ -135,6 +137,9 @@ configMapGenerator:
   - name: actions-server-configmap
     files:
       - application.yml=config/actions-server-application.yml
+  - name: filter-server-configmap
+    files:
+      - application.yml=config/filter-server-application.yml
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
