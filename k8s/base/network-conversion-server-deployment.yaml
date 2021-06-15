@@ -26,6 +26,8 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-conversion-server-configmap-volume
+        - mountPath: /root/.itools
+          name: network-conversion-server-itools-configmap-volume
         resources:
           requests:
             memory: "1Gi"
@@ -36,3 +38,6 @@ spec:
         - name: network-conversion-server-configmap-volume
           configMap:
             name: network-conversion-server-configmap
+        - name: network-conversion-server-itools-configmap-volume
+          configMap:
+            name: network-conversion-server-itools-configmap
