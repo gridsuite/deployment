@@ -106,6 +106,7 @@ services:
       - 5003:80
     volumes:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-conversion-server-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
