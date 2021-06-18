@@ -33,6 +33,7 @@ spec:
             memory: "1Gi"
           limits:
             memory: "1Gi"
+        args: --spring.config.additional-location=/config/
       restartPolicy: Always
       volumes:
         - name: loadflow-server-configmap-volume

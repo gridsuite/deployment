@@ -81,7 +81,6 @@ services:
       - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
-    command: --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -92,7 +91,6 @@ services:
       - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
-    command: --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -105,7 +103,6 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
-    command: --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -114,6 +111,5 @@ services:
     volumes:
       - $PWD/../cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
       - $PWD/../cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
-    command: --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0

@@ -10,6 +10,5 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridactions/env.json:Z
     depends_on:
       - logspout
-    command: --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
