@@ -13,6 +13,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   merge-notification-server:
     image: gridsuite/merge-notification-server:latest
@@ -24,6 +27,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   balances-adjustment-server:
     image: gridsuite/balances-adjustment-server:latest
@@ -35,6 +41,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-validation-server:
     image: gridsuite/case-validation-server:latest
@@ -46,6 +55,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-boundary-server:
     image: gridsuite/cgmes-boundary-server:latest
@@ -58,6 +70,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-import-job:
     build: case-import-job
@@ -66,6 +81,9 @@ services:
       - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-assembling-job:
     build: merging/cgmes-assembling-job
@@ -74,6 +92,9 @@ services:
       - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridmerge-app:
     image: gridsuite/gridmerge-app:latest
@@ -84,10 +105,15 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-boundary-import-job:
     build: cgmes-boundary-import-job
     volumes:
       - $PWD/../cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
       - $PWD/../cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
-
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0

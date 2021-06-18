@@ -10,9 +10,6 @@ spring:
   rabbitmq:
     addresses: rabbitmq
     port: 5672
-  cloud:
-    function:
-      definition: publishCaseImport
     stream:
       bindings:
         publishCaseImport-out-0:

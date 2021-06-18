@@ -13,6 +13,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   geo-data-server:
     image: gridsuite/geo-data-server:latest
@@ -25,6 +28,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   single-line-diagram-server:
     image: powsybl/single-line-diagram-server:latest
@@ -36,6 +42,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-modification-server:
     image: gridsuite/network-modification-server:latest
@@ -48,6 +57,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   notification-server:
     image: gridsuite/notification-server:latest
@@ -59,6 +71,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-map-server:
     image: gridsuite/network-map-server:latest
@@ -70,6 +85,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-gl-server:
     image: powsybl/cgmes-gl-server:latest
@@ -81,6 +99,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   odre-server:
     image: gridsuite/odre-server:latest
@@ -92,6 +113,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridstudy-app:
     image: gridsuite/gridstudy-app:latest
@@ -102,6 +126,9 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/gridstudy/env.json:Z
     depends_on:
       - logspout
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   security-analysis-server:
     image: gridsuite/security-analysis-server:latest
@@ -115,6 +142,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-simulation-server:
     image: gridsuite/dynamic-simulation-server:latest
@@ -127,6 +157,9 @@ services:
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-server:
     image: gridsuite/directory-server:latest
@@ -139,3 +172,6 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
