@@ -31,7 +31,7 @@ spec:
             memory: "1Gi"
           limits:
             memory: "1Gi"
-        args: --spring.config.additional-location=/config/
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: geo-data-server-configmap-volume

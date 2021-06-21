@@ -33,7 +33,7 @@ spec:
               memory: "1.5Gi"
             limits:
               memory: "1.5Gi"
-          args: --spring.config.additional-location=/config/
+          args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: security-analysis-server-configmap-volume

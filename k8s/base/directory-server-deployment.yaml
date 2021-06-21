@@ -23,7 +23,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: directory-server-configmap-volume
-        args: --spring.config.additional-location=/config/
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: directory-server-configmap-volume
