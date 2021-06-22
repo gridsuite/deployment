@@ -87,7 +87,7 @@ configMapGenerator:
   - name: merge-orchestrator-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: kibana-configmap
     files:
