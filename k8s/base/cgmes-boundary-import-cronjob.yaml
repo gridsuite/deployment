@@ -18,7 +18,7 @@ spec:
               image: docker.io/gridsuite/cgmes-boundary-import-job:latest
               volumeMounts:
                 - name: config-cgmes-boundary-import-job-volume
-                  mountPath: /root/.itools
+                  mountPath: /home/powsybl/.itools
               imagePullPolicy: IfNotPresent
               env:
                 - name: ACQUISITION_SERVER__USERNAME
