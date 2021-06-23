@@ -14,6 +14,7 @@ spring:
       bindings:
         publishCaseImport-out-0:
           destination: case.import
+      source: publishCaseImport
 
   data:
     elasticsearch:
