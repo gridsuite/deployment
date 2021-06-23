@@ -9,6 +9,6 @@ spec:
   ports:
     - name: apps-metadata-server
       port: 80
-      targetPort: 8080
+      targetPort: 80
   selector:
     name: apps-metadata-server
