@@ -10,6 +10,8 @@ services:
       - $PWD/../env.json:/usr/local/apache2/htdocs/griddyna/env.json:Z
     depends_on:
       - logspout
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-mapping-server:
     image: gridsuite/dynamic-mapping-server:latest
@@ -22,3 +24,6 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0

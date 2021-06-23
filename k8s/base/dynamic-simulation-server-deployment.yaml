@@ -32,6 +32,7 @@ spec:
               memory: "512Mi"
             limits:
               memory: "512Mi"
+          args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: dynamic-simulation-server-configmap-volume
