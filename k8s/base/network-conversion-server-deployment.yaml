@@ -26,7 +26,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-conversion-server-configmap-volume
-        - mountPath: /root/.itools
+        - mountPath: /home/powsybl/.itools
           name: network-conversion-server-itools-configmap-volume
         resources:
           requests:

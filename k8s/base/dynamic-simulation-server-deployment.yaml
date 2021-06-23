@@ -25,7 +25,7 @@ spec:
               name: dynamic-simulation-server-configmap-volume
             - mountPath: /dynawo-config
               name: dynawo-config-configmap-volume
-            - mountPath: /root/.itools
+            - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
           resources:
             requests:

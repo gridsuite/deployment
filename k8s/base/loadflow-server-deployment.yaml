@@ -26,7 +26,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: loadflow-server-configmap-volume
-        - mountPath: /root/.itools
+        - mountPath: /home/powsybl/.itools
           name: loadflow-server-itools-configmap-volume
         resources:
           requests:
