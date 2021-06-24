@@ -26,10 +26,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: loadflow-server-configmap-volume
+        - mountPath: /home/powsybl/.itools
+          name: loadflow-server-itools-configmap-volume
         - mountPath: /tmp
           name: tmp-emptydir
-        - mountPath: /?
-          name: app-emptydir
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -44,7 +44,8 @@ spec:
         - name: loadflow-server-configmap-volume
           configMap:
             name: loadflow-server-configmap
+        - name: loadflow-server-itools-configmap-volume
+          configMap:
+            name: loadflow-server-itools-configmap
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}

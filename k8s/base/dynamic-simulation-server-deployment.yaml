@@ -29,8 +29,6 @@ spec:
               name: dynawo-itools-configmap-volume
             - mountPath: /tmp
               name: tmp-emptydir
-            - mountPath: /?
-              name: app-emptydir
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -52,6 +50,4 @@ spec:
           configMap:
             name: dynawo-itools-configmap
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}

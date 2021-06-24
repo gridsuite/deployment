@@ -18,6 +18,7 @@ spec:
       - name: directory-server
         image: docker.io/gridsuite/directory-server:latest
         imagePullPolicy: IfNotPresent
+        args: ["--spring.config.additional-location=/config/"]
         ports:
         - containerPort: 80
         volumeMounts:
@@ -25,8 +26,6 @@ spec:
           name: directory-server-configmap-volume
         - mountPath: /tmp
           name: tmp-emptydir
-        - mountPath: /?
-          name: app-emptydir
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -37,6 +36,4 @@ spec:
           configMap:
             name: directory-server-configmap
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}

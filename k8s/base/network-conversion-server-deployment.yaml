@@ -26,10 +26,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-conversion-server-configmap-volume
+        - mountPath: /home/powsybl/.itools
+          name: network-conversion-server-itools-configmap-volume
         - mountPath: /tmp
           name: tmp-emptydir
-        - mountPath: /?
-          name: app-emptydir
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -44,7 +44,8 @@ spec:
         - name: network-conversion-server-configmap-volume
           configMap:
             name: network-conversion-server-configmap
+        - name: network-conversion-server-itools-configmap-volume
+          configMap:
+            name: network-conversion-server-itools-configmap
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}

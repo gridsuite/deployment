@@ -30,8 +30,6 @@ spec:
               name: security-analysis-server-itools-configmap-volume
             - mountPath: /tmp
               name: tmp-emptydir
-            - mountPath: /home/gridsuite
-              name: app-emptydir
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -50,6 +48,4 @@ spec:
           configMap:
             name: security-analysis-server-itools-configmap
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}

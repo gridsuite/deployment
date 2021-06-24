@@ -32,8 +32,6 @@ spec:
           name: case-server-storage
         - mountPath: /tmp
           name: tmp-emptydir
-        - mountPath: /home/gridsuite
-          name: app-emptydir
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -52,6 +50,4 @@ spec:
           persistentVolumeClaim:
             claimName: case-server-claim
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}

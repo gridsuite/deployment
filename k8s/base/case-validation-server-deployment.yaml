@@ -25,8 +25,6 @@ spec:
           name: case-validation-server-configmap-volume
         - mountPath: /tmp
           name: tmp-emptydir
-        - mountPath: /?
-          name: app-emptydir
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -42,6 +40,4 @@ spec:
           configMap:
             name: case-validation-server-configmap
         - name: tmp-emptydir
-          emptyDir: {}
-        - name: app-emptydir
           emptyDir: {}
