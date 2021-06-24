@@ -35,7 +35,10 @@ spec:
             memory: "1Gi"
           limits:
             memory: "1Gi"
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
       volumes:
         - name: case-server-configmap-volume
           configMap:

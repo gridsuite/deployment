@@ -25,13 +25,14 @@ spec:
               name: dynamic-simulation-server-configmap-volume
             - mountPath: /dynawo-config
               name: dynawo-config-configmap-volume
-            - mountPath: /root/.itools
+            - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
           resources:
             requests:
               memory: "512Mi"
             limits:
               memory: "512Mi"
+          args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: dynamic-simulation-server-configmap-volume

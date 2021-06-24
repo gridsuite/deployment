@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: actions-server
+  name: filter-server
   labels:
-    name: actions-server
+    name: filter-server
     version: "1"
 spec:
   selector:
     matchLabels:
-      name: actions-server
+      name: filter-server
   template:
     metadata:
       labels:
-        name: actions-server
+        name: filter-server
     spec:
       containers:
-        - name: actions-server
-          image: docker.io/gridsuite/actions-server:latest
+        - name: filter-server
+          image: docker.io/gridsuite/filter-server:latest
           imagePullPolicy: IfNotPresent
           env:
           - name: JAVA_TOOL_OPTIONS
@@ -25,7 +25,7 @@ spec:
             - containerPort: 80
           volumeMounts:
             - mountPath: /config
-              name: actions-server-configmap-volume
+              name: filter-server-configmap-volume
           resources:
             requests:
               memory: "1Gi"
@@ -34,6 +34,6 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: actions-server-configmap-volume
+        - name: filter-server-configmap-volume
           configMap:
-            name: actions-server-configmap
+            name: filter-server-configmap

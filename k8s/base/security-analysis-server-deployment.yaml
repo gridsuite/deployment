@@ -26,13 +26,14 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: security-analysis-server-configmap-volume
-            - mountPath: /root/.itools
+            - mountPath: /home/powsybl/.itools
               name: security-analysis-server-itools-configmap-volume
           resources:
             requests:
               memory: "1.5Gi"
             limits:
               memory: "1.5Gi"
+          args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: security-analysis-server-configmap-volume

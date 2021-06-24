@@ -26,13 +26,14 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: loadflow-server-configmap-volume
-        - mountPath: /root/.itools
+        - mountPath: /home/powsybl/.itools
           name: loadflow-server-itools-configmap-volume
         resources:
           requests:
             memory: "1Gi"
           limits:
             memory: "1Gi"
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: loadflow-server-configmap-volume

@@ -55,7 +55,6 @@ services:
 
   case-server:
     image: powsybl/case-server:latest
-
     ports:
       - 5000:80
     volumes:
@@ -65,6 +64,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   actions-server:
     image: gridsuite/actions-server:latest
@@ -77,17 +79,22 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
-  dynamic-mapping-server:
-    image: gridsuite/dynamic-mapping-server:latest
+  filter-server:
+    image: gridsuite/filter-server:latest
     ports:
-      - 5036:80
+      - 5027:80
     volumes:
+      - $PWD/../../k8s/base/config/filter-server-application.yml:/config/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-store-server:
     image: powsybl/network-store-server:latest
@@ -100,6 +107,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
@@ -107,10 +117,14 @@ services:
       - 5003:80
     volumes:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   loadflow-server:
     image: gridsuite/loadflow-server:latest
@@ -118,11 +132,14 @@ services:
       - 5008:80
     volumes:
       - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
-      - $PWD/../../k8s/base/config/loadflow-server-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../../k8s/base/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-server:
     image: gridsuite/config-server:latest
@@ -133,7 +150,10 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
-      
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+
   config-notification-server:
     image: gridsuite/config-notification-server:latest
     ports:
@@ -142,6 +162,9 @@ services:
       - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/application.yml:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gateway:
     image: gridsuite/gateway:latest
@@ -154,6 +177,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   mock_user_service:
     image: gridsuite/oidc-mock-server

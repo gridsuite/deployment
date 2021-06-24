@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
       - name: case-server
-        args: ["--max-public-cases=10000"]
+        args: ["--spring.config.additional-location=/config/", "--max-public-cases=10000"]

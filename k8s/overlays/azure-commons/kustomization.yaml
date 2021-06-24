@@ -27,7 +27,7 @@ configMapGenerator:
   - name: merge-orchestrator-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
   - name: cgmes-boundary-server-configmap
     behavior: merge
     files:
@@ -36,6 +36,10 @@ configMapGenerator:
     files:
       - config.yml=cgmes-assembling-job-config.yml
   - name: actions-server-configmap
+    behavior: merge
+    files:
+      - database.properties
+  - name: filter-server-configmap
     behavior: merge
     files:
       - database.properties

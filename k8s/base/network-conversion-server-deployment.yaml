@@ -26,13 +26,19 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: network-conversion-server-configmap-volume
+        - mountPath: /home/powsybl/.itools
+          name: network-conversion-server-itools-configmap-volume
         resources:
           requests:
             memory: "1Gi"
           limits:
             memory: "1Gi"
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: network-conversion-server-configmap-volume
           configMap:
             name: network-conversion-server-configmap
+        - name: network-conversion-server-itools-configmap-volume
+          configMap:
+            name: network-conversion-server-itools-configmap

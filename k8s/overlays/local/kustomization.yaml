@@ -36,6 +36,7 @@ resources:
   - merge-orchestrator-server-ingress.yaml
   - merge-notification-server-ingress.yaml
   - actions-server-ingress.yaml
+  - filter-server-ingress.yaml
   - security-analysis-server-ingress.yaml
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
@@ -94,7 +95,7 @@ configMapGenerator:
   - name: merge-orchestrator-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: kibana-configmap
     files:
@@ -118,6 +119,11 @@ configMapGenerator:
       - env.json=env.json
 
   - name: actions-server-configmap
+    behavior: merge
+    files:
+      - database.properties
+
+  - name: filter-server-configmap
     behavior: merge
     files:
       - database.properties
