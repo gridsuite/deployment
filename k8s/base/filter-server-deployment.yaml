@@ -26,6 +26,12 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: filter-server-configmap-volume
+            - mountPath: /tmp
+              name: tmp-emptydir
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
           resources:
             requests:
               memory: "1Gi"
@@ -37,3 +43,5 @@ spec:
         - name: filter-server-configmap-volume
           configMap:
             name: filter-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
