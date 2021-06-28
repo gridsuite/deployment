@@ -32,7 +32,7 @@ spec:
           name: case-server-storage
         - mountPath: /tmp
           name: tmp-emptydir
-        - mountPath: /?
+        - mountPath: /home/gridsuite
           name: app-emptydir
         securityContext:
           runAsNonRoot: true
