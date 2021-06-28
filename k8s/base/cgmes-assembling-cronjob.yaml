@@ -18,11 +18,9 @@ spec:
               image: docker.io/gridsuite/cgmes-assembling-job:latest
               volumeMounts:
                 - name: config-cgmes-assembling-job-volume
-                  mountPath: /?/.itools
+                  mountPath: /home/powsybl/.itools
                 - mountPath: /tmp
                   name: tmp-emptydir
-                - mountPath: /?
-                  name: app-emptydir
               securityContext:
                 runAsNonRoot: true
                 runAsUser: 1000
@@ -46,8 +44,6 @@ spec:
               configMap:
                 name: cgmes-assembling-job-configmap
             - name: tmp-emptydir
-              emptyDir: {}
-            - name: app-emptydir
               emptyDir: {}
           restartPolicy: OnFailure
 

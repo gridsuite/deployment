@@ -31,9 +31,10 @@ spec:
           readOnlyRootFilesystem: true
         resources:
           requests:
-            memory: "256Mi"
+            memory: "384Mi"
           limits:
-            memory: "256Mi"
+            memory: "384Mi"
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: single-line-diagram-server-configmap-volume

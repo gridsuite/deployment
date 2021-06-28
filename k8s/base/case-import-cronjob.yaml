@@ -18,11 +18,9 @@ spec:
               image: docker.io/gridsuite/case-import-job:latest
               volumeMounts:
                 - name: config-case-import-job-volume
-                  mountPath: /?/.itools
+                  mountPath: /home/powsybl/.itools
                 - mountPath: /tmp
                   name: tmp-emptydir
-                - mountPath: /?
-                  name: app-emptydir
               securityContext:
                 runAsNonRoot: true
                 runAsUser: 1000
@@ -46,8 +44,6 @@ spec:
               configMap:
                 name: case-import-job-configmap
             - name: tmp-emptydir
-              emptyDir: {}
-            - name: app-emptydir
               emptyDir: {}
           restartPolicy: OnFailure
 

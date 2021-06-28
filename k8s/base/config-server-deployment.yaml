@@ -34,6 +34,7 @@ spec:
               memory: "384Mi"
             limits:
               memory: "384Mi"
+          args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: config-server-configmap-volume

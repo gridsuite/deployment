@@ -18,7 +18,6 @@ spec:
       - name: directory-server
         image: docker.io/gridsuite/directory-server:latest
         imagePullPolicy: IfNotPresent
-        args: ["--spring.config.additional-location=/config/"]
         ports:
         - containerPort: 80
         volumeMounts:
@@ -30,6 +29,7 @@ spec:
           runAsNonRoot: true
           runAsUser: 1000
           readOnlyRootFilesystem: true
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: directory-server-configmap-volume
