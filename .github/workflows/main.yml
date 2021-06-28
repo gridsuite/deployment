@@ -30,6 +30,11 @@ on:
       - config_server_updated
       - config_notification_server_updated
       - cgmes_boundary_import_job_updated
+      - filter_server_updated
+      - balances_adjustment_server_updated
+      - case_validation_server_updated
+      - directory_server_updated
+      - dynamic_simulation_server_updated
 
 jobs:
   build:
