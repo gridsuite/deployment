@@ -15,13 +15,20 @@ spec:
     spec:
       containers:
         - name: apps-metadata-server
-          image: httpd:2.4
+          image: bitnami/apache:2.4
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
-            - mountPath: /usr/local/apache2/htdocs
+            - mountPath: /opt/bitnami/apache/htdocs/
               name: apps-metadata-server-configmap-volume
+            - mountPath: /opt/bitnami/apache/var/run/
+              name: run-emptydir
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1001
+            readOnlyRootFilesystem: true
           resources:
             requests:
               memory: "128Mi"
@@ -49,3 +56,5 @@ spec:
         - name: apps-metadata-server-configmap-volume
           configMap:
             name: apps-metadata-server-configmap
+        - name: run-emptydir
+          emptyDir: {}

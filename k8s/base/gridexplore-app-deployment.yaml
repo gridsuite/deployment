@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gridexplore-app
+  labels:
+    name: gridexplore-app
+    version: "1"
+spec:
+  selector:
+    matchLabels:
+      name: gridexplore-app
+  template:
+    metadata:
+      labels:
+        name: gridexplore-app
+    spec:
+      containers:
+      - name: gridexplore-app
+        image: docker.io/gridsuite/gridexplore-app:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /opt/bitnami/apache/htdocs/gridexplore/idpSettings.json
+          subPath: idpSettings.json
+          name: gridexplore-app-configmap-volume
+        - mountPath: /opt/bitnami/apache/htdocs/gridexplore/env.json
+          subPath: env.json
+          name: gridexplore-app-env-configmap-volume
+        - mountPath: /opt/bitnami/apache/var/run/
+          name: run-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1001
+          readOnlyRootFilesystem: true
+        resources:
+          requests:
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
+      restartPolicy: Always
+      volumes:
+        - name: gridexplore-app-configmap-volume
+          configMap:
+            name: gridexplore-app-configmap
+        - name: gridexplore-app-env-configmap-volume
+          configMap:
+            name: gridexplore-app-env-configmap
+        - name: run-emptydir
+          emptyDir: {}

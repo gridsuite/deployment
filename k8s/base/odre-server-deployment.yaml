@@ -23,11 +23,18 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: odre-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
-            memory: "256Mi"
+            memory: "384Mi"
           limits:
-            memory: "256Mi"
+            memory: "384Mi"
         livenessProbe:
           tcpSocket:
             port: 80
@@ -45,8 +52,11 @@ spec:
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: odre-server-configmap-volume
           configMap:
             name: odre-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}

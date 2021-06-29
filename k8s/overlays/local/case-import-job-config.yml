@@ -8,6 +8,7 @@ acquisition-server:
 cassandra:
   contact-points: <TO_COMPLETE>
   port: 9042
+  datacenter: datacenter1
 
 case-server:
   url: http://case-server/
