@@ -30,6 +30,7 @@ spec:
         - mountPath: /opt/bitnami/apache/var/run/
           name: run-emptydir
         securityContext:
+          allowPrivilegeEscalation: false
           runAsNonRoot: true
           runAsUser: 1001
           readOnlyRootFilesystem: true

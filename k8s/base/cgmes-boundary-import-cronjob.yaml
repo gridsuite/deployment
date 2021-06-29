@@ -22,6 +22,7 @@ spec:
                 - mountPath: /tmp
                   name: tmp-emptydir
               securityContext:
+                allowPrivilegeEscalation: false
                 runAsNonRoot: true
                 runAsUser: 1000
                 readOnlyRootFilesystem: true
