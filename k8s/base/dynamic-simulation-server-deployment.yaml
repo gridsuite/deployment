@@ -41,7 +41,7 @@ spec:
               memory: "512Mi"
           livenessProbe:
             tcpSocket:
-              port: 80
+              port: 8080
             initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 2
@@ -49,7 +49,7 @@ spec:
             successThreshold: 1
           readinessProbe:
             tcpSocket:
-              port: 80
+              port: 8080
             initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 2

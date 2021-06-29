@@ -44,7 +44,7 @@ spec:
             memory: "1Gi"
         livenessProbe:
           tcpSocket:
-            port: 80
+            port: 8080
           initialDelaySeconds: 15
           periodSeconds: 20
           timeoutSeconds: 2
@@ -53,7 +53,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /actuator/health
-            port: 80
+            port: 8080
           initialDelaySeconds: 15
           periodSeconds: 20
           timeoutSeconds: 2
