@@ -27,6 +27,13 @@ spec:
               name: dynawo-config-configmap-volume
             - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
+            - mountPath: /tmp
+              name: tmp-emptydir
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
           resources:
             requests:
               memory: "512Mi"
@@ -44,3 +51,5 @@ spec:
         - name: dynawo-itools-configmap-volume
           configMap:
             name: dynawo-itools-configmap
+        - name: tmp-emptydir
+          emptyDir: {}

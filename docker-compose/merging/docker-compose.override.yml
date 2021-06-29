@@ -98,14 +98,12 @@ services:
   gridmerge-app:
     image: gridsuite/gridmerge-app:latest
     ports:
-      - 81:80
+      - 81:8080
     volumes:
-      - $PWD/../gridmerge-app-idpSettings.json:/usr/local/apache2/htdocs/gridmerge/idpSettings.json:Z
-      - $PWD/../env.json:/usr/local/apache2/htdocs/gridmerge/env.json:Z
+      - $PWD/../gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-boundary-import-job:
     build: cgmes-boundary-import-job

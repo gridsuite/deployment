@@ -19,6 +19,13 @@ spec:
               volumeMounts:
                 - name: config-case-import-job-volume
                   mountPath: /home/powsybl/.itools
+                - mountPath: /tmp
+                  name: tmp-emptydir
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                readOnlyRootFilesystem: true
               imagePullPolicy: IfNotPresent
               env:
                 - name: ACQUISITION_SERVER__USERNAME
@@ -37,5 +44,7 @@ spec:
             - name: config-case-import-job-volume
               configMap:
                 name: case-import-job-configmap
+            - name: tmp-emptydir
+              emptyDir: {}
           restartPolicy: OnFailure
 

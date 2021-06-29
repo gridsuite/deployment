@@ -23,6 +23,13 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: cgmes-gl-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "384Mi"
@@ -34,3 +41,5 @@ spec:
         - name: cgmes-gl-server-configmap-volume
           configMap:
             name: cgmes-gl-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}

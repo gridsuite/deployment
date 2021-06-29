@@ -217,12 +217,12 @@ services:
       - logspout
 
   apps-metadata-server:
-    image: httpd:2.4
+    image: bitnami/apache:2.4
     ports:
-      - 8070:80
+      - 8070:8080
     volumes:
-      - $PWD/../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
-      - $PWD/../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/httpd.conf:Z
+      - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout
 

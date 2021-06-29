@@ -23,9 +23,18 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: directory-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: directory-server-configmap-volume
           configMap:
             name: directory-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}

@@ -26,6 +26,13 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: geo-data-server-configmap-volume
+        - mountPath: /tmp
+          name: tmp-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources:
           requests:
             memory: "1Gi"
@@ -37,3 +44,5 @@ spec:
         - name: geo-data-server-configmap-volume
           configMap:
             name: geo-data-server-configmap
+        - name: tmp-emptydir
+          emptyDir: {}
