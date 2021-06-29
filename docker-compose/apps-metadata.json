@@ -18,4 +18,9 @@
   "name" : "Dynamic Mapping",
   "url"  : "http://localhost:83",
   "appColor" : "#FFC11B"
+},
+{
+  "name" : "Explore",
+  "url"  : "http://localhost:84",
+  "appColor" : "#33AFED"
 }]

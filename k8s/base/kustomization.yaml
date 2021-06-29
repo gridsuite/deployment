@@ -29,6 +29,9 @@ resources:
   - gridmerge-app-deployment.yaml
   - gridmerge-app-ingress.yaml
   - gridmerge-app-service.yaml
+  - gridexplore-app-deployment.yaml
+  - gridexplore-app-ingress.yaml
+  - gridexplore-app-service.yaml
   - gridstudy-app-deployment.yaml
   - gridstudy-app-ingress.yaml
   - gridstudy-app-service.yaml
