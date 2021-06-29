@@ -176,9 +176,9 @@ services:
   gridexplore-app:
     image: gridsuite/gridexplore-app:latest
     ports:
-      - 84:80
+      - 84:8080
     volumes:
-      - $PWD/../gridexplore-app-idpSettings.json:/usr/local/apache2/htdocs/gridexplore/idpSettings.json:Z
-      - $PWD/../env.json:/usr/local/apache2/htdocs/gridexplore/env.json:Z
+      - $PWD/../gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
     depends_on:
       - logspout
