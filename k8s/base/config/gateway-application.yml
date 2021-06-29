@@ -8,7 +8,7 @@ backing-services:
   case:
     base-uri: http://case-server/
   study-server:
-    base-uri: http://study-server/
+    base-uri: http://172.17.0.1:5001/
   merge-orchestrator-server:
     base-uri: http://merge-orchestrator-server/
   notification-server:
@@ -24,7 +24,7 @@ backing-services:
   config-notification-server:
     base-uri: http://config-notification-server/
   directory-server:
-    base-uri: http://directory-server/
+    base-uri: http://172.17.0.1:5026/
   cgmes-boundary-server:
     base-uri: http://cgmes-boundary-server/
   dynamic-mapping-server:
