@@ -120,14 +120,12 @@ services:
   gridstudy-app:
     image: gridsuite/gridstudy-app:latest
     ports:
-      - 80:80
+      - 80:8080
     volumes:
-      - $PWD/../gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
-      - $PWD/../env.json:/usr/local/apache2/htdocs/gridstudy/env.json:Z
+      - $PWD/../gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
     depends_on:
       - logspout
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   security-analysis-server:
     image: gridsuite/security-analysis-server:latest

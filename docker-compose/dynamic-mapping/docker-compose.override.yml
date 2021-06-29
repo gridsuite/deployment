@@ -4,14 +4,12 @@ services:
   griddyna-app:
     image: gridsuite/griddyna-app:latest
     ports:
-      - 83:80
+      - 83:8080
     volumes:
-      - $PWD/../griddyna-app-idpSettings.json:/usr/local/apache2/htdocs/griddyna/idpSettings.json:Z
-      - $PWD/../env.json:/usr/local/apache2/htdocs/griddyna/env.json:Z
+      - $PWD/../griddyna-app-idpSettings.json:/opt/bitnami/apache/htdocs/griddyna/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/griddyna/env.json:Z
     depends_on:
       - logspout
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-mapping-server:
     image: gridsuite/dynamic-mapping-server:latest
