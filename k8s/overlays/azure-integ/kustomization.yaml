@@ -8,6 +8,9 @@ configMapGenerator:
   - name: gridstudy-app-configmap
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
+  - name: gridexplore-app-configmap
+    files:
+      - idpSettings.json=gridexplore-app-idpSettings.json
   - name: gridstudy-app-env-configmap
     files:
       - env.json=env.json
@@ -15,6 +18,9 @@ configMapGenerator:
     files:
       - idpSettings.json=gridmerge-app-idpSettings.json
   - name: gridmerge-app-env-configmap
+    files:
+      - env.json=env.json
+  - name: gridexplore-app-env-configmap
     files:
       - env.json=env.json
   - name: gridactions-app-configmap

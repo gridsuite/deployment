@@ -171,4 +171,14 @@ services:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+
+  gridexplore-app:
+    image: gridsuite/gridexplore-app:latest
+    ports:
+      - 84:80
+    volumes:
+      - $PWD/../gridexplore-app-idpSettings.json:/usr/local/apache2/htdocs/gridexplore/idpSettings.json:Z
+      - $PWD/../env.json:/usr/local/apache2/htdocs/gridexplore/env.json:Z
+    depends_on:
+      - logspout

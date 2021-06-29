@@ -63,7 +63,15 @@ configMapGenerator:
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
 
+  - name: gridexplore-app-configmap
+    files:
+      - idpSettings.json=gridexplore-app-idpSettings.json
+
   - name: gridstudy-app-env-configmap
+    files:
+      - env.json=env.json
+
+  - name: gridexplore-app-env-configmap
     files:
       - env.json=env.json
 
