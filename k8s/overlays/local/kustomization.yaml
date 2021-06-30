@@ -36,6 +36,7 @@ resources:
   - merge-orchestrator-server-ingress.yaml
   - merge-notification-server-ingress.yaml
   - actions-server-ingress.yaml
+  - filter-server-ingress.yaml
   - security-analysis-server-ingress.yaml
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
@@ -64,7 +65,15 @@ configMapGenerator:
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
 
+  - name: gridexplore-app-configmap
+    files:
+      - idpSettings.json=gridexplore-app-idpSettings.json
+
   - name: gridstudy-app-env-configmap
+    files:
+      - env.json=env.json
+
+  - name: gridexplore-app-env-configmap
     files:
       - env.json=env.json
 
@@ -88,7 +97,7 @@ configMapGenerator:
   - name: merge-orchestrator-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: kibana-configmap
     files:
@@ -116,6 +125,11 @@ configMapGenerator:
     files:
       - database.properties
 
+  - name: filter-server-configmap
+    behavior: merge
+    files:
+      - database.properties
+
   - name: security-analysis-server-configmap
     behavior: merge
     files:
@@ -139,3 +153,8 @@ configMapGenerator:
   - name: cgmes-boundary-import-job-configmap
     files:
       - config.yml=cgmes-boundary-import-job-config.yml
+
+  - name: network-modification-server-configmap
+    behavior: merge
+    files:
+      - database.properties

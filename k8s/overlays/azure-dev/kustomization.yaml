@@ -14,7 +14,13 @@ configMapGenerator:
   - name: gridmerge-app-configmap
     files:
       - idpSettings.json=gridmerge-app-idpSettings.json
+  - name: gridexplore-app-configmap
+    files:
+      - idpSettings.json=gridexplore-app-idpSettings.json
   - name: gridmerge-app-env-configmap
+    files:
+      - env.json=env.json
+  - name: gridexplore-app-env-configmap
     files:
       - env.json=env.json
   - name: gridactions-app-configmap
@@ -23,6 +29,18 @@ configMapGenerator:
   - name: gridactions-app-env-configmap
     files:
       - env.json=env.json
+  - name: apps-metadata-server-configmap
+    behavior: merge
+    files:
+      - openid-configuration
+      - keys
+  - name: apps-metadata-server-httpdconf-configmap
+    files:
+      - bitnami.conf=gridapps-metadata-httpd.conf
+  - name: gateway-configmap
+    behavior: merge
+    files:
+      - allowed-issuers.yml
 
 # Patch ingress host
 patchesJson6902:
@@ -74,3 +92,21 @@ patchesJson6902:
       kind: Ingress
       name: apps-metadata-server-ingress
     path: patch_ingress.yaml
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: apps-metadata-server
+    path: patch_metadata_configmap.yaml
+  - target:
+      group: networking.k8s.io
+      version: v1beta1
+      kind: Ingress
+      name: gridexplore-app-ingress
+    path: patch_ingress.yaml
+  - target:
+      group: networking.k8s.io
+      version: v1beta1
+      kind: Ingress
+      name: gridexplore-app-ingress
+    path: patch_tls_ingress.yaml
