@@ -39,6 +39,23 @@ spec:
             memory: "128Mi"
           limits:
             memory: "128Mi"
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
       restartPolicy: Always
       volumes:
         - name: gridstudy-app-configmap-volume

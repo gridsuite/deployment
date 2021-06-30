@@ -39,6 +39,23 @@ spec:
               memory: "512Mi"
             limits:
               memory: "512Mi"
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 1
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 1
+            successThreshold: 1
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
