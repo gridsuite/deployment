@@ -20,5 +20,5 @@
   value:
     name: apps-metadata-server-configmap-httpdconf-volume
     mountPath: /opt/bitnami/apache/conf/bitnami/bitnami.conf
-    subPath: httpd.conf
+    subPath: bitnami.conf
 
