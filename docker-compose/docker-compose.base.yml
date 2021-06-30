@@ -55,7 +55,6 @@ services:
 
   case-server:
     image: powsybl/case-server:latest
-
     ports:
       - 5000:80
     volumes:
@@ -65,6 +64,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   actions-server:
     image: gridsuite/actions-server:latest
@@ -77,6 +79,22 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+
+  filter-server:
+    image: gridsuite/filter-server:latest
+    ports:
+      - 5027:80
+    volumes:
+      - $PWD/../../k8s/base/config/filter-server-application.yml:/config/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
+    depends_on:
+      - logspout
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   report-server:
     image: gridsuite/report-server:latest
@@ -101,6 +119,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-conversion-server:
     image: powsybl/network-conversion-server:latest
@@ -108,10 +129,14 @@ services:
       - 5003:80
     volumes:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   loadflow-server:
     image: gridsuite/loadflow-server:latest
@@ -119,10 +144,14 @@ services:
       - 5008:80
     volumes:
       - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-server:
     image: gridsuite/config-server:latest
@@ -133,7 +162,10 @@ services:
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
-      
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+
   config-notification-server:
     image: gridsuite/config-notification-server:latest
     ports:
@@ -142,6 +174,9 @@ services:
       - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/application.yml:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gateway:
     image: gridsuite/gateway:latest
@@ -154,6 +189,9 @@ services:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   mock_user_service:
     image: gridsuite/oidc-mock-server
@@ -161,7 +199,7 @@ services:
       - 9090:9090
     environment:
       - PORT=9090
-      - CLIENT_COUNT=4
+      - CLIENT_COUNT=6
       - CLIENT_ID=gridstudy-client
       - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
@@ -178,17 +216,25 @@ services:
       - CLIENT_REDIRECT_URI_4=http://localhost:82/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
+      - CLIENT_ID_5=griddyna-client
+      - CLIENT_REDIRECT_URI_5=http://localhost:83/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:83/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:83/silent-renew-callback
+      - CLIENT_ID_6=gridexplore-client
+      - CLIENT_REDIRECT_URI_6=http://localhost:84/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:84/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:84/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
     depends_on:
       - logspout
 
   apps-metadata-server:
-    image: httpd:2.4
+    image: bitnami/apache:2.4
     ports:
-      - 8070:80
+      - 8070:8080
     volumes:
-      - $PWD/../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
-      - $PWD/../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/httpd.conf:Z
+      - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout
 

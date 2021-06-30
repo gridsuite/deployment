@@ -1,0 +1,2 @@
+import-export-parameters-default-value:
+  iidm.import.cgmes.create-cgmes-export-mapping: true

@@ -25,13 +25,38 @@ spec:
               name: dynamic-simulation-server-configmap-volume
             - mountPath: /dynawo-config
               name: dynawo-config-configmap-volume
-            - mountPath: /root/.itools
+            - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
+            - mountPath: /tmp
+              name: tmp-emptydir
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
           resources:
             requests:
               memory: "512Mi"
             limits:
               memory: "512Mi"
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 1
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 1
+            successThreshold: 1
+          args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
         - name: dynamic-simulation-server-configmap-volume
@@ -43,3 +68,5 @@ spec:
         - name: dynawo-itools-configmap-volume
           configMap:
             name: dynawo-itools-configmap
+        - name: tmp-emptydir
+          emptyDir: {}

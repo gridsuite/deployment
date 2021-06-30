@@ -43,6 +43,10 @@ configMapGenerator:
     behavior: merge
     files:
       - database.properties
+  - name: filter-server-configmap
+    behavior: merge
+    files:
+      - database.properties
   - name: security-analysis-server-configmap
     behavior: merge
     files:
