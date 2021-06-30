@@ -1,7 +1,7 @@
 acquisition-server:
-  url: <TO_COMPLETE>
-  username: <TO_COMPLETE>
-  password: <TO_COMPLETE>
+  url: minikube.host.internal
+  username: <USERNAME>
+  password: <PASSWORD>
   cgmes-boundary-directory: ./boundaries
 
 cgmes-boundary-server:

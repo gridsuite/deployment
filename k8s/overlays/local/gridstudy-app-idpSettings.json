@@ -1,8 +1,8 @@
 {
-    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
+    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
     "client_id" : "gridstudy-client",
-    "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
+    "redirect_uri": "http://<INGRESS_HOST>/gridstudy/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridstudy/logout-callback",
+    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridstudy/silent-renew-callback",
     "scope" : "openid"
 }

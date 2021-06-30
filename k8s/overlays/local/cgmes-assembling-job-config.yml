@@ -1,13 +1,13 @@
 acquisition-server:
-  url: <TO_COMPLETE>
-  username: <TO_COMPLETE>
-  password: <TO_COMPLETE>
+  url: minikube.host.internal
+  username: <USERNAME>
+  password: <PASSWORD>
   cases-directory: ./opde
   label: opde
   dependencies-strict-mode: false
 
 cassandra:
-  contact-points: <TO_COMPLETE>
+  contact-points: cassandra
   port: 9042
   datacenter: datacenter1
 
