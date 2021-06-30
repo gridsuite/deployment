@@ -42,6 +42,8 @@ resources:
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
   - directory-server-ingress.yaml
+  - external-cassandra-service.yaml
+  - external-postgres-service.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
