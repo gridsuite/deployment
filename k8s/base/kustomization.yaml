@@ -61,6 +61,8 @@ resources:
   - actions-server-service.yaml
   - filter-server-deployment.yaml
   - filter-server-service.yaml
+  - report-server-deployment.yaml
+  - report-server-service.yaml
   - gridactions-app-deployment.yaml
   - gridactions-app-ingress.yaml
   - gridactions-app-service.yaml
@@ -146,6 +148,9 @@ configMapGenerator:
   - name: filter-server-configmap
     files:
       - application.yml=config/filter-server-application.yml
+  - name: report-server-configmap
+    files:
+      - application.yml=config/report-server-application.yml
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json

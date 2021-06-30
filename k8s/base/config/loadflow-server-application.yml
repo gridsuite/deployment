@@ -3,3 +3,6 @@ server:
 
 network-store-server:
   base-uri: http://network-store-server/
+
+report-server:
+  base-uri: http://report-server/

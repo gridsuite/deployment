@@ -133,6 +133,7 @@ $ create database networkmodifications;
 $ create database merge_orchestrator;
 $ create database dynamicmappings
 $ create database filters;
+$ create database report;
 ```
 
 Then initialize the schemas for the databases: 
@@ -145,6 +146,7 @@ $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modif
 $ \c merge_orchestrator; # and copy https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.sql content to psql
 $ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/mappings.sql and https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/IEEE14Models.sql content to psql
 # \c filters # and copy https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filters.sql content to psql
+$ \c report; # and copy https://github.com/gridsuite/report-server/blob/master/src/main/resources/report.sql content to psql
 ```
 
 ### Minikube and kubectl setup
@@ -233,7 +235,8 @@ http://<MINIKUBE_IP>/directory-server/swagger-ui.html
 http://<MINIKUBE_IP>/balances-adjustment-server/swagger-ui.html
 http://<MINIKUBE_IP>/case-validation-server/swagger-ui.html
 http://<MINIKUBE_IP>/dynamic-simulation-server/swagger-ui.html
-http://<MINIKUBE_IP>/filter-server/swagger-ui.html
+http://<MINIKUBE_IP>/filter-server/swagger-ui.html 
+http://<MINIKUBE_IP>/report-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
@@ -297,6 +300,7 @@ http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
 http://localhost:5026/swagger-ui.html  // directory-server
+http://localhost:5028/swagger-ui.html  // report-server
 http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
 http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
 http://localhost:5027/swagger-ui.html  // filter-server

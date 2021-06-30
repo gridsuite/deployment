@@ -37,6 +37,7 @@ resources:
   - merge-notification-server-ingress.yaml
   - actions-server-ingress.yaml
   - filter-server-ingress.yaml
+  - report-server-ingress.yaml
   - security-analysis-server-ingress.yaml
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
@@ -126,6 +127,11 @@ configMapGenerator:
       - database.properties
 
   - name: filter-server-configmap
+    behavior: merge
+    files:
+      - database.properties
+
+  - name: report-server-configmap
     behavior: merge
     files:
       - database.properties

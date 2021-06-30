@@ -2,3 +2,6 @@ server:
   port: 8080
 
 cassandra-keyspace: iidm
+
+report-server:
+  base-uri: http://report-server/

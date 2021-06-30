@@ -96,6 +96,18 @@ services:
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
+  report-server:
+    image: gridsuite/report-server:latest
+    ports:
+      - 5028:80
+    volumes:
+      - $PWD/../../k8s/base/config/report-server-application.yml:/config/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
+
   network-store-server:
     image: powsybl/network-store-server:latest
     ports:
