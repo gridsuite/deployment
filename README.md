@@ -149,11 +149,13 @@ $ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-se
 
 ### Minikube and kubectl setup
 
+This setup is heavyweight and matches a realworld deployment. It is useful to reproduce realworld kubernetes effects and features. In most cases, the lighter docker-compose deployment is preferred.
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
+We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
 Start minikube and activate ingress support:
 ```bash
-$ minikube start --memory 8192
+$ minikube start --memory 24g --cpus=4
 $ minikube addons enable ingress
 ```
 
@@ -171,125 +173,23 @@ $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
 
-Set Cassandra and Postgresql hostname. If you are using minkube, you can use DNS "minikube.host.internal" to access your local database deployemnt
+Get you ingress ip
 ```bash
-$ cd ./k8s/overlay/local/
-$ sed -i "s/<CASSANDRA_HOST>/minikube.host.internal/g" *
-$ sed -i "s/<PG_HOST>/minikube.host.internal/g" *
+$ INGRESS_HOST=`minikube ip`
+$ echo $INGRESS_HOST
 ```
 
-If you want to use an IP directly, then
-
-Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
-```properties
-cassandra.contact-points=<CASSANDRA_IP>
-cassandra.port=9042
-```
-
-Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
-```properties
-dbVendor=postgresql
-host=<PG_IP>
-```
-
-Get you ingress ip, with minikube for example
+Fill config files with the INGRESS_HOST in k8s/overlays/local/ :
 ```bash
-$ INGRESS_HOST=`minikube ip`;
-$ echo $INGRESS_HOST;
+$ sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g" k8s/overlays/local/*
 ```
 
-Fill config files with the INGRESS_HOST in ./k8s/overlays/local/ :
+Optionally, give an ssh access to the case importing cronjobs by providing your username and your password (or create a dedicated user for this if you want):
+The import jobs connect through ssh to your machine and automatically import files from the $HOME/opde and $HOME/boundaries
 ```bash
-$ cd ./k8s/overlay/local/
-$ sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g" *
+$ sed -i -e 's/<USERNAME>/YOURUSERNAME/g' k8s/overlays/local/*
+$ sed -i -e 's/<PASSWORD>/YOURPASSWORD/g' k8s/overlays/local/*
 ```
-
-k8s/overlays/local/gridstudy-app-idpSettings.json :
-```json
-{
-    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
-    "client_id" : "gridstudy-client",
-    "redirect_uri": "http://<INGRESS_HOST>/gridstudy/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridstudy/logout-callback",
-    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridstudy/silent-renew-callback",
-    "scope" : "openid"
-}
-```
-
-k8s/overlays/local/gridmerge-app-idpSettings.json
-```json
-{
-    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
-    "client_id" : "gridmerge-client",
-    "redirect_uri": "http://<INGRESS_HOST>/gridmerge/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridmerge/logout-callback",
-    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridmerge/silent-renew-callback",
-    "scope" : "openid"
-}
-```
-
-k8s/overlays/local/gridactions-app-idpSettings.json
-```json
-{
-    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
-    "client_id" : "gridactions-client",
-    "redirect_uri": "http://<INGRESS_HOST>/gridactions/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridactions/logout-callback",
-    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridactions/silent-renew-callback",
-    "scope" : "openid"
-}
-```
-
-k8s/overlays/local/oidc-mock-server-deployment.yaml :
-```yaml
-spec:
-      containers:
-      - name: oidc-mock-server
-        image: docker.io/gridsuite/oidc-mock-server:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 3000
-        env:
-        - name: DEBUG
-          value: "oidc-provider:*"
-        - name: CLIENT_ID
-          value: "gridstudy-client"
-        - name: CLIENT_COUNT
-          value: 3
-        - name: CLIENT_REDIRECT_URI
-          value: "http://<INGRESS_HOST>/gridstudy/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://<INGRESS_HOST>/gridstudy/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI
-          value: "http://<INGRESS_HOST>/gridstudy/silent-renew-callback"
-        - name: CLIENT_ID_2
-          value: "gridmerge-client"
-        - name: CLIENT_REDIRECT_URI_2
-          value: "http://<INGRESS_HOST>/gridmerge/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_2
-          value: "http://<INGRESS_HOST>/gridmerge/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_2
-          value: "http://<INGRESS_HOST>/gridmerge/silent-renew-callback"
-        - name: CLIENT_ID_3
-          value: "gridactions-client"
-        - name: CLIENT_REDIRECT_URI_3
-          value: "http://<INGRESS_HOST>/gridactions/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_3
-          value: "http://<INGRESS_HOST>/gridactions/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_3
-          value: "http://<INGRESS_HOST>/gridactions/silent-renew-callback"
-        - name: ISSUER_HOST
-          value: "<INGRESS_HOST>"
-        - name: ISSUER_PREFIX
-          value: "/oidc-mock-server"
-      restartPolicy: Always
-```
-
-k8s/overlays/local/allowed-issuers.yml
-```yaml
-allowed-issuers: http://<INGRESS_HOST>/oidc-mock-server
-```
-
 
 Deploy k8s services:
 ```bash 
@@ -307,11 +207,8 @@ Applications:
 http://<MINIKUBE_IP>/gridstudy-app/
 http://<MINIKUBE_IP>/gridmerge-app/
 http://<MINIKUBE_IP>/gridactions-app/
-```
-
-Gateway 
-```html
-http://<MINIKUBE_IP>/gateway/
+http://<MINIKUBE_IP>/griddyna-app/
+http://<MINIKUBE_IP>/gridexplore-app/
 ```
 
 Swagger UI:
@@ -333,9 +230,15 @@ http://<MINIKUBE_IP>/actions-server/swagger-ui.html
 http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
 http://<MINIKUBE_IP>/config-server/swagger-ui.html
 http://<MINIKUBE_IP>/directory-server/swagger-ui.html
+http://<MINIKUBE_IP>/balances-adjustment-server/swagger-ui.html
+http://<MINIKUBE_IP>/case-validation-server/swagger-ui.html
+http://<MINIKUBE_IP>/dynamic-simulation-server/swagger-ui.html
+http://<MINIKUBE_IP>/filter-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
+
+This is the preferred development deployment.
 Install the orchestration tool docker-compose then launch the desired profile :
 
 ```bash 
@@ -372,11 +275,7 @@ http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
 http://localhost:82 // gridactions
 http://localhost:83 // griddyna
-```
-
-Gateway 
-```html
-http://localhost:9000/
+http://localhost:84 // gridexplore
 ```
 
 Swagger UI:
@@ -399,7 +298,10 @@ http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
 http://localhost:5026/swagger-ui.html  // directory-server
 http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
+http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
 http://localhost:5027/swagger-ui.html  // filter-server
+http://localhost:5010/swagger-ui.html  // balances-adjustment-server
+http://localhost:5011/swagger-ui.html  // case-validation-server
 ```
 RabbitMQ management UI:
 ```html
