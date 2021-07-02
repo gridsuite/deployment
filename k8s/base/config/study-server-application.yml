@@ -26,6 +26,9 @@ backing-services:
     base-uri: http://security-analysis-server/
   dynamic-simulation-server:
     base-uri: http://dynamic-simulation-server/
+  report-server:
+    base-uri: http://report-server/
+
 
 spring:
   servlet:
