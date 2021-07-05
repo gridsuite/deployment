@@ -36,6 +36,7 @@ on:
       - directory_server_updated
       - dynamic_simulation_server_updated
       - report_server_updated
+      - gridexplore_app_updated
 
 jobs:
   build:
