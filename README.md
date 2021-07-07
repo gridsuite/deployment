@@ -145,7 +145,7 @@ $ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master
 $ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
 $ \c merge_orchestrator; # and copy https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.sql content to psql
 $ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/mappings.sql and https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/IEEE14Models.sql content to psql
-# \c filters # and copy https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filters.sql content to psql
+# \c filters # and copy https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filter.sql content to psql
 $ \c report; # and copy https://github.com/gridsuite/report-server/blob/master/src/main/resources/report.sql content to psql
 ```
 
