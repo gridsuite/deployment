@@ -1,2 +1,7 @@
-server:
-  port: 8080
+server :
+  port : 8080
+  forward-headers-strategy: framework
+
+backing-services:
+  study:
+    base-uri: http://study-server/
