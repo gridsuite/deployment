@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
 
 network-store-server:
   preloading-strategy: COLLECTION
@@ -7,3 +7,5 @@ network-store-server:
 
 network-geo-data:
   iterations: 5
+
+cassandra-keyspace: geo_data

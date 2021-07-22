@@ -29,6 +29,9 @@ resources:
   - gridmerge-app-deployment.yaml
   - gridmerge-app-ingress.yaml
   - gridmerge-app-service.yaml
+  - gridexplore-app-deployment.yaml
+  - gridexplore-app-ingress.yaml
+  - gridexplore-app-service.yaml
   - gridstudy-app-deployment.yaml
   - gridstudy-app-ingress.yaml
   - gridstudy-app-service.yaml
@@ -56,6 +59,10 @@ resources:
   - cgmes-assembling-cronjob.yaml
   - actions-server-deployment.yaml
   - actions-server-service.yaml
+  - filter-server-deployment.yaml
+  - filter-server-service.yaml
+  - report-server-deployment.yaml
+  - report-server-service.yaml
   - gridactions-app-deployment.yaml
   - gridactions-app-ingress.yaml
   - gridactions-app-service.yaml
@@ -70,6 +77,9 @@ resources:
   - config-notification-server-service.yaml
   - dynamic-simulation-server-deployment.yaml
   - dynamic-simulation-server-service.yaml
+  - directory-server-deployment.yaml
+  - directory-server-service.yaml
+  - cgmes-boundary-import-cronjob.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -84,6 +94,9 @@ configMapGenerator:
   - name: network-conversion-server-configmap
     files:
       - application.yml=config/network-conversion-server-application.yml
+  - name: network-conversion-server-itools-configmap
+    files:
+      - config.yml=config/network-conversion-server-config.yml
   - name: network-map-server-configmap
     files:
       - application.yml=config/network-map-server-application.yml
@@ -111,6 +124,9 @@ configMapGenerator:
   - name: loadflow-server-configmap
     files:
       - application.yml=config/loadflow-server-application.yml
+  - name: loadflow-server-itools-configmap
+    files:
+      - config.yml=config/loadflow-server-config.yml
   - name: balances-adjustment-server-configmap
     files:
       - application.yml=config/balances-adjustment-server-application.yml
@@ -129,6 +145,12 @@ configMapGenerator:
   - name: actions-server-configmap
     files:
       - application.yml=config/actions-server-application.yml
+  - name: filter-server-configmap
+    files:
+      - application.yml=config/filter-server-application.yml
+  - name: report-server-configmap
+    files:
+      - application.yml=config/report-server-application.yml
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
@@ -155,3 +177,6 @@ configMapGenerator:
   - name: dynawo-itools-configmap
     files:
       - config.yml=config/dynawo-itools-config.yml
+  - name: directory-server-configmap
+    files:
+      - application.yml=config/directory-server-application.yml

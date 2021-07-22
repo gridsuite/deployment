@@ -19,14 +19,43 @@ spec:
         image: docker.io/gridsuite/gridactions-app:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
-        - mountPath: /usr/local/apache2/htdocs/gridactions/idpSettings.json
+        - mountPath: /opt/bitnami/apache/htdocs/gridactions/idpSettings.json
           subPath: idpSettings.json
           name: gridactions-app-configmap-volume
-        - mountPath: /usr/local/apache2/htdocs/gridactions/env.json
+        - mountPath: /opt/bitnami/apache/htdocs/gridactions/env.json
           subPath: env.json
           name: gridactions-app-env-configmap-volume
+        - mountPath: /opt/bitnami/apache/var/run/
+          name: run-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1001
+          readOnlyRootFilesystem: true
+        resources:
+          requests:
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
       restartPolicy: Always
       volumes:
         - name: gridactions-app-configmap-volume
@@ -35,3 +64,5 @@ spec:
         - name: gridactions-app-env-configmap-volume
           configMap:
             name: gridactions-app-env-configmap
+        - name: run-emptydir
+          emptyDir: {}

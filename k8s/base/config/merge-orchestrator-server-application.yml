@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
 
 network-store-server:
   base-uri: http://network-store-server/
@@ -16,6 +16,10 @@ backing-services:
     base-uri: http://case-validation-server/
   network-conversion:
     base-uri: http://network-conversion-server/
+  cgmes-boundary-server:
+    base-uri: http://cgmes-boundary-server/
+  report-server:
+    base-uri: http://report-server/
 
 parameters:
   tsos: BE,NL

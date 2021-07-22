@@ -1,1 +1,1 @@
-allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
+allowed-issuers: http://<INGRESS_HOST>/oidc-mock-server

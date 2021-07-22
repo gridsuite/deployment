@@ -10,10 +10,22 @@ spec:
         spec:
           containers:
             - name: case-import-job
+              resources:
+                requests:
+                  memory: "512Mi"
+                limits:
+                  memory: "512Mi"
               image: docker.io/gridsuite/case-import-job:latest
               volumeMounts:
                 - name: config-case-import-job-volume
-                  mountPath: /root/.itools
+                  mountPath: /home/powsybl/.itools
+                - mountPath: /tmp
+                  name: tmp-emptydir
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                readOnlyRootFilesystem: true
               imagePullPolicy: IfNotPresent
               env:
                 - name: ACQUISITION_SERVER__USERNAME
@@ -32,5 +44,7 @@ spec:
             - name: config-case-import-job-volume
               configMap:
                 name: case-import-job-configmap
+            - name: tmp-emptydir
+              emptyDir: {}
           restartPolicy: OnFailure
 

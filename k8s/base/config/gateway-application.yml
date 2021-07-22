@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
 
 geo-data-server:
   base.url: http://geo-data-server/
@@ -17,8 +17,17 @@ backing-services:
     base-uri: http://merge-notification-server/
   actions-server:
     base-uri: http://actions-server/
+  filter-server:
+    base-uri: http://filter-server/
+  report-server:
+    base-uri: http://report-server/
   config-server:
     base-uri: http://config-server/
   config-notification-server:
     base-uri: http://config-notification-server/
-    
+  directory-server:
+    base-uri: http://directory-server/
+  cgmes-boundary-server:
+    base-uri: http://cgmes-boundary-server/
+  dynamic-mapping-server:
+    base-uri: http://dynamic-mapping-server/

@@ -4,9 +4,9 @@ services:
   gridactions-app:
     image: gridsuite/gridactions-app:latest
     ports:
-      - 82:80
+      - 82:8080
     volumes:
-      - $PWD/../gridactions-app-idpSettings.json:/usr/local/apache2/htdocs/gridactions/idpSettings.json:Z
-      - $PWD/../env.json:/usr/local/apache2/htdocs/gridactions/env.json:Z
+      - $PWD/../gridactions-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridactions/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridactions/env.json:Z
     depends_on:
       - logspout

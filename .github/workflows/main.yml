@@ -29,6 +29,14 @@ on:
       - security_analysis_server_updated
       - config_server_updated
       - config_notification_server_updated
+      - cgmes_boundary_import_job_updated
+      - filter_server_updated
+      - balances_adjustment_server_updated
+      - case_validation_server_updated
+      - directory_server_updated
+      - dynamic_simulation_server_updated
+      - report_server_updated
+      - gridexplore_app_updated
 
 jobs:
   build:
@@ -58,7 +66,7 @@ jobs:
           BASTION_KEY: ${{secrets.BASTION_KEY}}
 
       - name: Deploy to Azure
-        run: kubectl kustomize k8s/overlays/azure | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+        run: kubectl kustomize k8s/overlays/azure-dev | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
 
       - name: Delete key
         run: rm key

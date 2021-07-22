@@ -4,10 +4,12 @@ acquisition-server:
   password: <TO_COMPLETE>
   cases-directory: ./opde
   label: opde
+  dependencies-strict-mode: false
 
 cassandra:
   contact-points: <TO_COMPLETE>
   port: 9042
+  datacenter: datacenter1
 
 case-server:
   url: http://case-server/

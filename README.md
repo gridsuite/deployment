@@ -4,7 +4,14 @@
 
 ### Cassandra install
 
-Download the last version of [Cassandra](http://www.apache.org/dyn/closer.lua/cassandra/3.11.5/apache-cassandra-3.11.5-bin.tar.gz)
+Download the recommended version of Cassandra :
+
+|Distribution| Version recommendation |Version  | Link|
+--- | --- | --- | ---
+|Fedora|3.x|3.11.10|[Download](https://www.apache.org/dyn/closer.lua/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz)|
+|Ubuntu|4.x|4.0-rc2|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0-rc2/apache-cassandra-4.0-rc2-bin.tar.gz)|
+
+
 
 In order to be accessible from k8s cluster, Cassandra has to be bind to one the ip address of the machine.  The following variables have to be modified in conf/cassandra.yaml before starting the Cassandra daemon.
 
@@ -21,9 +28,14 @@ rpc_address: "0.0.0.0"
 broadcast_rpc_address: "<YOUR_IP>"
 ```
 
-To start the cassandra server: `cd /path/to/cassandra/folder`
-then `bin/cassandra -f`
+During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options. Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
 
+To start the cassandra server: 
+
+``` 
+$ cd /path/to/cassandra/folder`
+$ bin/cassandra -f`
+```
 ### Cassandra schema setup
 
 ```bash
@@ -33,98 +45,141 @@ $ bin/cqlsh
 To create keyspaces in a single node cluster:
 
 ```cql
-CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
-CREATE KEYSPACE IF NOT EXISTS study WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS merge_orchestrator WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS actions WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
-Then copy paste following files content to cqlsh shell:
-```html
-https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
-https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
-https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.cql
-https://github.com/gridsuite/merge-orchestrator/blob/master/src/main/resources/merge_orchestrator.cql
-https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
-https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
-https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.cql
-https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
-https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
+Then (for network store cassandra database) :
+```bash
+$ bin/cqlsh -k <KEYSPACE_NAME_NETWORK_STORE>
+```
+Copy paste following files content to cqlsh shell:
+[iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/master/network-store-server/src/main/resources/iidm.cql)
+
+Change Cassandra keyspace name in k8s/base/config/network-store-server-application.yml
+```properties
+cassandra-keyspace: <KEYSPACE_NAME_NETWORK_STORE>
 ```
 
-### PostgresSql installation
+
+Then (for geo-data cassandra database) :
+```bash
+$ bin/cqlsh -k <KEYSPACE_NAME_GEO_DATA>
+```
+Copy paste following files content to cqlsh shell:
+[geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/master/geo-data-server/src/main/resources/geo_data.cql)
+
+Change Cassandra keyspace name in k8s/base/config/geo-data-server-application.yml
+```properties
+cassandra-keyspace: <KEYSPACE_NAME_GEO_DATA>
+```
+
+
+Then (for other cassandra databases) :
+```bash
+$ bin/cqlsh
+```
+Copy/paste following files content to cqlsh shell:
+
+[cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/master/src/main/resources/cgmes_boundary.cql)    
+[cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/master/src/main/resources/cgmes_assembling.cql)    
+[sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/master/src/main/resources/sa.cql)    
+[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/master/src/main/resources/config.cql)    
+
+### PostgresSql install
 
 Postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
 To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
 are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
 feel free to install and run postgresql with your system package manager or with a dedicate docker container.
 
-**Postgres local Installation from code sources:**
+**Postgres local install from code sources:**
 
 Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
- then unzip the downloaded file.
+ then unzip the downloaded file. For the simplest installation, copy paste the following commands in the unzipped folder (you can change POSTGRES_HOME if you want): 
 
-`$ cd postgresql-13.1` 
+```shell
+#!/bin/bash
+POSTGRES_HOME="$HOME/postgres";
+./configure --without-readline --without-zlib --prefix="$POSTGRES_HOME";
+make;
+make install;
+cd "$POSTGRES_HOME";
+bin/initdb -D ./data;
+echo "host  all  all 0.0.0.0/0 md5" >> data/pg_hba.conf;
+bin/pg_ctl -D ./data start;
+bin/psql postgres -c  "CREATE USER postgres WITH PASSWORD 'postgres' SUPERUSER;";
+bin/pg_ctl -D ./data stop;
+```
 
-` $ ./configure --without-readline --prefix=/path/to/where/you/want/to/install/postgres/data` 
+To start the server each time you want to work, cd in the POSTGRES_HOME folder you used during install and run
+```shell
+$ bin/postgres -D ./data --listen_addresses='*'
+```
 
-If you want readline library to be used by your psql client,  install it in your machine and remove --without-readline from the
- ./configure command.
-
-`$ make`
-
- you can add -jX for parallel installation where X in a number >= 2 
- 
-`$ make install`
-
-(You can find the installation details in the INSTALL file) then:
-
-
-`$ cd /path/to/where/you/want/to/install/postgres`
-
-Init the database:
- 
- `$ bin/initdb -D ./data`
-
-Now you can launch postgres server:
- 
- `$ bin/postgres -D ./data`
- 
-or if you want postgres to listen to all addresses, so it can respond to docker-compose deployment, you can use : 
-
-`$ bin/postgres -D ./data --listen_addresses='*'`
-
-If you plan to use postgres on your localhost and make requests from docker-compose you need to follow these steps : 
-
- `$ cd /path/to/where/you/want/to/install/postgres/data` 
- 
-Open the file `pg_hba.conf` and add the following line to it : 
- 
- `host  all  all 0.0.0.0/0 md5`
+Bonus note: for more convenient options when developping (instead of this easy procedure for installing and just running the system), you can do these bonus steps:
+- use `-j8` during the make phase if you have a beefy machine to speed up compilation
+- install libreadline dev (fedora package: readline-devel, ubuntu: libreadline-dev) and remove `--without-readline` (this gives you navigability using arrows in the psql client if you use it often to run queries manually to diagnose or debug)
+- install zlib dev (fedora pacakge: zlib-devel , ubuntu: zlib1g-dev) and remove `--without-zlib` (this gives you compressed exports if you want to backup your databases..)
+- compile auto_explain (cd in the source folder in contrib/auto_explain, run make, make install) and configure it (add `shared_preload_libraries = 'auto_explain'` and
+`auto_explain.log_min_duration = 0` at the end postgresql.conf to log every query on the console for example). this requires a restart of postgres.
 
 ### Postgres schema setup
+
 ```bash
 $ bin/psql postgres
 $ create database ds;
-$ \c ds;
+$ create database directory;
+$ create database study;
+$ create database actions;
+$ create database networkmodifications;
+$ create database merge_orchestrator;
+$ create database dynamicmappings;
+$ create database filters;
+$ create database report;
 ```
 
-Then copy the content of the following file to the psql: 
-```html
-https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql
+Then initialize the schemas for the databases: 
+
+
+`$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
+`$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
+`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/master/src/main/resources/study.sql) content to psql   
+`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/master/src/main/resources/actions.sql) content to psql   
+`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/master/src/main/resources/network-modification.sql) content to psql   
+`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/master/src/main/resources/merge_orchestrator.sql) content to psql   
+`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/IEEE14Models.sql)content to psql   
+`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
+`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
+
+### Cases folders configuration
+
+The case-server needs to use an accessible `cases` folder in your /home/user root folder
+
+If a folder already exists please check your credentials on it.
+To overwrite this folder,
+* rename it -> `cases` to `cases_old`
+* then create a new folder `cases` and assign it some rights with
+
 ```
+chmod 777 cases
+```
+* after the case-server launch this folder must contain 2 subfolders `public` and `private`. No need to change rights on thoses folders.
+
+
 ### Minikube and kubectl setup
 
+This setup is heavyweight and matches a realworld deployment. It is useful to reproduce realworld kubernetes effects and features. In most cases, the lighter docker-compose deployment is preferred.
 Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
+We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
 Start minikube and activate ingress support:
 ```bash
-$ minikube start --memory 8192
+$ minikube start --memory 24g --cpus=4
 $ minikube addons enable ingress
 ```
 
@@ -142,104 +197,23 @@ $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
 
-Change Cassandra daemon ip address in k8s/overlays/local/cassandra.properties
-```properties
-cassandra.contact-points: "<YOUR_IP>"
-cassandra.port: 9042
-```
-
+Get you ingress ip
 ```bash
-$ MINIKUBE_IP=`minikube ip`;
-$ echo $MINIKUBE_IP;
-```
-Fill config files with the MINIKUBE_IP :
-
-k8s/overlays/local/gridstudy-app-idpSettings.json :
-```json
-{
-    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "gridstudy-client",
-    "redirect_uri": "http://<TO COMPLETE>/gridstudy/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridstudy/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/gridstudy/silent-renew-callback",
-    "scope" : "openid"
-}
+$ INGRESS_HOST=`minikube ip`
+$ echo $INGRESS_HOST
 ```
 
-k8s/overlays/local/gridmerge-app-idpSettings.json
-```json
-{
-    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "gridmerge-client",
-    "redirect_uri": "http://<TO COMPLETE>/gridmerge/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridmerge/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/gridmerge/silent-renew-callback",
-    "scope" : "openid"
-}
+Fill config files with the INGRESS_HOST in k8s/overlays/local/ :
+```bash
+$ sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g" k8s/overlays/local/*
 ```
 
-k8s/overlays/local/gridactions-app-idpSettings.json
-```json
-{
-    "authority" : "http://<TO COMPLETE>/oidc-mock-server/",
-    "client_id" : "gridactions-client",
-    "redirect_uri": "http://<TO COMPLETE>/gridactions/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<TO COMPLETE>/gridactions/logout-callback",
-    "silent_redirect_uri" : "http://<TO COMPLETE>/gridactions/silent-renew-callback",
-    "scope" : "openid"
-}
+Optionally, give an ssh access to the case importing cronjobs by providing your username and your password (or create a dedicated user for this if you want):
+The import jobs connect through ssh to your machine and automatically import files from the $HOME/opde and $HOME/boundaries
+```bash
+$ sed -i -e 's/<USERNAME>/YOURUSERNAME/g' k8s/overlays/local/*
+$ sed -i -e 's/<PASSWORD>/YOURPASSWORD/g' k8s/overlays/local/*
 ```
-
-k8s/overlays/local/oidc-mock-server-deployment.yaml :
-```yaml
-spec:
-      containers:
-      - name: oidc-mock-server
-        image: docker.io/gridsuite/oidc-mock-server:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 3000
-        env:
-        - name: DEBUG
-          value: "oidc-provider:*"
-        - name: CLIENT_ID
-          value: "gridstudy-client"
-        - name: CLIENT_COUNT
-          value: 3
-        - name: CLIENT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/gridstudy/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/gridstudy/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI
-          value: "http://<TO COMPLETE>/gridstudy/silent-renew-callback"
-        - name: CLIENT_ID_2
-          value: "gridmerge-client"
-        - name: CLIENT_REDIRECT_URI_2
-          value: "http://<TO COMPLETE>/gridmerge/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_2
-          value: "http://<TO COMPLETE>/gridmerge/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_2
-          value: "http://<TO COMPLETE>/gridmerge/silent-renew-callback"
-        - name: CLIENT_ID_3
-          value: "gridactions-client"
-        - name: CLIENT_REDIRECT_URI_3
-          value: "http://<TO COMPLETE>/gridactions/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_3
-          value: "http://<TO COMPLETE>/gridactions/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_3
-          value: "http://<TO COMPLETE>/gridactions/silent-renew-callback"
-        - name: ISSUER_HOST
-          value: "<TO COMPLETE>"
-        - name: ISSUER_PREFIX
-          value: "/oidc-mock-server"
-      restartPolicy: Always
-```
-
-k8s/overlays/local/allowed-issuers.yml
-```yaml
-allowed-issuers: http://<TO COMPLETE>/oidc-mock-server
-```
-
 
 Deploy k8s services:
 ```bash 
@@ -257,11 +231,8 @@ Applications:
 http://<MINIKUBE_IP>/gridstudy-app/
 http://<MINIKUBE_IP>/gridmerge-app/
 http://<MINIKUBE_IP>/gridactions-app/
-```
-
-Gateway 
-```html
-http://<MINIKUBE_IP>/gateway/
+http://<MINIKUBE_IP>/griddyna-app/
+http://<MINIKUBE_IP>/gridexplore-app/
 ```
 
 Swagger UI:
@@ -282,9 +253,17 @@ http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
 http://<MINIKUBE_IP>/actions-server/swagger-ui.html
 http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
 http://<MINIKUBE_IP>/config-server/swagger-ui.html
+http://<MINIKUBE_IP>/directory-server/swagger-ui.html
+http://<MINIKUBE_IP>/balances-adjustment-server/swagger-ui.html
+http://<MINIKUBE_IP>/case-validation-server/swagger-ui.html
+http://<MINIKUBE_IP>/dynamic-simulation-server/swagger-ui.html
+http://<MINIKUBE_IP>/filter-server/swagger-ui.html 
+http://<MINIKUBE_IP>/report-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
+
+This is the preferred development deployment.
 Install the orchestration tool docker-compose then launch the desired profile :
 
 ```bash 
@@ -304,6 +283,11 @@ $ docker-compose up
 $ cd docker-compose/actions
 $ docker-compose up
 ```
+
+```bash 
+$ cd docker-compose/dynamic-mapping
+$ docker-compose up
+```
 Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
 `172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
 containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
@@ -315,11 +299,8 @@ Applications:
 http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
 http://localhost:82 // gridactions
-```
-
-Gateway 
-```html
-http://localhost:9000/
+http://localhost:83 // griddyna
+http://localhost:84 // gridexplore
 ```
 
 Swagger UI:
@@ -340,6 +321,13 @@ http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
 http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
+http://localhost:5026/swagger-ui.html  // directory-server
+http://localhost:5028/swagger-ui.html  // report-server
+http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
+http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
+http://localhost:5027/swagger-ui.html  // filter-server
+http://localhost:5010/swagger-ui.html  // balances-adjustment-server
+http://localhost:5011/swagger-ui.html  // case-validation-server
 ```
 RabbitMQ management UI:
 ```html

@@ -20,6 +20,9 @@ spec:
       - name: case-server
         image: docker.io/powsybl/case-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 80
         volumeMounts:
@@ -27,7 +30,39 @@ spec:
           name: case-server-configmap-volume
         - mountPath: /cases
           name: case-server-storage
+        - mountPath: /tmp
+          name: tmp-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "1Gi"
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+        args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
       volumes:
         - name: case-server-configmap-volume
           configMap:
@@ -35,3 +70,5 @@ spec:
         - name: case-server-storage
           persistentVolumeClaim:
             claimName: case-server-claim
+        - name: tmp-emptydir
+          emptyDir: {}
