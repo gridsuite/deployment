@@ -4,7 +4,14 @@
 
 ### Cassandra install
 
-Download the last version of [Cassandra](http://www.apache.org/dyn/closer.lua/cassandra/3.11.5/apache-cassandra-3.11.5-bin.tar.gz)
+Download the recommended version of Cassandra :
+
+|Distribution| Version recommendation |Version  | Link|
+--- | --- | --- | ---
+|Fedora|3.x|3.11.10|[Download](https://www.apache.org/dyn/closer.lua/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz)|
+|Ubuntu|4.x|4.0-rc2|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0-rc2/apache-cassandra-4.0-rc2-bin.tar.gz)|
+
+
 
 In order to be accessible from k8s cluster, Cassandra has to be bind to one the ip address of the machine.  The following variables have to be modified in conf/cassandra.yaml before starting the Cassandra daemon.
 
@@ -23,9 +30,12 @@ broadcast_rpc_address: "<YOUR_IP>"
 
 During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options. Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
 
-To start the cassandra server: `cd /path/to/cassandra/folder`
-then `bin/cassandra -f`
+To start the cassandra server: 
 
+``` 
+$ cd /path/to/cassandra/folder`
+$ bin/cassandra -f`
+```
 ### Cassandra schema setup
 
 ```bash
@@ -45,12 +55,11 @@ CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrat
 
 Then (for network store cassandra database) :
 ```bash
-$ bin/cqlsh -f <KEYSPACE_NAME_NETWORK_STORE>
+$ bin/cqlsh -k <KEYSPACE_NAME_NETWORK_STORE>
 ```
 Copy paste following files content to cqlsh shell:
-```html
-https://github.com/powsybl/powsybl-network-store/blob/master/network-store-server/src/main/resources/iidm.cql
-```
+[iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/master/network-store-server/src/main/resources/iidm.cql)
+
 Change Cassandra keyspace name in k8s/base/config/network-store-server-application.yml
 ```properties
 cassandra-keyspace: <KEYSPACE_NAME_NETWORK_STORE>
@@ -59,12 +68,11 @@ cassandra-keyspace: <KEYSPACE_NAME_NETWORK_STORE>
 
 Then (for geo-data cassandra database) :
 ```bash
-$ bin/cqlsh -f <KEYSPACE_NAME_GEO_DATA>
+$ bin/cqlsh -k <KEYSPACE_NAME_GEO_DATA>
 ```
 Copy paste following files content to cqlsh shell:
-```html
-https://github.com/powsybl/powsybl-geo-data/blob/master/geo-data-server/src/main/resources/geo_data.cql
-```
+[geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/master/geo-data-server/src/main/resources/geo_data.cql)
+
 Change Cassandra keyspace name in k8s/base/config/geo-data-server-application.yml
 ```properties
 cassandra-keyspace: <KEYSPACE_NAME_GEO_DATA>
@@ -75,22 +83,21 @@ Then (for other cassandra databases) :
 ```bash
 $ bin/cqlsh
 ```
-Copy paste following files content to cqlsh shell:
-```html
-https://github.com/gridsuite/cgmes-boundary-server/blob/master/src/main/resources/cgmes_boundary.cql
-https://github.com/gridsuite/cgmes-assembling-job/blob/master/src/main/resources/cgmes_assembling.cql
-https://github.com/gridsuite/security-analysis-server/blob/master/src/main/resources/sa.cql
-https://github.com/gridsuite/config-server/blob/master/src/main/resources/config.cql
-```
+Copy/paste following files content to cqlsh shell:
 
-### PostgresSql installation
+[cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/master/src/main/resources/cgmes_boundary.cql)    
+[cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/master/src/main/resources/cgmes_assembling.cql)    
+[sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/master/src/main/resources/sa.cql)    
+[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/master/src/main/resources/config.cql)    
+
+### PostgresSql install
 
 Postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
 To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
 are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
 feel free to install and run postgresql with your system package manager or with a dedicate docker container.
 
-**Postgres local Installation from code sources:**
+**Postgres local install from code sources:**
 
 Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
  then unzip the downloaded file. For the simplest installation, copy paste the following commands in the unzipped folder (you can change POSTGRES_HOME if you want): 
@@ -131,23 +138,38 @@ $ create database study;
 $ create database actions;
 $ create database networkmodifications;
 $ create database merge_orchestrator;
-$ create database dynamicmappings
+$ create database dynamicmappings;
 $ create database filters;
 $ create database report;
 ```
 
 Then initialize the schemas for the databases: 
-```html
-$ \c ds; # and copy https://github.com/gridsuite/dynamic-simulation-server/blob/main/src/main/resources/result.sql content to psql
-$ \c directory; # and copy https://github.com/gridsuite/directory-server/blob/main/src/main/resources/schema.sql content to psql
-$ \c study; # and copy https://github.com/gridsuite/study-server/blob/master/src/main/resources/study.sql content to psql
-$ \c actions; # and copy https://github.com/gridsuite/actions-server/blob/master/src/main/resources/actions.sql content to psql
-$ \c networkmodifications; # and copy https://github.com/gridsuite/network-modification-server/blob/master/src/main/resources/network-modification.sql content to psql
-$ \c merge_orchestrator; # and copy https://github.com/gridsuite/merge-orchestrator-server/blob/master/src/main/resources/merge_orchestrator.sql content to psql
-$ \c dynamicmappings; # and copy https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/mappings.sql and https://github.com/gridsuite/dynamic-mapping-server/blob/master/src/main/resources/IEEE14Models.sql content to psql
-# \c filters # and copy https://github.com/gridsuite/filter-server/blob/master/src/main/resources/filter.sql content to psql
-$ \c report; # and copy https://github.com/gridsuite/report-server/blob/master/src/main/resources/report.sql content to psql
+
+
+`$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
+`$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
+`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/master/src/main/resources/study.sql) content to psql   
+`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/master/src/main/resources/actions.sql) content to psql   
+`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/master/src/main/resources/network-modification.sql) content to psql   
+`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/master/src/main/resources/merge_orchestrator.sql) content to psql   
+`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/IEEE14Models.sql)content to psql   
+`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
+`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
+
+### Cases folders configuration
+
+The case-server needs to use an accessible `cases` folder in your /home/user root folder
+
+If a folder already exists please check your credentials on it.
+To overwrite this folder,
+* rename it -> `cases` to `cases_old`
+* then create a new folder `cases` and assign it some rights with
+
 ```
+chmod 777 cases
+```
+* after the case-server launch this folder must contain 2 subfolders `public` and `private`. No need to change rights on thoses folders.
+
 
 ### Minikube and kubectl setup
 
