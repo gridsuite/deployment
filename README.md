@@ -4,13 +4,14 @@
 
 ### Cassandra install
 
-Download the last version of [Cassandra](http://www.apache.org/dyn/closer.lua/cassandra/3.11.5/apache-cassandra-3.11.5-bin.tar.gz)
+Download the recommended version of Cassandra :
 
-In order to use this version of Cassandra you will need OpenJDK8
+|Distribution| Version recommendation |Version  | Link|
+--- | --- | --- | ---
+|Fedora|3.x|3.11.10|[Download](https://www.apache.org/dyn/closer.lua/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz)|
+|Ubuntu|4.x|4.0-rc2|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0-rc2/apache-cassandra-4.0-rc2-bin.tar.gz)|
 
-```bash
-$ dzdo apt install openjdk-8-jdk
-```
+
 
 In order to be accessible from k8s cluster, Cassandra has to be bind to one the ip address of the machine.  The following variables have to be modified in conf/cassandra.yaml before starting the Cassandra daemon.
 
@@ -32,7 +33,6 @@ During development, to reduce ram usage, it is recommended to configure the Xmx 
 To start the cassandra server: 
 
 ``` 
-$ JAVA_HOME="/path/to/openJDK-8/jre"
 $ cd /path/to/cassandra/folder`
 $ bin/cassandra -f`
 ```
@@ -163,7 +163,12 @@ The case-server needs to use an accessible `cases` folder in your /home/user roo
 If a folder already exists please check your credentials on it.
 To overwrite this folder,
 * rename it -> `cases` to `cases_old`
-* then create a new folder `cases` which contains 2 subfolders `public` and `private`.
+* then create a new folder `cases` and assign it some rights with
+
+```
+chmod 777 cases
+```
+* after the case-server launch this folder must contain 2 subfolders `public` and `private`. No need to change rights on thoses folders.
 
 
 ### Minikube and kubectl setup
