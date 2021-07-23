@@ -1,2 +1,6 @@
-server:
-  port: 8080
+server :
+  port : 8080
+
+backing-services:
+  study-server:
+    base-uri: http://study-server/
