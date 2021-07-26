@@ -26,9 +26,11 @@ listen_address: "<YOUR_IP>"
 rpc_address: "0.0.0.0"
 
 broadcast_rpc_address: "<YOUR_IP>"
+
+enable_materialized_views: true
 ```
 
-During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options. Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
+During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options (v3.x) or conf/jvm-server.options (v4.x). Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
 
 To start the cassandra server: 
 
@@ -158,18 +160,15 @@ Then initialize the schemas for the databases:
 
 ### Cases folders configuration
 
-The case-server needs to use an accessible `cases` folder in your /home/user root folder
+| :warning:  BEFORE running any containers!   |
+|---------------------------------------------|
 
-If a folder already exists please check your credentials on it.
-To overwrite this folder,
-* rename it -> `cases` to `cases_old`
-* then create a new folder `cases` and assign it some rights with
-
+Create a `~/cases/` folder in your /home/user root folder.
+then assign rwx credentials to it.
 ```
 chmod 777 cases
 ```
-* after the case-server launch this folder must contain 2 subfolders `public` and `private`. No need to change rights on thoses folders.
-
+This is a working directory for cases-server.
 
 ### Minikube and kubectl setup
 
@@ -311,7 +310,7 @@ http://localhost:8087/swagger-ui.html  // geo-data-server
 http://localhost:5003/swagger-ui.html  // network-conversion-server
 http://localhost:8080/swagger-ui.html  // network-store-server
 http://localhost:5006/swagger-ui.html  // network-map-server
-http://localhost:8096/swagger-ui.html  // odre-server
+http://localhost:8090/swagger-ui.html  // odre-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
@@ -341,6 +340,35 @@ Kibana management UI:
 http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
+
+### RTE Geographical data importation
+
+To populate the geo-data-server with RTE geographic lines and substations data, you must use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. Both REST requests must be executed.
+
+**Note**: Be sure to have at least `odre-server` and `geo-data-server` containers running.
+
+**Note 2**: if you are behind a proxy server : download the csv files from thoses links :
+
+ * [postes-electriques-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/postes-electriques-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
+ * [lignes-aeriennes-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-aeriennes-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
+ * [lignes-souterraines-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-souterraines-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
+
+
+Create a "GeoData" directory in the HOME folder and move thoses files inside.    
+Stop `odre-server` container if running.    
+Open the odre server project in your favorite IDE.    
+You must change the used client in `src/main/java/org/gridsuite/odre/server/services/OdreServiceImpl.java`
+
+```diff
+-@Qualifier("odreDownloadClientImpl")
++@Qualifier("odreCsvClientImpl")
+```
+This will allow to import the data from the local folder instead of downloading them.
+Then rebuild and run this server.
+Both REST requests still must be executed.
+
+
+### Working with Spring services
 
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
