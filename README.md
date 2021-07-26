@@ -160,18 +160,15 @@ Then initialize the schemas for the databases:
 
 ### Cases folders configuration
 
-The case-server needs to use an accessible `cases` folder in your /home/user root folder
+| :warning:  BEFORE running any containers!   |
+|---------------------------------------------|
 
-If a folder already exists please check your credentials on it.
-To overwrite this folder,
-* rename it -> `cases` to `cases_old`
-* then create a new folder `cases` and assign it some rights with
-
+Create a `~/cases/` folder in your /home/user root folder.
+then assign rwx credentials to it.
 ```
 chmod 777 cases
 ```
-* after the case-server launch this folder must contain 2 subfolders `public` and `private`. No need to change rights on thoses folders.
-
+This is a working directory for cases-server.
 
 ### Minikube and kubectl setup
 
