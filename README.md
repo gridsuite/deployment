@@ -26,9 +26,11 @@ listen_address: "<YOUR_IP>"
 rpc_address: "0.0.0.0"
 
 broadcast_rpc_address: "<YOUR_IP>"
+
+enable_materialized_views: true
 ```
 
-During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options. Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
+During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options (v3.x) or conf/jvm-server.options (v4.x). Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
 
 To start the cassandra server: 
 
