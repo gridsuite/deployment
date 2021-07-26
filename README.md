@@ -310,7 +310,7 @@ http://localhost:8087/swagger-ui.html  // geo-data-server
 http://localhost:5003/swagger-ui.html  // network-conversion-server
 http://localhost:8080/swagger-ui.html  // network-store-server
 http://localhost:5006/swagger-ui.html  // network-map-server
-http://localhost:8096/swagger-ui.html  // odre-server
+http://localhost:8090/swagger-ui.html  // odre-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
