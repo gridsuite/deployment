@@ -341,6 +341,35 @@ http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
+### RTE Geographical data importation
+
+To populate the geo-data-server with RTE geographic lines and substations data, you must use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. Both REST requests must be executed.
+
+**Note**: Be sure to have at least `odre-server` and `geo-data-server` containers running.
+
+**Note 2**: if you are behind a proxy server : download the csv files from thoses links :
+
+ * [postes-electriques-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/postes-electriques-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
+ * [lignes-aeriennes-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-aeriennes-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
+ * [lignes-souterraines-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-souterraines-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
+
+
+Create a "GeoData" directory in the HOME folder and move thoses files inside.    
+Stop `odre-server` container if running.    
+Open the odre server project in your favorite IDE.    
+You must change the used client in `src/main/java/org/gridsuite/odre/server/services/OdreServiceImpl.java`
+
+```diff
+-@Qualifier("odreDownloadClientImpl")
++@Qualifier("odreCsvClientImpl")
+```
+This will allow to import the data from the local folder instead of downloading them.
+Then rebuild and run this server.
+Both REST requests still must be executed.
+
+
+### Working with Spring services
+
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
 Docker image is generated using the following command in the considered service folder:
