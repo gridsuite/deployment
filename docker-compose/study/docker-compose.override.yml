@@ -75,6 +75,20 @@ services:
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
+  directory-notification-server:
+    image: gridsuite/directory-notification-server:latest
+    ports:
+      - 5004:80
+    volumes:
+      - $PWD/../../k8s/base/config/directory-notification-server-application.yml:/config/application.yml:Z
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+
   network-map-server:
     image: gridsuite/network-map-server:latest
     ports:

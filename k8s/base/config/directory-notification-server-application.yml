@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  rabbitmq:
+    addresses: rabbitmq
+    port: 5672
+
+logging:
+  level:
+    org.gridsuite.notification.server.NotificationWebSocketHandler: DEBUG
