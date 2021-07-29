@@ -31,3 +31,5 @@ backing-services:
     base-uri: http://cgmes-boundary-server/
   dynamic-mapping-server:
     base-uri: http://dynamic-mapping-server/
+  directory-notification-server:
+    base-uri: http://directory-notification-server/
