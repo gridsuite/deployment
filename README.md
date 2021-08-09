@@ -2,7 +2,22 @@
 
 ## Gridsuite local install
 
-### Cassandra install
+### Cases folders configuration
+
+| :warning:  BEFORE running any containers!   |
+|---------------------------------------------|
+
+Create a `~/cases/` folder in your /home/user root folder.
+then assign rwx credentials to it.
+```
+chmod 777 cases
+```
+This is a working directory for cases-server.
+
+### Install dependencies
+
+#### Cassandra
+##### Install
 
 Download the recommended version of Cassandra :
 
@@ -12,8 +27,9 @@ Download the recommended version of Cassandra :
 |Ubuntu|4.x|4.0-rc2|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0-rc2/apache-cassandra-4.0-rc2-bin.tar.gz)|
 
 
+In order to be accessible from k8s cluster, Cassandra has to be bound to one the ip address of the machine.  
+The following variables have to be modified in conf/cassandra.yaml before starting the Cassandra daemon.
 
-In order to be accessible from k8s cluster, Cassandra has to be bind to one the ip address of the machine.  The following variables have to be modified in conf/cassandra.yaml before starting the Cassandra daemon.
 
 ```yaml
 seed_provider:
@@ -30,6 +46,10 @@ broadcast_rpc_address: "<YOUR_IP>"
 enable_materialized_views: true
 ```
 
+When using docker-compose for deployment, your machine is accessible from the containers through the ip address
+`172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
+containers set '<YOUR_IP>' to `172.17.0.1`.
+
 During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options (v3.x) or conf/jvm-server.options (v4.x). Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
 
 To start the cassandra server: 
@@ -38,7 +58,7 @@ To start the cassandra server:
 $ cd /path/to/cassandra/folder`
 $ bin/cassandra -f`
 ```
-### Cassandra schema setup
+##### Cassandra schema setup
 
 ```bash
 $ bin/cqlsh
@@ -92,7 +112,9 @@ Copy/paste following files content to cqlsh shell:
 [sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/master/src/main/resources/sa.cql)    
 [config.cql](https://raw.githubusercontent.com/gridsuite/config-server/master/src/main/resources/config.cql)    
 
-### PostgresSql install
+#### PostgresSql
+
+##### install
 
 Postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
 To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
@@ -130,7 +152,7 @@ Bonus note: for more convenient options when developping (instead of this easy p
 - compile auto_explain (cd in the source folder in contrib/auto_explain, run make, make install) and configure it (add `shared_preload_libraries = 'auto_explain'` and
 `auto_explain.log_min_duration = 0` at the end postgresql.conf to log every query on the console for example). this requires a restart of postgres.
 
-### Postgres schema setup
+##### Postgres schema setup
 
 ```bash
 $ bin/psql postgres
@@ -158,18 +180,6 @@ Then initialize the schemas for the databases:
 `$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
 `$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
 
-### Cases folders configuration
-
-| :warning:  BEFORE running any containers!   |
-|---------------------------------------------|
-
-Create a `~/cases/` folder in your /home/user root folder.
-then assign rwx credentials to it.
-```
-chmod 777 cases
-```
-This is a working directory for cases-server.
-
 ### Minikube and kubectl setup
 
 This setup is heavyweight and matches a realworld deployment. It is useful to reproduce realworld kubernetes effects and features. In most cases, the lighter docker-compose deployment is preferred.
@@ -187,6 +197,11 @@ Verify everything is ok with:
 $ minikube status
 $ minikube kubectl cluster-info
 ```
+
+## Deployments
+
+Two types of deployments are defined.
+One through only docker-compose, the other through Kubernetes.
 
 ### K8s deployment
 
@@ -260,10 +275,10 @@ http://<MINIKUBE_IP>/filter-server/swagger-ui.html
 http://<MINIKUBE_IP>/report-server/swagger-ui.html
 ```
 
-### Docker compose  deployment
+### Docker compose deployment
 
 This is the preferred development deployment.
-Install the orchestration tool docker-compose then launch the desired profile :
+Install the orchestration tool docker-compose then launch *the* desired profile :
 
 ```bash 
 $ cd docker-compose/suite
@@ -287,9 +302,6 @@ $ docker-compose up
 $ cd docker-compose/dynamic-mapping
 $ docker-compose up
 ```
-Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
-`172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
-containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
 
 You can now access to all applications and swagger UIs of the Spring services of the chosen profile:
 
