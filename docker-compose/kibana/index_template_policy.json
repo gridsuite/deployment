@@ -1,0 +1,8 @@
+{
+  "index_patterns": ["filebeat-*"], 
+  "settings": {
+     "index.lifecycle.name": "logs_policy"
+  }
+}
+
+
