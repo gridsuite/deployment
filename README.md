@@ -134,29 +134,31 @@ Bonus note: for more convenient options when developping (instead of this easy p
 
 ```bash
 $ bin/psql postgres
-$ create database ds;
-$ create database directory;
-$ create database study;
-$ create database actions;
-$ create database networkmodifications;
-$ create database merge_orchestrator;
-$ create database dynamicmappings;
-$ create database filters;
-$ create database report;
+$ create database gridsuite;
+$ \c gridsuite;
+$ create schema ds;
+$ create schema directory;
+$ create schema study;
+$ create schema actions;
+$ create schema networkmodifications;
+$ create schema merge_orchestrator;
+$ create schema dynamicmappings;
+$ create schema filters;
+$ create schema report;
 ```
 
 Then initialize the schemas for the databases: 
 
-
-`$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
-`$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
-`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/master/src/main/resources/study.sql) content to psql   
-`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/master/src/main/resources/actions.sql) content to psql   
-`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/master/src/main/resources/network-modification.sql) content to psql   
-`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/master/src/main/resources/merge_orchestrator.sql) content to psql   
-`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/IEEE14Models.sql)content to psql   
-`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
-`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
+`$ \c gridsuite;`    
+`$ set search_path to ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
+`$ set search_path to directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
+`$ set search_path to study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/master/src/main/resources/study.sql) content to psql   
+`$ set search_path to actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/master/src/main/resources/actions.sql) content to psql   
+`$ set search_path to networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/master/src/main/resources/network-modification.sql) content to psql   
+`$ set search_path to merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/master/src/main/resources/merge_orchestrator.sql) content to psql   
+`$ set search_path to dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/IEEE14Models.sql) content to psql   
+`$ set search_path to filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
+`$ set search_path to report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
 
 ### Cases folders configuration
 
