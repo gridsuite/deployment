@@ -4,6 +4,8 @@ server :
 backing-services:
   study-server:
     base-uri: http://study-server/
+  actions-server:
+    base-uri: http://actions-server/
 
 spring:
   servlet:
