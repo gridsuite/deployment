@@ -134,7 +134,7 @@ services:
   gridstudy-app:
     image: gridsuite/gridstudy-app:latest
     ports:
-      - 80:8080
+      - 84:8080
     volumes:
       - $PWD/../gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
@@ -190,7 +190,7 @@ services:
   gridexplore-app:
     image: gridsuite/gridexplore-app:latest
     ports:
-      - 84:8080
+      - 80:8080
     volumes:
       - $PWD/../gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
