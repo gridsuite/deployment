@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: root-ingress
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/app-root: /gridexplore
 spec:
   rules:

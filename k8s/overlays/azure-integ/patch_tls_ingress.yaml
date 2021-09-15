@@ -4,4 +4,6 @@
 - op: add
   path: /metadata/annotations/cert-manager.io~1cluster-issuer
   value: letsencrypt-prod
-
+- op: replace
+  path: /metadata/annotations/nginx.ingress.kubernetes.io~1ssl-redirect
+  value: "true"
