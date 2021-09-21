@@ -20,3 +20,8 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 103MB
+  data:
+    elasticsearch:
+      enabled: true
+      host: elasticsearch
+      port: 9200
