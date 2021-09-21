@@ -1,13 +1,18 @@
-[{
-  "name" : "Merge",
-  "url"  : "http://localhost:81",
-  "appColor" : "#2D9BF0"
+[
+{
+  "name" : "Explore",
+  "url"  : "http://localhost:80",
+  "appColor" : "#33AFED"
 },
 {
   "name" : "Study",
-  "url"  : "http://localhost:80",
+  "url"  : "http://localhost:84",
   "appColor" : "#0CA789"
-
+},
+{
+  "name" : "Merge",
+  "url"  : "http://localhost:81",
+  "appColor" : "#2D9BF0"
 },
 {
   "name" : "Actions",
@@ -18,9 +23,5 @@
   "name" : "Dynamic Mapping",
   "url"  : "http://localhost:83",
   "appColor" : "#FFC11B"
-},
-{
-  "name" : "Explore",
-  "url"  : "http://localhost:84",
-  "appColor" : "#33AFED"
-}]
+}
+]

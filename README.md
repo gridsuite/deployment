@@ -9,7 +9,7 @@ Download the recommended version of Cassandra :
 |Distribution| Version recommendation |Version  | Link|
 --- | --- | --- | ---
 |Fedora|3.x|3.11.10|[Download](https://www.apache.org/dyn/closer.lua/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz)|
-|Ubuntu|4.x|4.0-rc2|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0-rc2/apache-cassandra-4.0-rc2-bin.tar.gz)|
+|Ubuntu|4.x|4.0.0|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0.0/apache-cassandra-4.0.0-bin.tar.gz)|
 
 
 

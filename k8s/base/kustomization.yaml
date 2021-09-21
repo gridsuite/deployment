@@ -5,6 +5,7 @@ commonLabels:
   app: demo
 
 resources:
+  - root-ingress.yaml
   - case-server-claim.yaml
   - case-server-deployment.yaml
   - case-server-service.yaml
