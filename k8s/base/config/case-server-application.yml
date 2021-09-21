@@ -21,7 +21,5 @@ spring:
       enabled : true
       host: elasticsearch
       port: 9200
-      index: case-server
-      type: metadatas
 
 case-store-directory: /cases

@@ -1,5 +1,12 @@
 server:
   port: 8080
 
+spring:
+  data:
+    elasticsearch:
+      enabled : true
+      host: elasticsearch
+      port: 9200
+
 network-store-server:
   base-uri: http://network-store-server/

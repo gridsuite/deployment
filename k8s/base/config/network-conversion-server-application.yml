@@ -7,6 +7,12 @@ spring:
       max-file-size: 100MB
       max-request-size: 103MB
 
+  data:
+    elasticsearch:
+      enabled : true
+      host: elasticsearch
+      port: 9200
+
 network-store-server:
   preloading-strategy: COLLECTION
   base-uri: http://network-store-server
