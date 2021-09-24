@@ -2,3 +2,5 @@ server:
   port: 8080
 
 cassandra-keyspace: iidm
+
+dbName: xepdb1
