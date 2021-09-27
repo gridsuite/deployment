@@ -39,3 +39,9 @@ spring:
   rabbitmq:
     addresses: rabbitmq
     port: 5672
+
+  data:
+    elasticsearch:
+      enabled : true
+      host: elasticsearch
+      port: 9200
