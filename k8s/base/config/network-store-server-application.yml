@@ -1,6 +1,6 @@
 server:
   port: 8080
 
-cassandra-keyspace: iidm
-
-dbName: xepdb1
+logging:
+    level:
+        com.zaxxer.hikari.HikariConfig: debug

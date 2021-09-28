@@ -117,6 +117,7 @@ services:
       - 8080:80
     volumes:
       - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
+#      - $PWD/../database.properties:/config/database.properties:Z
       - $PWD/../database_oracle.properties:/config/database.properties:Z
     depends_on:
       - logspout
