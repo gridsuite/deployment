@@ -6,7 +6,13 @@
 {
   "name" : "Study",
   "url"  : "/gridstudy",
-  "appColor" : "#0CA789"
+  "appColor" : "#0CA789",
+  "resources" : [
+    {
+      "types" : ["STUDY"],
+      "path" : "/studies/{elementUuid}"
+    }
+  ]
 },
 {
   "name" : "Actions",
