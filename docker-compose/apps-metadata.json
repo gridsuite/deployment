@@ -7,7 +7,13 @@
 {
   "name" : "Study",
   "url"  : "http://localhost:84",
-  "appColor" : "#0CA789"
+  "appColor" : "#0CA789",
+  "resources" : [
+    {
+      "types" : ["STUDY"],
+      "path" : "/studies/{elementUuid}"
+    }
+  ]
 },
 {
   "name" : "Merge",
