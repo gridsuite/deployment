@@ -21,5 +21,7 @@ spring:
       enabled : true
       host: elasticsearch
       port: 9200
+      client:
+        timeout: 60  # Seconds
 
 case-store-directory: /cases

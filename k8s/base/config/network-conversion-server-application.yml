@@ -12,6 +12,8 @@ spring:
       enabled : true
       host: elasticsearch
       port: 9200
+      client:
+        timeout: 60  # Seconds
 
 network-store-server:
   preloading-strategy: COLLECTION
