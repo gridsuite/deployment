@@ -7,7 +7,8 @@ services:
     ports:
       - 5020:80
     volumes:
-      - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/application-default.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
 
     depends_on:
@@ -23,7 +24,8 @@ services:
     ports:
       - 5002:80
     volumes:
-      - $PWD/../../k8s/base/config/merge-notification-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/merge-notification-server-application.yml:/config/application-default.yml:Z
     depends_on:
       - logspout
     environment:
@@ -37,7 +39,8 @@ services:
     ports:
       - 5010:80
     volumes:
-      - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/application-default.yml:Z
     depends_on:
       - logspout
     environment:
@@ -51,7 +54,8 @@ services:
     ports:
       - 5011:80
     volumes:
-      - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/application-default.yml:Z
     depends_on:
       - logspout
     environment:
@@ -65,7 +69,8 @@ services:
     ports:
       - 5021:80
     volumes:
-      - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/application-default.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout

@@ -1,8 +1,0 @@
-server:
-  port: 8080
-
-network-store-server:
-  base-uri: http://network-store-server/
-
-report-server:
-  base-uri: http://report-server/

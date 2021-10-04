@@ -16,7 +16,8 @@ services:
     ports:
       - 5036:80
     volumes:
-      - $PWD/../../k8s/base/config/dynamic-mapping-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/dynamic-mapping-server-application.yml:/config/application-default.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout

@@ -87,91 +87,116 @@ resources:
 configMapGenerator:
   - name: case-server-configmap
     files:
-      - application.yml=config/case-server-application.yml
+      - application-default.yml=config/case-server-application.yml
+      - application.yml=config/common-application.yml
   - name: case-validation-server-configmap
     files:
-      - application.yml=config/case-validation-server-application.yml
+      - application-default.yml=config/case-validation-server-application.yml
+      - application.yml=config/common-application.yml
   - name: geo-data-server-configmap
     files:
-      - application.yml=config/geo-data-server-application.yml
+      - application-default.yml=config/geo-data-server-application.yml
+      - application.yml=config/common-application.yml
   - name: network-conversion-server-configmap
     files:
-      - application.yml=config/network-conversion-server-application.yml
+      - application-default.yml=config/network-conversion-server-application.yml
+      - application.yml=config/common-application.yml
   - name: network-conversion-server-itools-configmap
     files:
       - config.yml=config/network-conversion-server-config.yml
   - name: network-map-server-configmap
     files:
-      - application.yml=config/network-map-server-application.yml
+      - application-default.yml=config/network-map-server-application.yml
+      - application.yml=config/common-application.yml
   - name: network-store-server-configmap
     files:
-      - application.yml=config/network-store-server-application.yml
+      - application-default.yml=config/network-store-server-application.yml
+      - application.yml=config/common-application.yml
   - name: single-line-diagram-server-configmap
     files:
-      - application.yml=config/single-line-diagram-server-application.yml
+      - application-default.yml=config/single-line-diagram-server-application.yml
+      - application.yml=config/common-application.yml
   - name: network-modification-server-configmap
     files:
-      - application.yml=config/network-modification-server-application.yml
+      - application-default.yml=config/network-modification-server-application.yml
+      - application.yml=config/common-application.yml
   - name: study-server-configmap
     files:
-      - application.yml=config/study-server-application.yml
+      - application-default.yml=config/study-server-application.yml
+      - application.yml=config/common-application.yml
   - name: cgmes-gl-server-configmap
     files:
-      - application.yml=config/cgmes-gl-server-application.yml
+      - application-default.yml=config/cgmes-gl-server-application.yml
+      - application.yml=config/common-application.yml
   - name: odre-server-configmap
     files:
-      - application.yml=config/odre-server-application.yml
+      - application-default.yml=config/odre-server-application.yml
+      - application.yml=config/common-application.yml
   - name: gateway-configmap
     files:
-      - application.yml=config/gateway-application.yml
+      - application-default.yml=config/gateway-application.yml
+      - application.yml=config/common-application.yml
   - name: loadflow-server-configmap
     files:
-      - application.yml=config/loadflow-server-application.yml
+      - application-default.yml=config/loadflow-server-application.yml
+      - application.yml=config/common-application.yml
   - name: loadflow-server-itools-configmap
     files:
       - config.yml=config/loadflow-server-config.yml
   - name: balances-adjustment-server-configmap
     files:
-      - application.yml=config/balances-adjustment-server-application.yml
+      - application-default.yml=config/balances-adjustment-server-application.yml
+      - application.yml=config/common-application.yml
   - name: notification-server-configmap
     files:
-      - application.yml=config/notification-server-application.yml
+      - application-default.yml=config/notification-server-application.yml
+      - application.yml=config/common-application.yml
   - name: merge-orchestrator-server-configmap
     files:
-      - application.yml=config/merge-orchestrator-server-application.yml
+      - application-default.yml=config/merge-orchestrator-server-application.yml
+      - application.yml=config/common-application.yml
   - name: merge-notification-server-configmap
     files:
-      - application.yml=config/merge-notification-server-application.yml
+      - application-default.yml=config/merge-notification-server-application.yml
+      - application.yml=config/common-application.yml
   - name: cgmes-boundary-server-configmap
     files:
-      - application.yml=config/cgmes-boundary-server-application.yml
+      - application-default.yml=config/cgmes-boundary-server-application.yml
+      - application.yml=config/common-application.yml
   - name: actions-server-configmap
     files:
-      - application.yml=config/actions-server-application.yml
+      - application-default.yml=config/actions-server-application.yml
+      - application.yml=config/common-application.yml
   - name: filter-server-configmap
     files:
-      - application.yml=config/filter-server-application.yml
+      - application-default.yml=config/filter-server-application.yml
+      - application.yml=config/common-application.yml
   - name: report-server-configmap
     files:
-      - application.yml=config/report-server-application.yml
+      - application-default.yml=config/report-server-application.yml
+      - application.yml=config/common-application.yml
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
   - name: security-analysis-server-configmap
     files:
-      - application.yml=config/security-analysis-server-application.yml
+      - application-default.yml=config/security-analysis-server-application.yml
+      - application.yml=config/common-application.yml
   - name: security-analysis-server-itools-configmap
     files:
       - config.yml=config/security-analysis-server-config.yml
   - name: config-server-configmap
     files:
-      - application.yml=config/config-server-application.yml
+      - application-default.yml=config/config-server-application.yml
+      - application.yml=config/common-application.yml
   - name: config-notification-server-configmap
     files:
-      - application.yml=config/config-notification-server-application.yml
+      - application-default.yml=config/config-notification-server-application.yml
+      - application.yml=config/common-application.yml
   - name: dynamic-simulation-server-configmap
     files:
-      - application.yml=config/dynamic-simulation-server-application.yml
+      - application-default.yml=config/dynamic-simulation-server-application.yml
+      - application.yml=config/common-application.yml
   - name: dynawo-config-configmap
     files:
       - models.par=config/dynamic-simulation/models.par
@@ -182,7 +207,9 @@ configMapGenerator:
       - config.yml=config/dynawo-itools-config.yml
   - name: directory-server-configmap
     files:
-      - application.yml=config/directory-server-application.yml
+      - application-default.yml=config/directory-server-application.yml
+      - application.yml=config/common-application.yml
   - name: directory-notification-server-configmap
     files:
-      - application.yml=config/directory-notification-server-application.yml
+      - application-default.yml=config/directory-notification-server-application.yml
+      - application.yml=config/common-application.yml
