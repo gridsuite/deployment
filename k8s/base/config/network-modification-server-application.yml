@@ -12,3 +12,7 @@ spring:
 
 network-store-server:
   base-uri: http://network-store-server/
+
+backing-services:
+  report-server:
+    base-uri: http://report-server/
