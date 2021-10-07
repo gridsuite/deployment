@@ -1,11 +1,2 @@
-server:
-  port: 8080
-
-network-store-server:
-  preloading-strategy: COLLECTION
-  base-uri: http://network-store-server/
-
 network-geo-data:
   iterations: 5
-
-cassandra-keyspace: geo_data

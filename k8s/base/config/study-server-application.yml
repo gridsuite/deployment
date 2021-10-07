@@ -1,49 +1,4 @@
-server:
-  port: 8080
-
-network-store-server:
-  base-uri: http://network-store-server/
-  preloading-strategy: COLLECTION
-
-backing-services:
-  case:
-    base-uri: http://case-server/
-  single-line-diagram:
-    base-uri: http://single-line-diagram-server/
-  network-conversion:
-    base-uri: http://network-conversion-server/
-  geo-data:
-    base-uri: http://geo-data-server/
-  network-map:
-    base-uri: http://network-map-server/
-  network-modification:
-    base-uri: http://network-modification-server/
-  loadflow:
-    base-uri: http://loadflow-server/
-  actions-server:
-    base-uri: http://actions-server/
-  security-analysis-server:
-    base-uri: http://security-analysis-server/
-  dynamic-simulation-server:
-    base-uri: http://dynamic-simulation-server/
-  report-server:
-    base-uri: http://report-server/
-  directory-server:
-    base-uri: http://directory-server/
-
 spring:
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 103MB
-  rabbitmq:
-    addresses: rabbitmq
-    port: 5672
-
   data:
     elasticsearch:
       enabled : true
-      host: elasticsearch
-      port: 9200
-      client:
-        timeout: 60  # Seconds
