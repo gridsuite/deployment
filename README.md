@@ -229,7 +229,6 @@ Applications:
 ```html
 http://<MINIKUBE_IP>/gridstudy-app/
 http://<MINIKUBE_IP>/gridmerge-app/
-http://<MINIKUBE_IP>/gridactions-app/
 http://<MINIKUBE_IP>/griddyna-app/
 http://<MINIKUBE_IP>/gridexplore-app/
 ```
@@ -279,11 +278,6 @@ $ docker-compose up
 ```
 
 ```bash 
-$ cd docker-compose/actions
-$ docker-compose up
-```
-
-```bash 
 $ cd docker-compose/dynamic-mapping
 $ docker-compose up
 ```
@@ -297,7 +291,6 @@ Applications:
 ```html
 http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
-http://localhost:82 // gridactions
 http://localhost:83 // griddyna
 http://localhost:84 // gridexplore
 ```

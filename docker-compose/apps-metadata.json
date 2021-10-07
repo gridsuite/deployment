@@ -21,11 +21,6 @@
   "appColor" : "#2D9BF0"
 },
 {
-  "name" : "Actions",
-  "url"  : "http://localhost:82",
-  "appColor" : "#DA0063"
-},
-{
   "name" : "Dynamic Mapping",
   "url"  : "http://localhost:83",
   "appColor" : "#FFC11B"

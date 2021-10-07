@@ -24,7 +24,6 @@ on:
       - cgmes_boundary_server_updated
       - cgmes_assembling_job_updated
       - gridmerge_app_updated
-      - gridactions_app_updated
       - actions_server_updated
       - security_analysis_server_updated
       - config_server_updated
