@@ -15,11 +15,6 @@
   ]
 },
 {
-  "name" : "Actions",
-  "url"  : "/gridactions",
-  "appColor" : "#DA0063"
-},
-{
   "name" : "Explore",
   "url"  : "/gridexplore",
   "appColor" : "#33AFED"

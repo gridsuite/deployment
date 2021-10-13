@@ -1,5 +1,2 @@
-network-store-server:
-  preloading-strategy: COLLECTION
-
 network-geo-data:
   iterations: 5
