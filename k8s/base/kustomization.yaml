@@ -64,9 +64,6 @@ resources:
   - filter-server-service.yaml
   - report-server-deployment.yaml
   - report-server-service.yaml
-  - gridactions-app-deployment.yaml
-  - gridactions-app-ingress.yaml
-  - gridactions-app-service.yaml
   - apps-metadata-server-deployment.yaml
   - apps-metadata-server-service.yaml
   - apps-metadata-server-ingress.yaml
