@@ -1,18 +1,4 @@
-server:
-  port: 8080
-
 spring:
   data:
     elasticsearch:
       enabled : true
-      host: elasticsearch
-      port: 9200
-      client:
-        timeout: 60  # Seconds
-
-network-store-server:
-  base-uri: http://network-store-server/
-
-backing-services:
-  report-server:
-    base-uri: http://report-server/

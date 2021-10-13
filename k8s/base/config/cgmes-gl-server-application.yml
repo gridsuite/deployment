@@ -1,8 +1,0 @@
-server:
-  port: 8080
-
-geo-data-server:
-  base.url: http://geo-data-server/
-
-case-server:
-  base.url: http://case-server/

@@ -1,5 +1,0 @@
-server:
-  port: 8080
-
-network-store-server:
-  base-uri: http://network-store-server/
