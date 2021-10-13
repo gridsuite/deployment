@@ -1,4 +1,0 @@
-management:
-  health:
-    solr:
-      enabled: false

@@ -1,91 +1,17 @@
-server:
-  port: 8080
-
 spring:
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 103MB
 
-  rabbitmq:
-    addresses: rabbitmq
-    port: 5672
-
   data:
     elasticsearch:
-      host: elasticsearch
-      port: 9200
-      client:
-        timeout: 60  # Seconds
+      enabled: true
 
-network-store-server:
-  base-uri: http://network-store-server/
+server:
+  error:
+    include-message: always
 
-geo-data-server:
-  base.url: http://geo-data-server/
-
-case-server:
-  base.url: http://case-server/
-
-report-server:
-  base-uri: http://report-server/
-
-actions-server:
-  base-uri: http://actions-server/
-
-backing-services:
-  actions-server:
-    base-uri: http://actions-server/
-  balances-adjustment-server:
-    base-uri: http://balances-adjustment-server/
-  case:
-    base-uri: http://case-server/
-  case-server:
-    base-uri: http://case-server/
-  case-validation-server:
-    base-uri: http://case-validation-server/
-  cgmes-boundary-server:
-    base-uri: http://cgmes-boundary-server/
-  config-notification-server:
-    base-uri: http://config-notification-server/
-  config-server:
-    base-uri: http://config-server/
-  directory-notification-server:
-    base-uri: http://directory-notification-server/
-  directory-server:
-    base-uri: http://directory-server/
-  dynamic-mapping-server:
-    base-uri: http://dynamic-mapping-server/
-  dynamic-simulation-server:
-    base-uri: http://dynamic-simulation-server/
-  filter-server:
-    base-uri: http://filter-server/
-  geo-data:
-    base-uri: http://geo-data-server/
-  geo-data-server:
-    base-uri: http://geo-data-server/
-  loadflow:
-    base-uri: http://loadflow-server/
-  loadflow-server:
-    base-uri: http://loadflow-server/
-  merge-notification-server:
-    base-uri: http://merge-notification-server/
-  merge-orchestrator-server:
-    base-uri: http://merge-orchestrator-server/
-  network-conversion:
-    base-uri: http://network-conversion-server/
-  network-map:
-    base-uri: http://network-map-server/
-  network-modification:
-    base-uri: http://network-modification-server/
-  notification-server:
-    base-uri: http://notification-server/
-  report-server:
-    base-uri: http://report-server/
-  security-analysis-server:
-    base-uri: http://security-analysis-server/
-  single-line-diagram:
-    base-uri: http://single-line-diagram-server/
-  study-server:
-    base-uri: http://study-server/
-
+logging:
+    level:
+        com.zaxxer.hikari.HikariConfig: debug
