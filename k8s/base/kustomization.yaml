@@ -77,6 +77,8 @@ resources:
   - dynamic-simulation-server-service.yaml
   - directory-server-deployment.yaml
   - directory-server-service.yaml
+  - explore-server-deployment.yaml
+  - explore-server-service.yaml
   - cgmes-boundary-import-cronjob.yaml
   - directory-notification-server-deployment.yaml
   - directory-notification-server-service.yaml
@@ -183,3 +185,6 @@ configMapGenerator:
   - name: directory-notification-server-configmap
     files:
       - application.yml=config/directory-notification-server-application.yml
+  - name: explore-server-configmap
+    files:
+      - application.yml=config/explore-server-application.yml

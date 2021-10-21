@@ -43,6 +43,7 @@ resources:
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
   - directory-server-ingress.yaml
+  - explore-server-ingress.yaml
   - external-cassandra-service.yaml
   - external-postgres-service.yaml
 
@@ -147,6 +148,9 @@ configMapGenerator:
     behavior: merge
     files:
       - database.properties
+
+  - name: explore-server-configmap
+    behavior: merge
 
   - name: cgmes-boundary-import-job-configmap
     files:
