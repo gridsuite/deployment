@@ -2,13 +2,13 @@
   "name" : "Merge",
   "url"  : "/gridmerge",
   "appColor" : "#2D9BF0",
-  "isInAppsMenu" : true
+  "hiddenInAppsMenu" : false
 },
 {
   "name" : "Study",
   "url"  : "/gridstudy",
   "appColor" : "#0CA789",
-  "isInAppsMenu" : false,
+  "hiddenInAppsMenu" : true,
   "resources" : [
     {
       "types" : ["STUDY"],
@@ -20,5 +20,5 @@
   "name" : "Explore",
   "url"  : "/gridexplore",
   "appColor" : "#33AFED",
-  "isInAppsMenu" : true
+  "hiddenInAppsMenu" : false
 }]
