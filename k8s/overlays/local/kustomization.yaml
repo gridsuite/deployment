@@ -149,9 +149,6 @@ configMapGenerator:
     files:
       - database.properties
 
-  - name: explore-server-configmap
-    behavior: merge
-
   - name: cgmes-boundary-import-job-configmap
     files:
       - config.yml=cgmes-boundary-import-job-config.yml
