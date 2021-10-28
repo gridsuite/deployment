@@ -80,6 +80,11 @@ resources:
   - cgmes-boundary-import-cronjob.yaml
   - directory-notification-server-deployment.yaml
   - directory-notification-server-service.yaml
+  - griddyna-app-deployment.yaml
+  - griddyna-app-ingress.yaml
+  - griddyna-app-service.yaml
+  - dynamic-mapping-server-deployment.yaml
+  - dynamic-mapping-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap
@@ -183,3 +188,6 @@ configMapGenerator:
   - name: directory-notification-server-configmap
     files:
       - application.yml=config/directory-notification-server-application.yml
+  - name: dynamic-mapping-server-configmap
+    files:
+      - application.yml=config/dynamic-mapping-server-application.yml

@@ -70,6 +70,10 @@ configMapGenerator:
     behavior: merge
     files:
       - database.properties
+  - name: dynamic-mapping-server-configmap
+    behavior: merge
+    files:
+      - database.properties
 
 patchesStrategicMerge:
 - limit-max-public-cases.yaml
