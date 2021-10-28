@@ -1,32 +1,4 @@
-server:
-  port: 8080
-
 spring:
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 103MB
-
   data:
     elasticsearch:
       enabled : true
-      host: elasticsearch
-      port: 9200
-
-network-store-server:
-  preloading-strategy: COLLECTION
-  base-uri: http://network-store-server
-
-backing-services:
-  case-server:
-    base-uri: http://case-server/
-  geo-data-server:
-    base-uri: http://geo-data-server/
-  report-server:
-    base-uri: http://report-server/
-
-management:
-  health:
-    solr:
-      enabled: false
-

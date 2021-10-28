@@ -6,12 +6,13 @@
 {
   "name" : "Study",
   "url"  : "/gridstudy",
-  "appColor" : "#0CA789"
-},
-{
-  "name" : "Actions",
-  "url"  : "/gridactions",
-  "appColor" : "#DA0063"
+  "appColor" : "#0CA789",
+  "resources" : [
+    {
+      "types" : ["STUDY"],
+      "path" : "/studies/{elementUuid}"
+    }
+  ]
 },
 {
   "name" : "Explore",

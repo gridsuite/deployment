@@ -23,12 +23,6 @@ configMapGenerator:
   - name: gridexplore-app-env-configmap
     files:
       - env.json=env.json
-  - name: gridactions-app-configmap
-    files:
-      - idpSettings.json=gridactions-app-idpSettings.json
-  - name: gridactions-app-env-configmap
-    files:
-      - env.json=env.json
   - name: griddyna-app-configmap
     files:
       - idpSettings.json=griddyna-app-idpSettings.json
@@ -85,18 +79,6 @@ patchesJson6902:
       version: v1beta1
       kind: Ingress
       name: gridmerge-app-ingress
-    path: patch_ingress.yaml
-  - target:
-      group: networking.k8s.io
-      version: v1beta1
-      kind: Ingress
-      name: gridactions-app-ingress
-    path: patch_tls_ingress.yaml
-  - target:
-      group: networking.k8s.io
-      version: v1beta1
-      kind: Ingress
-      name: gridactions-app-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io

@@ -60,7 +60,7 @@ Then (for network store cassandra database) :
 $ bin/cqlsh -k <KEYSPACE_NAME_NETWORK_STORE>
 ```
 Copy paste following files content to cqlsh shell:
-[iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/master/network-store-server/src/main/resources/iidm.cql)
+[iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
 
 Change Cassandra keyspace name in k8s/base/config/network-store-server-application.yml
 ```properties
@@ -73,7 +73,7 @@ Then (for geo-data cassandra database) :
 $ bin/cqlsh -k <KEYSPACE_NAME_GEO_DATA>
 ```
 Copy paste following files content to cqlsh shell:
-[geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/master/geo-data-server/src/main/resources/geo_data.cql)
+[geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/main/geo-data-server/src/main/resources/geo_data.cql)
 
 Change Cassandra keyspace name in k8s/base/config/geo-data-server-application.yml
 ```properties
@@ -87,10 +87,10 @@ $ bin/cqlsh
 ```
 Copy/paste following files content to cqlsh shell:
 
-[cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/master/src/main/resources/cgmes_boundary.cql)    
-[cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/master/src/main/resources/cgmes_assembling.cql)    
-[sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/master/src/main/resources/sa.cql)    
-[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/master/src/main/resources/config.cql)    
+[cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
+[cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
+[sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/main/src/main/resources/sa.cql)    
+[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/main/src/main/resources/config.cql)    
 
 ### PostgresSql install
 
@@ -150,13 +150,13 @@ Then initialize the schemas for the databases:
 
 `$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
 `$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
-`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/master/src/main/resources/study.sql) content to psql   
-`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/master/src/main/resources/actions.sql) content to psql   
-`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/master/src/main/resources/network-modification.sql) content to psql   
-`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/master/src/main/resources/merge_orchestrator.sql) content to psql   
-`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/IEEE14Models.sql)content to psql   
-`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
-`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
+`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/main/src/main/resources/study.sql) content to psql   
+`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/main/src/main/resources/actions.sql) content to psql   
+`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/main/resources/network-modification.sql) content to psql   
+`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/main/src/main/resources/merge_orchestrator.sql) content to psql   
+`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/main/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/main/src/main/resources/IEEE14Models.sql)content to psql   
+`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/main/src/main/resources/filter.sql) content to psql   
+`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/main/src/main/resources/report.sql) content to psql   
 
 ### Cases folders configuration
 
@@ -229,7 +229,6 @@ Applications:
 ```html
 http://<MINIKUBE_IP>/gridstudy-app/
 http://<MINIKUBE_IP>/gridmerge-app/
-http://<MINIKUBE_IP>/gridactions-app/
 http://<MINIKUBE_IP>/griddyna-app/
 http://<MINIKUBE_IP>/gridexplore-app/
 ```
@@ -279,11 +278,6 @@ $ docker-compose up
 ```
 
 ```bash 
-$ cd docker-compose/actions
-$ docker-compose up
-```
-
-```bash 
 $ cd docker-compose/dynamic-mapping
 $ docker-compose up
 ```
@@ -297,7 +291,6 @@ Applications:
 ```html
 http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
-http://localhost:82 // gridactions
 http://localhost:83 // griddyna
 http://localhost:84 // gridexplore
 ```

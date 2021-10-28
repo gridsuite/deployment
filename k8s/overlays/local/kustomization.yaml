@@ -114,14 +114,6 @@ configMapGenerator:
     files:
       - config.yml=cgmes-assembling-job-config.yml
 
-  - name: gridactions-app-configmap
-    files:
-      - idpSettings.json=gridactions-app-idpSettings.json
-
-  - name: gridactions-app-env-configmap
-    files:
-      - env.json=env.json
-
   - name: actions-server-configmap
     behavior: merge
     files:

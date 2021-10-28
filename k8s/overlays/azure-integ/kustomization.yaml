@@ -23,18 +23,12 @@ configMapGenerator:
   - name: gridexplore-app-env-configmap
     files:
       - env.json=env.json
-  - name: gridactions-app-configmap
-    files:
-      - idpSettings.json=gridactions-app-idpSettings.json
-  - name: gridactions-app-env-configmap
-    files:
-      - env.json=env.json
-  - name: griddyna-app-configmap
-    files:
-      - idpSettings.json=griddyna-app-idpSettings.json
   - name: gridexplore-app-configmap
     files:
       - idpSettings.json=gridexplore-app-idpSettings.json
+  - name: griddyna-app-configmap
+    files:
+      - idpSettings.json=griddyna-app-idpSettings.json
   - name: griddyna-app-env-configmap
     files:
       - env.json=env.json
@@ -66,8 +60,6 @@ images:
     digest: 7a9d09c6a5125d6303b305cb6002194cc6821e6fca07fe30433b53e2519b0ad6
   - name: docker.io/gridsuite/geo-data-server
     digest: 11f50e0a726f878f45036cf5b8e574594de62e0b29feebdecf91f914ba7607e1
-  - name: docker.io/gridsuite/gridactions-app
-    digest: 80a50902d4ed04c4905993d55773aa91ac1c8382b1934d93a203db637a4133bf
   - name: docker.io/gridsuite/gridmerge-app
     digest: 82b496a1e1f53506034d08fbc2589279db0db37088cb682cb78ac732ae170bf8
   - name: docker.io/gridsuite/gridstudy-app
@@ -142,18 +134,6 @@ patchesJson6902:
       version: v1beta1
       kind: Ingress
       name: gridmerge-app-ingress
-    path: patch_ingress.yaml
-  - target:
-      group: networking.k8s.io
-      version: v1beta1
-      kind: Ingress
-      name: gridactions-app-ingress
-    path: patch_tls_ingress.yaml
-  - target:
-      group: networking.k8s.io
-      version: v1beta1
-      kind: Ingress
-      name: gridactions-app-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
