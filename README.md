@@ -145,18 +145,7 @@ $ create database filters;
 $ create database report;
 ```
 
-Then initialize the schemas for the databases: 
-
-
-`$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
-`$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
-`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/main/src/main/resources/study.sql) content to psql   
-`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/main/src/main/resources/actions.sql) content to psql   
-`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/main/resources/network-modification.sql) content to psql   
-`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/main/src/main/resources/merge_orchestrator.sql) content to psql   
-`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/main/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/main/src/main/resources/IEEE14Models.sql)content to psql   
-`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/main/src/main/resources/filter.sql) content to psql   
-`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/main/src/main/resources/report.sql) content to psql   
+The database schemas are handled by the microservices themselves using liquibase.
 
 ### Cases folders configuration
 
