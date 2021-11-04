@@ -162,7 +162,7 @@ services:
       - 5025:80
     volumes:
       - $PWD/../../k8s/base/config/config-server-application.yml:/config/application.yml:Z
-      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/

@@ -52,7 +52,6 @@ CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'cla
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
 Then (for network store cassandra database) :
@@ -90,7 +89,6 @@ Copy/paste following files content to cqlsh shell:
 [cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
 [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
 [sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/main/src/main/resources/sa.cql)    
-[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/main/src/main/resources/config.cql)    
 
 ### PostgresSql install
 
@@ -143,6 +141,7 @@ $ create database merge_orchestrator;
 $ create database dynamicmappings;
 $ create database filters;
 $ create database report;
+$ create database config;
 ```
 
 The database schemas are handled by the microservices themselves using liquibase.
