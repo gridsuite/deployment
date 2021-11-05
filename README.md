@@ -52,7 +52,6 @@ CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'cla
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 ```
 
 Then (for network store cassandra database) :
@@ -90,7 +89,6 @@ Copy/paste following files content to cqlsh shell:
 [cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
 [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
 [sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/main/src/main/resources/sa.cql)    
-[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/main/src/main/resources/config.cql)    
 
 ### PostgresSql install
 
@@ -143,20 +141,10 @@ $ create database merge_orchestrator;
 $ create database dynamicmappings;
 $ create database filters;
 $ create database report;
+$ create database config;
 ```
 
-Then initialize the schemas for the databases: 
-
-
-`$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
-`$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
-`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/main/src/main/resources/study.sql) content to psql   
-`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/main/src/main/resources/actions.sql) content to psql   
-`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/main/resources/network-modification.sql) content to psql   
-`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/main/src/main/resources/merge_orchestrator.sql) content to psql   
-`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/main/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/main/src/main/resources/IEEE14Models.sql)content to psql   
-`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/main/src/main/resources/filter.sql) content to psql   
-`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/main/src/main/resources/report.sql) content to psql   
+The database schemas are handled by the microservices themselves using liquibase.
 
 ### Cases folders configuration
 

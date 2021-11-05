@@ -46,6 +46,7 @@ resources:
   - explore-server-ingress.yaml
   - external-cassandra-service.yaml
   - external-postgres-service.yaml
+  - dynamic-mapping-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -137,7 +138,7 @@ configMapGenerator:
   - name: config-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: dynamic-simulation-server-configmap
     behavior: merge
@@ -157,3 +158,16 @@ configMapGenerator:
     behavior: merge
     files:
       - database.properties
+
+  - name: dynamic-mapping-server-configmap
+    behavior: merge
+    files:
+      - database.properties
+
+  - name: griddyna-app-configmap
+    files:
+      - idpSettings.json=griddyna-app-idpSettings.json
+
+  - name: griddyna-app-env-configmap
+    files:
+      - env.json=env.json

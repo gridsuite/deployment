@@ -54,7 +54,7 @@ configMapGenerator:
   - name: config-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
   - name: dynamic-simulation-server-configmap
     behavior: merge
     files:
@@ -67,6 +67,10 @@ configMapGenerator:
     files:
       - config.yml=cgmes-boundary-import-job-config.yml
   - name: network-modification-server-configmap
+    behavior: merge
+    files:
+      - database.properties
+  - name: dynamic-mapping-server-configmap
     behavior: merge
     files:
       - database.properties
