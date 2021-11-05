@@ -190,12 +190,9 @@ configMapGenerator:
   - name: directory-notification-server-configmap
     files:
       - application.yml=config/directory-notification-server-application.yml
-<<<<<<< HEAD
   - name: explore-server-configmap
     files:
       - application.yml=config/explore-server-application.yml
-=======
   - name: dynamic-mapping-server-configmap
     files:
       - application.yml=config/dynamic-mapping-server-application.yml
->>>>>>> main
