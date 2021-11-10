@@ -37,7 +37,7 @@ on:
       - report_server_updated
       - gridexplore_app_updated
       - directory-notification_server_updated
-
+      - explore_server_updated
 
 jobs:
   build:
