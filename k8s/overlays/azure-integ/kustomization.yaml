@@ -94,6 +94,8 @@ images:
     digest: 38237f9ad50da707bfd20dd731dd05b73ff0b31b099ea1e8c6a224394ec91c76
   - name: docker.io/gridsuite/directory-server
     digest: 440b0813942a5855b392f1f19948e2448b2cfda8d7a348b8931f0843682c51fe
+  - name: docker.io/gridsuite/explore-server
+    digest: todo
   - name: docker.io/gridsuite/cgmes-boundary-import-job
     digest: 27368e11a16ced56422ff48ed66270f5d1a1f3f0649403dc5ffceff91243c592
 
