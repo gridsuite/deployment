@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: rabbitmq-ingress
@@ -20,6 +20,9 @@ spec:
   - http:
       paths:
       - path: /rabbitmq(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: rabbitmq
-          servicePort: 80
+          service:
+            name: rabbitmq
+            port:
+              number: 80

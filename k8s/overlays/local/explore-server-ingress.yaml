@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: explore-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /explore-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: explore-server
-          servicePort: 80
+          service:
+            name: explore-server
+            port:
+              number: 80

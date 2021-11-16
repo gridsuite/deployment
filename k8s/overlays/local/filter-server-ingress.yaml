@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: filter-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /filter-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: filter-server
-          servicePort: 80
+          service:
+            name: filter-server
+            port:
+              number: 80

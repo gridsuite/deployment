@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: network-modification-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /network-modification-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: network-modification-server
-          servicePort: 80
+          service:
+            name: network-modification-server
+            port:
+              number: 80

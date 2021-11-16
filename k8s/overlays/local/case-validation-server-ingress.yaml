@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: case-validation-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /case-validation-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: case-validation-server
-          servicePort: 80
+          service:
+            name: case-validation-server
+            port:
+              number: 80

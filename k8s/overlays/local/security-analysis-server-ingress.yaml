@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: security-analysis-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /security-analysis-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: security-analysis-server
-          servicePort: 80
+          service:
+            name: security-analysis-server
+            port:
+              number: 80

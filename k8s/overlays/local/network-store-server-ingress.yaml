@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: network-store-server-ingress
@@ -21,6 +21,9 @@ spec:
     - http:
         paths:
           - path: /network-store-server(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
-              serviceName: network-store-server
-              servicePort: 80
+              service:
+                name: network-store-server
+                port:
+                  number: 80

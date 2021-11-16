@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: odre-server-ingress
@@ -19,6 +19,9 @@ spec:
   - http:
       paths:
       - path: /odre-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: odre-server
-          servicePort: 80
+          service:
+            name: odre-server
+            port:
+              number: 80

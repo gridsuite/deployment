@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: network-conversion-server-ingress
@@ -20,6 +20,9 @@ spec:
   - http:
       paths:
       - path: /network-conversion-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: network-conversion-server
-          servicePort: 80
+          service:
+            name: network-conversion-server
+            port:
+              number: 80

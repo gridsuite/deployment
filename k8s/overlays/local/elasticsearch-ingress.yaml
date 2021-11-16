@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: elasticsearch-ingress
@@ -20,6 +20,9 @@ spec:
   - http:
       paths:
       - path: /elasticsearch(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: elasticsearch
-          servicePort: 9200
+          service:
+            name: elasticsearch
+            port:
+              number: 9200

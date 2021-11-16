@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: notification-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /notification-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: notification-server
-          servicePort: 80
+          service:
+            name: notification-server
+            port:
+              number: 80

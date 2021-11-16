@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: balances-adjustment-server-ingress
@@ -17,6 +17,9 @@ spec:
     - http:
         paths:
           - path: /balances-adjustment-server(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
-              serviceName: balances-adjustment-server
-              servicePort: 80
+              service:
+                name: balances-adjustment-server
+                port:
+                  number: 80

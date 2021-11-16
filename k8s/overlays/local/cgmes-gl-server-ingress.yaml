@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cgmes-gl-server-ingress
@@ -20,6 +20,9 @@ spec:
   - http:
       paths:
       - path: /cgmes-gl-server(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
-          serviceName: cgmes-gl-server
-          servicePort: 80
+          service:
+            name: cgmes-gl-server
+            port:
+              number: 80
