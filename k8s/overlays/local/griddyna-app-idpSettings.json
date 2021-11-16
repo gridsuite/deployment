@@ -1,0 +1,8 @@
+{
+    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
+    "client_id" : "griddyna-client",
+    "redirect_uri": "http://<INGRESS_HOST>/griddyna/sign-in-callback",
+    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/griddyna/logout-callback",
+    "silent_redirect_uri" : "http://<INGRESS_HOST>/griddyna/silent-renew-callback",
+    "scope" : "openid"
+}
