@@ -161,14 +161,34 @@ This is a working directory for cases-server.
 ### Minikube and kubectl setup
 
 This setup is heavyweight and matches a realworld deployment. It is useful to reproduce realworld kubernetes effects and features. In most cases, the lighter docker-compose deployment is preferred.
-Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
-We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
+
+Download the recommended version of minikube and kubectl :
+
+|Software| Version recommendation |Last Version  | Link|
+--- | --- | --- | ---
+|kubectl|1.18.12|1.22.X ( :warning: not supported yet)|[Download](https://storage.googleapis.com/kubernetes-release/release/v1.18.12/bin/linux/amd64/kubectl)|
+|minikube|1.21+|1.24.0|[Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)|
+
+
+install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
+
+__Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
 Start minikube and activate ingress support:
 ```bash
-$ minikube start --memory 24g --cpus=4
+$ minikube start --memory 24g --cpus=4 
 $ minikube addons enable ingress
 ```
+
+To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
+```bash
+$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=$KUBECTL_VERSION
+$ minikube addons enable ingress
+```
+
+__Notes__: With last version of minikube, *docker* is the default driver (was *virtualbox* before) which could forbid memory definition depending of your user privilegies.
+
+see [kubernetes-version param doc](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64) for versions support.
 
 Verify everything is ok with:
 ```bash
@@ -215,36 +235,36 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Applications:
 ```html
-http://<MINIKUBE_IP>/gridstudy-app/
-http://<MINIKUBE_IP>/gridmerge-app/
-http://<MINIKUBE_IP>/griddyna-app/
-http://<MINIKUBE_IP>/gridexplore-app/
+http://<INGRESS_HOST>/gridstudy-app/
+http://<INGRESS_HOST>/gridmerge-app/
+http://<INGRESS_HOST>/griddyna-app/
+http://<INGRESS_HOST>/gridexplore-app/
 ```
 
 Swagger UI:
 ```html
-http://<MINIKUBE_IP>/case-server/swagger-ui.html
-http://<MINIKUBE_IP>/cgmes-gl-server/swagger-ui.html
-http://<MINIKUBE_IP>/geo-data-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-conversion-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-store-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-map-server/swagger-ui.html
-http://<MINIKUBE_IP>/odre-server/swagger-ui.html
-http://<MINIKUBE_IP>/single-line-diagram-server/swagger-ui.html
-http://<MINIKUBE_IP>/study-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-modification-server/swagger-ui.html
-http://<MINIKUBE_IP>/loadflow-server/swagger-ui.html
-http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
-http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
-http://<MINIKUBE_IP>/actions-server/swagger-ui.html
-http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
-http://<MINIKUBE_IP>/config-server/swagger-ui.html
-http://<MINIKUBE_IP>/directory-server/swagger-ui.html
-http://<MINIKUBE_IP>/balances-adjustment-server/swagger-ui.html
-http://<MINIKUBE_IP>/case-validation-server/swagger-ui.html
-http://<MINIKUBE_IP>/dynamic-simulation-server/swagger-ui.html
-http://<MINIKUBE_IP>/filter-server/swagger-ui.html 
-http://<MINIKUBE_IP>/report-server/swagger-ui.html
+http://<INGRESS_HOST>/case-server/swagger-ui.html
+http://<INGRESS_HOST>/cgmes-gl-server/swagger-ui.html
+http://<INGRESS_HOST>/geo-data-server/swagger-ui.html
+http://<INGRESS_HOST>/network-conversion-server/swagger-ui.html
+http://<INGRESS_HOST>/network-store-server/swagger-ui.html
+http://<INGRESS_HOST>/network-map-server/swagger-ui.html
+http://<INGRESS_HOST>/odre-server/swagger-ui.html
+http://<INGRESS_HOST>/single-line-diagram-server/swagger-ui.html
+http://<INGRESS_HOST>/study-server/swagger-ui.html
+http://<INGRESS_HOST>/network-modification-server/swagger-ui.html
+http://<INGRESS_HOST>/loadflow-server/swagger-ui.html
+http://<INGRESS_HOST>/merge-orchestrator-server/swagger-ui.html
+http://<INGRESS_HOST>/cgmes-boundary-server/swagger-ui.html
+http://<INGRESS_HOST>/actions-server/swagger-ui.html
+http://<INGRESS_HOST>/security-analysis-server/swagger-ui.html
+http://<INGRESS_HOST>/config-server/swagger-ui.html
+http://<INGRESS_HOST>/directory-server/swagger-ui.html
+http://<INGRESS_HOST>/balances-adjustment-server/swagger-ui.html
+http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
+http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
+http://<INGRESS_HOST>/filter-server/swagger-ui.html 
+http://<INGRESS_HOST>/report-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
