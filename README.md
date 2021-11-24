@@ -348,25 +348,7 @@ To populate the geo-data-server with RTE geographic lines and substations data, 
 
 **Note**: Be sure to have at least `odre-server` and `geo-data-server` containers running.
 
-**Note 2**: if you are behind a proxy server : download the csv files from thoses links :
 
- * [postes-electriques-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/postes-electriques-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
- * [lignes-aeriennes-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-aeriennes-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
- * [lignes-souterraines-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-souterraines-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
-
-
-Create a "GeoData" directory in the HOME folder and move thoses files inside.    
-Stop `odre-server` container if running.    
-Open the odre server project in your favorite IDE.    
-You must change the used client in `src/main/java/org/gridsuite/odre/server/services/OdreServiceImpl.java`
-
-```diff
--@Qualifier("odreDownloadClientImpl")
-+@Qualifier("odreCsvClientImpl")
-```
-This will allow to import the data from the local folder instead of downloading them.
-Then rebuild and run this server.
-Both REST requests still must be executed.
 
 
 ### Working with Spring services
