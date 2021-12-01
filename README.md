@@ -47,48 +47,35 @@ $ bin/cqlsh
 To create keyspaces in a single node cluster:
 
 ```cql
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
-Then (for network store cassandra database) :
+Then you must initialize each keyspace, following those instructions :
+First connect to corresponding keyspace
 ```bash
-$ bin/cqlsh -k <KEYSPACE_NAME_NETWORK_STORE>
+$ bin/cqlsh -k <KEYSPACE_NAME>
 ```
-Copy paste following files content to cqlsh shell:
-[iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
+then Copy paste the corresponding following files content to cqlsh shell:
 
-Change Cassandra keyspace name in k8s/base/config/network-store-server-application.yml
+- for iidm : [iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
+- for geo_data : [geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/main/geo-data-server/src/main/resources/geo_data.cql)
+- for cgmes_boundary : [cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
+- for cgmes_assembling : [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
+- for sa : [sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/main/src/main/resources/sa.cql)
+
+You can change Cassandra keyspace name in corresponding files if needed:
+- k8s/base/config/network-store-server-application.yml
+- k8s/base/config/geo-data-server-application.yml
+- k8s/base/config/cgmes-boundary-server-application.yml
+- ???
+- k8s/base/config/security-analysis-server-application.yml
 ```properties
-cassandra-keyspace: <KEYSPACE_NAME_NETWORK_STORE>
+cassandra-keyspace: <CUSTOM_KEYSPACE_NAME>
 ```
-
-
-Then (for geo-data cassandra database) :
-```bash
-$ bin/cqlsh -k <KEYSPACE_NAME_GEO_DATA>
-```
-Copy paste following files content to cqlsh shell:
-[geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/main/geo-data-server/src/main/resources/geo_data.cql)
-
-Change Cassandra keyspace name in k8s/base/config/geo-data-server-application.yml
-```properties
-cassandra-keyspace: <KEYSPACE_NAME_GEO_DATA>
-```
-
-
-Then (for other cassandra databases) :
-```bash
-$ bin/cqlsh
-```
-Copy/paste following files content to cqlsh shell:
-
-[cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
-[cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
-[sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/main/src/main/resources/sa.cql)    
 
 ### PostgresSql install
 
