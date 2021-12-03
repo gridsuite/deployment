@@ -21,8 +21,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: config-notification-server-configmap-volume
+        - mountPath: /config/common
+          name: config-notification-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: config-notification-server-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -55,8 +57,11 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: config-notification-server-configmap-volume
+        - name: config-notification-server-configmap-common-volume
           configMap:
-            name: config-notification-server-configmap
+            name: config-notification-server-configmap-common
+        - name: config-notification-server-configmap-specific-volume
+          configMap:
+            name: config-notification-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

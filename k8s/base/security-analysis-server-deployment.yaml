@@ -24,8 +24,10 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - mountPath: /config
-              name: security-analysis-server-configmap-volume
+            - mountPath: /config/common
+              name: security-analysis-server-configmap-common-volume
+            - mountPath: /config/specific
+              name: security-analysis-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: security-analysis-server-itools-configmap-volume
             - mountPath: /tmp
@@ -60,9 +62,12 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: security-analysis-server-configmap-volume
+        - name: security-analysis-server-configmap-common-volume
           configMap:
-            name: security-analysis-server-configmap
+            name: security-analysis-server-configmap-common
+        - name: security-analysis-server-configmap-specific-volume
+          configMap:
+            name: security-analysis-server-configmap-specific
         - name: security-analysis-server-itools-configmap-volume
           configMap:
             name: security-analysis-server-itools-configmap

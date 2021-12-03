@@ -21,8 +21,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: network-modification-server-configmap-volume
+        - mountPath: /config/common
+          name: network-modification-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: network-modification-server-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -55,8 +57,11 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: network-modification-server-configmap-volume
+        - name: network-modification-server-configmap-common-volume
           configMap:
-            name: network-modification-server-configmap
+            name: network-modification-server-configmap-common
+        - name: network-modification-server-configmap-specific-volume
+          configMap:
+            name: network-modification-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

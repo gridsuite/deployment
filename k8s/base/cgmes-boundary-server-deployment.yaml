@@ -21,8 +21,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: cgmes-boundary-server-configmap-volume
+        - mountPath: /config/common
+          name: cgmes-boundary-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: cgmes-boundary-server-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -55,8 +57,11 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: cgmes-boundary-server-configmap-volume
+        - name: cgmes-boundary-server-configmap-common-volume
           configMap:
-            name: cgmes-boundary-server-configmap
+            name: cgmes-boundary-server-configmap-common
+        - name: cgmes-boundary-server-configmap-specific-volume
+          configMap:
+            name: cgmes-boundary-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

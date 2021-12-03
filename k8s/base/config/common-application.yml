@@ -1,0 +1,22 @@
+powsybl-ws:
+  environnement:
+
+  # cassandra database prefix
+  cassandra:
+    keyspace:
+      prefix: ${powsybl-ws.environnement:}
+
+  # Postgres database prefix
+  postgres:
+    databaseOrSchema:
+      prefix: ${powsybl-ws.environnement:}
+
+  # RabbitMQ binding destination prefixes
+  rabbitmq:
+    destination:
+      prefix: ${powsybl-ws.environnement:}
+
+  # elasticsearch index prefixes
+  elasticsearch:
+    index:
+      prefix: ${powsybl-ws.environnement:}

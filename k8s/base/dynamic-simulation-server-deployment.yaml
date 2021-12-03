@@ -21,8 +21,10 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - mountPath: /config
-              name: dynamic-simulation-server-configmap-volume
+            - mountPath: /config/common
+              name: dynamic-simulation-server-configmap-common-volume
+            - mountPath: /config/specific
+              name: dynamic-simulation-server-configmap-specific-volume
             - mountPath: /dynawo-config
               name: dynawo-config-configmap-volume
             - mountPath: /home/powsybl/.itools
@@ -59,9 +61,12 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: dynamic-simulation-server-configmap-volume
+        - name: dynamic-simulation-server-configmap-common-volume
           configMap:
-            name: dynamic-simulation-server-configmap
+            name: dynamic-simulation-server-configmap-common
+        - name: dynamic-simulation-server-configmap-specific-volume
+          configMap:
+            name: dynamic-simulation-server-configmap-specific
         - name: dynawo-config-configmap-volume
           configMap:
             name: dynawo-config-configmap
