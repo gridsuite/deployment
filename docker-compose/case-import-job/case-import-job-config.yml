@@ -9,6 +9,7 @@ cassandra:
   contact-points: <TO_COMPLETE>
   port: 9042
   datacenter: datacenter1
+  keyspace-name: import_history
 
 case-server:
   url: http://case-server/
