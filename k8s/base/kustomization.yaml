@@ -87,7 +87,6 @@ resources:
   - griddyna-app-service.yaml
   - dynamic-mapping-server-deployment.yaml
   - dynamic-mapping-server-service.yaml
-  - 
 
 configMapGenerator:
   - name: case-server-configmap-common
