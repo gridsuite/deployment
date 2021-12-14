@@ -62,12 +62,12 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: network-conversion-server--configmap-common-volume
+        - name: network-conversion-server-configmap-common-volume
           configMap:
-            name: network-conversion-server--configmap-common
-        - name: network-conversion-server--configmap-specific-volume
+            name: network-conversion-server-configmap-common
+        - name: network-conversion-server-configmap-specific-volume
           configMap:
-            name: network-conversion-server--configmap-specific
+            name: network-conversion-server-configmap-specific
         - name: network-conversion-server-itools-configmap-volume
           configMap:
             name: network-conversion-server-itools-configmap

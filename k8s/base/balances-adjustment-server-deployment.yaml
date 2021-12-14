@@ -22,9 +22,9 @@ spec:
             - containerPort: 80
           volumeMounts:
             - mountPath: /config/common
-              name: balances-adjustment-configmap-common-volume
+              name: balances-adjustment-server-configmap-common-volume
             - mountPath: /config/specific
-              name: balances-adjustment-configmap-specific-volume
+              name: balances-adjustment-server-configmap-specific-volume
             - mountPath: /tmp
               name: tmp-emptydir
           securityContext:
