@@ -21,6 +21,8 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
+            - mountPath: /config
+              name: dynamic-simulation-server-configmap-volume
             - mountPath: /config/common
               name: dynamic-simulation-server-configmap-common-volume
             - mountPath: /config/specific
@@ -61,6 +63,9 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
+        - name: dynamic-simulation-server-configmap-volume
+          configMap:
+            name: dynamic-simulation-server-configmap
         - name: dynamic-simulation-server-configmap-common-volume
           configMap:
             name: dynamic-simulation-server-configmap-common

@@ -24,6 +24,8 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
+            - mountPath: /config
+              name: filter-server-configmap-volume
             - mountPath: /config/common
               name: filter-server-configmap-common-volume
             - mountPath: /config/specific
@@ -60,6 +62,9 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
+        - name: filter-server-configmap-volume
+          configMap:
+            name: filter-server-configmap
         - name: filter-server-configmap-common-volume
           configMap:
             name: filter-server-configmap-common
