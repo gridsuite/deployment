@@ -23,7 +23,7 @@ services:
       - 8087:80
     volumes:
       - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
-      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
     environment:

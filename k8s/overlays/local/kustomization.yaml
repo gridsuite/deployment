@@ -57,7 +57,7 @@ configMapGenerator:
   - name: geo-data-server-configmap
     behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: study-server-configmap
     behavior: merge
