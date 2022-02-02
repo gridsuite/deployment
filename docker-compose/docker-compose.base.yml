@@ -1,6 +1,31 @@
 version: '3'
 
 services:
+
+  postgres:
+    image: postgres:13.4
+    ports:
+      - "5432:5432"
+    command: -c listen_addresses='*'
+    #command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
+      - $PWD/../init-postgres-database.sh:/docker-entrypoint-initdb.d/init-postgres-database.sh:Z
+
+  cassandra:
+    image: cassandra:3.11.11
+    ports:
+      - "7000:7000"
+      - "9042:9042"
+      - "9142:9142"
+    volumes:
+      - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
+      - $PWD/../cassandra.jvm.options:/etc/cassandra/jvm.options:Z
+
   rabbitmq:
     image: rabbitmq:management
     ports:
@@ -17,6 +42,8 @@ services:
     environment:
       - discovery.type=single-node
       - LOGSPOUT=ignore
+    volumes:
+      - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.9.3
@@ -60,7 +87,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/case-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $HOME/cases:/cases:Z
+      - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       - logspout
     environment:
