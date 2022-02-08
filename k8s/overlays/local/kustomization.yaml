@@ -274,3 +274,4 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
+      

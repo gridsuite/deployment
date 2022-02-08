@@ -1,5 +1,5 @@
 powsybl-ws:
-  environment: local_
+  environment: 
 
   # cassandra database prefix
   cassandra:
@@ -20,3 +20,4 @@ powsybl-ws:
   elasticsearch:
     index:
       prefix: ${powsybl-ws.environment:}
+      

@@ -20,3 +20,4 @@ powsybl-ws:
   elasticsearch:
     index:
       prefix: ${powsybl-ws.environment:}
+      
