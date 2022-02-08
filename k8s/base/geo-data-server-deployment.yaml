@@ -26,6 +26,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: geo-data-server-configmap-volume
+        - mountPath: /config/common
+          name: geo-data-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: geo-data-server-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -62,5 +66,11 @@ spec:
         - name: geo-data-server-configmap-volume
           configMap:
             name: geo-data-server-configmap
+        - name: geo-data-server-configmap-common-volume
+          configMap:
+            name: geo-data-server-configmap-common
+        - name: geo-data-server-configmap-specific-volume
+          configMap:
+            name: geo-data-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

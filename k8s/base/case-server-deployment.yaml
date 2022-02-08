@@ -26,8 +26,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: case-server-configmap-volume
+        - mountPath: /config/common
+          name: case-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: case-server-configmap-specific-volume
         - mountPath: /cases
           name: case-server-storage
         - mountPath: /tmp
@@ -65,9 +67,12 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
-        - name: case-server-configmap-volume
+        - name: case-server-configmap-common-volume
           configMap:
-            name: case-server-configmap
+            name: case-server-configmap-common
+        - name: case-server-configmap-specific-volume
+          configMap:
+            name: case-server-configmap-specific
         - name: case-server-storage
           persistentVolumeClaim:
             claimName: case-server-claim

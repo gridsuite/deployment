@@ -7,7 +7,8 @@ services:
     ports:
       - 5001:80
     volumes:
-      - $PWD/../../k8s/base/config/study-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/study-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -22,7 +23,8 @@ services:
     ports:
       - 8087:80
     volumes:
-      - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
       - logspout
@@ -37,7 +39,8 @@ services:
     ports:
       - 5005:80
     volumes:
-      - $PWD/../../k8s/base/config/single-line-diagram-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/single-line-diagram-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -51,7 +54,8 @@ services:
     ports:
       - 5007:80
     volumes:
-      - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -66,7 +70,8 @@ services:
     ports:
       - 5009:80
     volumes:
-      - $PWD/../../k8s/base/config/notification-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -80,7 +85,8 @@ services:
     ports:
       - 5004:80
     volumes:
-      - $PWD/../../k8s/base/config/directory-notification-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -94,7 +100,8 @@ services:
     ports:
       - 5006:80
     volumes:
-      - $PWD/../../k8s/base/config/network-map-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-map-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -108,7 +115,8 @@ services:
     ports:
       - 8095:80
     volumes:
-      - $PWD/../../k8s/base/config/cgmes-gl-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/cgmes-gl-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -122,7 +130,8 @@ services:
     ports:
       - 8090:80
     volumes:
-      - $PWD/../../k8s/base/config/odre-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/odre-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -146,7 +155,8 @@ services:
     ports:
       - 5023:80
     volumes:
-      - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../cassandra.properties:/config/cassandra.properties:Z
     depends_on:
@@ -162,7 +172,8 @@ services:
     ports:
       - 5032:80
     volumes:
-      - $PWD/../../k8s/base/config/dynamic-simulation-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
       - $PWD/../../k8s/base/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
@@ -177,7 +188,8 @@ services:
     ports:
       - 5026:80
     volumes:
-      - $PWD/../../k8s/base/config/directory-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/directory-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -202,7 +214,8 @@ services:
     ports:
       - 5029:80
     volumes:
-      - $PWD/../../k8s/base/config/explore-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/explore-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:

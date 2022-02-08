@@ -38,9 +38,125 @@ configMapGenerator:
     files:
       - bitnami.conf=gridapps-metadata-httpd.conf
   - name: gateway-configmap
-    behavior: merge
     files:
       - allowed-issuers.yml
+# common-application.yml config
+  - name: case-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: case-validation-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: geo-data-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-conversion-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-map-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-store-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: single-line-diagram-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-modification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: study-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: cgmes-gl-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: odre-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: gateway-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: loadflow-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: balances-adjustment-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: merge-orchestrator-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: merge-notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: cgmes-boundary-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: actions-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: filter-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: report-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: security-analysis-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: config-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: config-notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: dynamic-simulation-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: directory-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: directory-notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: explore-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: dynamic-mapping-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
 
 # Patch ingress host
 patchesJson6902:
