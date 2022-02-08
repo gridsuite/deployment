@@ -44,18 +44,19 @@ spec:
             limits:
               memory: "512Mi"
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 120
             periodSeconds: 20
             timeoutSeconds: 2
             failureThreshold: 1
             successThreshold: 1
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
             periodSeconds: 20
             timeoutSeconds: 2
             failureThreshold: 1
