@@ -38,6 +38,7 @@ configMapGenerator:
     files:
       - bitnami.conf=gridapps-metadata-httpd.conf
   - name: gateway-configmap
+    behavior: merge
     files:
       - allowed-issuers.yml
 # common-application.yml config
