@@ -73,4 +73,3 @@ spec:
             name: actions-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}
-          
