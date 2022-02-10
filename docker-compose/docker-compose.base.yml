@@ -2,84 +2,6 @@ version: '3'
 
 services:
 
-  postgres:
-    image: postgres:13.4
-    ports:
-      - "5432:5432"
-    command: -c listen_addresses='*'
-    #command: -c 'config_file=/etc/postgresql/postgresql.conf'
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - PGDATA=/var/lib/postgresql/data
-    volumes:
-      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
-      - $PWD/../init-postgres-database.sh:/docker-entrypoint-initdb.d/init-postgres-database.sh:Z
-
-  cassandra:
-    image: cassandra:3.11.11
-    ports:
-      - "7000:7000"
-      - "9042:9042"
-      - "9142:9142"
-    volumes:
-      - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
-      - $PWD/../cassandra.jvm.options:/etc/cassandra/jvm.options:Z
-
-  rabbitmq:
-    image: rabbitmq:management
-    ports:
-      - 15672:15672
-      - 5672:5672
-    depends_on:
-      - logspout
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
-    ports:
-      - 9200:9200
-      - 9300:9300
-    environment:
-      - discovery.type=single-node
-      - LOGSPOUT=ignore
-    volumes:
-      - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.9.3
-    ports:
-      - 5601:5601
-    environment:
-      - LOGSPOUT=ignore
-    depends_on:
-      - elasticsearch
-
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.9.3
-    volumes:
-      - $PWD/../pipelines.yml:/config/pipelines.yml:Z
-      - $PWD/../logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
-    environment:
-      - LOGSPOUT=ignore
-    depends_on:
-      - elasticsearch
-
-  socat:
-    image: alpine/socat
-    command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
-
-  logspout:
-    image: gliderlabs/logspout:v3.2.13
-    command: 'tcp://socat:5000?filter.name=grid*'
-    environment:
-      - LOGSPOUT=ignore
-      - BACKLOG=false
-      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    depends_on:
-      - socat
-
   case-server:
     image: powsybl/case-server:latest
     ports:
@@ -150,6 +72,8 @@ services:
       - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
+    restart:
+      on-failure
     depends_on:
       - logspout
     environment:
@@ -269,8 +193,8 @@ services:
     ports:
       - 8070:8080
     volumes:
-      - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
-      - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+      - ./apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - ./gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout
 
