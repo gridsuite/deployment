@@ -359,6 +359,32 @@ http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
+### Multiple environments with customized prefixes
+
+To deploy multiple environments we can use customized prefixed databases (Postgres), keyspaces (Cassandra), queues (rabbitMq) and indexes (elasticsearch).    
+
+You must follow those steps:
+1. [Postgres schema setup](#postgres-schema-setup) with prefixed database names
+1. [Cassandra schema setup](#cassandra-schema-setup) with prefixed keyspace names.
+1. Edit the common-application.yaml file concerned by your deployment.
+
+**example**: For a Azure developpement deployment we would like to use a prefix then we edit `k8s/overlays/azure-dev/common-application.yml` by defining an `environement` name.     
+( :warning: do not forget to include underscore '_')
+
+```yaml
+powsybl-ws:
+  environment: dev_
+```
+
+After this configuration :
+* every services which use a Postgres database will call to **dev_**`{dbName}` database.
+* every services which use a Cassandra keyspace will call to **dev_**`{keyspaceName}` keyspace.
+* every services which provide or read a rabbitMq queue will call to **dev_**`{queueName}` queue.
+* every services which use a elasticsearch index will call to **dev_**`{indexName}` index.
+
+**Note** : To customize a docker-compose deployment please edit the following file :    
+`k8s/base/config/common-application.yml`
+
 ### RTE Geographical data importation
 
 To populate the geo-data-server with RTE geographic lines and substations data, you must use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. Both REST requests must be executed.

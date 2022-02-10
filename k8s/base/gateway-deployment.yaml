@@ -23,6 +23,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: gateway-configmap-volume
+        - mountPath: /config/common
+          name: gateway-configmap-common-volume
+        - mountPath: /config/specific
+          name: gateway-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -36,18 +40,19 @@ spec:
           limits:
             memory: "384Mi"
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 120
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
         readinessProbe:
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 20
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
@@ -58,5 +63,11 @@ spec:
         - name: gateway-configmap-volume
           configMap:
             name: gateway-configmap
+        - name: gateway-configmap-common-volume
+          configMap:
+            name: gateway-configmap-common
+        - name: gateway-configmap-specific-volume
+          configMap:
+            name: gateway-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

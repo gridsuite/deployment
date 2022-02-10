@@ -21,37 +21,48 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: explore-server-configmap-volume
+        - mountPath: /config/common
+          name: explore-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: explore-server-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
+        resources:
+          requests:
+            memory: "512Mi"
+          limits:
+            memory: "512Mi"
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 120
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
         readinessProbe:
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 20
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 1000
-          readOnlyRootFilesystem: true
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: explore-server-configmap-volume
+        - name: explore-server-configmap-common-volume
           configMap:
-            name: explore-server-configmap
+            name: explore-server-configmap-common
+        - name: explore-server-configmap-specific-volume
+          configMap:
+            name: explore-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}
