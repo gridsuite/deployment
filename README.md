@@ -158,6 +158,7 @@ $ create database dynamicmappings;
 $ create database filters;
 $ create database report;
 $ create database config;
+$ create database sa;
 ```
 
 The database schemas are handled by the microservices themselves using liquibase.
