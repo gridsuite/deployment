@@ -151,7 +151,7 @@ services:
     ports:
       - 84:8080
     volumes:
-      - ./gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - ./study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
       - ./env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
     depends_on:
       - logspout
@@ -216,7 +216,7 @@ services:
     ports:
       - 80:8080
     volumes:
-      - ./gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
+      - ./study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
       - ./env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
     depends_on:
       - logspout

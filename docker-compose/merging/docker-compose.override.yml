@@ -108,7 +108,7 @@ services:
     ports:
       - 81:8080
     volumes:
-      - ./gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
+      - ./merging/gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
       - ./env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
