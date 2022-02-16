@@ -123,7 +123,7 @@ configMapGenerator:
 
   - name: security-analysis-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: config-server-configmap
     files:
