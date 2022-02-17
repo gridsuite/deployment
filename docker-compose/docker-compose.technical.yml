@@ -16,25 +16,36 @@ services:
       - "7000:7000"
       - "9042:9042"
       - "9142:9142"
+    environment:
+      - http_proxy=${http_proxy-}
+      - https_proxy=${https_proxy-}
+      - no_proxy=${no_proxy-}
     volumes:
       - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
       - ./technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
-      - ./technical/init-cassandra-database.sh:/init-cassandra-database.sh:Z
-    command: "sh /init-cassandra-database.sh"
+      - ./technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
+    command: "bash /create-cassandra-databases.sh"
 
   postgres:
-    image: postgres:13.4
+    build:
+      context: ./technical
+      dockerfile: Dockerfile-postgres
     ports:
       - "5432:5432"
-    command: -c listen_addresses='*'
+    command: "bash init-databases.sh -c listen_addresses='*'"
     #command: -c 'config_file=/etc/postgresql/postgresql.conf'  -> set auto_explain.log_min_duration
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
+    env_file:
+      - ./$PROJECT_DIR_NAME/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
-      - ./technical/init-postgres-database.sh:/docker-entrypoint-initdb.d/init-postgres-database.sh:Z
+      - ./technical/create-postgres-databases.sh:/docker-entrypoint-initdb.d/create-postgres-databases.sh:Z
+      - ./technical/init-databases.sh:/init-databases.sh:Z
+      - ./technical/data/geo_data_substations.json:/geo_data_substations.json
+      - ./technical/data/geo_data_lines.json:/geo_data_lines.json
       #- ./postgres.conf:/etc/postgresql/postgresql.conf:Z
 
   elasticsearch:

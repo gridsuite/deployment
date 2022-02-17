@@ -23,6 +23,7 @@ services:
       on-failure
     depends_on:
       - logspout
+      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
