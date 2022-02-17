@@ -26,8 +26,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: case-server-configmap-volume
+        - mountPath: /config/common
+          name: case-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: case-server-configmap-specific-volume
         - mountPath: /cases
           name: case-server-storage
         - mountPath: /tmp
@@ -43,18 +45,19 @@ spec:
           limits:
             memory: "1Gi"
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 120
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
         readinessProbe:
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 20
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
@@ -64,9 +67,12 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
-        - name: case-server-configmap-volume
+        - name: case-server-configmap-common-volume
           configMap:
-            name: case-server-configmap
+            name: case-server-configmap-common
+        - name: case-server-configmap-specific-volume
+          configMap:
+            name: case-server-configmap-specific
         - name: case-server-storage
           persistentVolumeClaim:
             claimName: case-server-claim
