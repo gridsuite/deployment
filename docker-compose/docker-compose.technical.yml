@@ -24,6 +24,8 @@ services:
       - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
       - ./technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
       - ./technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
+    restart:
+      on-failure
     command: "bash /create-cassandra-databases.sh"
 
   postgres:
@@ -39,14 +41,18 @@ services:
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
+      - ./.env
       - ./$PROJECT_DIR_NAME/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
-      - ./technical/create-postgres-databases.sh:/docker-entrypoint-initdb.d/create-postgres-databases.sh:Z
+      - $GRIDSUITE_DATABASES/init:/init-data:Z
       - ./technical/init-databases.sh:/init-databases.sh:Z
-      - ./technical/data/geo_data_substations.json:/geo_data_substations.json
-      - ./technical/data/geo_data_lines.json:/geo_data_lines.json
+      - ./technical/init-geo-data.sh:/init-geo-data.sh:Z
+      - ./technical/init-merging-data.sh:/init-merging-data.sh:Z
+      - ./technical/create-postgres-databases.sh:/docker-entrypoint-initdb.d/create-postgres-databases.sh:Z
       #- ./postgres.conf:/etc/postgresql/postgresql.conf:Z
+    restart:
+      on-failure
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3

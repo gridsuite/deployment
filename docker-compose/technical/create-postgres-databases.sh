@@ -13,4 +13,5 @@ psql -v ON_ERROR_STOP=1 --username postgres --dbname postgres <<-EOSQL
   create database filters;
   create database report;
   create database config;
+  create database sa;
 EOSQL
