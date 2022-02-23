@@ -6,7 +6,7 @@
 
 All data must be stored under a common root directory whose location is defined by the environment variable **$GRIDSUITE_DATABASES**
 
-4 subdirectories must be created with file **mode 777 (rwx)** :
+5 subdirectories must be created with file **mode 777 (rwx)** :
 - **cases** : working directory for cases-server
 - **postgres** : databases Postgres
 - **cassandra** : databases Cassandra
