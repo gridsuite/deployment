@@ -9,6 +9,8 @@ services:
       - 5672:5672
     depends_on:
       - logspout
+    restart:
+      unless-stopped
 
   cassandra:
     image: cassandra:3.11.11
@@ -28,7 +30,7 @@ services:
       - ./technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
       - ./technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
     restart:
-      on-failure
+      unless-stopped
     command: "/create-cassandra-databases.sh"
 
   postgres:
@@ -53,10 +55,9 @@ services:
       - ./technical/init-databases.sh:/init-databases.sh:Z
       - ./technical/init-geo-data.sh:/init-geo-data.sh:Z
       - ./technical/init-merging-data.sh:/init-merging-data.sh:Z
-
       #- ./postgres.conf:/etc/postgresql/postgresql.conf:Z
     restart:
-      on-failure
+      unless-stopped
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
@@ -68,6 +69,8 @@ services:
       - LOGSPOUT=ignore
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
+    restart:
+      unless-stopped
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.9.3
@@ -77,6 +80,8 @@ services:
       - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
+    restart:
+      unless-stopped
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
