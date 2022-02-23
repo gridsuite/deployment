@@ -19,7 +19,7 @@ psql --username postgres --dbname postgres <<-EOSQL
 EOSQL
 }
 
-until psql --username postgres > /dev/null 2>&1 ; do
+until pg_isready; do
   echo "psql: Postgres is unavailable to create databases - will retry later"
   sleep 2
 done && createDatabases
