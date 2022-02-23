@@ -2,7 +2,7 @@
 
 set -e
 
-function curl_
+function curl_()
 {
   curl -f -s -o /dev/null -H "Content-Type: application/json" "$@"
 }

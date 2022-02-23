@@ -2,7 +2,7 @@
 
 set -e
 
-echo "PROJECT_DIR_NAME=$PROJECT_DIR_NAME"
+/create-postgres-databases.sh &
 
 /init-geo-data.sh &
 /init-merging-data.sh &
