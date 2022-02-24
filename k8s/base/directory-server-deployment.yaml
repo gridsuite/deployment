@@ -36,9 +36,9 @@ spec:
           readOnlyRootFilesystem: true
         resources:
           requests:
-            memory: "1Gi"
+            memory: "384Mi"
           limits:
-            memory: "1Gi"
+            memory: "384Mi"
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
