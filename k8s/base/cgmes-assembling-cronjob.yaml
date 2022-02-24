@@ -12,9 +12,9 @@ spec:
             - name: cgmes-assembling-job
               resources:
                 requests:
-                  memory: "512Mi"
+                  memory: "384Mi"
                 limits:
-                  memory: "512Mi"
+                  memory: "384Mi"
               image: docker.io/gridsuite/cgmes-assembling-job:latest
               volumeMounts:
                 - name: config-cgmes-assembling-job-volume
