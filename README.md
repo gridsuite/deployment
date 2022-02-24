@@ -231,10 +231,10 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Applications:
 ```html
-http://<INGRESS_HOST>/gridstudy-app/
-http://<INGRESS_HOST>/gridmerge-app/
-http://<INGRESS_HOST>/griddyna-app/
-http://<INGRESS_HOST>/gridexplore-app/
+http://<INGRESS_HOST>/gridstudy/
+http://<INGRESS_HOST>/gridmerge/
+http://<INGRESS_HOST>/griddyna/
+http://<INGRESS_HOST>/gridexplore/
 ```
 
 Swagger UI:
