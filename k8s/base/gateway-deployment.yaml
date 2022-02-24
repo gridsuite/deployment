@@ -23,6 +23,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: gateway-configmap-volume
+        - mountPath: /config/common
+          name: gateway-configmap-common-volume
+        - mountPath: /config/specific
+          name: gateway-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -59,5 +63,11 @@ spec:
         - name: gateway-configmap-volume
           configMap:
             name: gateway-configmap
+        - name: gateway-configmap-common-volume
+          configMap:
+            name: gateway-configmap-common
+        - name: gateway-configmap-specific-volume
+          configMap:
+            name: gateway-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

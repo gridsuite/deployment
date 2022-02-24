@@ -24,8 +24,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /config
-          name: network-conversion-server-configmap-volume
+        - mountPath: /config/common
+          name: network-conversion-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: network-conversion-server-configmap-specific-volume
         - mountPath: /home/powsybl/.itools
           name: network-conversion-server-itools-configmap-volume
         - mountPath: /tmp
@@ -61,9 +63,12 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: network-conversion-server-configmap-volume
+        - name: network-conversion-server-configmap-common-volume
           configMap:
-            name: network-conversion-server-configmap
+            name: network-conversion-server-configmap-common
+        - name: network-conversion-server-configmap-specific-volume
+          configMap:
+            name: network-conversion-server-configmap-specific
         - name: network-conversion-server-itools-configmap-volume
           configMap:
             name: network-conversion-server-itools-configmap

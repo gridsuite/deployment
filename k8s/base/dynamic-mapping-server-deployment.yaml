@@ -26,6 +26,10 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: dynamic-mapping-server-configmap-volume
+            - mountPath: /config/common
+              name: dynamic-mapping-server-configmap-common-volume
+            - mountPath: /config/specific
+              name: dynamic-mapping-server-configmap-specific-volume
             - mountPath: /tmp
               name: tmp-emptydir
           securityContext:
@@ -62,5 +66,11 @@ spec:
         - name: dynamic-mapping-server-configmap-volume
           configMap:
             name: dynamic-mapping-server-configmap
+        - name: dynamic-mapping-server-configmap-common-volume
+          configMap:
+            name: dynamic-mapping-server-configmap-common
+        - name: dynamic-mapping-server-configmap-specific-volume
+          configMap:
+            name: dynamic-mapping-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}
