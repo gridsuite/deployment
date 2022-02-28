@@ -54,7 +54,6 @@ To create Grid Suite keyspaces in a single node cluster:
 CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS import_history WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 ----
@@ -67,14 +66,12 @@ To create Grid Suite custom keyspaces in a single node cluster:
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CGMES_BOUNDARY> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CGMES_ASSEMBLING> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_SECURITY_ANALYSIS> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CASE_IMPORT> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
 Then you must configure keyspace names in those files :
 - k8s/base/config/network-store-server-application.yml
 - k8s/base/config/cgmes-boundary-server-application.yml
-- k8s/base/config/security-analysis-server-application.yml
 ```properties
 cassandra-keyspace: <CUSTOM_KEYSPACE_NAME>
 ```
@@ -99,7 +96,6 @@ Then copy/paste the corresponding following files content to cqlsh shell:
 - connect to <KEYSPACE_NAME_NETWORK_STORE> then copy/paste : [iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
 - connect to <KEYSPACE_NAME_CGMES_BOUNDARY> then copy/paste : [cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
 - connect to <KEYSPACE_NAME_CGMES_ASSEMBLING> then copy/paste : [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
-- connect to <KEYSPACE_NAME_SECURITY_ANALYSIS> then copy/paste : [sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/main/src/main/resources/sa.cql)
 - connect to <KEYSPACE_NAME_CASE_IMPORT> then copy/paste : [import_history.cql](https://raw.githubusercontent.com/gridsuite/case-import-job/main/src/main/resources/import_history.cql)
 
 ### PostgresSql install
@@ -155,6 +151,7 @@ $ create database filters;
 $ create database report;
 $ create database config;
 $ create database geo_data;
+$ create database sa;
 ```
 
 The database schemas are handled by the microservices themselves using liquibase.

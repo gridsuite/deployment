@@ -158,7 +158,7 @@ services:
       - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
     environment:

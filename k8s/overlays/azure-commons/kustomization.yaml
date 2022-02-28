@@ -40,7 +40,7 @@ configMapGenerator:
       - database.properties
   - name: security-analysis-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
   - name: config-server-configmap
     files:
       - database.properties
