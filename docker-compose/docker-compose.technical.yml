@@ -23,19 +23,19 @@ services:
       - https_proxy=${https_proxy-}
       - no_proxy=${no_proxy-}
     env_file:
-      - ./.env
-      - ./$PROJECT_DIR_NAME/.env
+      - $PWD/../.env
+      - $PWD/.env
     volumes:
       - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
-      - ./technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
-      - ./technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
+      - $PWD/../technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
+      - $PWD/../technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
     restart:
       unless-stopped
     command: "/create-cassandra-databases.sh"
 
   postgres:
     build:
-      context: ./technical
+      context: $PWD/../technical
       dockerfile: Dockerfile-postgres
     ports:
       - "5432:5432"
@@ -46,15 +46,15 @@ services:
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
-      - ./.env
-      - ./$PROJECT_DIR_NAME/.env
+      - $PWD/../.env
+      - $PWD/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
       - $GRIDSUITE_DATABASES/init:/init-data:Z
-      - ./technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
-      - ./technical/init-databases.sh:/init-databases.sh:Z
-      - ./technical/init-geo-data.sh:/init-geo-data.sh:Z
-      - ./technical/init-merging-data.sh:/init-merging-data.sh:Z
+      - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
+      - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
+      - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
     restart:
       unless-stopped
 
@@ -85,8 +85,8 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
     volumes:
-      - ./technical/pipelines.yml:/config/pipelines.yml:Z
-      - ./technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
     environment:
       - LOGSPOUT=ignore
     depends_on:

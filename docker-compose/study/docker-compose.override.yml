@@ -151,8 +151,8 @@ services:
     ports:
       - 84:8080
     volumes:
-      - ./study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
-      - ./env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
+      - $PWD/../study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
     depends_on:
       - logspout
 
@@ -182,9 +182,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
       - $PWD/../../k8s/base/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     restart:
       on-failure
     environment:
@@ -216,8 +216,8 @@ services:
     ports:
       - 80:8080
     volumes:
-      - ./study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
-      - ./env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
+      - $PWD/../study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
     depends_on:
       - logspout
 
