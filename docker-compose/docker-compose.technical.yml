@@ -40,9 +40,9 @@ services:
     ports:
       - "5432:5432"
     command: "/init-databases.sh -c listen_addresses='*'"
-    #command: -c 'config_file=/etc/postgresql/postgresql.conf'  -> set auto_explain.log_min_duration
     environment:
       - POSTGRES_USER=postgres
+      - POSTGRES_DEFAULT_DB=postgres
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
@@ -55,7 +55,6 @@ services:
       - ./technical/init-databases.sh:/init-databases.sh:Z
       - ./technical/init-geo-data.sh:/init-geo-data.sh:Z
       - ./technical/init-merging-data.sh:/init-merging-data.sh:Z
-      #- ./postgres.conf:/etc/postgresql/postgresql.conf:Z
     restart:
       unless-stopped
 

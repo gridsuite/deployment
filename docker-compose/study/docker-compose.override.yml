@@ -14,7 +14,6 @@ services:
       on-failure
     depends_on:
       - logspout
-      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -33,7 +32,6 @@ services:
       on-failure
     depends_on:
       - logspout
-      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -67,7 +65,6 @@ services:
       on-failure
     depends_on:
       - logspout
-      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -172,7 +169,6 @@ services:
       on-failure
     depends_on:
       - logspout
-      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -191,8 +187,6 @@ services:
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
     restart:
       on-failure
-    depends_on:
-      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -211,7 +205,6 @@ services:
       on-failure
     depends_on:
       - logspout
-      - postgres
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/

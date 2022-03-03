@@ -25,8 +25,6 @@ To do this, you must copy the following files (from the starter kit) in the init
 - geo_data_lines.json
 - business_processes.json
 - tsos.json
-- 20200202T0000Z__ENTSOE_EQBD_001.xml
-- 20200202T0000Z__ENTSOE_TPBD_001.xml
 
 | :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose !   |
 |---------------------------------------------|
@@ -65,11 +63,19 @@ $ docker-compose up
 
 __Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
 
-__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1`
+__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
 ### Technical profile
 
 This profile allows you to launch only the technical services : cassandra, postgres, elasticsearch, rabbitmq, ... 
+
+|Software| Version used |
+--- | --- |
+|Cassandra|3.11.11|
+|Postgres|13.4|
+|RabbitMQ|latest|
+|Elasticsearch|7.9.3|
+
 
 It is used for k8s deployment with Minikube.
 
@@ -93,7 +99,12 @@ $ docker-compose pull
 $ docker-compose up
 ```
 
-### Swagger
+- remove old images
+```bash 
+$ docker image prune -f
+```
+
+### Applications and Swagger URLs
 
 You can now access to all applications and swagger UIs of the Spring services of the chosen profile:
 
@@ -326,11 +337,7 @@ services:
     image: <my_image_name>:latest
 ...
 ```
-Now, when using ```docker-compose up```, your custom Docker image will be used. 
-
-# GridSuite OPF deployment
-
-`TODO`
+Now, when using ```docker-compose up```, your custom Docker image will be used.
 
 # GridSuite Azure deployment
 

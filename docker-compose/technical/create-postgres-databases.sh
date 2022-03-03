@@ -4,7 +4,7 @@ set -e
 
 function createDatabases()
 {
-psql --username postgres --dbname postgres <<-EOSQL
+psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}ds";
   create database "${DATABASE_PREFIX_NAME}directory";
   create database "${DATABASE_PREFIX_NAME}study";
