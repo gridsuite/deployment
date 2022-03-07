@@ -10,7 +10,7 @@ configMapGenerator:
       - cassandra.properties
   - name: geo-data-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
   - name: study-server-configmap
     files:
       - database.properties
