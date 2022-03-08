@@ -38,6 +38,10 @@ services:
     build:
       context: $PWD/../technical
       dockerfile: Dockerfile-postgres
+      args:
+        - http_proxy=${http_proxy-}
+        - https_proxy=${https_proxy-}
+        - no_proxy=${no_proxy-}
     ports:
       - "5432:5432"
     command: "/init-databases.sh -c listen_addresses='*'"
