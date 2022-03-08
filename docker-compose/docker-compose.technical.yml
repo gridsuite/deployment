@@ -19,6 +19,7 @@ services:
       - "9042:9042"
       - "9142:9142"
     environment:
+      - CASSANDRA_LISTEN_ADDRESS=127.0.0.1
       - http_proxy=${http_proxy-}
       - https_proxy=${https_proxy-}
       - no_proxy=${no_proxy-}
