@@ -1,20 +1,24 @@
 [{
   "name" : "Merge",
   "url"  : "/gridmerge",
-  "appColor" : "#2D9BF0"
+  "appColor" : "#2D9BF0",
+  "hiddenInAppsMenu" : false
 },
 {
   "name" : "Study",
   "url"  : "/gridstudy",
-  "appColor" : "#0CA789"
-},
-{
-  "name" : "Actions",
-  "url"  : "/gridactions",
-  "appColor" : "#DA0063"
+  "appColor" : "#0CA789",
+  "hiddenInAppsMenu" : true,
+  "resources" : [
+    {
+      "types" : ["STUDY"],
+      "path" : "/studies/{elementUuid}"
+    }
+  ]
 },
 {
   "name" : "Explore",
   "url"  : "/gridexplore",
-  "appColor" : "#33AFED"
+  "appColor" : "#33AFED",
+  "hiddenInAppsMenu" : false
 }]

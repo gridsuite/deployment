@@ -43,22 +43,21 @@ resources:
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
   - directory-server-ingress.yaml
+  - explore-server-ingress.yaml
   - external-cassandra-service.yaml
   - external-postgres-service.yaml
+  - dynamic-mapping-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
-    behavior: merge
     files:
       - cassandra.properties
 
   - name: geo-data-server-configmap
-    behavior: merge
     files:
       - cassandra.properties
 
   - name: study-server-configmap
-    behavior: merge
     files:
       - database.properties
 
@@ -87,7 +86,6 @@ configMapGenerator:
       - env.json=env.json
 
   - name: gateway-configmap
-    behavior: merge
     files:
       - allowed-issuers.yml
 
@@ -96,7 +94,6 @@ configMapGenerator:
       - config.yml=case-import-job-config.yml
 
   - name: merge-orchestrator-server-configmap
-    behavior: merge
     files:
       - database.properties
 
@@ -105,7 +102,6 @@ configMapGenerator:
       - kibana.yml
 
   - name: cgmes-boundary-server-configmap
-    behavior: merge
     files:
       - cassandra.properties
 
@@ -113,46 +109,31 @@ configMapGenerator:
     files:
       - config.yml=cgmes-assembling-job-config.yml
 
-  - name: gridactions-app-configmap
-    files:
-      - idpSettings.json=gridactions-app-idpSettings.json
-
-  - name: gridactions-app-env-configmap
-    files:
-      - env.json=env.json
-
   - name: actions-server-configmap
-    behavior: merge
     files:
       - database.properties
 
   - name: filter-server-configmap
-    behavior: merge
     files:
       - database.properties
 
   - name: report-server-configmap
-    behavior: merge
     files:
       - database.properties
 
   - name: security-analysis-server-configmap
-    behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: config-server-configmap
-    behavior: merge
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: dynamic-simulation-server-configmap
-    behavior: merge
     files:
       - database.properties
 
   - name: directory-server-configmap
-    behavior: merge
     files:
       - database.properties
 
@@ -161,6 +142,135 @@ configMapGenerator:
       - config.yml=cgmes-boundary-import-job-config.yml
 
   - name: network-modification-server-configmap
-    behavior: merge
     files:
       - database.properties
+
+  - name: dynamic-mapping-server-configmap
+    files:
+      - database.properties
+
+  - name: griddyna-app-configmap
+    files:
+      - idpSettings.json=griddyna-app-idpSettings.json
+
+  - name: griddyna-app-env-configmap
+    files:
+      - env.json=env.json
+# common-application.yml config
+  - name: case-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: case-validation-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: geo-data-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-conversion-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-map-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-store-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: single-line-diagram-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: network-modification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: study-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: cgmes-gl-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: odre-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: gateway-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: loadflow-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: balances-adjustment-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: merge-orchestrator-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: merge-notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: cgmes-boundary-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: actions-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: filter-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: report-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: security-analysis-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: config-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: config-notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: dynamic-simulation-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: directory-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: directory-notification-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  
+  - name: explore-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
+  - name: dynamic-mapping-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml

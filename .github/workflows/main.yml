@@ -24,7 +24,6 @@ on:
       - cgmes_boundary_server_updated
       - cgmes_assembling_job_updated
       - gridmerge_app_updated
-      - gridactions_app_updated
       - actions_server_updated
       - security_analysis_server_updated
       - config_server_updated
@@ -38,11 +37,11 @@ on:
       - report_server_updated
       - gridexplore_app_updated
       - directory-notification_server_updated
-
+      - explore_server_updated
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:

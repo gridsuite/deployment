@@ -10,7 +10,7 @@ services:
       - logspout
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     ports:
       - 9200:9200
       - 9300:9300
@@ -19,7 +19,7 @@ services:
       - LOGSPOUT=ignore
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.8.6
+    image: docker.elastic.co/kibana/kibana:7.9.3
     ports:
       - 5601:5601
     environment:
@@ -28,7 +28,7 @@ services:
       - elasticsearch
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:6.8.6
+    image: docker.elastic.co/logstash/logstash:7.9.3
     volumes:
       - $PWD/../pipelines.yml:/config/pipelines.yml:Z
       - $PWD/../logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
@@ -58,7 +58,8 @@ services:
     ports:
       - 5000:80
     volumes:
-      - $PWD/../../k8s/base/config/case-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/case-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $HOME/cases:/cases:Z
     depends_on:
       - logspout
@@ -73,7 +74,8 @@ services:
     ports:
       - 5022:80
     volumes:
-      - $PWD/../../k8s/base/config/actions-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/actions-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -88,7 +90,8 @@ services:
     ports:
       - 5027:80
     volumes:
-      - $PWD/../../k8s/base/config/filter-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/filter-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -101,7 +104,8 @@ services:
     ports:
       - 5028:80
     volumes:
-      - $PWD/../../k8s/base/config/report-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/report-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -116,7 +120,8 @@ services:
     ports:
       - 8080:80
     volumes:
-      - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
 #      - $PWD/../database.properties:/config/database.properties:Z
       - $PWD/../database_oracle.properties:/config/database.properties:Z
     depends_on:
@@ -132,7 +137,8 @@ services:
     ports:
       - 5003:80
     volumes:
-      - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
@@ -147,7 +153,8 @@ services:
     ports:
       - 5008:80
     volumes:
-      - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
@@ -162,8 +169,9 @@ services:
     ports:
       - 5025:80
     volumes:
-      - $PWD/../../k8s/base/config/config-server-application.yml:/config/application.yml:Z
-      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      - $PWD/../../k8s/base/config/config-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../database.properties:/config/database.properties:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -175,7 +183,8 @@ services:
     ports:
       - 5024:80
     volumes:
-      - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -187,7 +196,8 @@ services:
     ports:
       - 9000:80
     volumes:
-      - $PWD/../../k8s/base/config/gateway-application.yml:/config/application.yml:Z
+      - $PWD/../../k8s/base/config/gateway-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
     depends_on:
       - logspout
@@ -203,7 +213,7 @@ services:
       - 9090:9090
     environment:
       - PORT=9090
-      - CLIENT_COUNT=6
+      - CLIENT_COUNT=5
       - CLIENT_ID=gridexplore-client
       - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
@@ -216,18 +226,14 @@ services:
       - CLIENT_REDIRECT_URI_3=http://localhost:81/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:81/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:81/silent-renew-callback
-      - CLIENT_ID_4=gridactions-client
-      - CLIENT_REDIRECT_URI_4=http://localhost:82/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:82/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:82/silent-renew-callback
-      - CLIENT_ID_5=griddyna-client
-      - CLIENT_REDIRECT_URI_5=http://localhost:83/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:83/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:83/silent-renew-callback
-      - CLIENT_ID_6=gridstudy-client
-      - CLIENT_REDIRECT_URI_6=http://localhost:84/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:84/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:84/silent-renew-callback
+      - CLIENT_ID_4=griddyna-client
+      - CLIENT_REDIRECT_URI_4=http://localhost:83/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:83/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:83/silent-renew-callback
+      - CLIENT_ID_5=gridstudy-client
+      - CLIENT_REDIRECT_URI_5=http://localhost:84/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:84/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:84/silent-renew-callback
       - ISSUER_HOST=172.17.0.1:9090
     depends_on:
       - logspout

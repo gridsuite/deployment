@@ -10,6 +10,7 @@ cassandra:
   contact-points: cassandra
   port: 9042
   datacenter: datacenter1
+  keyspace-name: cgmes_assembling
 
 case-server:
   url: http://case-server/

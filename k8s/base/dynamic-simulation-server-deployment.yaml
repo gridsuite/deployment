@@ -23,6 +23,10 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: dynamic-simulation-server-configmap-volume
+            - mountPath: /config/common
+              name: dynamic-simulation-server-configmap-common-volume
+            - mountPath: /config/specific
+              name: dynamic-simulation-server-configmap-specific-volume
             - mountPath: /dynawo-config
               name: dynawo-config-configmap-volume
             - mountPath: /home/powsybl/.itools
@@ -36,22 +40,23 @@ spec:
             readOnlyRootFilesystem: true
           resources:
             requests:
-              memory: "512Mi"
+              memory: "384Mi"
             limits:
-              memory: "512Mi"
+              memory: "384Mi"
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 120
             periodSeconds: 20
             timeoutSeconds: 2
             failureThreshold: 1
             successThreshold: 1
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
             periodSeconds: 20
             timeoutSeconds: 2
             failureThreshold: 1
@@ -62,6 +67,12 @@ spec:
         - name: dynamic-simulation-server-configmap-volume
           configMap:
             name: dynamic-simulation-server-configmap
+        - name: dynamic-simulation-server-configmap-common-volume
+          configMap:
+            name: dynamic-simulation-server-configmap-common
+        - name: dynamic-simulation-server-configmap-specific-volume
+          configMap:
+            name: dynamic-simulation-server-configmap-specific
         - name: dynawo-config-configmap-volume
           configMap:
             name: dynawo-config-configmap

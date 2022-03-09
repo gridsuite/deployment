@@ -2,26 +2,31 @@
 {
   "name" : "Explore",
   "url"  : "http://localhost:80",
-  "appColor" : "#33AFED"
+  "appColor" : "#33AFED",
+  "hiddenInAppsMenu" : false
 },
 {
   "name" : "Study",
   "url"  : "http://localhost:84",
-  "appColor" : "#0CA789"
+  "appColor" : "#0CA789",
+  "hiddenInAppsMenu" : true,
+  "resources" : [
+    {
+      "types" : ["STUDY"],
+      "path" : "/studies/{elementUuid}"
+    }
+  ]
 },
 {
   "name" : "Merge",
   "url"  : "http://localhost:81",
-  "appColor" : "#2D9BF0"
-},
-{
-  "name" : "Actions",
-  "url"  : "http://localhost:82",
-  "appColor" : "#DA0063"
+  "appColor" : "#2D9BF0",
+  "hiddenInAppsMenu" : false
 },
 {
   "name" : "Dynamic Mapping",
   "url"  : "http://localhost:83",
-  "appColor" : "#FFC11B"
+  "appColor" : "#FFC11B",
+  "hiddenInAppsMenu" : false
 }
 ]

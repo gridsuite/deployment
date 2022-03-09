@@ -1,34 +1,6 @@
-server:
-  port: 8080
-
-network-store-server:
-  base-uri: http://network-store-server/
-  preloading-strategy: COLLECTION
-
-backing-services:
-  case-server:
-    base-uri: http://case-server/
-  balances-adjustment-server:
-    base-uri: http://balances-adjustment-server/
-  loadflow-server:
-    base-uri: http://loadflow-server/
-  case-validation-server:
-    base-uri: http://case-validation-server/
-  network-conversion:
-    base-uri: http://network-conversion-server/
-  cgmes-boundary-server:
-    base-uri: http://cgmes-boundary-server/
-  report-server:
-    base-uri: http://report-server/
-
 parameters:
   tsos: BE,NL
   process: TEST
-
-spring:
-  rabbitmq:
-    addresses: rabbitmq
-    port: 5672
 
 logging:
   level:

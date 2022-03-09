@@ -26,6 +26,10 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: security-analysis-server-configmap-volume
+            - mountPath: /config/common
+              name: security-analysis-server-configmap-common-volume
+            - mountPath: /config/specific
+              name: security-analysis-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: security-analysis-server-itools-configmap-volume
             - mountPath: /tmp
@@ -41,18 +45,19 @@ spec:
             limits:
               memory: "1.5Gi"
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 120
             periodSeconds: 20
             timeoutSeconds: 2
             failureThreshold: 1
             successThreshold: 1
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
             periodSeconds: 20
             timeoutSeconds: 2
             failureThreshold: 1
@@ -63,6 +68,12 @@ spec:
         - name: security-analysis-server-configmap-volume
           configMap:
             name: security-analysis-server-configmap
+        - name: security-analysis-server-configmap-common-volume
+          configMap:
+            name: security-analysis-server-configmap-common
+        - name: security-analysis-server-configmap-specific-volume
+          configMap:
+            name: security-analysis-server-configmap-specific
         - name: security-analysis-server-itools-configmap-volume
           configMap:
             name: security-analysis-server-itools-configmap

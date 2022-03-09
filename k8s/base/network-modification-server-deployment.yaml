@@ -18,11 +18,18 @@ spec:
       - name: network-modification-server
         image: docker.io/gridsuite/network-modification-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 80
         volumeMounts:
         - mountPath: /config
           name: network-modification-server-configmap-volume
+        - mountPath: /config/common
+          name: network-modification-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: network-modification-server-configmap-specific-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -32,22 +39,23 @@ spec:
           readOnlyRootFilesystem: true
         resources:
           requests:
-            memory: "384Mi"
+            memory: "1Gi"
           limits:
-            memory: "384Mi"
+            memory: "1Gi"
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 120
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
         readinessProbe:
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 15
+          initialDelaySeconds: 20
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
@@ -58,5 +66,11 @@ spec:
         - name: network-modification-server-configmap-volume
           configMap:
             name: network-modification-server-configmap
+        - name: network-modification-server-configmap-common-volume
+          configMap:
+            name: network-modification-server-configmap-common
+        - name: network-modification-server-configmap-specific-volume
+          configMap:
+            name: network-modification-server-configmap-specific
         - name: tmp-emptydir
           emptyDir: {}

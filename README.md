@@ -40,57 +40,67 @@ $ bin/cassandra -f`
 ```
 ### Cassandra schema setup
 
+__Cassandra schema creation__
+
+First, you must connect to cassandra database server with cqlsh client
 ```bash
 $ bin/cqlsh
 ```
+---
+__Use default keyspace names__
 
-To create keyspaces in a single node cluster:
+To create Grid Suite keyspaces in a single node cluster:
+```cql
+CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS import_history WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+```
+----
+
+__Or use custom keyspace names__
+
+To create Grid Suite custom keyspaces in a single node cluster:
 
 ```cql
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
-CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS sa WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS config WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CGMES_BOUNDARY> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CGMES_ASSEMBLING> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CASE_IMPORT> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
 
-Then (for network store cassandra database) :
-```bash
-$ bin/cqlsh -k <KEYSPACE_NAME_NETWORK_STORE>
-```
-Copy paste following files content to cqlsh shell:
-[iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/master/network-store-server/src/main/resources/iidm.cql)
-
-Change Cassandra keyspace name in k8s/base/config/network-store-server-application.yml
+Then you must configure keyspace names in those files :
+- k8s/base/config/network-store-server-application.yml
+- k8s/base/config/geo-data-server-application.yml
+- k8s/base/config/cgmes-boundary-server-application.yml
 ```properties
-cassandra-keyspace: <KEYSPACE_NAME_NETWORK_STORE>
+cassandra-keyspace: <CUSTOM_KEYSPACE_NAME>
 ```
-
-
-Then (for geo-data cassandra database) :
-```bash
-$ bin/cqlsh -k <KEYSPACE_NAME_GEO_DATA>
-```
-Copy paste following files content to cqlsh shell:
-[geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/master/geo-data-server/src/main/resources/geo_data.cql)
-
-Change Cassandra keyspace name in k8s/base/config/geo-data-server-application.yml
+and for 
+- docker-compose/merging/cgmes-assembling-job/cgmes-assembling-job-config.yml
+- docker-compose/case-import-job/case-import-job-config.yml
 ```properties
-cassandra-keyspace: <KEYSPACE_NAME_GEO_DATA>
+cassandra:
+    ...
+    keyspace-name: <CUSTOM_KEYSPACE_NAME>
 ```
+----
+#### __Cassandra schema initialization__
 
-
-Then (for other cassandra databases) :
+Then you must initialize each keyspace, following those instructions :
+First connect to corresponding keyspace
 ```bash
-$ bin/cqlsh
+$ bin/cqlsh -k <KEYSPACE_NAME>
 ```
-Copy/paste following files content to cqlsh shell:
+Then copy/paste the corresponding following files content to cqlsh shell:
 
-[cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/master/src/main/resources/cgmes_boundary.cql)    
-[cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/master/src/main/resources/cgmes_assembling.cql)    
-[sa.cql](https://raw.githubusercontent.com/gridsuite/security-analysis-server/master/src/main/resources/sa.cql)    
-[config.cql](https://raw.githubusercontent.com/gridsuite/config-server/master/src/main/resources/config.cql)    
+- connect to <KEYSPACE_NAME_NETWORK_STORE> then copy/paste : [iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
+- connect to <KEYSPACE_NAME_GEO_DATA> then copy/paste : [geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/main/geo-data-server/src/main/resources/geo_data.cql)
+- connect to <KEYSPACE_NAME_CGMES_BOUNDARY> then copy/paste : [cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
+- connect to <KEYSPACE_NAME_CGMES_ASSEMBLING> then copy/paste : [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
+- connect to <KEYSPACE_NAME_CASE_IMPORT> then copy/paste : [import_history.cql](https://raw.githubusercontent.com/gridsuite/case-import-job/main/src/main/resources/import_history.cql)
 
 ### PostgresSql install
 
@@ -143,20 +153,11 @@ $ create database merge_orchestrator;
 $ create database dynamicmappings;
 $ create database filters;
 $ create database report;
+$ create database config;
+$ create database sa;
 ```
 
-Then initialize the schemas for the databases: 
-
-
-`$ \c ds;` then copy/paste [result.sql](https://raw.githubusercontent.com/gridsuite/dynamic-simulation-server/main/src/main/resources/result.sql) content to psql    
-`$ \c directory;` then copy/paste [directory.sql](https://raw.githubusercontent.com/gridsuite/directory-server/main/src/main/resources/directory.sql) content to psql   
-`$ \c study;` then copy/paste [study.sql](https://raw.githubusercontent.com/gridsuite/study-server/master/src/main/resources/study.sql) content to psql   
-`$ \c actions;` then copy/paste [actions.sql](https://raw.githubusercontent.com/gridsuite/actions-server/master/src/main/resources/actions.sql) content to psql   
-`$ \c networkmodifications;` then copy/paste [network-modification.sql](https://raw.githubusercontent.com/gridsuite/network-modification-server/master/src/main/resources/network-modification.sql) content to psql   
-`$ \c merge_orchestrator;` then copy/paste [merge_orchestrator.sql](https://raw.githubusercontent.com/gridsuite/merge-orchestrator-server/master/src/main/resources/merge_orchestrator.sql) content to psql   
-`$ \c dynamicmappings;` then copy/paste [mappings.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/mappings.sql) and  [IEEE14Models.sql](https://raw.githubusercontent.com/gridsuite/dynamic-mapping-server/master/src/main/resources/IEEE14Models.sql)content to psql   
-`$ \c filters;` then copy/paste [filter.sql](https://raw.githubusercontent.com/gridsuite/filter-server/master/src/main/resources/filter.sql) content to psql   
-`$ \c report;` then copy/paste [report.sql](https://raw.githubusercontent.com/gridsuite/report-server/master/src/main/resources/report.sql) content to psql   
+The database schemas are handled by the microservices themselves using liquibase.
 
 ### Cases folders configuration
 
@@ -173,14 +174,34 @@ This is a working directory for cases-server.
 ### Minikube and kubectl setup
 
 This setup is heavyweight and matches a realworld deployment. It is useful to reproduce realworld kubernetes effects and features. In most cases, the lighter docker-compose deployment is preferred.
-Download and install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/).
-We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
+
+Download the recommended version of minikube and kubectl :
+
+|Software| Version recommendation |Last Version  | Link|
+--- | --- | --- | ---
+|kubectl|1.18.12|1.22.X ( :warning: not supported yet)|[Download](https://storage.googleapis.com/kubernetes-release/release/v1.18.12/bin/linux/amd64/kubectl)|
+|minikube|1.21+|1.24.0|[Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)|
+
+
+install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
+
+__Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
 Start minikube and activate ingress support:
 ```bash
-$ minikube start --memory 24g --cpus=4
+$ minikube start --memory 24g --cpus=4 
 $ minikube addons enable ingress
 ```
+
+To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
+```bash
+$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=$KUBECTL_VERSION
+$ minikube addons enable ingress
+```
+
+__Notes__: With last version of minikube, *docker* is the default driver (was *virtualbox* before) which could forbid memory definition depending of your user privilegies.
+
+see [kubernetes-version param doc](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64) for versions support.
 
 Verify everything is ok with:
 ```bash
@@ -227,37 +248,36 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Applications:
 ```html
-http://<MINIKUBE_IP>/gridstudy-app/
-http://<MINIKUBE_IP>/gridmerge-app/
-http://<MINIKUBE_IP>/gridactions-app/
-http://<MINIKUBE_IP>/griddyna-app/
-http://<MINIKUBE_IP>/gridexplore-app/
+http://<INGRESS_HOST>/gridstudy-app/
+http://<INGRESS_HOST>/gridmerge-app/
+http://<INGRESS_HOST>/griddyna-app/
+http://<INGRESS_HOST>/gridexplore-app/
 ```
 
 Swagger UI:
 ```html
-http://<MINIKUBE_IP>/case-server/swagger-ui.html
-http://<MINIKUBE_IP>/cgmes-gl-server/swagger-ui.html
-http://<MINIKUBE_IP>/geo-data-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-conversion-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-store-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-map-server/swagger-ui.html
-http://<MINIKUBE_IP>/odre-server/swagger-ui.html
-http://<MINIKUBE_IP>/single-line-diagram-server/swagger-ui.html
-http://<MINIKUBE_IP>/study-server/swagger-ui.html
-http://<MINIKUBE_IP>/network-modification-server/swagger-ui.html
-http://<MINIKUBE_IP>/loadflow-server/swagger-ui.html
-http://<MINIKUBE_IP>/merge-orchestrator-server/swagger-ui.html
-http://<MINIKUBE_IP>/cgmes-boundary-server/swagger-ui.html
-http://<MINIKUBE_IP>/actions-server/swagger-ui.html
-http://<MINIKUBE_IP>/security-analysis-server/swagger-ui.html
-http://<MINIKUBE_IP>/config-server/swagger-ui.html
-http://<MINIKUBE_IP>/directory-server/swagger-ui.html
-http://<MINIKUBE_IP>/balances-adjustment-server/swagger-ui.html
-http://<MINIKUBE_IP>/case-validation-server/swagger-ui.html
-http://<MINIKUBE_IP>/dynamic-simulation-server/swagger-ui.html
-http://<MINIKUBE_IP>/filter-server/swagger-ui.html 
-http://<MINIKUBE_IP>/report-server/swagger-ui.html
+http://<INGRESS_HOST>/case-server/swagger-ui.html
+http://<INGRESS_HOST>/cgmes-gl-server/swagger-ui.html
+http://<INGRESS_HOST>/geo-data-server/swagger-ui.html
+http://<INGRESS_HOST>/network-conversion-server/swagger-ui.html
+http://<INGRESS_HOST>/network-store-server/swagger-ui.html
+http://<INGRESS_HOST>/network-map-server/swagger-ui.html
+http://<INGRESS_HOST>/odre-server/swagger-ui.html
+http://<INGRESS_HOST>/single-line-diagram-server/swagger-ui.html
+http://<INGRESS_HOST>/study-server/swagger-ui.html
+http://<INGRESS_HOST>/network-modification-server/swagger-ui.html
+http://<INGRESS_HOST>/loadflow-server/swagger-ui.html
+http://<INGRESS_HOST>/merge-orchestrator-server/swagger-ui.html
+http://<INGRESS_HOST>/cgmes-boundary-server/swagger-ui.html
+http://<INGRESS_HOST>/actions-server/swagger-ui.html
+http://<INGRESS_HOST>/security-analysis-server/swagger-ui.html
+http://<INGRESS_HOST>/config-server/swagger-ui.html
+http://<INGRESS_HOST>/directory-server/swagger-ui.html
+http://<INGRESS_HOST>/balances-adjustment-server/swagger-ui.html
+http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
+http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
+http://<INGRESS_HOST>/filter-server/swagger-ui.html 
+http://<INGRESS_HOST>/report-server/swagger-ui.html
 ```
 
 ### Docker compose  deployment
@@ -279,11 +299,6 @@ $ docker-compose up
 ```
 
 ```bash 
-$ cd docker-compose/actions
-$ docker-compose up
-```
-
-```bash 
 $ cd docker-compose/dynamic-mapping
 $ docker-compose up
 ```
@@ -297,7 +312,6 @@ Applications:
 ```html
 http://localhost:80 // gridstudy
 http://localhost:81 // gridmerge
-http://localhost:82 // gridactions
 http://localhost:83 // griddyna
 http://localhost:84 // gridexplore
 ```
@@ -341,31 +355,39 @@ http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
+### Multiple environments with customized prefixes
+
+To deploy multiple environments we can use customized prefixed databases (Postgres), keyspaces (Cassandra), queues (rabbitMq) and indexes (elasticsearch).    
+
+You must follow those steps:
+1. [Postgres schema setup](#postgres-schema-setup) with prefixed database names
+1. [Cassandra schema setup](#cassandra-schema-setup) with prefixed keyspace names.
+1. Edit the common-application.yaml file concerned by your deployment.
+
+**example**: For a Azure developpement deployment we would like to use a prefix then we edit `k8s/overlays/azure-dev/common-application.yml` by defining an `environement` name.     
+( :warning: do not forget to include underscore '_')
+
+```yaml
+powsybl-ws:
+  environment: dev_
+```
+
+After this configuration :
+* every services which use a Postgres database will call to **dev_**`{dbName}` database.
+* every services which use a Cassandra keyspace will call to **dev_**`{keyspaceName}` keyspace.
+* every services which provide or read a rabbitMq queue will call to **dev_**`{queueName}` queue.
+* every services which use a elasticsearch index will call to **dev_**`{indexName}` index.
+
+**Note** : To customize a docker-compose deployment please edit the following file :    
+`k8s/base/config/common-application.yml`
+
 ### RTE Geographical data importation
 
 To populate the geo-data-server with RTE geographic lines and substations data, you must use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. Both REST requests must be executed.
 
 **Note**: Be sure to have at least `odre-server` and `geo-data-server` containers running.
 
-**Note 2**: if you are behind a proxy server : download the csv files from thoses links :
 
- * [postes-electriques-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/postes-electriques-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
- * [lignes-aeriennes-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-aeriennes-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
- * [lignes-souterraines-rte.csv](https://opendata.reseaux-energies.fr/explore/dataset/lignes-souterraines-rte/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true)
-
-
-Create a "GeoData" directory in the HOME folder and move thoses files inside.    
-Stop `odre-server` container if running.    
-Open the odre server project in your favorite IDE.    
-You must change the used client in `src/main/java/org/gridsuite/odre/server/services/OdreServiceImpl.java`
-
-```diff
--@Qualifier("odreDownloadClientImpl")
-+@Qualifier("odreCsvClientImpl")
-```
-This will allow to import the data from the local folder instead of downloading them.
-Then rebuild and run this server.
-Both REST requests still must be executed.
 
 
 ### Working with Spring services

@@ -1,8 +1,1 @@
-server:
-  port: 8080
-
-logging:
-    level:
-        com.zaxxer.hikari.HikariConfig: debug
-
 dbName: xepdb1

@@ -1,26 +1,22 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: gridactions-app-ingress
+  name: explore-server-ingress
   annotations:
-    nginx.ingress.kubernetes.io/service-upstream: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     # springfox swagger-ui uses X-Forwarded-Prefix to find the
     # base url when behind a reverse proxy.
     # nginx-ingress-controller V0.24 has a simple alternative
     # but latest minikube 1.1.0 uses V0.23 (untested):
-    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/gridactions"
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/explore-server"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^/gridactions$ /gridactions/ permanent;
-      proxy_set_header X-Forwarded-Prefix         /gridactions/;
-    nginx.ingress.kubernetes.io/server-snippet: |
-      merge_slashes off;
+      proxy_set_header X-Forwarded-Prefix         /explore-server/;
 spec:
   rules:
   - http:
       paths:
-      - path: /gridactions(/|$)(.*)
+      - path: /explore-server(/|$)(.*)
         backend:
-          serviceName: gridactions-app
+          serviceName: explore-server
           servicePort: 80
