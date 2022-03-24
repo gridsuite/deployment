@@ -103,7 +103,7 @@ configMapGenerator:
 
   - name: cgmes-boundary-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: cgmes-assembling-job-configmap
     files:
