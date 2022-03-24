@@ -193,8 +193,8 @@ services:
     ports:
       - 8070:8080
     volumes:
-      - ./apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
-      - ./gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+      - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout
 
