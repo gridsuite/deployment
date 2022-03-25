@@ -16,6 +16,8 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}report";
   create database "${DATABASE_PREFIX_NAME}config";
   create database "${DATABASE_PREFIX_NAME}sa";
+  create database "${DATABASE_PREFIX_NAME}geo_data";
+  create database "${DATABASE_PREFIX_NAME}cgmes_boundary";
 EOSQL
 }
 
