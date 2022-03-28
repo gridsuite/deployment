@@ -51,7 +51,6 @@ __Use default keyspace names__
 
 To create Grid Suite keyspaces in a single node cluster:
 ```cql
-CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE KEYSPACE IF NOT EXISTS import_history WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
@@ -91,7 +90,6 @@ $ bin/cqlsh -k <KEYSPACE_NAME>
 ```
 Then copy/paste the corresponding following files content to cqlsh shell:
 
-- connect to <KEYSPACE_NAME_NETWORK_STORE> then copy/paste : [iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
 - connect to <KEYSPACE_NAME_CGMES_ASSEMBLING> then copy/paste : [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
 - connect to <KEYSPACE_NAME_CASE_IMPORT> then copy/paste : [import_history.cql](https://raw.githubusercontent.com/gridsuite/case-import-job/main/src/main/resources/import_history.cql)
 
@@ -137,6 +135,7 @@ Bonus note: for more convenient options when developping (instead of this easy p
 
 ```bash
 $ bin/psql postgres
+$ create database iidm;
 $ create database ds;
 $ create database directory;
 $ create database study;
@@ -153,6 +152,7 @@ $ create database cgmes_boundary;
 ```
 
 The database schemas are handled by the microservices themselves using liquibase.
+Temporarily, powsybl-network-store doesn't use liquibase. Connect to the its database (default name: iidm) and copy/paste : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql) to create the schema.
 
 ### Cases folders configuration
 
