@@ -21,8 +21,8 @@ $ chmod 777 cases postgres cassandra elasticsearch init
 All databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...).
 
 To do this, you must copy the following files (from the starter kit) in the init directory :
-- [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_substations.json)
-- [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_lines.json)
+- [open_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_substations.json)
+- [open_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_lines.json)
 - [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
 - [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
 
