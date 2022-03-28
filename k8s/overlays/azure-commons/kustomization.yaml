@@ -7,7 +7,7 @@ bases:
 configMapGenerator:
   - name: network-store-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
   - name: geo-data-server-configmap
     files:
       - database.properties
