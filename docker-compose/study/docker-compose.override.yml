@@ -9,7 +9,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/study-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -27,7 +27,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -60,7 +60,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -164,7 +164,7 @@ services:
       - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -184,7 +184,7 @@ services:
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     environment:
@@ -200,7 +200,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/directory-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:

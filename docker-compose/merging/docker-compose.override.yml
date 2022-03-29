@@ -9,7 +9,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -72,7 +72,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
