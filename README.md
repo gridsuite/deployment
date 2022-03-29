@@ -300,8 +300,10 @@ After this configuration :
 
 ## Databases creation and data initialization
 
-All databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...). 
-This part concerns only the databases recreation and/or the update of the initial data.
+Temporarily, powsybl-network-store doesn't use liquibase. Connect to its database (default name: iidm) and copy/paste : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql) to create the schema.
+
+All other databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...). 
+The following part concerns only the databases recreation and/or the update of the initial data.
 All actions can be done from a docker-compose profile.
 
 ### Databases creation
