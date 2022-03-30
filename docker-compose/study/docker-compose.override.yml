@@ -9,7 +9,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/study-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -25,7 +27,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/geo-data-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -56,7 +60,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/network-modification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -145,7 +151,7 @@ services:
     ports:
       - 84:8080
     volumes:
-      - $PWD/../gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - $PWD/../study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
     depends_on:
       - logspout
@@ -158,7 +164,9 @@ services:
       - $PWD/../../k8s/base/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -174,9 +182,11 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
       - $PWD/../../k8s/base/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/base/config/dynamic-simulation/:/dynawo-config/:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -190,7 +200,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/directory-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -204,7 +216,7 @@ services:
     ports:
       - 80:8080
     volumes:
-      - $PWD/../gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
+      - $PWD/../study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
     depends_on:
       - logspout

@@ -1,0 +1,117 @@
+version: '3'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 15672:15672
+      - 5672:5672
+    depends_on:
+      - logspout
+    restart:
+      unless-stopped
+
+  cassandra:
+    image: cassandra:3.11.11
+    ports:
+      - "7000:7000"
+      - "9042:9042"
+      - "9142:9142"
+    environment:
+      - CASSANDRA_LISTEN_ADDRESS=127.0.0.1
+      - http_proxy=${http_proxy-}
+      - https_proxy=${https_proxy-}
+      - no_proxy=${no_proxy-}
+    env_file:
+      - $PWD/../.env
+      - $PWD/.env
+    volumes:
+      - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
+      - $PWD/../technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
+      - $PWD/../technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
+    restart:
+      unless-stopped
+    command: "/create-cassandra-databases.sh"
+
+  postgres:
+    build:
+      context: $PWD/../technical
+      dockerfile: Dockerfile-postgres
+      args:
+        - http_proxy=${http_proxy-}
+        - https_proxy=${https_proxy-}
+        - no_proxy=${no_proxy-}
+    ports:
+      - "5432:5432"
+    command: "/init-databases.sh -c listen_addresses='*'"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DEFAULT_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data
+    env_file:
+      - $PWD/../.env
+      - $PWD/.env
+    volumes:
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
+      - $GRIDSUITE_DATABASES/init:/init-data:Z
+      - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
+      - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
+      - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
+    restart:
+      unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - LOGSPOUT=ignore
+    volumes:
+      - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
+    restart:
+      unless-stopped
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.3
+    ports:
+      - 5601:5601
+    environment:
+      - LOGSPOUT=ignore
+    depends_on:
+      - elasticsearch
+    restart:
+      unless-stopped
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.9.3
+    volumes:
+      - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+    environment:
+      - LOGSPOUT=ignore
+    depends_on:
+      - elasticsearch
+
+  socat:
+    image: alpine/socat
+    command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+
+  logspout:
+    image: gliderlabs/logspout:v3.2.13
+    command: 'tcp://socat:5000?filter.name=grid*'
+    environment:
+      - LOGSPOUT=ignore
+      - BACKLOG=false
+      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - socat
+
+
+

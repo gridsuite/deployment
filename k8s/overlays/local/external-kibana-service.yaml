@@ -1,0 +1,7 @@
+kind: "Service"
+apiVersion: "v1"
+metadata:
+  name: "kibana"
+spec:
+  externalName: host.minikube.internal
+  type: ExternalName

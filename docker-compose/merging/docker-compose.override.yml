@@ -9,8 +9,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
-
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -71,7 +72,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -81,20 +84,30 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-import-job:
-    build: case-import-job
+    build:
+      context: merging/case-import-job
+      args:
+        - http_proxy=${http_proxy-}
+        - https_proxy=${https_proxy-}
+        - no_proxy=${no_proxy-}
     volumes:
-      - $PWD/../case-import-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../merging/case-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-assembling-job:
-    build: merging/cgmes-assembling-job
+    build:
+      context: merging/cgmes-assembling-job
+      args:
+        - http_proxy=${http_proxy-}
+        - https_proxy=${https_proxy-}
+        - no_proxy=${no_proxy-}
     volumes:
-      - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
-      - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../merging/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
     depends_on:
       - logspout
     sysctls:
@@ -105,15 +118,20 @@ services:
     ports:
       - 81:8080
     volumes:
-      - $PWD/../gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
+      - $PWD/../merging/gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
 
   cgmes-boundary-import-job:
-    build: cgmes-boundary-import-job
+    build:
+      context: merging/cgmes-boundary-import-job
+      args:
+        - http_proxy=${http_proxy-}
+        - https_proxy=${https_proxy-}
+        - no_proxy=${no_proxy-}
     volumes:
-      - $PWD/../cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../merging/cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../merging/cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
