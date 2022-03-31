@@ -20,6 +20,12 @@ $ chmod 777 cases postgres cassandra elasticsearch init
 
 All databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...).
 
+Temporarily, powsybl-network-store doesn't use liquibase. You must connect to its database (default name: iidm) 
+```bash 
+$ docker-compose exec postgres psql -U postgres iidm
+```
+and copy/paste the following file to create the schema : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql)
+
 To do this, you must copy the following files (from the starter kit) in the init directory :
 - [open_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_substations.json)
 - [open_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_lines.json)
@@ -110,10 +116,10 @@ You can now access to all applications and swagger UIs of the Spring services of
 
 Applications:
 ```html
-http://localhost:80 // gridstudy
+http://localhost:80 // gridexplore
 http://localhost:81 // gridmerge
 http://localhost:83 // griddyna
-http://localhost:84 // gridexplore
+http://localhost:84 // gridstudy
 ```
 
 Swagger UI:
@@ -300,17 +306,14 @@ After this configuration :
 
 ## Databases creation and data initialization
 
-Temporarily, powsybl-network-store doesn't use liquibase. Connect to its database (default name: iidm) and copy/paste : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql) to create the schema.
-
-All other databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...). 
-The following part concerns only the databases recreation and/or the update of the initial data.
+Considering databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...), the following part concerns only the databases recreation and/or the update of the initial data.
 All actions can be done from a docker-compose profile.
 
 ### Databases creation
 
 ```bash 
 $ docker-compose exec postgres /create-postgres-databases.sh
-$ docker-compose exec postgres /create-cassandra-databases.sh
+$ docker-compose exec cassandra /create-cassandra-databases.sh
 ```
 
 ### Data initialization
