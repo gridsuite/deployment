@@ -3,11 +3,10 @@ acquisition-server:
   cases-directory: ./opde
   label: opde
 
-cassandra:
-  contact-points: 10.0.0.5
-  port: 9042
-  datacenter: datacenter1
-  keyspace-name: import_history
-
 case-server:
   url: http://case-server/
+
+database:
+  url: jdbc:postgresql://10.0.0.5:5432/import_history
+  username: postgres
+  password: postgres
