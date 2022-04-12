@@ -65,7 +65,6 @@ services:
       - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
       - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
       - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
-      - $PWD/../technical/postgresql.conf:/var/lib/postgresql/data/postgresql.conf:Z
     restart:
       unless-stopped
 
