@@ -44,7 +44,11 @@ services:
         - no_proxy=${no_proxy-}
     ports:
       - "5432:5432"
-    command: "/init-databases.sh -c listen_addresses='*'"
+    command: "/init-databases.sh 
+              -c listen_addresses='*' 
+              -c shared_preload_libraries='auto_explain'
+              -c auto_explain.log_min_duration=0
+              "
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DEFAULT_DB=postgres
