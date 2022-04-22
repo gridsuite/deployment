@@ -9,13 +9,12 @@ All data must be stored under a common root directory whose location is defined 
 5 subdirectories must be created with file **mode 777 (rwx)** :
 - **cases** : working directory for cases-server
 - **postgres** : databases Postgres
-- **cassandra** : databases Cassandra
 - **elasticsearch** : indexes (documents) Elasticsearch
 - **init** : data files for initialization 
 
 ```
 $ cd $GRIDSUITE_DATABASES
-$ chmod 777 cases postgres cassandra elasticsearch init
+$ chmod 777 cases postgres elasticsearch init
 ```
 
 All databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...).
@@ -73,11 +72,10 @@ __Notes__ : The containers are accessible from your machine thought the ip addre
 
 ### Technical profile
 
-This profile allows you to launch only the technical services : cassandra, postgres, elasticsearch, rabbitmq, ... 
+This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ... 
 
 |Software| Version used |
 --- | --- |
-|Cassandra|3.11.11|
 |Postgres|13.4|
 |RabbitMQ|latest|
 |Elasticsearch|7.9.3|
@@ -282,7 +280,7 @@ http://<INGRESS_HOST>/report-server/swagger-ui.html
 
 ## Multiple environments with customized prefixes
 
-To deploy multiple environments we can use customized prefixed databases (Postgres), keyspaces (Cassandra), queues (rabbitMq) and indexes (elasticsearch).    
+To deploy multiple environments we can use customized prefixed databases (Postgres), queues (rabbitMq) and indexes (elasticsearch).    
 
 You must follow those steps:
 1. Edit the `docker-compose/.env` file and  specify the prefix by defining the `DATABASE_PREFIX_NAME` property
@@ -299,7 +297,6 @@ powsybl-ws:
 
 After this configuration :
 * every services which use a Postgres database will call to **dev_**`{dbName}` database.
-* every services which use a Cassandra keyspace will call to **dev_**`{keyspaceName}` keyspace.
 * every services which provide or read a rabbitMq queue will call to **dev_**`{queueName}` queue.
 * every services which use a elasticsearch index will call to **dev_**`{indexName}` index.
 
@@ -313,7 +310,6 @@ All actions can be done from a docker-compose profile.
 
 ```bash 
 $ docker-compose exec postgres /create-postgres-databases.sh
-$ docker-compose exec cassandra /create-cassandra-databases.sh
 ```
 
 ### Data initialization
