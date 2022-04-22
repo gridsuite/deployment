@@ -35,7 +35,6 @@ resources:
   - dynamic-simulation-server-ingress.yaml
   - directory-server-ingress.yaml
   - explore-server-ingress.yaml
-  - external-cassandra-service.yaml
   - external-postgres-service.yaml
   - external-rabbitmq-service.yaml
   - external-elasticsearch-service.yaml
