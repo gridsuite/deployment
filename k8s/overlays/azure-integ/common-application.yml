@@ -1,11 +1,6 @@
 powsybl-ws:
   environment: integ_
 
-  # cassandra database prefix
-  cassandra:
-    keyspace:
-      prefix: ${powsybl-ws.environment:}
-
   # Postgres database prefix
   postgres:
     databaseOrSchema:
