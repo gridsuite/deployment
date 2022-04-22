@@ -24,6 +24,9 @@ spec:
         - mountPath: /opt/bitnami/apache/htdocs/gridstudy/idpSettings.json
           subPath: idpSettings.json
           name: gridstudy-app-configmap-volume
+        - mountPath: /opt/bitnami/apache/htdocs/gridstudy/defaultParametersValues.json
+          subPath: defaultParametersValues.json
+          name: gridstudy-app-default-params-valuesmap-volume
         - mountPath: /opt/bitnami/apache/htdocs/gridstudy/env.json
           subPath: env.json
           name: gridstudy-app-env-configmap-volume
@@ -62,6 +65,9 @@ spec:
         - name: gridstudy-app-configmap-volume
           configMap:
             name: gridstudy-app-configmap
+        - name: gridstudy-app-default-params-valuesmap-volume
+          configMap:
+            name: gridstudy-app-default-params-valuesmap
         - name: gridstudy-app-env-configmap-volume
           configMap:
             name: gridstudy-app-env-configmap

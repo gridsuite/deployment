@@ -152,6 +152,7 @@ services:
       - 84:8080
     volumes:
       - $PWD/../study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - $PWD/../study/gridstudy-app-defaultParametersValues.json:/opt/bitnami/apache/htdocs/gridstudy/gridstudy-app-defaultParametersValues.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
     depends_on:
       - logspout

@@ -2,3 +2,8 @@ spring:
   data:
     elasticsearch:
       enabled : true
+
+
+# default values for loadflow providers "Hades2" or "OpenLoadFlow"
+loadflow:
+  default-provider: OpenLoadFlow
