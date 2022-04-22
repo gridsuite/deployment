@@ -12,28 +12,6 @@ services:
     restart:
       unless-stopped
 
-  cassandra:
-    image: cassandra:3.11.11
-    ports:
-      - "7000:7000"
-      - "9042:9042"
-      - "9142:9142"
-    environment:
-      - CASSANDRA_LISTEN_ADDRESS=127.0.0.1
-      - http_proxy=${http_proxy-}
-      - https_proxy=${https_proxy-}
-      - no_proxy=${no_proxy-}
-    env_file:
-      - $PWD/../.env
-      - $PWD/.env
-    volumes:
-      - $GRIDSUITE_DATABASES/cassandra/data:/var/lib/cassandra:Z
-      - $PWD/../technical/cassandra.jvm.options:/etc/cassandra/jvm.options:Z
-      - $PWD/../technical/create-cassandra-databases.sh:/create-cassandra-databases.sh:Z
-    restart:
-      unless-stopped
-    command: "/create-cassandra-databases.sh"
-
   postgres:
     build:
       context: $PWD/../technical
