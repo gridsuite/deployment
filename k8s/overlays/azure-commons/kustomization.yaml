@@ -7,10 +7,10 @@ bases:
 configMapGenerator:
   - name: network-store-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
   - name: geo-data-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
   - name: study-server-configmap
     files:
       - database.properties
@@ -25,7 +25,7 @@ configMapGenerator:
       - database.properties
   - name: cgmes-boundary-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
   - name: cgmes-assembling-job-configmap
     files:
       - config.yml=cgmes-assembling-job-config.yml

@@ -8,15 +8,6 @@ resources:
   - oidc-mock-server-deployment.yaml
   - oidc-mock-server-ingress.yaml
   - oidc-mock-server-service.yaml
-  - rabbitmq-deployment.yaml
-  - rabbitmq-ingress.yaml
-  - rabbitmq-service.yaml
-  - kibana-deployment.yaml
-  - kibana-ingress.yaml
-  - kibana-service.yaml
-  - elasticsearch-deployment.yaml
-  - elasticsearch-ingress.yaml
-  - elasticsearch-service.yaml
   - case-server-ingress.yaml
   - case-validation-server-ingress.yaml
   - cgmes-boundary-server-ingress.yaml
@@ -44,18 +35,20 @@ resources:
   - dynamic-simulation-server-ingress.yaml
   - directory-server-ingress.yaml
   - explore-server-ingress.yaml
-  - external-cassandra-service.yaml
   - external-postgres-service.yaml
+  - external-rabbitmq-service.yaml
+  - external-elasticsearch-service.yaml
+  - external-kibana-service.yaml
   - dynamic-mapping-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: geo-data-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: study-server-configmap
     files:
@@ -97,13 +90,9 @@ configMapGenerator:
     files:
       - database.properties
 
-  - name: kibana-configmap
-    files:
-      - kibana.yml
-
   - name: cgmes-boundary-server-configmap
     files:
-      - cassandra.properties
+      - database.properties
 
   - name: cgmes-assembling-job-configmap
     files:

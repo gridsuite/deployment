@@ -1,7 +1,7 @@
 kind: "Service"
 apiVersion: "v1"
 metadata:
-  name: "cassandra"
+  name: "kibana"
 spec:
   externalName: host.minikube.internal
   type: ExternalName

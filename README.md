@@ -1,175 +1,173 @@
-# GridSuite deployment
+# GridSuite local deployment
 
-## Gridsuite local install
+## Local setup
 
-### Cassandra install
+### Databases folders configuration
 
-Download the recommended version of Cassandra :
+All data must be stored under a common root directory whose location is defined by the environment variable **$GRIDSUITE_DATABASES**
 
-|Distribution| Version recommendation |Version  | Link|
---- | --- | --- | ---
-|Fedora|3.x|3.11.10|[Download](https://www.apache.org/dyn/closer.lua/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz)|
-|Ubuntu|4.x|4.0.0|[Download](https://www.apache.org/dyn/closer.lua/cassandra/4.0.0/apache-cassandra-4.0.0-bin.tar.gz)|
+5 subdirectories must be created with file **mode 777 (rwx)** :
+- **cases** : working directory for cases-server
+- **postgres** : databases Postgres
+- **elasticsearch** : indexes (documents) Elasticsearch
+- **init** : data files for initialization 
 
-
-
-In order to be accessible from k8s cluster, Cassandra has to be bind to one the ip address of the machine.  The following variables have to be modified in conf/cassandra.yaml before starting the Cassandra daemon.
-
-```yaml
-seed_provider:
-    - class_name: org.apache.cassandra.locator.SimpleSeedProvider
-      parameters:
-          - seeds: "<YOUR_IP>"
-
-listen_address: "<YOUR_IP>"
-
-rpc_address: "0.0.0.0"
-
-broadcast_rpc_address: "<YOUR_IP>"
-
-enable_materialized_views: true
+```
+$ cd $GRIDSUITE_DATABASES
+$ chmod 777 cases postgres elasticsearch init
 ```
 
-During development, to reduce ram usage, it is recommended to configure the Xmx and Xms in conf/jvm.options (v3.x) or conf/jvm-server.options (v4.x). Uncomment the Xmx and Xms lines, a good value to start with is `-Xms2G` and `-Xmx2G`.
+All databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...).
 
-To start the cassandra server: 
-
-``` 
-$ cd /path/to/cassandra/folder`
-$ bin/cassandra -f`
+Temporarily, powsybl-network-store doesn't use liquibase. You must connect to its database (default name: iidm) 
+```bash 
+$ docker-compose exec postgres psql -U postgres iidm
 ```
-### Cassandra schema setup
+and copy/paste the following file to create the schema : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql)
 
-__Cassandra schema creation__
+To do this, you must copy the following files (from the starter kit) in the init directory :
+- [open_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_substations.json)
+- [open_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_lines.json)
+- [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
+- [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
 
-First, you must connect to cassandra database server with cqlsh client
-```bash
-$ bin/cqlsh
-```
----
-__Use default keyspace names__
-
-To create Grid Suite keyspaces in a single node cluster:
-```cql
-CREATE KEYSPACE IF NOT EXISTS iidm WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS geo_data WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
-CREATE KEYSPACE IF NOT EXISTS cgmes_boundary WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS cgmes_assembling WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS import_history WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-```
-----
-
-__Or use custom keyspace names__
-
-To create Grid Suite custom keyspaces in a single node cluster:
-
-```cql
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_NETWORK_STORE> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_GEO_DATA> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CGMES_BOUNDARY> WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CGMES_ASSEMBLING> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE KEYSPACE IF NOT EXISTS <KEYSPACE_NAME_CASE_IMPORT> WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-```
-
-Then you must configure keyspace names in those files :
-- k8s/base/config/network-store-server-application.yml
-- k8s/base/config/geo-data-server-application.yml
-- k8s/base/config/cgmes-boundary-server-application.yml
-```properties
-cassandra-keyspace: <CUSTOM_KEYSPACE_NAME>
-```
-and for 
-- docker-compose/merging/cgmes-assembling-job/cgmes-assembling-job-config.yml
-- docker-compose/case-import-job/case-import-job-config.yml
-```properties
-cassandra:
-    ...
-    keyspace-name: <CUSTOM_KEYSPACE_NAME>
-```
-----
-#### __Cassandra schema initialization__
-
-Then you must initialize each keyspace, following those instructions :
-First connect to corresponding keyspace
-```bash
-$ bin/cqlsh -k <KEYSPACE_NAME>
-```
-Then copy/paste the corresponding following files content to cqlsh shell:
-
-- connect to <KEYSPACE_NAME_NETWORK_STORE> then copy/paste : [iidm.cql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/iidm.cql)
-- connect to <KEYSPACE_NAME_GEO_DATA> then copy/paste : [geo_data.cql](https://raw.githubusercontent.com/powsybl/powsybl-geo-data/main/geo-data-server/src/main/resources/geo_data.cql)
-- connect to <KEYSPACE_NAME_CGMES_BOUNDARY> then copy/paste : [cgmes_boundary.cql](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/main/resources/cgmes_boundary.cql)    
-- connect to <KEYSPACE_NAME_CGMES_ASSEMBLING> then copy/paste : [cgmes_assembling.cql](https://raw.githubusercontent.com/gridsuite/cgmes-assembling-job/main/src/main/resources/cgmes_assembling.cql)    
-- connect to <KEYSPACE_NAME_CASE_IMPORT> then copy/paste : [import_history.cql](https://raw.githubusercontent.com/gridsuite/case-import-job/main/src/main/resources/import_history.cql)
-
-### PostgresSql install
-
-Postgresql is not as easy as cassandra to download and just run in its folder, but it's almost as easy. 
-To get a postgresql folder where you can just run postgresql, you have to compile from source (very easy because there 
-are almost no compilation dependencies) and run an init command once. If you prefer other methods, 
-feel free to install and run postgresql with your system package manager or with a dedicate docker container.
-
-**Postgres local install from code sources:**
-
-Download code sources from the following link: https://www.postgresql.org/ftp/source/v13.1/
- then unzip the downloaded file. For the simplest installation, copy paste the following commands in the unzipped folder (you can change POSTGRES_HOME if you want): 
-
-```shell
-#!/bin/bash
-POSTGRES_HOME="$HOME/postgres";
-./configure --without-readline --without-zlib --prefix="$POSTGRES_HOME";
-make;
-make install;
-cd "$POSTGRES_HOME";
-bin/initdb -D ./data;
-echo "host  all  all 0.0.0.0/0 md5" >> data/pg_hba.conf;
-bin/pg_ctl -D ./data start;
-bin/psql postgres -c  "CREATE USER postgres WITH PASSWORD 'postgres' SUPERUSER;";
-bin/pg_ctl -D ./data stop;
-```
-
-To start the server each time you want to work, cd in the POSTGRES_HOME folder you used during install and run
-```shell
-$ bin/postgres -D ./data --listen_addresses='*'
-```
-
-Bonus note: for more convenient options when developping (instead of this easy procedure for installing and just running the system), you can do these bonus steps:
-- use `-j8` during the make phase if you have a beefy machine to speed up compilation
-- install libreadline dev (fedora package: readline-devel, ubuntu: libreadline-dev) and remove `--without-readline` (this gives you navigability using arrows in the psql client if you use it often to run queries manually to diagnose or debug)
-- install zlib dev (fedora pacakge: zlib-devel , ubuntu: zlib1g-dev) and remove `--without-zlib` (this gives you compressed exports if you want to backup your databases..)
-- compile auto_explain (cd in the source folder in contrib/auto_explain, run make, make install) and configure it (add `shared_preload_libraries = 'auto_explain'` and
-`auto_explain.log_min_duration = 0` at the end postgresql.conf to log every query on the console for example). this requires a restart of postgres.
-
-### Postgres schema setup
-
-```bash
-$ bin/psql postgres
-$ create database ds;
-$ create database directory;
-$ create database study;
-$ create database actions;
-$ create database networkmodifications;
-$ create database merge_orchestrator;
-$ create database dynamicmappings;
-$ create database filters;
-$ create database report;
-$ create database config;
-$ create database sa;
-```
-
-The database schemas are handled by the microservices themselves using liquibase.
-
-### Cases folders configuration
-
-| :warning:  BEFORE running any containers!   |
+| :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose !   |
 |---------------------------------------------|
 
-Create a `~/cases/` folder in your /home/user root folder.
-then assign rwx credentials to it.
+### Clone deployment repository
+
+```bash 
+$ git clone https://github.com/gridsuite/deployment.git
+$ cd deployment
 ```
-chmod 777 cases
+
+## Docker compose deployment
+
+This is the preferred development deployment.
+Install the orchestration tool docker-compose then launch the desired profile :
+
+### Application profiles
+
+```bash 
+$ cd docker-compose/suite
+$ docker-compose up
 ```
-This is a working directory for cases-server.
+```bash 
+$ cd docker-compose/study
+$ docker-compose up
+```
+```bash 
+$ cd docker-compose/merging
+$ docker-compose up
+```
+
+```bash 
+$ cd docker-compose/dynamic-mapping
+$ docker-compose up
+```
+
+__Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
+
+__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
+
+### Technical profile
+
+This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ... 
+
+|Software| Version used |
+--- | --- |
+|Postgres|13.4|
+|RabbitMQ|latest|
+|Elasticsearch|7.9.3|
+
+
+It is used for k8s deployment with Minikube.
+
+```bash 
+$ cd docker-compose/technical
+$ docker-compose up
+```
+
+### Update docker-compose images
+To synchronize with the latest images for a docker-compose profile, you need to :
+- delete the containers
+```bash 
+$ docker-compose down
+```
+- get latest images
+```bash 
+$ docker-compose pull
+```
+- recreate containers
+```bash 
+$ docker-compose up
+```
+
+- remove old images
+```bash 
+$ docker image prune -f
+```
+
+### Applications and Swagger URLs
+
+You can now access to all applications and swagger UIs of the Spring services of the chosen profile:
+
+Applications:
+```html
+http://localhost:80 // gridexplore
+http://localhost:81 // gridmerge
+http://localhost:83 // griddyna
+http://localhost:84 // gridstudy
+```
+
+Swagger UI:
+```html
+http://localhost:5000/swagger-ui.html  // case-server
+http://localhost:8095/swagger-ui.html  // cgmes-gl-server
+http://localhost:8087/swagger-ui.html  // geo-data-server
+http://localhost:5003/swagger-ui.html  // network-conversion-server
+http://localhost:8080/swagger-ui.html  // network-store-server
+http://localhost:5006/swagger-ui.html  // network-map-server
+http://localhost:8090/swagger-ui.html  // odre-server
+http://localhost:5005/swagger-ui.html  // single-line-diagram-server
+http://localhost:5001/swagger-ui.html  // study-server
+http://localhost:5007/swagger-ui.html  // network-modification-server
+http://localhost:5008/swagger-ui.html  // loadflow-server
+http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
+http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
+http://localhost:5022/swagger-ui.html  // actions-server
+http://localhost:5023/swagger-ui.html  // security-analysis-server
+http://localhost:5025/swagger-ui.html  // config-server
+http://localhost:5026/swagger-ui.html  // directory-server
+http://localhost:5028/swagger-ui.html  // report-server
+http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
+http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
+http://localhost:5027/swagger-ui.html  // filter-server
+http://localhost:5010/swagger-ui.html  // balances-adjustment-server
+http://localhost:5011/swagger-ui.html  // case-validation-server
+```
+
+### RabbitMQ console
+
+RabbitMQ management UI:
+
+```html
+http://localhost:15672
+default credentials : 
+   - username : guest
+   - password : guest
+```
+
+### Kibana console for Elasticsearch
+
+Kibana management UI:
+```html
+http://localhost:5601
+```
+In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
+
+
+## k8s deployment with Minikube
 
 ### Minikube and kubectl setup
 
@@ -209,13 +207,7 @@ $ minikube status
 $ minikube kubectl cluster-info
 ```
 
-### K8s deployment
-
-Clone deployment repository:
-```bash 
-$ git clone https://github.com/gridsuite/deployment.git
-$ cd deployment
-```
+### Minikube deployment
 
 Get you ingress ip
 ```bash
@@ -235,6 +227,12 @@ $ sed -i -e 's/<USERNAME>/YOURUSERNAME/g' k8s/overlays/local/*
 $ sed -i -e 's/<PASSWORD>/YOURPASSWORD/g' k8s/overlays/local/*
 ```
 
+Start technical services with the docker-compose technical profile  :
+```bash 
+$ cd docker-compose/technical
+$ docker-compose up -d
+```
+
 Deploy k8s services:
 ```bash 
 $ kubectl apply -k k8s/overlays/local
@@ -248,10 +246,10 @@ You can now access to the application and the swagger UI of all the Spring servi
 
 Applications:
 ```html
-http://<INGRESS_HOST>/gridstudy-app/
-http://<INGRESS_HOST>/gridmerge-app/
-http://<INGRESS_HOST>/griddyna-app/
-http://<INGRESS_HOST>/gridexplore-app/
+http://<INGRESS_HOST>/gridstudy/
+http://<INGRESS_HOST>/gridmerge/
+http://<INGRESS_HOST>/griddyna/
+http://<INGRESS_HOST>/gridexplore/
 ```
 
 Swagger UI:
@@ -280,117 +278,52 @@ http://<INGRESS_HOST>/filter-server/swagger-ui.html
 http://<INGRESS_HOST>/report-server/swagger-ui.html
 ```
 
-### Docker compose  deployment
+## Multiple environments with customized prefixes
 
-This is the preferred development deployment.
-Install the orchestration tool docker-compose then launch the desired profile :
-
-```bash 
-$ cd docker-compose/suite
-$ docker-compose up
-```
-```bash 
-$ cd docker-compose/study
-$ docker-compose up
-```
-```bash 
-$ cd docker-compose/merging
-$ docker-compose up
-```
-
-```bash 
-$ cd docker-compose/dynamic-mapping
-$ docker-compose up
-```
-Note : When using docker-compose for deployment, your machine is accessible from the containers thought the ip adress
-`172.17.0.1` so to make the cassandra cluster, running on your machine, accessible from the deployed
-containers change the '<YOUR_IP>' of the first section to `172.17.0.1`
-
-You can now access to all applications and swagger UIs of the Spring services of the chosen profile:
-
-Applications:
-```html
-http://localhost:80 // gridstudy
-http://localhost:81 // gridmerge
-http://localhost:83 // griddyna
-http://localhost:84 // gridexplore
-```
-
-Swagger UI:
-```html
-http://localhost:5000/swagger-ui.html  // case-server
-http://localhost:8095/swagger-ui.html  // cgmes-gl-server
-http://localhost:8087/swagger-ui.html  // geo-data-server
-http://localhost:5003/swagger-ui.html  // network-conversion-server
-http://localhost:8080/swagger-ui.html  // network-store-server
-http://localhost:5006/swagger-ui.html  // network-map-server
-http://localhost:8090/swagger-ui.html  // odre-server
-http://localhost:5005/swagger-ui.html  // single-line-diagram-server
-http://localhost:5001/swagger-ui.html  // study-server
-http://localhost:5007/swagger-ui.html  // network-modification-server
-http://localhost:5008/swagger-ui.html  // loadflow-server
-http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
-http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
-http://localhost:5022/swagger-ui.html  // actions-server
-http://localhost:5023/swagger-ui.html  // security-analysis-server
-http://localhost:5025/swagger-ui.html  // config-server
-http://localhost:5026/swagger-ui.html  // directory-server
-http://localhost:5028/swagger-ui.html  // report-server
-http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
-http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
-http://localhost:5027/swagger-ui.html  // filter-server
-http://localhost:5010/swagger-ui.html  // balances-adjustment-server
-http://localhost:5011/swagger-ui.html  // case-validation-server
-```
-RabbitMQ management UI:
-```html
-http://localhost:15672
-default credentials : 
-   - username : guest
-   - password : guest
-```
-Kibana management UI:
-```html
-http://localhost:5601
-```
-In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
-
-### Multiple environments with customized prefixes
-
-To deploy multiple environments we can use customized prefixed databases (Postgres), keyspaces (Cassandra), queues (rabbitMq) and indexes (elasticsearch).    
+To deploy multiple environments we can use customized prefixed databases (Postgres), queues (rabbitMq) and indexes (elasticsearch).    
 
 You must follow those steps:
-1. [Postgres schema setup](#postgres-schema-setup) with prefixed database names
-1. [Cassandra schema setup](#cassandra-schema-setup) with prefixed keyspace names.
-1. Edit the common-application.yaml file concerned by your deployment.
-
-**example**: For a Azure developpement deployment we would like to use a prefix then we edit `k8s/overlays/azure-dev/common-application.yml` by defining an `environement` name.     
-( :warning: do not forget to include underscore '_')
-
+1. Edit the `docker-compose/.env` file and  specify the prefix by defining the `DATABASE_PREFIX_NAME` property
+```yaml
+DATABASE_PREFIX_NAME=dev_
+```
+2. Edit the `k8s/base/config/common-application.yml` file and specify the prefix by defining the `environement` property
 ```yaml
 powsybl-ws:
   environment: dev_
 ```
 
+:warning: do not forget to include underscore '_'
+
 After this configuration :
 * every services which use a Postgres database will call to **dev_**`{dbName}` database.
-* every services which use a Cassandra keyspace will call to **dev_**`{keyspaceName}` keyspace.
 * every services which provide or read a rabbitMq queue will call to **dev_**`{queueName}` queue.
 * every services which use a elasticsearch index will call to **dev_**`{indexName}` index.
 
-**Note** : To customize a docker-compose deployment please edit the following file :    
-`k8s/base/config/common-application.yml`
 
-### RTE Geographical data importation
+## Databases creation and data initialization
 
-To populate the geo-data-server with RTE geographic lines and substations data, you must use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. Both REST requests must be executed.
+Considering databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...), the following part concerns only the databases recreation and/or the update of the initial data.
+All actions can be done from a docker-compose profile.
 
-**Note**: Be sure to have at least `odre-server` and `geo-data-server` containers running.
+### Databases creation
 
+```bash 
+$ docker-compose exec postgres /create-postgres-databases.sh
+```
 
+### Data initialization
 
+First update the data files in the directory `$GRIDSUITE_DATABASES/init`
+```bash 
+$ docker-compose exec postgres /init-geo-data.sh
+$ docker-compose exec postgres /init-merging-data.sh
+```
 
-### Working with Spring services
+**Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. Both REST requests must be executed. 
+Be sure to have at least `odre-server` and `geo-data-server` containers running.
+
+## Working with Spring services
 
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
@@ -406,5 +339,4 @@ services:
     image: <my_image_name>:latest
 ...
 ```
-Now, when using ```docker-compose up```, your custom Docker image will be used. 
-
+Now, when using ```docker-compose up```, your custom Docker image will be used.

@@ -1,57 +1,6 @@
 version: '3'
 
 services:
-  rabbitmq:
-    image: rabbitmq:management
-    ports:
-      - 15672:15672
-      - 5672:5672
-    depends_on:
-      - logspout
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
-    ports:
-      - 9200:9200
-      - 9300:9300
-    environment:
-      - discovery.type=single-node
-      - LOGSPOUT=ignore
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.9.3
-    ports:
-      - 5601:5601
-    environment:
-      - LOGSPOUT=ignore
-    depends_on:
-      - elasticsearch
-
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.9.3
-    volumes:
-      - $PWD/../pipelines.yml:/config/pipelines.yml:Z
-      - $PWD/../logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
-    environment:
-      - LOGSPOUT=ignore
-    depends_on:
-      - elasticsearch
-
-  socat:
-    image: alpine/socat
-    command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
-
-  logspout:
-    image: gliderlabs/logspout:v3.2.13
-    command: 'tcp://socat:5000?filter.name=grid*'
-    environment:
-      - LOGSPOUT=ignore
-      - BACKLOG=false
-      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    depends_on:
-      - socat
 
   case-server:
     image: powsybl/case-server:latest
@@ -60,7 +9,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/case-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $HOME/cases:/cases:Z
+      - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       - logspout
     environment:
@@ -76,7 +25,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/actions-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -92,7 +43,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/filter-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -106,7 +59,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/report-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -122,7 +77,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../cassandra.properties:/config/cassandra.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -139,6 +96,8 @@ services:
       - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/base/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -170,7 +129,9 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/config-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../database.properties:/config/database.properties:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
+    restart:
+      unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/

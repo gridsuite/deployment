@@ -13,9 +13,9 @@ spec:
             - name: case-import-job
               resources:
                 requests:
-                  memory: "512Mi"
+                  memory: "384Mi"
                 limits:
-                  memory: "512Mi"
+                  memory: "384Mi"
               image: docker.io/gridsuite/case-import-job:latest
               volumeMounts:
                 - name: config-case-import-job-volume
