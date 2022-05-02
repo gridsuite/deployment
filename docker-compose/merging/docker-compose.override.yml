@@ -42,6 +42,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/base/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:

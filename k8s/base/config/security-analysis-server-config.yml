@@ -1,3 +1,7 @@
 hades2:
   homeDir: /hades2
   debug: false
+
+#Workaround iidm in-memory impl present on classpath (needed by cvg-extension)
+network:
+  default-impl-name: NetworkStore

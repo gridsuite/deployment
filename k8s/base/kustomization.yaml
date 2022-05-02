@@ -181,6 +181,9 @@ configMapGenerator:
   - name: balances-adjustment-server-configmap-specific
     files:
       - application.yml=config/balances-adjustment-server-application.yml
+  - name: balances-adjustment-server-itools-configmap
+    files:
+      - config.yml=config/balances-adjustment-server-config.yml
   - name: notification-server-configmap-common
     files:
       - application.yml=config/common-application.yml
