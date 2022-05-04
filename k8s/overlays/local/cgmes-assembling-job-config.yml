@@ -6,14 +6,13 @@ acquisition-server:
   label: opde
   dependencies-strict-mode: false
 
-cassandra:
-  contact-points: cassandra
-  port: 9042
-  datacenter: datacenter1
-  keyspace-name: cgmes_assembling
-
 case-server:
   url: http://case-server/
 
 cgmes-boundary-server:
   url: http://cgmes-boundary-server/
+
+database:
+  url: jdbc:postgresql://localhost:5432/cgmes_assembling
+  username: postgres
+  password: postgres
