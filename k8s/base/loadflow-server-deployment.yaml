@@ -26,6 +26,8 @@ spec:
         volumeMounts:
         - mountPath: /config/common
           name: loadflow-server-configmap-common-volume
+        - mountPath: /config/specific
+          name: loadflow-server-configmap-specific-volume
         - mountPath: /home/powsybl/.itools
           name: loadflow-server-itools-configmap-volume
         - mountPath: /tmp
@@ -64,6 +66,9 @@ spec:
         - name: loadflow-server-configmap-common-volume
           configMap:
             name: loadflow-server-configmap-common
+        - name: loadflow-server-configmap-specific-volume
+          configMap:
+            name: loadflow-server-configmap-specific
         - name: loadflow-server-itools-configmap-volume
           configMap:
             name: loadflow-server-itools-configmap

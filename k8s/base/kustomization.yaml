@@ -169,6 +169,9 @@ configMapGenerator:
   - name: loadflow-server-configmap-common
     files:
       - application.yml=config/common-application.yml
+  - name: loadflow-server-configmap-specific
+    files:
+      - application.yml=config/loadflow-server-application.yml
   - name: loadflow-server-itools-configmap
     files:
       - config.yml=config/loadflow-server-config.yml
