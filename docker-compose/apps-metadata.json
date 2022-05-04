@@ -15,7 +15,10 @@
       "types" : ["STUDY"],
       "path" : "/studies/{elementUuid}"
     }
-  ]
+  ],
+  "defaultParametersValues": {
+    "fluxConvention": "target"
+  }
 },
 {
   "name" : "Merge",
