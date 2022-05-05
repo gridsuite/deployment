@@ -28,8 +28,6 @@ spec:
           name: network-conversion-server-configmap-common-volume
         - mountPath: /config/specific
           name: network-conversion-server-configmap-specific-volume
-        - mountPath: /home/powsybl/.itools
-          name: network-conversion-server-itools-configmap-volume
         - mountPath: /tmp
           name: tmp-emptydir
         securityContext:
@@ -69,8 +67,5 @@ spec:
         - name: network-conversion-server-configmap-specific-volume
           configMap:
             name: network-conversion-server-configmap-specific
-        - name: network-conversion-server-itools-configmap-volume
-          configMap:
-            name: network-conversion-server-itools-configmap
         - name: tmp-emptydir
           emptyDir: {}
