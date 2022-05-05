@@ -12,7 +12,3 @@ case-server:
 cgmes-boundary-server:
   url: http://cgmes-boundary-server/
 
-database:
-  url: jdbc:postgresql://localhost:5432/cgmes_assembling
-  username: postgres
-  password: postgres

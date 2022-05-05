@@ -8,7 +8,3 @@ acquisition-server:
 case-server:
   url: http://case-server/
 
-database:
-  url: jdbc:postgresql://localhost:5432/import_history
-  username: postgres
-  password: postgres
