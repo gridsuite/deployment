@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cgmes-gl
-        image: docker.io/powsybl/cgmes-gl-server:latest
+        image: docker.io/gridsuite/cgmes-gl-server:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

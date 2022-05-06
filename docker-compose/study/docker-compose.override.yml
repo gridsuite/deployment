@@ -117,7 +117,7 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-gl-server:
-    image: powsybl/cgmes-gl-server:latest
+    image: gridsuite/cgmes-gl-server:latest
     ports:
       - 8095:80
     volumes:
