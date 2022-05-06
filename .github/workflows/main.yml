@@ -38,6 +38,8 @@ on:
       - gridexplore_app_updated
       - directory-notification_server_updated
       - explore_server_updated
+      - dynamic_mapping_server_updated
+      - griddyna_app_updated
 
 jobs:
   build:
