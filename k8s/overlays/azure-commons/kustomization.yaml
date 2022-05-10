@@ -19,6 +19,9 @@ configMapGenerator:
       - allowed-issuers.yml
   - name: case-import-job-configmap
     files:
+      - database.properties
+  - name: case-import-job-itools-configmap
+    files:
       - config.yml=case-import-job-config.yml
   - name: merge-orchestrator-server-configmap
     files:
@@ -27,6 +30,9 @@ configMapGenerator:
     files:
       - database.properties
   - name: cgmes-assembling-job-configmap
+    files:
+      - database.properties
+  - name: cgmes-assembling-job-itools-configmap
     files:
       - config.yml=cgmes-assembling-job-config.yml
   - name: actions-server-configmap
