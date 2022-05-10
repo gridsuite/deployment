@@ -17,8 +17,14 @@ spec:
                   memory: "384Mi"
               image: docker.io/gridsuite/cgmes-assembling-job:latest
               volumeMounts:
-                - name: config-cgmes-assembling-job-volume
-                  mountPath: /home/powsybl/.itools
+                - mountPath: /config
+                  name: cgmes-assembling-job-configmap-volume
+                - mountPath: /config/common
+                  name: cgmes-assembling-job-configmap-common-volume
+                - mountPath: /config/specific
+                  name: cgmes-assembling-job-configmap-specific-volume
+                - mountPath: /home/powsybl/.itools
+                  name: cgmes-assembling-job-itools-configmap-volume
                 - mountPath: /tmp
                   name: tmp-emptydir
               securityContext:
@@ -41,9 +47,18 @@ spec:
                       key: password
                       optional: true
           volumes:
-            - name: config-cgmes-assembling-job-volume
+            - name: cgmes-assembling-job-configmap-volume
               configMap:
                 name: cgmes-assembling-job-configmap
+            - name: cgmes-assembling-job-configmap-common-volume
+              configMap:
+                name: cgmes-assembling-job-configmap-common
+            - name: cgmes-assembling-job-configmap-specific-volume
+              configMap:
+                name: cgmes-assembling-job-configmap-specific
+            - name: cgmes-assembling-job-itools-configmap-volume
+              configMap:
+                name: cgmes-assembling-job-itools-configmap
             - name: tmp-emptydir
               emptyDir: {}
           restartPolicy: OnFailure

@@ -285,3 +285,16 @@ configMapGenerator:
   - name: dynamic-mapping-server-configmap-specific
     files:
       - application.yml=config/dynamic-mapping-server-application.yml
+  - name: case-import-job-configmap-common
+    files:
+      - application.yml=config/common-application.yml
+  - name: case-import-job-configmap-specific
+    files:
+      - application.yml=config/case-import-job-application.yml
+  - name: cgmes-assembling-job-configmap-common
+    files:
+      - application.yml=config/common-application.yml
+  - name: cgmes-assembling-job-configmap-specific
+    files:
+      - application.yml=config/cgmes-assembling-job-application.yml
+
