@@ -109,9 +109,6 @@ configMapGenerator:
   - name: network-conversion-server-configmap-specific
     files:
       - application.yml=config/network-conversion-server-application.yml
-  - name: network-conversion-server-itools-configmap
-    files:
-      - config.yml=config/network-conversion-server-config.yml
   - name: network-map-server-configmap-common
     files:
       - application.yml=config/common-application.yml
@@ -177,6 +174,9 @@ configMapGenerator:
   - name: balances-adjustment-server-configmap-specific
     files:
       - application.yml=config/balances-adjustment-server-application.yml
+  - name: balances-adjustment-server-itools-configmap
+    files:
+      - config.yml=config/balances-adjustment-server-config.yml
   - name: notification-server-configmap-common
     files:
       - application.yml=config/common-application.yml
@@ -281,3 +281,16 @@ configMapGenerator:
   - name: dynamic-mapping-server-configmap-specific
     files:
       - application.yml=config/dynamic-mapping-server-application.yml
+  - name: case-import-job-configmap-common
+    files:
+      - application.yml=config/common-application.yml
+  - name: case-import-job-configmap-specific
+    files:
+      - application.yml=config/case-import-job-application.yml
+  - name: cgmes-assembling-job-configmap-common
+    files:
+      - application.yml=config/common-application.yml
+  - name: cgmes-assembling-job-configmap-specific
+    files:
+      - application.yml=config/cgmes-assembling-job-application.yml
+

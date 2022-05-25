@@ -6,7 +6,7 @@
 
 All data must be stored under a common root directory whose location is defined by the environment variable **$GRIDSUITE_DATABASES**
 
-5 subdirectories must be created with file **mode 777 (rwx)** :
+The following subdirectories must be created with file **mode 777 (rwx)** :
 - **cases** : working directory for cases-server
 - **postgres** : databases Postgres
 - **elasticsearch** : indexes (documents) Elasticsearch
@@ -17,22 +17,17 @@ $ cd $GRIDSUITE_DATABASES
 $ chmod 777 cases postgres elasticsearch init
 ```
 
-All databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...).
-
-Temporarily, powsybl-network-store doesn't use liquibase. You must connect to its database (default name: iidm) 
-```bash 
-$ docker-compose exec postgres psql -U postgres iidm
-```
-and copy/paste the following file to create the schema : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql)
-
-To do this, you must copy the following files (from the starter kit) in the init directory :
-- [open_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_substations.json)
-- [open_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/open_lines.json)
-- [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
-- [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
-
 | :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose !   |
 |---------------------------------------------|
+
+
+All databases are created automatically at start as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, ...).
+
+To do this, you must copy the following files in the init directory :
+- [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/geo_data_substations.json)
+- [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/geo_data_lines.json)
+- [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
+- [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
 
 ### Clone deployment repository
 
@@ -40,6 +35,23 @@ To do this, you must copy the following files (from the starter kit) in the init
 $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
+
+### Temporarily manual action
+
+----
+:warning: Temporarily, powsybl-network-store doesn't use liquibase and doesn't initialize its database automatically at start. You must start the technical profile [go to Technical Profile](#technical-profile), connect to its database (default name: iidm) 
+```bash 
+$ cd docker-compose/technical
+$ docker-compose up -d
+$ docker-compose exec postgres psql -U postgres iidm
+```
+and copy/paste the following file to create the schema : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql)
+
+To finnish stop the technical profile
+```bash 
+$ docker-compose stop
+```
+----
 
 ## Docker compose deployment
 

@@ -14,7 +14,10 @@
       "types" : ["STUDY"],
       "path" : "/studies/{elementUuid}"
     }
-  ]
+  ],
+  "defaultParametersValues": {
+    "fluxConvention": "iidm"
+  }
 },
 {
   "name" : "Explore",

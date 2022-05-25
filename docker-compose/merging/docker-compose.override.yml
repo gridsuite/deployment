@@ -42,6 +42,7 @@ services:
     volumes:
       - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/base/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
@@ -92,7 +93,10 @@ services:
         - no_proxy=${no_proxy-}
     volumes:
       - $PWD/../merging/case-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../../k8s/base/config/case-import-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     depends_on:
       - logspout
     sysctls:
@@ -107,7 +111,10 @@ services:
         - no_proxy=${no_proxy-}
     volumes:
       - $PWD/../merging/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../../k8s/base/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../technical/database.properties:/config/database.properties:Z
     depends_on:
       - logspout
     sysctls:
