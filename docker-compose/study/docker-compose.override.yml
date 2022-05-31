@@ -48,7 +48,7 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx256m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
