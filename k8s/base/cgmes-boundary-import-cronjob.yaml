@@ -6,6 +6,7 @@ spec:
   schedule: "*/30 * * * *"
   jobTemplate:
     spec:
+      backoffLimit: 6
       template:
         spec:
           containers:
