@@ -18,6 +18,9 @@ spec:
       - name: single-line-diagram-server
         image: docker.io/powsybl/single-line-diagram-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 80
         volumeMounts:
@@ -34,9 +37,9 @@ spec:
           readOnlyRootFilesystem: true
         resources:
           requests:
-            memory: "384Mi"
+            memory: "1Gi"
           limits:
-            memory: "384Mi"
+            memory: "1Gi"
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
