@@ -95,5 +95,10 @@ services:
     depends_on:
       - socat
 
-
-
+  pgadmin:
+    image: dpage/pgadmin4:4.8
+    ports:
+     - "12080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_PASSWORD=admin

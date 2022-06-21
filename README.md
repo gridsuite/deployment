@@ -170,6 +170,29 @@ default credentials :
    - password : guest
 ```
 
+### PgAdmin for PostgreSQL administration
+
+PgAdmin UI:
+
+```html
+http://localhost:12080/login
+default credentials : 
+   - username : admin
+   - password : admin
+```
+
+To connect to the PostgreSQL database, the postgres container must be up.
+Then, you can add a new server with the following configurations :
+
+```html
+Host name/address : postgres
+Port : 5432
+Maintenance database : postgres
+Username : postgres
+Password : postgres
+```
+
+
 ### Kibana console for Elasticsearch
 
 Kibana management UI:
