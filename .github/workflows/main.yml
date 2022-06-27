@@ -5,7 +5,7 @@ on:
   repository_dispatch:
     types:
       - case_updated
-      - cgmes_gl_updated
+      - cgmes_gl_server_updated
       - geo_data_updated
       - network_conversion_server_updated
       - network_map_server_updated
