@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: case-server-ingress
@@ -19,6 +19,9 @@ spec:
   - http:
       paths:
       - path: /case-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: case-server
-          servicePort: 80
+          service:
+            name: case-server
+            port:
+              number: 80

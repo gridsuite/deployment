@@ -217,73 +217,73 @@ images:
 patchesJson6902:
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: root-ingress
     path: patch_tls_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: root-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: gridstudy-app-ingress
     path: patch_tls_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: gridstudy-app-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: gridmerge-app-ingress
     path: patch_tls_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: gridmerge-app-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: apps-metadata-server-ingress
     path: patch_tls_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: apps-metadata-server-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: gridexplore-app-ingress
     path: patch_tls_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: gridexplore-app-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: griddyna-app-ingress
     path: patch_tls_ingress.yaml
   - target:
       group: networking.k8s.io
-      version: v1beta1
+      version: v1
       kind: Ingress
       name: griddyna-app-ingress
     path: patch_ingress.yaml

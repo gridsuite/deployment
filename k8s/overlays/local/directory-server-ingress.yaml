@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: directory-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /directory-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: directory-server
-          servicePort: 80
+          service:
+            name: directory-server
+            port:
+              number: 80

@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dynamic-simulation-server-ingress
@@ -20,6 +20,9 @@ spec:
   - http:
       paths:
       - path: /dynamic-simulation-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: dynamic-simulation-server
-          servicePort: 80
+          service:
+            name: dynamic-simulation-server
+            port:
+              number: 80
