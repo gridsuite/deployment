@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: gridexplore-app-ingress
@@ -24,6 +24,9 @@ spec:
   - http:
       paths:
       - path: /gridexplore(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: gridexplore-app
-          servicePort: 80
+          service:
+            name: gridexplore-app
+            port:
+              number: 80

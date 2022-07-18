@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: actions-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /actions-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: actions-server
-          servicePort: 80
+          service:
+            name: actions-server
+            port:
+              number: 80

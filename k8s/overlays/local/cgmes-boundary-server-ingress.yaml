@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cgmes-boundary-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /cgmes-boundary-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: cgmes-boundary-server
-          servicePort: 80
+          service:
+            name: cgmes-boundary-server
+            port:
+              number: 80

@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: merge-orchestrator-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /merge-orchestrator-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: merge-orchestrator-server
-          servicePort: 80
+          service:
+            name: merge-orchestrator-server
+            port:
+              number: 80

@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: loadflow-server-ingress
@@ -17,6 +17,9 @@ spec:
   - http:
       paths:
       - path: /loadflow-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: loadflow-server
-          servicePort: 80
+          service:
+            name: loadflow-server
+            port:
+              number: 80
