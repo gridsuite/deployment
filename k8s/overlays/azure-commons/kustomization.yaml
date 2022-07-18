@@ -68,3 +68,4 @@ configMapGenerator:
 
 patchesStrategicMerge:
 - limit-max-public-cases.yaml
+- limit-gridexplore-cases.yaml
