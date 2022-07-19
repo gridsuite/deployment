@@ -228,7 +228,7 @@ $ minikube addons enable ingress
 
 To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
 ```bash
-$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=$KUBECTL_VERSION
+$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
 $ minikube addons enable ingress
 ```
 
