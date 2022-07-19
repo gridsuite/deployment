@@ -212,8 +212,8 @@ Download the recommended version of minikube and kubectl :
 
 |Software| Version recommendation |Last Version  | Link|
 --- | --- | --- | ---
-|kubectl|1.18.12|1.22.X ( :warning: not supported yet)|[Download](https://storage.googleapis.com/kubernetes-release/release/v1.18.12/bin/linux/amd64/kubectl)|
-|minikube|1.21+|1.24.0|[Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)|
+|kubectl |1.21+|1.24.X|[Download](https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl)|
+|minikube|1.21+|1.26.X|[Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)|
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
@@ -228,7 +228,7 @@ $ minikube addons enable ingress
 
 To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
 ```bash
-$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=$KUBECTL_VERSION
+$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
 $ minikube addons enable ingress
 ```
 
