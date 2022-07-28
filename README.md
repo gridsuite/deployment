@@ -24,8 +24,8 @@ $ chmod 777 cases postgres elasticsearch init
 All databases are created automatically at start as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, ...).
 
 To do this, you must copy the following files in the init directory :
-- [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/geo_data_substations.json)
-- [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/geo-data-server/src/test/resources/geo_data_lines.json)
+- [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_substations.json)
+- [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_lines.json)
 - [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
 - [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
 
