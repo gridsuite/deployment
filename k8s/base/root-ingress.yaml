@@ -5,6 +5,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/app-root: /gridexplore
+    nginx.ingress.kubernetes.io/server-snippet: |
+      client_header_buffer_size 64k;
+      large_client_header_buffers 4 64k;
 spec:
   rules:
   - http:
