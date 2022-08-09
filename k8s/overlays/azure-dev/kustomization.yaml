@@ -158,6 +158,10 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
+  - name: sensitivity-analysis-server-configmap-common
+    behavior: merge
+    files:
+      - application.yml=common-application.yml
 
 # Patch ingress host
 patchesJson6902:

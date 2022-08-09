@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sensitivity-analysis-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # springfox swagger-ui uses X-Forwarded-Prefix to find the
+    # base url when behind a reverse proxy.
+    # nginx-ingress-controller V0.24 has a simple alternative
+    # but latest minikube 1.1.0 uses V0.23 (untested):
+    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/sensitivity-analysis-server"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header X-Forwarded-Prefix         /sensitivity-analysis-server/;
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /sensitivity-analysis-server(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: sensitivity-analysis-server
+            port:
+              number: 80

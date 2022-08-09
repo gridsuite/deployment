@@ -40,6 +40,7 @@ resources:
   - external-elasticsearch-service.yaml
   - external-kibana-service.yaml
   - dynamic-mapping-server-ingress.yaml
+  - sensitivity-analysis-server-ingress.yaml
 
 configMapGenerator:
   - name: network-store-server-configmap
@@ -119,6 +120,10 @@ configMapGenerator:
       - database.properties
 
   - name: security-analysis-server-configmap
+    files:
+      - database.properties
+
+  - name: sensitivity-analysis-server-configmap
     files:
       - database.properties
 

@@ -157,6 +157,7 @@ http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
 http://localhost:5027/swagger-ui.html  // filter-server
 http://localhost:5010/swagger-ui.html  // balances-adjustment-server
 http://localhost:5011/swagger-ui.html  // case-validation-server
+http://localhost:5030/swagger-ui.html  // sensitivity-analysis-server
 ```
 
 ### RabbitMQ console
@@ -311,6 +312,7 @@ http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
 http://<INGRESS_HOST>/filter-server/swagger-ui.html 
 http://<INGRESS_HOST>/report-server/swagger-ui.html
+http://<INGRESS_HOST>/sensitivity-analysis-server/swagger-ui.html
 ```
 
 ## Multiple environments with customized prefixes

@@ -65,6 +65,9 @@ configMapGenerator:
   - name: dynamic-mapping-server-configmap
     files:
       - database.properties
+  - name: sensitivity-analysis-server-configmap
+    files:
+      - database.properties
 
 patchesStrategicMerge:
 - limit-max-public-cases.yaml

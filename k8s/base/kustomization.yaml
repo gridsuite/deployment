@@ -83,6 +83,8 @@ resources:
   - griddyna-app-service.yaml
   - dynamic-mapping-server-deployment.yaml
   - dynamic-mapping-server-service.yaml
+  - sensitivity-analysis-server-deployment.yaml
+  - sensitivity-analysis-server-service.yaml
 
 configMapGenerator:
   - name: case-server-configmap-common
@@ -293,4 +295,12 @@ configMapGenerator:
   - name: cgmes-assembling-job-configmap-specific
     files:
       - application.yml=config/cgmes-assembling-job-application.yml
-
+  - name: sensitivity-analysis-server-configmap-common
+    files:
+      - application.yml=config/common-application.yml
+  - name: sensitivity-analysis-server-configmap-specific
+    files:
+      - application.yml=config/sensitivity-analysis-server-application.yml
+  - name: sensitivity-analysis-server-itools-configmap
+    files:
+      - config.yml=config/sensitivity-analysis-server-config.yml
