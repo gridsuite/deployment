@@ -6,6 +6,7 @@ metadata:
     name: geo-data-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: geo-data-server

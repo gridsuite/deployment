@@ -6,6 +6,7 @@ metadata:
     name: cgmes-gl-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: cgmes-gl-server

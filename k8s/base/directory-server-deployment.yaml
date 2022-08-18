@@ -6,6 +6,7 @@ metadata:
     name: directory-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: directory-server

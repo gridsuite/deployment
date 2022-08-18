@@ -6,6 +6,7 @@ metadata:
     name: config-notification-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: config-notification-server

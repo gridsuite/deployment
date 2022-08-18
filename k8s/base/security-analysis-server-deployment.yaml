@@ -6,6 +6,7 @@ metadata:
     name: security-analysis-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: security-analysis-server

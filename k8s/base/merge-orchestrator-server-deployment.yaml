@@ -6,6 +6,7 @@ metadata:
     name: merge-orchestrator-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: merge-orchestrator-server

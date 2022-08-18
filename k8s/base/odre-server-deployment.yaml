@@ -6,6 +6,7 @@ metadata:
     name: odre-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: odre-server

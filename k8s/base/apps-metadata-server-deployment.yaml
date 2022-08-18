@@ -5,6 +5,7 @@ metadata:
   labels:
     name: apps-metadata-server
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: apps-metadata-server

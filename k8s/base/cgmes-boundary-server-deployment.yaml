@@ -6,6 +6,7 @@ metadata:
     name: cgmes-boundary-server
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: cgmes-boundary-server

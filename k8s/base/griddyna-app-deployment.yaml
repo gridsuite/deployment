@@ -6,6 +6,7 @@ metadata:
     name: griddyna-app
     version: "1"
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: griddyna-app
