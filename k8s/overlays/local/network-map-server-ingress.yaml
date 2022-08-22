@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: network-map-server-ingress
@@ -20,6 +20,9 @@ spec:
   - http:
       paths:
       - path: /network-map-server(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: network-map-server
-          servicePort: 80
+          service:
+            name: network-map-server
+            port:
+              number: 80
