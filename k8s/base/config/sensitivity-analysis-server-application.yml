@@ -1,3 +1,2 @@
-# default values for loadflow providers "Hades2" or "OpenSecurityAnalysis"
-loadflow:
-  default-provider: OpenSecurityAnalysis
+sensitivity-analysis:
+  default-impl-name: Sensi2
