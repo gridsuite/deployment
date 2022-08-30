@@ -357,7 +357,7 @@ $ docker-compose exec postgres /init-merging-data.sh
 
 **Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. You have to execute those REST requests :
 
-* .../substations/
+* .../substations
 * .../lines
 
 Be sure to have at least `odre-server` and `geo-data-server` containers running.
