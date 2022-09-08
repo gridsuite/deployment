@@ -19,12 +19,12 @@ spec:
           image: docker.io/gridsuite/config-server:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - mountPath: /config
-              name: config-server-configmap-volume
+              name: database-properties-configmap-volume
             - mountPath: /config/common
-              name: config-server-configmap-common-volume
+              name: common-application-configmap-volume
             - mountPath: /config/specific
               name: config-server-configmap-specific-volume
             - mountPath: /tmp
@@ -60,12 +60,12 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: config-server-configmap-volume
+        - name: database-properties-configmap-volume
           configMap:
-            name: config-server-configmap
-        - name: config-server-configmap-common-volume
+            name: database-properties-configmap
+        - name: common-application-configmap-volume
           configMap:
-            name: config-server-configmap-common
+            name: common-application-configmap
         - name: config-server-configmap-specific-volume
           configMap:
             name: config-server-configmap-specific
