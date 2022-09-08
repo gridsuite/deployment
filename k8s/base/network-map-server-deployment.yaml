@@ -25,7 +25,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - mountPath: /config/common
-          name: network-map-server-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: network-map-server-configmap-specific-volume
         - mountPath: /tmp
@@ -61,9 +61,9 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: network-map-server-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: network-map-server-configmap-common
+            name: common-application-configmap
         - name: network-map-server-configmap-specific-volume
           configMap:
             name: network-map-server-configmap-specific

@@ -25,7 +25,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - mountPath: /config/common
-          name: loadflow-server-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: loadflow-server-configmap-specific-volume
         - mountPath: /home/powsybl/.itools
@@ -63,9 +63,9 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: loadflow-server-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: loadflow-server-configmap-common
+            name: common-application-configmap
         - name: loadflow-server-configmap-specific-volume
           configMap:
             name: loadflow-server-configmap-specific

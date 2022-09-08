@@ -19,9 +19,9 @@ spec:
               image: docker.io/gridsuite/cgmes-assembling-job:latest
               volumeMounts:
                 - mountPath: /config
-                  name: cgmes-assembling-job-configmap-volume
+                  name: database-properties-configmap-volume
                 - mountPath: /config/common
-                  name: cgmes-assembling-job-configmap-common-volume
+                  name: common-application-configmap-volume
                 - mountPath: /config/specific
                   name: cgmes-assembling-job-configmap-specific-volume
                 - mountPath: /home/powsybl/.itools
@@ -48,12 +48,12 @@ spec:
                       key: password
                       optional: true
           volumes:
-            - name: cgmes-assembling-job-configmap-volume
+            - name: database-properties-configmap-volume
               configMap:
-                name: cgmes-assembling-job-configmap
-            - name: cgmes-assembling-job-configmap-common-volume
+                name: database-properties-configmap
+            - name: common-application-configmap-volume
               configMap:
-                name: cgmes-assembling-job-configmap-common
+                name: common-application-configmap
             - name: cgmes-assembling-job-configmap-specific-volume
               configMap:
                 name: cgmes-assembling-job-configmap-specific

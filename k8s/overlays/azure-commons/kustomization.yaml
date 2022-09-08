@@ -5,66 +5,21 @@ bases:
   - ../../admincluster
 
 configMapGenerator:
-  - name: network-store-server-configmap
-    files:
-      - database.properties
-  - name: geo-data-server-configmap
-    files:
-      - database.properties
-  - name: study-server-configmap
+  - name: database-properties-configmap
     files:
       - database.properties
   - name: gateway-configmap
     files:
       - allowed-issuers.yml
-  - name: case-import-job-configmap
-    files:
-      - database.properties
   - name: case-import-job-itools-configmap
     files:
       - config.yml=case-import-job-config.yml
-  - name: merge-orchestrator-server-configmap
-    files:
-      - database.properties
-  - name: cgmes-boundary-server-configmap
-    files:
-      - database.properties
-  - name: cgmes-assembling-job-configmap
-    files:
-      - database.properties
   - name: cgmes-assembling-job-itools-configmap
     files:
       - config.yml=cgmes-assembling-job-config.yml
-  - name: actions-server-configmap
-    files:
-      - database.properties
-  - name: report-server-configmap
-    files:
-      - database.properties
-  - name: filter-server-configmap
-    files:
-      - database.properties
-  - name: security-analysis-server-configmap
-    files:
-      - database.properties
-  - name: config-server-configmap
-    files:
-      - database.properties
-  - name: dynamic-simulation-server-configmap
-    files:
-      - database.properties
-  - name: directory-server-configmap
-    files:
-      - database.properties
   - name: cgmes-boundary-import-job-configmap
     files:
       - config.yml=cgmes-boundary-import-job-config.yml
-  - name: network-modification-server-configmap
-    files:
-      - database.properties
-  - name: dynamic-mapping-server-configmap
-    files:
-      - database.properties
 
 patchesStrategicMerge:
 - limit-max-public-cases.yaml
