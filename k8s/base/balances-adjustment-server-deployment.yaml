@@ -18,7 +18,7 @@ spec:
         name: balances-adjustment-server
     spec:
       containers:
-        - name: springboot
+        - name: main
           image: docker.io/gridsuite/balances-adjustment-server:latest
           volumeMounts:
             - mountPath: /config/specific

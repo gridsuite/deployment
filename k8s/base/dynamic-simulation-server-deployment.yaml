@@ -19,7 +19,7 @@ spec:
         name: dynamic-simulation-server
     spec:
       containers:
-        - name: springboot
+        - name: main
           image: docker.io/gridsuite/dynamic-simulation-server:latest
           volumeMounts:
             - mountPath: /config/specific

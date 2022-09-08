@@ -19,7 +19,7 @@ spec:
         name: report-server
     spec:
       containers:
-        - name: springboot
+        - name: main
           image: docker.io/gridsuite/report-server:latest
           volumeMounts:
             - mountPath: /config/specific

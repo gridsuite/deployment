@@ -18,7 +18,7 @@ spec:
         name: network-map-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/network-map-server:latest
         volumeMounts:
         - mountPath: /config/specific

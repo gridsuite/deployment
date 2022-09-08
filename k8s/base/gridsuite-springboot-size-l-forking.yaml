@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - name: springboot
+        - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
             value: "-XX:MaxRAMPercentage=50"

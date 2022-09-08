@@ -19,7 +19,7 @@ spec:
         name: merge-orchestrator-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/merge-orchestrator-server:latest
         volumeMounts:
         - mountPath: /config/specific

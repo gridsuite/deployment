@@ -20,7 +20,7 @@ spec:
         name: case-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/powsybl/case-server:latest
         volumeMounts:
         - mountPath: /config/specific

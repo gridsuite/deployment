@@ -19,7 +19,7 @@ spec:
         name: cgmes-boundary-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/cgmes-boundary-server:latest
         volumeMounts:
         - mountPath: /config/specific

@@ -18,7 +18,7 @@ spec:
         name: loadflow-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/loadflow-server:latest
         volumeMounts:
         - mountPath: /config/specific

@@ -18,7 +18,7 @@ spec:
         name: odre-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/odre-server:latest
         volumeMounts:
         - mountPath: /config/specific

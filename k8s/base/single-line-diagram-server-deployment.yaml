@@ -18,7 +18,7 @@ spec:
         name: single-line-diagram-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/powsybl/single-line-diagram-server:latest
         volumeMounts:
         - mountPath: /config/specific

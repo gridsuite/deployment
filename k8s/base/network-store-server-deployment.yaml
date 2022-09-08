@@ -19,7 +19,7 @@ spec:
         name: network-store-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/powsybl/network-store-server:latest
         volumeMounts:
         - mountPath: /config/specific

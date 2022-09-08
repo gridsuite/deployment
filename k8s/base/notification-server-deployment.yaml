@@ -18,7 +18,7 @@ spec:
         name: notification-server
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/notification-server:latest
         volumeMounts:
         - mountPath: /config/specific

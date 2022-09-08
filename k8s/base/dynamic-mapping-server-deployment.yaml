@@ -19,7 +19,7 @@ spec:
         name: dynamic-mapping-server
     spec:
       containers:
-        - name: springboot
+        - name: main
           image: docker.io/gridsuite/dynamic-mapping-server:latest
           volumeMounts:
             - mountPath: /config/specific

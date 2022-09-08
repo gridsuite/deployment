@@ -18,7 +18,7 @@ spec:
         name: gateway
     spec:
       containers:
-      - name: springboot
+      - name: main
         image: docker.io/gridsuite/gateway:latest
         volumeMounts:
         - mountPath: /config
