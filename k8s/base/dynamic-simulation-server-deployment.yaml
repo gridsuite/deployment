@@ -19,7 +19,7 @@ spec:
           image: docker.io/gridsuite/dynamic-simulation-server:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - mountPath: /config
               name: database-properties-configmap-volume

@@ -19,7 +19,7 @@ spec:
         image: docker.io/gridsuite/gateway:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config
           name: gateway-configmap-volume
