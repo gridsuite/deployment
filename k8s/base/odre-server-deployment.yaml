@@ -22,7 +22,7 @@ spec:
         - containerPort: 8080
         volumeMounts:
         - mountPath: /config/common
-          name: odre-server-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: odre-server-configmap-specific-volume
         - mountPath: /tmp
@@ -58,9 +58,9 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: odre-server-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: odre-server-configmap-common
+            name: common-application-configmap
         - name: odre-server-configmap-specific-volume
           configMap:
             name: odre-server-configmap-specific
