@@ -18,6 +18,9 @@ spec:
       - name: odre
         image: docker.io/gridsuite/odre-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75"
         ports:
         - containerPort: 8080
         volumeMounts:
