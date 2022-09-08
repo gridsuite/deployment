@@ -24,10 +24,10 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:MaxRAMPercentage=75"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config/common
-          name: case-server-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: case-server-configmap-specific-volume
         - mountPath: /cases
@@ -67,9 +67,9 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
-        - name: case-server-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: case-server-configmap-common
+            name: common-application-configmap
         - name: case-server-configmap-specific-volume
           configMap:
             name: case-server-configmap-specific

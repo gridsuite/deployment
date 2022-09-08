@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 commonLabels:
-  app: demo
+  app: gridsuite
 
 resources:
   - root-ingress.yaml
@@ -85,167 +85,95 @@ resources:
   - dynamic-mapping-server-service.yaml
 
 configMapGenerator:
-  - name: case-server-configmap-common
+  - name: common-application-configmap
     files:
       - application.yml=config/common-application.yml
   - name: case-server-configmap-specific
     files:
       - application.yml=config/case-server-application.yml
-  - name: case-validation-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: case-validation-server-configmap-specific
     files:
       - application.yml=config/case-validation-server-application.yml
-  - name: geo-data-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: geo-data-server-configmap-specific
     files:
       - application.yml=config/geo-data-server-application.yml
-  - name: network-conversion-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: network-conversion-server-configmap-specific
     files:
       - application.yml=config/network-conversion-server-application.yml
-  - name: network-map-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: network-map-server-configmap-specific
     files:
       - application.yml=config/network-map-server-application.yml
-  - name: network-store-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: network-store-server-configmap-specific
     files:
       - application.yml=config/network-store-server-application.yml
   
-  - name: single-line-diagram-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: single-line-diagram-server-configmap-specific
     files:
       - application.yml=config/single-line-diagram-server-application.yml
   
-  - name: network-modification-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: network-modification-server-configmap-specific
     files:
       - application.yml=config/network-modification-server-application.yml
-  - name: study-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: study-server-configmap-specific
     files:
       - application.yml=config/study-server-application.yml
-  - name: cgmes-gl-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: cgmes-gl-server-configmap-specific
     files:
       - application.yml=config/cgmes-gl-server-application.yml
-  - name: odre-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: odre-server-configmap-specific
     files:
       - application.yml=config/odre-server-application.yml
-  - name: gateway-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: gateway-configmap-specific
     files:
       - application.yml=config/gateway-application.yml
-  - name: loadflow-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: loadflow-server-configmap-specific
     files:
       - application.yml=config/loadflow-server-application.yml
   - name: loadflow-server-itools-configmap
     files:
       - config.yml=config/loadflow-server-config.yml
-  - name: balances-adjustment-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: balances-adjustment-server-configmap-specific
     files:
       - application.yml=config/balances-adjustment-server-application.yml
   - name: balances-adjustment-server-itools-configmap
     files:
       - config.yml=config/balances-adjustment-server-config.yml
-  - name: notification-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: notification-server-configmap-specific
     files:
       - application.yml=config/notification-server-application.yml
-  - name: merge-orchestrator-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: merge-orchestrator-server-configmap-specific
     files:
       - application.yml=config/merge-orchestrator-server-application.yml
-  - name: merge-notification-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: merge-notification-server-configmap-specific
     files:
       - application.yml=config/merge-notification-server-application.yml
-  - name: cgmes-boundary-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: cgmes-boundary-server-configmap-specific
     files:
       - application.yml=config/cgmes-boundary-server-application.yml
-  - name: actions-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: actions-server-configmap-specific
     files:
       - application.yml=config/actions-server-application.yml
-  - name: filter-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: filter-server-configmap-specific
     files:
       - application.yml=config/filter-server-application.yml
-  - name: report-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: report-server-configmap-specific
     files:
       - application.yml=config/report-server-application.yml
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
-  - name: security-analysis-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: security-analysis-server-configmap-specific
     files:
       - application.yml=config/security-analysis-server-application.yml
   - name: security-analysis-server-itools-configmap
     files:
       - config.yml=config/security-analysis-server-config.yml
-  - name: config-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: config-server-configmap-specific
     files:
       - application.yml=config/config-server-application.yml
-  - name: config-notification-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: config-notification-server-configmap-specific
     files:
       - application.yml=config/config-notification-server-application.yml
-  - name: dynamic-simulation-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: dynamic-simulation-server-configmap-specific
     files:
       - application.yml=config/dynamic-simulation-server-application.yml
@@ -257,39 +185,21 @@ configMapGenerator:
   - name: dynawo-itools-configmap
     files:
       - config.yml=config/dynawo-itools-config.yml
-  - name: directory-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: directory-server-configmap-specific
     files:
       - application.yml=config/directory-server-application.yml
-  - name: directory-notification-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: directory-notification-server-configmap-specific
     files:
       - application.yml=config/directory-notification-server-application.yml
-  - name: explore-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: explore-server-configmap-specific
     files:
       - application.yml=config/explore-server-application.yml
-  - name: dynamic-mapping-server-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: dynamic-mapping-server-configmap-specific
     files:
       - application.yml=config/dynamic-mapping-server-application.yml
-  - name: case-import-job-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: case-import-job-configmap-specific
     files:
       - application.yml=config/case-import-job-application.yml
-  - name: cgmes-assembling-job-configmap-common
-    files:
-      - application.yml=config/common-application.yml
   - name: cgmes-assembling-job-configmap-specific
     files:
       - application.yml=config/cgmes-assembling-job-application.yml
