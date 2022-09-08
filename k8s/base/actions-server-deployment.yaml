@@ -22,12 +22,12 @@ spec:
           - name: JAVA_TOOL_OPTIONS
             value: "-XX:MaxRAMPercentage=75"
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - mountPath: /config
-              name: actions-server-configmap-volume
+              name: database-properties-configmap-volume
             - mountPath: /config/common
-              name: actions-server-configmap-common-volume
+              name: common-application-configmap-volume
             - mountPath: /config/specific
               name: actions-server-configmap-specific-volume
             - mountPath: /tmp
@@ -63,12 +63,12 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: actions-server-configmap-volume
+        - name: database-properties-configmap-volume
           configMap:
-            name: actions-server-configmap
-        - name: actions-server-configmap-common-volume
+            name: database-properties-configmap
+        - name: common-application-configmap-volume
           configMap:
-            name: actions-server-configmap-common
+            name: common-application-configmap
         - name: actions-server-configmap-specific-volume
           configMap:
             name: actions-server-configmap-specific

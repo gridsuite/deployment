@@ -19,10 +19,10 @@ spec:
         image: docker.io/gridsuite/case-validation-server:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config/common
-          name: case-validation-server-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: case-validation-server-configmap-specific-volume
         - mountPath: /tmp
@@ -58,9 +58,9 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: case-validation-server-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: case-validation-server-configmap-common
+            name: common-application-configmap
         - name: case-validation-server-configmap-specific-volume
           configMap:
             name: case-validation-server-configmap-specific

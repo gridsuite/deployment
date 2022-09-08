@@ -22,10 +22,10 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:MaxRAMPercentage=75"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config/common
-          name: network-conversion-server-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: network-conversion-server-configmap-specific-volume
         - mountPath: /tmp
@@ -61,9 +61,9 @@ spec:
         args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
-        - name: network-conversion-server-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: network-conversion-server-configmap-common
+            name: common-application-configmap
         - name: network-conversion-server-configmap-specific-volume
           configMap:
             name: network-conversion-server-configmap-specific
