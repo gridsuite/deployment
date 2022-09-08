@@ -24,7 +24,7 @@ spec:
         - mountPath: /config
           name: gateway-configmap-volume
         - mountPath: /config/common
-          name: gateway-configmap-common-volume
+          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: gateway-configmap-specific-volume
         - mountPath: /tmp
@@ -63,9 +63,9 @@ spec:
         - name: gateway-configmap-volume
           configMap:
             name: gateway-configmap
-        - name: gateway-configmap-common-volume
+        - name: common-application-configmap-volume
           configMap:
-            name: gateway-configmap-common
+            name: common-application-configmap
         - name: gateway-configmap-specific-volume
           configMap:
             name: gateway-configmap-specific
