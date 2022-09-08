@@ -5,6 +5,9 @@ metadata:
   labels:
     name: case-validation-server
     version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-xs
 spec:
   selector:
     matchLabels:
@@ -15,54 +18,12 @@ spec:
         name: case-validation-server
     spec:
       containers:
-      - name: case-validation-server
+      - name: springboot
         image: docker.io/gridsuite/case-validation-server:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
         volumeMounts:
-        - mountPath: /config/common
-          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: case-validation-server-configmap-specific-volume
-        - mountPath: /tmp
-          name: tmp-emptydir
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 1000
-          readOnlyRootFilesystem: true
-        resources:
-          requests:
-            memory: "384Mi"
-          limits:
-            memory: "384Mi"
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8080
-          initialDelaySeconds: 120
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
-        args: ["--spring.config.additional-location=/config/"]
-      restartPolicy: Always
       volumes:
-        - name: common-application-configmap-volume
-          configMap:
-            name: common-application-configmap
         - name: case-validation-server-configmap-specific-volume
           configMap:
             name: case-validation-server-configmap-specific
-        - name: tmp-emptydir
-          emptyDir: {}

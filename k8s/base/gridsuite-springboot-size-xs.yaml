@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+spec:
+  template:
+    spec:
+      containers:
+        - name: springboot
+          resources:
+            requests:
+              memory: "384Mi"
+            limits:
+              memory: "384Mi"

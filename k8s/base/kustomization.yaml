@@ -204,3 +204,42 @@ configMapGenerator:
     files:
       - application.yml=config/cgmes-assembling-job-application.yml
 
+patches:
+- path: gridsuite-deployments-springboot.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+- path: gridsuite-deployments-springboot-dbconfig.yaml
+  target:
+    kind: Deployment
+    labelSelector: "gridsuite.org/springboot-with-database=true"
+- path: gridsuite-springboot-size-xs.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xs"
+- path: gridsuite-springboot-size-s.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-s"
+- path: gridsuite-springboot-size-m.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-m"
+- path: gridsuite-springboot-size-l.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-l"
+- path: gridsuite-springboot-size-l-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-l-forking"
+- path: gridsuite-springboot-size-xl.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xl"
