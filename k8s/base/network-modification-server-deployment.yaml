@@ -22,7 +22,7 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:MaxRAMPercentage=75"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config
           name: network-modification-server-configmap-volume

@@ -19,7 +19,7 @@ spec:
         image: docker.io/gridsuite/case-validation-server:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config/common
           name: case-validation-server-configmap-common-volume

@@ -19,7 +19,7 @@ spec:
         image: docker.io/gridsuite/cgmes-gl-server:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - mountPath: /config/common
           name: cgmes-gl-server-configmap-common-volume
