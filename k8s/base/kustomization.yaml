@@ -235,6 +235,9 @@ patches:
 - path: patches/cronjobs.yaml
   target:
     kind: CronJob
+- path: patches/ingresses.yaml
+  target:
+    kind: Ingress
 - path: patches/cronjobs-dbconfig.yaml
   target:
     kind: CronJob
