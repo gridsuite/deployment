@@ -224,6 +224,13 @@ patches:
   target:
     kind: Deployment
     labelSelector: "gridsuite.org/apache-gridapp=true"
+- path: patches/cronjobs.yaml
+  target:
+    kind: CronJob
+- path: patches/cronjobs-dbconfig.yaml
+  target:
+    kind: CronJob
+    labelSelector: "gridsuite.org/cronjob-with-database=true"
 - path: patches/deployments-springboot-size-xs.yaml
   target:
     kind: Deployment
