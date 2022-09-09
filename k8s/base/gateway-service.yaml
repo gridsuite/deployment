@@ -3,12 +3,8 @@ kind: Service
 metadata:
   labels:
     name: gateway
+    app.kubernetes.io/component: gridsuite-springboot
   name: gateway
 spec:
-  type: ClusterIP
-  ports:
-  - name: http
-    port: 80
-    targetPort: 8080
   selector:
     name: gateway

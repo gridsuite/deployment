@@ -3,12 +3,8 @@ kind: Service
 metadata:
   labels:
     name: apps-metadata-server
+    app.kubernetes.io/component: gridsuite-apache
   name: apps-metadata-server
 spec:
-  type: ClusterIP
-  ports:
-    - name: apps-metadata-server
-      port: 80
-      targetPort: 8080
   selector:
     name: apps-metadata-server

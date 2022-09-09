@@ -224,6 +224,14 @@ patches:
   target:
     kind: Deployment
     labelSelector: "gridsuite.org/apache-gridapp=true"
+- path: patches/services-springboot.yaml
+  target:
+    kind: Service
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+- path: patches/services-apache.yaml
+  target:
+    kind: Service
+    labelSelector: "app.kubernetes.io/component=gridsuite-apache"
 - path: patches/cronjobs.yaml
   target:
     kind: CronJob
