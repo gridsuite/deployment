@@ -20,6 +20,9 @@ spec:
       - name: main
         image: docker.io/gridsuite/gridstudy-app:latest
         volumeMounts:
+        - mountPath: /opt/bitnami/apache/htdocs/gridstudy/env.json
+          subPath: env.json
+          name: gridapps-env-configmap-volume
         - mountPath: /opt/bitnami/apache/htdocs/gridstudy/idpSettings.json
           subPath: idpSettings.json
           name: gridstudy-app-configmap-volume

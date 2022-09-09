@@ -7,10 +7,6 @@ spec:
     spec:
       containers:
       - name: main
-        volumeMounts:
-        - mountPath: /opt/bitnami/apache/htdocs/gridexplore/env.json
-          subPath: env.json
-          name: gridexplore-app-env-configmap-volume
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
@@ -30,6 +26,6 @@ spec:
           failureThreshold: 1
           successThreshold: 1
       volumes:
-        - name: gridexplore-app-env-configmap-volume
+        - name: gridapps-env-configmap-volume
           configMap:
-            name: gridexplore-app-env-configmap
+            name: gridapps-env-configmap
