@@ -30,6 +30,7 @@ configMapGenerator:
     files:
       - env.json=env.json
   - name: common-application-configmap
+    behavior: merge
     files:
       - application.yml=common-application.yml
 

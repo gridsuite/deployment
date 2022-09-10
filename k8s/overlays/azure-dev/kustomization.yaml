@@ -42,6 +42,7 @@ configMapGenerator:
     files:
       - allowed-issuers.yml
   - name: common-application-configmap
+    behavior: merge
     files:
       - application.yml=common-application.yml
 
