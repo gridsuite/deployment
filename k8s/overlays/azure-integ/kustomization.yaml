@@ -21,6 +21,7 @@ configMapGenerator:
     files:
       - idpSettings.json=griddyna-app-idpSettings.json
   - name: common-application-configmap
+    behavior: merge
     files:
       - application.yml=common-application.yml
 
