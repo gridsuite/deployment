@@ -3,12 +3,8 @@ kind: Service
 metadata:
   labels:
     name: gridexplore-app
+    app.kubernetes.io/component: gridsuite-apache
   name: gridexplore-app
 spec:
-  type: ClusterIP
-  ports:
-  - name: http
-    port: 80
-    targetPort: 8080
   selector:
     name: gridexplore-app

@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: not-important
+spec:
+  jobTemplate:
+    spec:
+      backoffLimit: 6
+      template:
+        spec:
+          containers:
+            - name: main
+              resources:
+                requests:
+                  memory: "384Mi"
+                limits:
+                  memory: "384Mi"
+              volumeMounts:
+                - mountPath: /tmp
+                  name: tmp-emptydir
+                - mountPath: /config/common
+                  name: common-application-configmap-volume
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                readOnlyRootFilesystem: true
+              imagePullPolicy: IfNotPresent
+          volumes:
+            - name: tmp-emptydir
+              emptyDir: {}
+            - name: common-application-configmap-volume
+              configMap:
+                name: common-application-configmap
+          restartPolicy: OnFailure

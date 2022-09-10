@@ -5,6 +5,9 @@ metadata:
   labels:
     name: network-map-server
     version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-l
 spec:
   selector:
     matchLabels:
@@ -15,57 +18,12 @@ spec:
         name: network-map-server
     spec:
       containers:
-      - name: network-map
+      - name: main
         image: docker.io/gridsuite/network-map-server:latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: JAVA_TOOL_OPTIONS
-          value: "-XX:MaxRAMPercentage=75"
-        ports:
-        - containerPort: 8080
         volumeMounts:
-        - mountPath: /config/common
-          name: common-application-configmap-volume
         - mountPath: /config/specific
           name: network-map-server-configmap-specific-volume
-        - mountPath: /tmp
-          name: tmp-emptydir
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 1000
-          readOnlyRootFilesystem: true
-        resources:
-          requests:
-            memory: "1Gi"
-          limits:
-            memory: "1Gi"
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8080
-          initialDelaySeconds: 120
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
-        args: ["--spring.config.additional-location=/config/"]
-      restartPolicy: Always
       volumes:
-        - name: common-application-configmap-volume
-          configMap:
-            name: common-application-configmap
         - name: network-map-server-configmap-specific-volume
           configMap:
             name: network-map-server-configmap-specific
-        - name: tmp-emptydir
-          emptyDir: {}

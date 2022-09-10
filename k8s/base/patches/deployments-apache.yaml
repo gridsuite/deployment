@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+spec:
+  template:
+    spec:
+      containers:
+      - name: main
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /opt/bitnami/apache/var/run/
+          name: run-emptydir
+        securityContext:
+          runAsUser: 1001
+        resources:
+          requests:
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
+        #TODO use /
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+      volumes:
+        - name: run-emptydir
+          emptyDir: {}

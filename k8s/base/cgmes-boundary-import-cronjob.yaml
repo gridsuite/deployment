@@ -2,32 +2,20 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: cgmes-boundary-import-cronjob
+  labels:
+    app.kubernetes.io/component: gridsuite-cronjob
 spec:
   schedule: "*/30 * * * *"
   jobTemplate:
     spec:
-      backoffLimit: 6
       template:
         spec:
           containers:
-            - name: cgmes-boundary-import-job
-              resources:
-                requests:
-                  memory: "384Mi"
-                limits:
-                  memory: "384Mi"
+            - name: main
               image: docker.io/gridsuite/cgmes-boundary-import-job:latest
               volumeMounts:
                 - name: config-cgmes-boundary-import-job-volume
                   mountPath: /home/powsybl/.itools
-                - mountPath: /tmp
-                  name: tmp-emptydir
-              securityContext:
-                allowPrivilegeEscalation: false
-                runAsNonRoot: true
-                runAsUser: 1000
-                readOnlyRootFilesystem: true
-              imagePullPolicy: IfNotPresent
               env:
                 - name: ACQUISITION_SERVER__USERNAME
                   valueFrom:
@@ -45,7 +33,4 @@ spec:
             - name: config-cgmes-boundary-import-job-volume
               configMap:
                 name: cgmes-boundary-import-job-configmap
-            - name: tmp-emptydir
-              emptyDir: {}
-          restartPolicy: OnFailure
 
