@@ -3,12 +3,8 @@ kind: Service
 metadata:
   labels:
     name: balances-adjustment-server
+    app.kubernetes.io/component: gridsuite-springboot
   name: balances-adjustment-server
 spec:
-  type: ClusterIP
-  ports:
-    - name: http
-      port: 80
-      targetPort: 8080
   selector:
     name: balances-adjustment-server
