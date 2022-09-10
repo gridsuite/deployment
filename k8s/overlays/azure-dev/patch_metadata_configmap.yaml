@@ -1,5 +1,5 @@
 - op: add
-  path: /spec/template/spec/volumes/0/configMap/items
+  path: /spec/template/spec/volumes/1/configMap/items
   value:
 #TODO can we avoid repeating all keys here just to put openid-configuration in the .well-known folder??
     - key: apps-metadata.json
