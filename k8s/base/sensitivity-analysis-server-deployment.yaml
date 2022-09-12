@@ -5,6 +5,10 @@ metadata:
   labels:
     name: sensitivity-analysis-server
     version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l-forking
 spec:
   selector:
     matchLabels:
@@ -15,67 +19,17 @@ spec:
         name: sensitivity-analysis-server
     spec:
       containers:
-        - name: sensitivity-analysis-server
+        - name: main
           image: docker.io/gridsuite/sensitivity-analysis-server:latest
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: JAVA_TOOL_OPTIONS
-            value: "-XX:MaxRAMPercentage=50"
-          ports:
-            - containerPort: 8080
           volumeMounts:
-            - mountPath: /config
-              name: database-properties-configmap-volume
-            - mountPath: /config/common
-              name: common-application-configmap-volume
             - mountPath: /config/specific
               name: sensitivity-analysis-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: sensitivity-analysis-server-itools-configmap-volume
-            - mountPath: /tmp
-              name: tmp-emptydir
-          securityContext:
-            allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            runAsUser: 1000
-            readOnlyRootFilesystem: true
-          resources:
-            requests:
-              memory: "1.5Gi"
-            limits:
-              memory: "1.5Gi"
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 8080
-            initialDelaySeconds: 120
-            periodSeconds: 20
-            timeoutSeconds: 2
-            failureThreshold: 1
-            successThreshold: 1
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 20
-            periodSeconds: 20
-            timeoutSeconds: 2
-            failureThreshold: 1
-            successThreshold: 1
-          args: ["--spring.config.additional-location=/config/"]
-      restartPolicy: Always
       volumes:
-        - name: database-properties-configmap-volume
-          configMap:
-            name: database-properties-configmap
-        - name: common-application-configmap-volume
-          configMap:
-            name: common-application-configmap
         - name: sensitivity-analysis-server-configmap-specific-volume
           configMap:
             name: sensitivity-analysis-server-configmap-specific
         - name: sensitivity-analysis-server-itools-configmap-volume
           configMap:
             name: sensitivity-analysis-server-itools-configmap
-        - name: tmp-emptydir
-          emptyDir: {}

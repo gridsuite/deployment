@@ -6,5 +6,5 @@ spec:
   template:
     spec:
       containers:
-      - name: case-server
+      - name: main
         args: ["--spring.config.additional-location=/config/", "--max-public-cases=10000"]

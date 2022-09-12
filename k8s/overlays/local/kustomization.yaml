@@ -43,6 +43,10 @@ resources:
   - sensitivity-analysis-server-ingress.yaml
 
 configMapGenerator:
+  - name: gridapps-env-configmap
+    files:
+      - env.json
+
   - name: database-properties-configmap
     files:
       - database.properties
@@ -55,21 +59,9 @@ configMapGenerator:
     files:
       - idpSettings.json=gridexplore-app-idpSettings.json
 
-  - name: gridstudy-app-env-configmap
-    files:
-      - env.json=env.json
-
-  - name: gridexplore-app-env-configmap
-    files:
-      - env.json=env.json
-
   - name: gridmerge-app-configmap
     files:
       - idpSettings.json=gridmerge-app-idpSettings.json
-
-  - name: gridmerge-app-env-configmap
-    files:
-      - env.json=env.json
 
   - name: gateway-configmap
     files:
@@ -91,9 +83,6 @@ configMapGenerator:
     files:
       - idpSettings.json=griddyna-app-idpSettings.json
 
-  - name: griddyna-app-env-configmap
-    files:
-      - env.json=env.json
   - name: common-application-configmap
     behavior: merge
     files:

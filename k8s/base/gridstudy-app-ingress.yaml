@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: gridstudy-app-ingress
   annotations:
-    nginx.ingress.kubernetes.io/service-upstream: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     # springfox swagger-ui uses X-Forwarded-Prefix to find the
     # base url when behind a reverse proxy.
     # nginx-ingress-controller V0.24 has a simple alternative

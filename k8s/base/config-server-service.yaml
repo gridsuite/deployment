@@ -3,12 +3,8 @@ kind: Service
 metadata:
   labels:
     name: config-server
+    app.kubernetes.io/component: gridsuite-springboot
   name: config-server
 spec:
-  type: ClusterIP
-  ports:
-  - name: http
-    port: 80
-    targetPort: 8080
   selector:
     name: config-server

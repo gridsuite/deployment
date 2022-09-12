@@ -211,3 +211,73 @@ configMapGenerator:
   - name: sensitivity-analysis-server-itools-configmap
     files:
       - config.yml=config/sensitivity-analysis-server-config.yml
+
+patches:
+- path: patches/deployments.yaml
+  target:
+    kind: Deployment
+- path: patches/deployments-springboot.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+- path: patches/deployments-springboot-dbconfig.yaml
+  target:
+    kind: Deployment
+    labelSelector: "gridsuite.org/springboot-with-database=true"
+- path: patches/deployments-apache.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-apache"
+- path: patches/deployments-apache-gridapp.yaml
+  target:
+    kind: Deployment
+    labelSelector: "gridsuite.org/apache-gridapp=true"
+- path: patches/services-springboot.yaml
+  target:
+    kind: Service
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+- path: patches/services-apache.yaml
+  target:
+    kind: Service
+    labelSelector: "app.kubernetes.io/component=gridsuite-apache"
+- path: patches/cronjobs.yaml
+  target:
+    kind: CronJob
+- path: patches/ingresses.yaml
+  target:
+    kind: Ingress
+- path: patches/cronjobs-dbconfig.yaml
+  target:
+    kind: CronJob
+    labelSelector: "gridsuite.org/cronjob-with-database=true"
+- path: patches/deployments-springboot-size-xs.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xs"
+- path: patches/deployments-springboot-size-s.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-s"
+- path: patches/deployments-springboot-size-m.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-m"
+- path: patches/deployments-springboot-size-l.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-l"
+- path: patches/deployments-springboot-size-l-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-l-forking"
+- path: patches/deployments-springboot-size-xl.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xl"
+>>>>>>> origin/main
