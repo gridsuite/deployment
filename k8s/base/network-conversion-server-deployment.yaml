@@ -22,15 +22,23 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:MaxRAMPercentage=75"
         - name: ELASTICSEARCH_USER
-          value: elastic
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-secrets
+              key: ELASTICSEARCH_USER
+              optional: true
         - name: ELASTICSEARCH_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: elasticsearch
+              name: elasticsearch-secrets
               key: ELASTICSEARCH_PASSWORD
               optional: true
         - name: RABBITMQ_USER
-          value: gridsuite
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_USER
+              optional: true
         - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
