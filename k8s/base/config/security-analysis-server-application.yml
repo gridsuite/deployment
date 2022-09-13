@@ -1,3 +1,8 @@
 # default values for loadflow providers "Hades2" or "OpenSecurityAnalysis"
 loadflow:
   default-provider: OpenSecurityAnalysis
+
+spring:
+  rabbitmq:
+    username: ${RABBITMQ_USER:#{null}}
+    password: ${RABBITMQ_PASSWORD:#{null}}

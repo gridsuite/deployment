@@ -2,5 +2,5 @@ spring:
   data:
     elasticsearch:
       enabled : true
-      username: ${ELASTICSEARCH_USER}
-      password: ${ELASTICSEARCH_PASSWORD}
+      username: ${ELASTICSEARCH_USER:#{null}}
+      password: ${ELASTICSEARCH_PASSWORD:#{null}}

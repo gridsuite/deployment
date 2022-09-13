@@ -27,7 +27,15 @@ spec:
           valueFrom:
             secretKeyRef:
               name: elasticsearch
-              key: ELASTIC_PASSWORD
+              key: ELASTICSEARCH_PASSWORD
+              optional: true
+        - name: RABBITMQ_USER
+          value: gridsuite
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_PASSWORD
               optional: true
         ports:
         - containerPort: 8080

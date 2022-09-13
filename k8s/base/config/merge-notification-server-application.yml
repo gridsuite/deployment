@@ -1,3 +1,8 @@
 logging:
   level:
     org.gridsuite.merge.notification.server.MergeNotificationWebSocketHandler: DEBUG
+
+spring:
+  rabbitmq:
+    username: ${RABBITMQ_USER:#{null}}
+    password: ${RABBITMQ_PASSWORD:#{null}}

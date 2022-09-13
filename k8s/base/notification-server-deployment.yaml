@@ -18,6 +18,15 @@ spec:
       - name: notification-server
         image: docker.io/gridsuite/notification-server:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: RABBITMQ_USER
+          value: gridsuite
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_PASSWORD
+              optional: true
         ports:
         - containerPort: 8080
         volumeMounts:

@@ -1,0 +1,4 @@
+spring:
+  rabbitmq:
+    username: ${RABBITMQ_USER:#{null}}
+    password: ${RABBITMQ_PASSWORD:#{null}}
