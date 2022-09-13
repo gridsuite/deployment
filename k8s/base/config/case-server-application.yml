@@ -2,4 +2,6 @@ spring:
   data:
     elasticsearch:
       enabled : true
+      username: ${ELASTICSEARCH_USER}
+      password: ${ELASTICSEARCH_PASSWORD}
 case-store-directory: /cases

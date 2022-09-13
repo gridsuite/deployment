@@ -23,6 +23,14 @@ spec:
         env:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:MaxRAMPercentage=75"
+        - name: ELASTICSEARCH_USER
+          value: elastic
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch
+              key: ELASTIC_PASSWORD
+              optional: true
         ports:
         - containerPort: 8080
         volumeMounts:
