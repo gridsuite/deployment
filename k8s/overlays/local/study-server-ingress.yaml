@@ -3,23 +3,32 @@ kind: Ingress
 metadata:
   name: study-server-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    # To be able to import big networks
-    nginx.ingress.kubernetes.io/proxy-body-size: 100m
-    # springfox swagger-ui uses X-Forwarded-Prefix to find the
-    # base url when behind a reverse proxy.
-    # nginx-ingress-controller V0.24 has a simple alternative
-    # but latest minikube 1.1.0 uses V0.23 (untested):
-    # nginx.ingress.kubernetes.io/x-forwarded-prefix: "/study-server"
     nginx.ingress.kubernetes.io/configuration-snippet: |
+      # our containers host at '/' so can't possibly make a difference between
+      # '/XXX/' and '/XXX' (trailing slash) (which would respectively become
+      # '/' and '' inside the container but an empty path doesn't exist in http)
+      # so always redirect '/XXX' to '/XXX/' in the client outside the container
+      rewrite ^/study-server$ /study-server/ permanent;
+
+      # springfox swagger-ui uses X-Forwarded-Prefix to find the
+      # base url when behind a reverse proxy.
+      # nginx-ingress-controller has an annotation to do the same thing
+      # (nginx.ingress.kubernetes.io/x-forwarded-prefix)
+      # but it only works when using rewrite-target, which we can't use because
+      # we have properly encoded slashs in urls
       proxy_set_header X-Forwarded-Prefix         /study-server/;
+
+      # using this instead of standard rewrite as a workaround to avoid decoding slashes in urls
+      # we sometimes have ids in the urls that contain properly encoded slashes
+      if ($request_uri ~ "^/study-server(/.*)") {
+        proxy_pass http://upstream_balancer$1;
+        break;
+      }
 spec:
   rules:
   - http:
       paths:
-      - path: /study-server(/|$)(.*)
+      - path: /study-server(/|$)
         pathType: Prefix
         backend:
           service:

@@ -86,3 +86,8 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
+
+patches:
+- path: patches/ingresses.yaml
+  target:
+    kind: Ingress

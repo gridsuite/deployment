@@ -6,6 +6,8 @@ commonLabels:
 
 resources:
   - root-ingress.yaml
+  - default-backend-deployment.yaml
+  - default-backend-service.yaml
   - case-server-claim.yaml
   - case-server-deployment.yaml
   - case-server-service.yaml
@@ -85,6 +87,13 @@ resources:
   - dynamic-mapping-server-service.yaml
 
 configMapGenerator:
+  - name: default-backend-htdocs-configmap
+    files:
+      - 404.html=config/default-backend/404.html
+      - favicon.ico=config/default-backend/favicon.ico
+  - name: default-backend-conf-configmap
+    files:
+      - bitnami.conf=config/default-backend/httpd.conf
   - name: common-application-configmap
     files:
       - application.yml=config/common-application.yml
