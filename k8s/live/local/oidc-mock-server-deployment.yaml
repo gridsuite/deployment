@@ -15,9 +15,8 @@ spec:
         name: oidc-mock-server
     spec:
       containers:
-      - name: oidc-mock-server
+      - name: main
         image: docker.io/gridsuite/oidc-mock-server:latest
-        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         env:
@@ -69,4 +68,3 @@ spec:
           value: "<INGRESS_HOST>"
         - name: ISSUER_PREFIX
           value: "/oidc-mock-server"
-      restartPolicy: Always
