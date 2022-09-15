@@ -7,8 +7,8 @@ services:
     ports:
       - 5020:80
     volumes:
-      - $PWD/../../k8s/base/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -25,8 +25,8 @@ services:
     ports:
       - 5002:80
     volumes:
-      - $PWD/../../k8s/base/config/merge-notification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -40,9 +40,9 @@ services:
     ports:
       - 5010:80
     volumes:
-      - $PWD/../../k8s/base/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../../k8s/base/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
@@ -56,8 +56,8 @@ services:
     ports:
       - 5011:80
     volumes:
-      - $PWD/../../k8s/base/config/case-validation-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/case-validation-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -71,8 +71,8 @@ services:
     ports:
       - 5021:80
     volumes:
-      - $PWD/../../k8s/base/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -93,9 +93,9 @@ services:
         - no_proxy=${no_proxy-}
     volumes:
       - $PWD/../merging/case-import-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../../k8s/base/config/case-import-job-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/case-import-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     depends_on:
       - logspout
@@ -111,9 +111,9 @@ services:
         - no_proxy=${no_proxy-}
     volumes:
       - $PWD/../merging/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../../k8s/base/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     depends_on:
       - logspout
