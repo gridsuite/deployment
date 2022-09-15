@@ -7,8 +7,8 @@ services:
     ports:
       - 5000:80
     volumes:
-      - $PWD/../../k8s/base/config/case-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       - logspout
@@ -23,8 +23,8 @@ services:
     ports:
       - 5022:80
     volumes:
-      - $PWD/../../k8s/base/config/actions-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -41,8 +41,8 @@ services:
     ports:
       - 5027:80
     volumes:
-      - $PWD/../../k8s/base/config/filter-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -57,8 +57,8 @@ services:
     ports:
       - 5028:80
     volumes:
-      - $PWD/../../k8s/base/config/report-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -75,8 +75,8 @@ services:
     ports:
       - 8080:80
     volumes:
-      - $PWD/../../k8s/base/config/network-store-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -93,8 +93,8 @@ services:
     ports:
       - 5003:80
     volumes:
-      - $PWD/../../k8s/base/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart:
       unless-stopped
     depends_on:
@@ -110,9 +110,9 @@ services:
     ports:
       - 5008:80
     volumes:
-      - $PWD/../../k8s/base/config/loadflow-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../../k8s/base/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../../k8s/resources/common/config/loadflow-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
@@ -126,8 +126,8 @@ services:
     ports:
       - 5025:80
     volumes:
-      - $PWD/../../k8s/base/config/config-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
@@ -142,8 +142,8 @@ services:
     ports:
       - 5024:80
     volumes:
-      - $PWD/../../k8s/base/config/config-notification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -155,8 +155,8 @@ services:
     ports:
       - 9000:80
     volumes:
-      - $PWD/../../k8s/base/config/gateway-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/base/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
     depends_on:
       - logspout
