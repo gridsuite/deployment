@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: default-backend
+  labels:
+    name: default-backend
+    app.kubernetes.io/component: gridsuite-apache
+spec:
+  selector:
+    matchLabels:
+      name: default-backend
+  template:
+    metadata:
+      labels:
+        name: default-backend
+    spec:
+      containers:
+        - name: main
+          image: docker.io/bitnami/apache:2.4
+          volumeMounts:
+            - mountPath: /opt/bitnami/apache/htdocs/
+              name: default-backend-htdocs-configmap-volume
+            - mountPath: /opt/bitnami/apache/conf/bitnami/bitnami.conf
+              subPath: bitnami.conf
+              name: default-backend-conf-configmap-volume
+      volumes:
+        - name: default-backend-htdocs-configmap-volume
+          configMap:
+            name: default-backend-htdocs-configmap
+        - name: default-backend-conf-configmap-volume
+          configMap:
+            name: default-backend-conf-configmap

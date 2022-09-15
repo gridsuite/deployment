@@ -7,5 +7,8 @@ metadata:
     # avoids duplicating the location in the generated conf for '/xxx' and '/xxx/'
     # we are using this mode anyway because we do path prefix stripping
     nginx.ingress.kubernetes.io/use-regex: "true"
+    # for dev, allow big networks and long timeouts
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
 spec:
   ingressClassName: nginx
