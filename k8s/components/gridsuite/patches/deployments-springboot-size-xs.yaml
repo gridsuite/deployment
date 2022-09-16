@@ -7,6 +7,7 @@ spec:
     spec:
       containers:
         - name: main
+          env:
           - name: JAVA_TOOL_OPTIONS
             value: "-Xmx128m"
           resources:
