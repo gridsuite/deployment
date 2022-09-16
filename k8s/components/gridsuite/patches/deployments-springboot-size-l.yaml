@@ -9,7 +9,7 @@ spec:
         - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-XX:MaxRAMPercentage=75"
+            value: "-Xmx768m"
           resources:
             requests:
               memory: "1Gi"
