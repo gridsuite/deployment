@@ -51,6 +51,8 @@ services:
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   report-server:
     image: gridsuite/report-server:latest
@@ -68,7 +70,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   network-store-server:
     image: powsybl/network-store-server:latest
