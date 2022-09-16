@@ -2,7 +2,3 @@ logging:
   level:
     org.gridsuite.directory.notification.server.DirectoryNotificationWebSocketHandler: DEBUG
 
-spring:
-  rabbitmq:
-    username: ${RABBITMQ_USER:#{null}}
-    password: ${RABBITMQ_PASSWORD:#{null}}

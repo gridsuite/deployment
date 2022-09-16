@@ -4,5 +4,5 @@ loadflow:
 
 spring:
   rabbitmq:
-    username: ${RABBITMQ_USER:#{null}}
-    password: ${RABBITMQ_PASSWORD:#{null}}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
