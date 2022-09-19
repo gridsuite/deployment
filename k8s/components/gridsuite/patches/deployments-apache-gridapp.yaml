@@ -5,26 +5,6 @@ metadata:
 spec:
   template:
     spec:
-      containers:
-      - name: main
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8080
-          initialDelaySeconds: 120
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
       volumes:
         - name: gridapps-env-configmap-volume
           configMap:

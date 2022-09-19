@@ -20,24 +20,19 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
             readOnlyRootFilesystem: true
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 100
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 120
-            periodSeconds: 20
-            timeoutSeconds: 2
-            failureThreshold: 1
-            successThreshold: 1
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 20
-            periodSeconds: 20
-            timeoutSeconds: 2
-            failureThreshold: 1
-            successThreshold: 1
           args: ["--spring.config.additional-location=/config/"]
       restartPolicy: Always
       volumes:
