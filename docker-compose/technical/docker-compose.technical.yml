@@ -96,9 +96,11 @@ services:
       - socat
 
   pgadmin:
-    image: dpage/pgadmin4:4.8
+    image: dpage/pgadmin4:latest
     ports:
      - "12080:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.rte
       - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
