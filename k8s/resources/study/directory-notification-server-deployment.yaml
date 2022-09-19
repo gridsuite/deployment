@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory-notification-server
+  labels:
+    name: directory-notification-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: directory-notification-server
+  template:
+    metadata:
+      labels:
+        name: directory-notification-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/directory-notification-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: directory-notification-server-configmap-specific-volume
+      volumes:
+        - name: directory-notification-server-configmap-specific-volume
+          configMap:
+            name: directory-notification-server-configmap-specific

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odre-server
+  labels:
+    name: odre-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: odre-server
+  template:
+    metadata:
+      labels:
+        name: odre-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/odre-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: odre-server-configmap-specific-volume
+      volumes:
+        - name: odre-server-configmap-specific-volume
+          configMap:
+            name: odre-server-configmap-specific

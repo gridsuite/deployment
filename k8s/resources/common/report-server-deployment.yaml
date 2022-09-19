@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: report-server
+  labels:
+    name: report-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: report-server
+  template:
+    metadata:
+      labels:
+        name: report-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/report-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: report-server-configmap-specific-volume
+      volumes:
+        - name: report-server-configmap-specific-volume
+          configMap:
+            name: report-server-configmap-specific

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-map-server
+  labels:
+    name: network-map-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: network-map-server
+  template:
+    metadata:
+      labels:
+        name: network-map-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/network-map-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: network-map-server-configmap-specific-volume
+      volumes:
+        - name: network-map-server-configmap-specific-volume
+          configMap:
+            name: network-map-server-configmap-specific

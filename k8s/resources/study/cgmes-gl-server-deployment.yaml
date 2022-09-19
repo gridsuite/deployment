@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cgmes-gl-server
+  labels:
+    name: cgmes-gl-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: cgmes-gl-server
+  template:
+    metadata:
+      labels:
+        name: cgmes-gl-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/cgmes-gl-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: cgmes-gl-server-configmap-specific-volume
+      volumes:
+        - name: cgmes-gl-server-configmap-specific-volume
+          configMap:
+            name: cgmes-gl-server-configmap-specific

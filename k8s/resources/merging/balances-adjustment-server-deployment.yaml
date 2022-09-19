@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: balances-adjustment-server
+  labels:
+    name: balances-adjustment-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: balances-adjustment-server
+  template:
+    metadata:
+      labels:
+        name: balances-adjustment-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/balances-adjustment-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: balances-adjustment-server-configmap-specific-volume
+      volumes:
+        - name: balances-adjustment-server-configmap-specific-volume
+          configMap:
+            name: balances-adjustment-server-configmap-specific

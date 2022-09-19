@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gridmerge-app
+  labels:
+    name: gridmerge-app
+    version: "1"
+    app.kubernetes.io/component: gridsuite-apache
+    gridsuite.org/apache-gridapp: "true"
+spec:
+  selector:
+    matchLabels:
+      name: gridmerge-app
+  template:
+    metadata:
+      labels:
+        name: gridmerge-app
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/gridmerge-app:latest
+        volumeMounts:
+        - mountPath: /opt/bitnami/apache/htdocs/gridmerge/env.json
+          subPath: env.json
+          name: gridapps-env-configmap-volume
+        - mountPath: /opt/bitnami/apache/htdocs/gridmerge/idpSettings.json
+          subPath: idpSettings.json
+          name: gridmerge-app-configmap-volume
+      volumes:
+        - name: gridmerge-app-configmap-volume
+          configMap:
+            name: gridmerge-app-configmap

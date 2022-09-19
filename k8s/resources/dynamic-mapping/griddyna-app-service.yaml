@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: griddyna-app
+    app.kubernetes.io/component: gridsuite-apache
+  name: griddyna-app
+spec:
+  selector:
+    name: griddyna-app

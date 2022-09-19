@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # our containers host at '/' so can't possibly make a difference between
+      # '/XXX/' and '/XXX' (trailing slash) (which would respectively become
+      # '/' and '' inside the container but an empty path doesn't exist in http)
+      # so always redirect '/XXX' to '/XXX/' in the client outside the container
+      rewrite ^/gateway$ /gateway/ permanent;
+
+      # springfox swagger-ui uses X-Forwarded-Prefix to find the
+      # base url when behind a reverse proxy.
+      # nginx-ingress-controller has an annotation to do the same thing
+      # (nginx.ingress.kubernetes.io/x-forwarded-prefix)
+      # but it only works when using rewrite-target, which we can't use because
+      # we have properly encoded slashs in urls
+      proxy_set_header X-Forwarded-Prefix         /gateway/;
+
+      # using this instead of standard rewrite as a workaround to avoid decoding slashes in urls
+      # we sometimes have ids in the urls that contain properly encoded slashes
+      if ($request_uri ~ "^/gateway(/.*)") {
+        proxy_pass http://upstream_balancer$1;
+        break;
+      }
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /gateway(/|$)
+        pathType: Prefix
+        backend:
+          service:
+            name: gateway
+            port:
+              number: 80

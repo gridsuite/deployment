@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: merge-notification-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: merge-notification-server
+spec:
+  selector:
+    name: merge-notification-server

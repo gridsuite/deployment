@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case-server
+  labels:
+    name: case-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: case-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: case-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/powsybl/case-server:latest
+        env:
+        - name: ELASTICSEARCH_USER
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-secrets
+              key: ELASTICSEARCH_USER
+              optional: true
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-secrets
+              key: ELASTICSEARCH_PASSWORD
+              optional: true
+        - name: RABBITMQ_USER
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_USER
+              optional: true
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_PASSWORD
+              optional: true
+        volumeMounts:
+        - mountPath: /config/specific
+          name: case-server-configmap-specific-volume
+        - mountPath: /cases
+          name: case-server-storage
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: case-server-configmap-specific-volume
+          configMap:
+            name: case-server-configmap-specific
+        - name: case-server-storage
+          persistentVolumeClaim:
+            claimName: case-server-claim

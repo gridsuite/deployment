@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actions-server
+  labels:
+    name: actions-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: actions-server
+  template:
+    metadata:
+      labels:
+        name: actions-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/actions-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: actions-server-configmap-specific-volume
+      volumes:
+        - name: actions-server-configmap-specific-volume
+          configMap:
+            name: actions-server-configmap-specific

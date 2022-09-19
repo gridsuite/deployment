@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: gateway
+    app.kubernetes.io/component: gridsuite-springboot
+  name: gateway
+spec:
+  selector:
+    name: gateway

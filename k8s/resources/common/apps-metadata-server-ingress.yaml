@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apps-metadata-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # our containers host at '/' so can't possibly make a difference between
+      # '/XXX/' and '/XXX' (trailing slash) (which would respectively become
+      # '/' and '' inside the container but an empty path doesn't exist in http)
+      # so always redirect '/XXX' to '/XXX/' in the client outside the container
+      rewrite ^/apps-metadata$ /apps-metadata/ permanent;
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /apps-metadata(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: apps-metadata-server
+            port:
+              number: 80

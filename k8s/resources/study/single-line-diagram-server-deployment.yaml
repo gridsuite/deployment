@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: single-line-diagram-server
+  labels:
+    name: single-line-diagram-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: single-line-diagram-server
+  template:
+    metadata:
+      labels:
+        name: single-line-diagram-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/powsybl/single-line-diagram-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: single-line-diagram-server-configmap-specific-volume
+      volumes:
+        - name: single-line-diagram-server-configmap-specific-volume
+          configMap:
+            name: single-line-diagram-server-configmap-specific

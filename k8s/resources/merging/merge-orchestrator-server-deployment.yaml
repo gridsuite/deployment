@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merge-orchestrator-server
+  labels:
+    name: merge-orchestrator-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: merge-orchestrator-server
+  template:
+    metadata:
+      labels:
+        name: merge-orchestrator-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/merge-orchestrator-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: merge-orchestrator-server-configmap-specific-volume
+      volumes:
+        - name: merge-orchestrator-server-configmap-specific-volume
+          configMap:
+            name: merge-orchestrator-server-configmap-specific

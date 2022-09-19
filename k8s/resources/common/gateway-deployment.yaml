@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    name: gateway
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: gateway
+  template:
+    metadata:
+      labels:
+        name: gateway
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/gateway:latest
+        volumeMounts:
+        - mountPath: /config
+          name: gateway-configmap-volume
+        - mountPath: /config/specific
+          name: gateway-configmap-specific-volume
+      volumes:
+        - name: gateway-configmap-volume
+          configMap:
+            name: gateway-configmap
+        - name: gateway-configmap-specific-volume
+          configMap:
+            name: gateway-configmap-specific

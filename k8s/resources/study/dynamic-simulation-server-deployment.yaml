@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamic-simulation-server
+  labels:
+    name: dynamic-simulation-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: dynamic-simulation-server
+  template:
+    metadata:
+      labels:
+        name: dynamic-simulation-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/dynamic-simulation-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: dynamic-simulation-server-configmap-specific-volume
+            - mountPath: /dynawo-config
+              name: dynawo-config-configmap-volume
+            - mountPath: /home/powsybl/.itools
+              name: dynawo-itools-configmap-volume
+      volumes:
+        - name: dynamic-simulation-server-configmap-specific-volume
+          configMap:
+            name: dynamic-simulation-server-configmap-specific
+        - name: dynawo-config-configmap-volume
+          configMap:
+            name: dynawo-config-configmap
+        - name: dynawo-itools-configmap-volume
+          configMap:
+            name: dynawo-itools-configmap

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cgmes-boundary-server
+  labels:
+    name: cgmes-boundary-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: cgmes-boundary-server
+  template:
+    metadata:
+      labels:
+        name: cgmes-boundary-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/cgmes-boundary-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: cgmes-boundary-server-configmap-specific-volume
+      volumes:
+        - name: cgmes-boundary-server-configmap-specific-volume
+          configMap:
+            name: cgmes-boundary-server-configmap-specific

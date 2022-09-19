@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: griddyna-app
+  labels:
+    name: griddyna-app
+    version: "1"
+    app.kubernetes.io/component: gridsuite-apache
+    gridsuite.org/apache-gridapp: "true"
+spec:
+  selector:
+    matchLabels:
+      name: griddyna-app
+  template:
+    metadata:
+      labels:
+        name: griddyna-app
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/griddyna-app:latest
+        volumeMounts:
+        - mountPath: /opt/bitnami/apache/htdocs/griddyna/env.json
+          subPath: env.json
+          name: gridapps-env-configmap-volume
+        - mountPath: /opt/bitnami/apache/htdocs/griddyna/idpSettings.json
+          subPath: idpSettings.json
+          name: griddyna-app-configmap-volume
+      volumes:
+        - name: griddyna-app-configmap-volume
+          configMap:
+            name: griddyna-app-configmap

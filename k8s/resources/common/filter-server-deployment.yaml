@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filter-server
+  labels:
+    name: filter-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: filter-server
+  template:
+    metadata:
+      labels:
+        name: filter-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/filter-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: filter-server-configmap-specific-volume
+      volumes:
+        - name: filter-server-configmap-specific-volume
+          configMap:
+            name: filter-server-configmap-specific

@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: case-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # our containers host at '/' so can't possibly make a difference between
+      # '/XXX/' and '/XXX' (trailing slash) (which would respectively become
+      # '/' and '' inside the container but an empty path doesn't exist in http)
+      # so always redirect '/XXX' to '/XXX/' in the client outside the container
+      rewrite ^/case-server$ /case-server/ permanent;
+
+      # springfox swagger-ui uses X-Forwarded-Prefix to find the
+      # base url when behind a reverse proxy.
+      # nginx-ingress-controller has an annotation to do the same thing
+      # (nginx.ingress.kubernetes.io/x-forwarded-prefix)
+      # but it only works when using rewrite-target, which we can't use because
+      # we have properly encoded slashs in urls
+      proxy_set_header X-Forwarded-Prefix         /case-server/;
+
+      # using this instead of standard rewrite as a workaround to avoid decoding slashes in urls
+      # we sometimes have ids in the urls that contain properly encoded slashes
+      if ($request_uri ~ "^/case-server(/.*)") {
+        proxy_pass http://upstream_balancer$1;
+        break;
+      }
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /case-server(/|$)
+        pathType: Prefix
+        backend:
+          service:
+            name: case-server
+            port:
+              number: 80

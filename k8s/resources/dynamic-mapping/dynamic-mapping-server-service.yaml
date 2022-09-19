@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: dynamic-mapping-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: dynamic-mapping-server
+spec:
+  selector:
+    name: dynamic-mapping-server

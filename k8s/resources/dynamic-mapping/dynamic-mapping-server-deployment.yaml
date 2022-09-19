@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamic-mapping-server
+  labels:
+    name: dynamic-mapping-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: dynamic-mapping-server
+  template:
+    metadata:
+      labels:
+        name: dynamic-mapping-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/dynamic-mapping-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: dynamic-mapping-server-configmap-specific-volume
+      volumes:
+        - name: dynamic-mapping-server-configmap-specific-volume
+          configMap:
+            name: dynamic-mapping-server-configmap-specific

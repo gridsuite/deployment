@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: filter-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: filter-server
+spec:
+  selector:
+    name: filter-server

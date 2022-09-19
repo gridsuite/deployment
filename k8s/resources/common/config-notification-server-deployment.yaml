@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-notification-server
+  labels:
+    name: config-notification-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: config-notification-server
+  template:
+    metadata:
+      labels:
+        name: config-notification-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/config-notification-server:latest
+        env:
+        - name: RABBITMQ_USER
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_USER
+              optional: true
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_PASSWORD
+              optional: true
+        volumeMounts:
+        - mountPath: /config/specific
+          name: config-notification-server-configmap-specific-volume
+      volumes:
+        - name: config-notification-server-configmap-specific-volume
+          configMap:
+            name: config-notification-server-configmap-specific

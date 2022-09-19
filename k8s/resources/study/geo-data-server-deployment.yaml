@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geo-data-server
+  labels:
+    name: geo-data-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: geo-data-server
+  template:
+    metadata:
+      labels:
+        name: geo-data-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/geo-data-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: geo-data-server-configmap-specific-volume
+      volumes:
+        - name: geo-data-server-configmap-specific-volume
+          configMap:
+            name: geo-data-server-configmap-specific

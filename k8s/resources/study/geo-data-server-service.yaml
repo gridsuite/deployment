@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: geo-data-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: geo-data-server
+spec:
+  selector:
+    name: geo-data-server

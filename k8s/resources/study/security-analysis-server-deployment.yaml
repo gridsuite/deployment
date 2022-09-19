@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: security-analysis-server
+  labels:
+    name: security-analysis-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l-forking
+spec:
+  selector:
+    matchLabels:
+      name: security-analysis-server
+  template:
+    metadata:
+      labels:
+        name: security-analysis-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/security-analysis-server:latest
+          env:
+          - name: RABBITMQ_USER
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secrets
+                key: RABBITMQ_USER
+                optional: true
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secrets
+                key: RABBITMQ_PASSWORD
+                optional: true
+          volumeMounts:
+            - mountPath: /config/specific
+              name: security-analysis-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: security-analysis-server-itools-configmap-volume
+      volumes:
+        - name: security-analysis-server-configmap-specific-volume
+          configMap:
+            name: security-analysis-server-configmap-specific
+        - name: security-analysis-server-itools-configmap-volume
+          configMap:
+            name: security-analysis-server-itools-configmap

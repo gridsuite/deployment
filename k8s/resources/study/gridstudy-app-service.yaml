@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: gridstudy-app
+    app.kubernetes.io/component: gridsuite-apache
+  name: gridstudy-app
+spec:
+  selector:
+    name: gridstudy-app

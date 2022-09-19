@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gridexplore-app
+  labels:
+    name: gridexplore-app
+    version: "1"
+    app.kubernetes.io/component: gridsuite-apache
+    gridsuite.org/apache-gridapp: "true"
+spec:
+  selector:
+    matchLabels:
+      name: gridexplore-app
+  template:
+    metadata:
+      labels:
+        name: gridexplore-app
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/gridexplore-app:latest
+        volumeMounts:
+        - mountPath: /opt/bitnami/apache/htdocs/gridexplore/env.json
+          subPath: env.json
+          name: gridapps-env-configmap-volume
+        - mountPath: /opt/bitnami/apache/htdocs/gridexplore/idpSettings.json
+          subPath: idpSettings.json
+          name: gridexplore-app-configmap-volume
+      volumes:
+        - name: gridexplore-app-configmap-volume
+          configMap:
+            name: gridexplore-app-configmap

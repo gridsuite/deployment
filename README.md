@@ -250,16 +250,16 @@ $ INGRESS_HOST=`minikube ip`
 $ echo $INGRESS_HOST
 ```
 
-Fill config files with the INGRESS_HOST in k8s/overlays/local/ :
+Fill config files with the INGRESS_HOST in k8s/live/local/ :
 ```bash
-$ sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g" k8s/overlays/local/*
+$ find k8s/live/local/ -type f | xargs sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g"
 ```
 
 Optionally, give an ssh access to the case importing cronjobs by providing your username and your password (or create a dedicated user for this if you want):
 The import jobs connect through ssh to your machine and automatically import files from the $HOME/opde and $HOME/boundaries
 ```bash
-$ sed -i -e 's/<USERNAME>/YOURUSERNAME/g' k8s/overlays/local/*
-$ sed -i -e 's/<PASSWORD>/YOURPASSWORD/g' k8s/overlays/local/*
+$ find k8s/live/local/ -type f | xargs sed -i -e 's/<USERNAME>/YOURUSERNAME/g'
+$ find k8s/live/local/ -type f | xargs sed -i -e 's/<PASSWORD>/YOURPASSWORD/g'
 ```
 
 Start technical services with the docker-compose technical profile  :
@@ -270,7 +270,7 @@ $ docker-compose up -d
 
 Deploy k8s services:
 ```bash 
-$ kubectl apply -k k8s/overlays/local
+$ kubectl apply -k k8s/live/local
 ```
 
 Verify all services and pods have been correctly started:

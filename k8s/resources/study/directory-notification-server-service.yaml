@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: directory-notification-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: directory-notification-server
+spec:
+  selector:
+    name: directory-notification-server

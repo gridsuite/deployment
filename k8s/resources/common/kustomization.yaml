@@ -1,0 +1,82 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app: gridsuite
+
+resources:
+  - root-ingress.yaml
+  - default-backend-deployment.yaml
+  - default-backend-service.yaml
+  - case-server-claim.yaml
+  - case-server-deployment.yaml
+  - case-server-service.yaml
+  - network-conversion-server-deployment.yaml
+  - network-conversion-server-service.yaml
+  - network-store-server-deployment.yaml
+  - network-store-server-service.yaml
+  - gateway-deployment.yaml
+  - gateway-service.yaml
+  - loadflow-server-deployment.yaml
+  - loadflow-server-service.yaml
+  - actions-server-deployment.yaml
+  - actions-server-service.yaml
+  - filter-server-deployment.yaml
+  - filter-server-service.yaml
+  - report-server-deployment.yaml
+  - report-server-service.yaml
+  - apps-metadata-server-deployment.yaml
+  - apps-metadata-server-service.yaml
+  - apps-metadata-server-ingress.yaml
+  - config-server-deployment.yaml
+  - config-server-service.yaml
+  - config-notification-server-deployment.yaml
+  - config-notification-server-service.yaml
+
+configMapGenerator:
+  - name: default-backend-htdocs-configmap
+    files:
+      - 404.html=config/default-backend/404.html
+      - favicon.ico=config/default-backend/favicon.ico
+  - name: default-backend-conf-configmap
+    files:
+      - bitnami.conf=config/default-backend/httpd.conf
+  - name: common-application-configmap
+    files:
+      - application.yml=config/common-application.yml
+  - name: case-server-configmap-specific
+    files:
+      - application.yml=config/case-server-application.yml
+  - name: network-conversion-server-configmap-specific
+    files:
+      - application.yml=config/network-conversion-server-application.yml
+  - name: network-store-server-configmap-specific
+    files:
+      - application.yml=config/network-store-server-application.yml
+  - name: gateway-configmap-specific
+    files:
+      - application.yml=config/gateway-application.yml
+  - name: loadflow-server-configmap-specific
+    files:
+      - application.yml=config/loadflow-server-application.yml
+  - name: loadflow-server-itools-configmap
+    files:
+      - config.yml=config/loadflow-server-config.yml
+  - name: actions-server-configmap-specific
+    files:
+      - application.yml=config/actions-server-application.yml
+  - name: filter-server-configmap-specific
+    files:
+      - application.yml=config/filter-server-application.yml
+  - name: report-server-configmap-specific
+    files:
+      - application.yml=config/report-server-application.yml
+  - name: apps-metadata-server-configmap
+    files:
+      - config/apps-metadata.json
+  - name: config-server-configmap-specific
+    files:
+      - application.yml=config/config-server-application.yml
+  - name: config-notification-server-configmap-specific
+    files:
+      - application.yml=config/config-notification-server-application.yml
