@@ -94,3 +94,6 @@ patches:
 - path: patches/ingresses.yaml
   target:
     kind: Ingress
+- path: patches/deployments.yaml
+  target:
+    kind: Deployment

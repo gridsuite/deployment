@@ -19,25 +19,19 @@ spec:
             memory: "128Mi"
           limits:
             memory: "128Mi"
-        #TODO use /
+        startupProbe:
+          httpGet:
+            path: /
+            port: 8080
+            failureThreshold: 100
         livenessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 120
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
         readinessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 20
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
       volumes:
         - name: run-emptydir
           emptyDir: {}

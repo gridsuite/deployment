@@ -3,9 +3,10 @@ kind: CronJob
 metadata:
   name: not-important
 spec:
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
-      backoffLimit: 6
+      backoffLimit: 0
       template:
         spec:
           containers:
@@ -32,4 +33,4 @@ spec:
             - name: common-application-configmap-volume
               configMap:
                 name: common-application-configmap
-          restartPolicy: OnFailure
+          restartPolicy: Never
