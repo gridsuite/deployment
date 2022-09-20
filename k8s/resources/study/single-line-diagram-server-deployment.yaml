@@ -7,7 +7,7 @@ metadata:
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
   annotations:
-    gridsuite.org/size: springboot-l
+    gridsuite.org/size: springboot-xl
 spec:
   selector:
     matchLabels:
