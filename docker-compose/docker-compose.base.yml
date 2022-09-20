@@ -13,7 +13,7 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx512m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -70,7 +70,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx512m
 
   network-store-server:
     image: powsybl/network-store-server:latest
@@ -85,7 +85,7 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx1792m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -102,7 +102,7 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx1792m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
