@@ -2,3 +2,7 @@ spring:
   data:
     elasticsearch:
       enabled : true
+      
+backing-services:
+  single-line-diagram:
+    base-uri: http://172.17.0.1:5005/ 
