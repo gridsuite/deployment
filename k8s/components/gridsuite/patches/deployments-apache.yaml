@@ -23,7 +23,7 @@ spec:
           httpGet:
             path: /
             port: 8080
-            failureThreshold: 100
+          failureThreshold: 100
         livenessProbe:
           httpGet:
             path: /
