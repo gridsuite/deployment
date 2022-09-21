@@ -152,6 +152,7 @@ http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
 http://localhost:5026/swagger-ui.html  // directory-server
 http://localhost:5028/swagger-ui.html  // report-server
+http://localhost:5029/swagger-ui.html  // explore-server
 http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
 http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
 http://localhost:5027/swagger-ui.html  // filter-server
@@ -311,6 +312,26 @@ http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
 http://<INGRESS_HOST>/filter-server/swagger-ui.html 
 http://<INGRESS_HOST>/report-server/swagger-ui.html
+```
+
+## How to use a local docker image into Minikube?
+
+Build and load a local image into Minikube:
+```bash 
+$ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
+$ minikube image load local/<pod>
+```
+
+Then add it to your deployment before (re)deploy:
+```bash 
+$ vi <pod>-deployment.yaml
++  image: docker.io/local/<pod>:latest
+```
+
+Check the pod has started with your local image:
+```bash 
+$ kubectl describe pod <pod-instance> | grep "Image:"
+  Image:         docker.io/local/<pod>:latest
 ```
 
 ## Multiple environments with customized prefixes
