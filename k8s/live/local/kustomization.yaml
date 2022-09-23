@@ -43,6 +43,7 @@ resources:
   - external-elasticsearch-service.yaml
   - external-kibana-service.yaml
   - dynamic-mapping-server-ingress.yaml
+  - sensitivity-analysis-server-ingress.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap
