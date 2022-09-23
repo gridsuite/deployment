@@ -25,7 +25,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -43,7 +42,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -61,7 +59,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -79,7 +76,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -130,7 +126,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     environment:

@@ -1,4 +1,0 @@
-spring:
-  rabbitmq:
-    username: ${RABBITMQ_USER:guest}
-    password: ${RABBITMQ_PASSWORD:guest}

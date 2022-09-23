@@ -1,11 +1,1 @@
-spring:
-  data:
-    elasticsearch:
-      enabled : true
-      username: ${ELASTICSEARCH_USER:#{null}}
-      password: ${ELASTICSEARCH_PASSWORD:#{null}}
-  rabbitmq:
-    username: ${RABBITMQ_USER:guest}
-    password: ${RABBITMQ_PASSWORD:guest}
-    
 case-store-directory: /cases
