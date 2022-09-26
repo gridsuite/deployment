@@ -70,7 +70,7 @@ services:
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   report-server:
     image: gridsuite/report-server:latest
