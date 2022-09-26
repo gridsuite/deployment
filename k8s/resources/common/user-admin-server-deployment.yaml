@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-admin-server
+  labels:
+    name: user-admin-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: user-admin-server
+  template:
+    metadata:
+      labels:
+        name: user-admin-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/user-admin-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: user-admin-server-configmap-specific-volume
+      volumes:
+        - name: user-admin-server-configmap-specific-volume
+          configMap:
+            name: user-admin-server-configmap-specific
