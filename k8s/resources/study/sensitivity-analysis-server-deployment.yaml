@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensitivity-analysis-server
+  labels:
+    name: sensitivity-analysis-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l-forking
+spec:
+  selector:
+    matchLabels:
+      name: sensitivity-analysis-server
+  template:
+    metadata:
+      labels:
+        name: sensitivity-analysis-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/sensitivity-analysis-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: sensitivity-analysis-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: sensitivity-analysis-server-itools-configmap-volume
+      volumes:
+        - name: sensitivity-analysis-server-configmap-specific-volume
+          configMap:
+            name: sensitivity-analysis-server-configmap-specific
+        - name: sensitivity-analysis-server-itools-configmap-volume
+          configMap:
+            name: sensitivity-analysis-server-itools-configmap

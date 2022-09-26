@@ -44,6 +44,7 @@ resources:
   - external-kibana-service.yaml
   - dynamic-mapping-server-ingress.yaml
   - user-admin-server-ingress.yaml
+  - sensitivity-analysis-server-ingress.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap
