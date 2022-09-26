@@ -6,6 +6,7 @@ metadata:
     name: directory-notification-server
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-xs
 spec:
@@ -20,19 +21,6 @@ spec:
       containers:
       - name: main
         image: docker.io/gridsuite/directory-notification-server:latest
-        env:
-        - name: RABBITMQ_USER
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_USER
-              optional: true
-        - name: RABBITMQ_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_PASSWORD
-              optional: true
         volumeMounts:
         - mountPath: /config/specific
           name: directory-notification-server-configmap-specific-volume

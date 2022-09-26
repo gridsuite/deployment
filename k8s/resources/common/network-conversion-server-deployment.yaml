@@ -6,6 +6,8 @@ metadata:
     name: network-conversion-server
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-elasticsearch: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-xl
 spec:
@@ -20,31 +22,6 @@ spec:
       containers:
       - name: main
         image: docker.io/powsybl/network-conversion-server:latest
-        env:
-        - name: ELASTICSEARCH_USER
-          valueFrom:
-            secretKeyRef:
-              name: elasticsearch-secrets
-              key: ELASTICSEARCH_USER
-              optional: true
-        - name: ELASTICSEARCH_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: elasticsearch-secrets
-              key: ELASTICSEARCH_PASSWORD
-              optional: true
-        - name: RABBITMQ_USER
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_USER
-              optional: true
-        - name: RABBITMQ_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_PASSWORD
-              optional: true
         volumeMounts:
         - mountPath: /config/specific
           name: network-conversion-server-configmap-specific-volume
