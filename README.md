@@ -313,7 +313,7 @@ http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
 http://<INGRESS_HOST>/filter-server/swagger-ui.html
 http://<INGRESS_HOST>/report-server/swagger-ui.html
-http://<INGRESS_HOST>/user-admin-server/swagger-ui.html 
+http://<INGRESS_HOST>/user-admin-server/swagger-ui.html
 http://<INGRESS_HOST>/sensitivity-analysis-server/swagger-ui.html
 ```
 
