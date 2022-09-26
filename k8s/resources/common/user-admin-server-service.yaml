@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: user-admin-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: user-admin-server
+spec:
+  selector:
+    name: user-admin-server

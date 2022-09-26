@@ -21,6 +21,7 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}iidm";
   create database "${DATABASE_PREFIX_NAME}import_history";
   create database "${DATABASE_PREFIX_NAME}cgmes_assembling";
+  create database "${DATABASE_PREFIX_NAME}useradmin";
   create database "${DATABASE_PREFIX_NAME}sensitivityanalysis";
 EOSQL
 }
