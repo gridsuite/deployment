@@ -34,6 +34,8 @@ resources:
   - explore-server-service.yaml
   - directory-notification-server-deployment.yaml
   - directory-notification-server-service.yaml
+  - sensitivity-analysis-server-deployment.yaml
+  - sensitivity-analysis-server-service.yaml
 
 configMapGenerator:
   - name: geo-data-server-configmap-specific
@@ -86,4 +88,10 @@ configMapGenerator:
   - name: explore-server-configmap-specific
     files:
       - application.yml=config/explore-server-application.yml
+  - name: sensitivity-analysis-server-configmap-specific
+    files:
+      - application.yml=config/sensitivity-analysis-server-application.yml
+  - name: sensitivity-analysis-server-itools-configmap
+    files:
+      - config.yml=config/sensitivity-analysis-server-config.yml
 

@@ -94,6 +94,8 @@ images:
     digest: todo
   - name: docker.io/gridsuite/cgmes-boundary-import-job
     digest: 27368e11a16ced56422ff48ed66270f5d1a1f3f0649403dc5ffceff91243c592
+  - name: docker.io/gridsuite/sensitivity-analysis-server
+    digest: todo
 
 # Patch ingress host
 patchesJson6902:
