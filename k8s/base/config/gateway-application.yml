@@ -7,3 +7,5 @@ backing-services:
     base-uri: http://172.17.0.1:8080/
   network-modification-server:
     base-uri: http://172.17.0.1:5007/
+  directory-server:
+    base-uri: http://172.17.0.1:5026/
