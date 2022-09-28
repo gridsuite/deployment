@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shortcircuit-server
+  labels:
+    name: shortcircuit-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l-forking
+spec:
+  selector:
+    matchLabels:
+      name: shortcircuit-server
+  template:
+    metadata:
+      labels:
+        name: shortcircuit-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/shortcircuit-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: shortcircuit-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: shortcircuit-server-itools-configmap-volume
+      volumes:
+        - name: shortcircuit-server-configmap-specific-volume
+          configMap:
+            name: shortcircuit-server-configmap-specific
+        - name: shortcircuit-server-itools-configmap-volume
+          configMap:
+            name: shortcircuit-server-itools-configmap

@@ -41,6 +41,7 @@ on:
       - dynamic_mapping_server_updated
       - griddyna_app_updated
       - sensitivity_analysis_server_updated
+      - shortcircuit_server_updated
 
 jobs:
   build:

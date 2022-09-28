@@ -36,6 +36,8 @@ resources:
   - directory-notification-server-service.yaml
   - sensitivity-analysis-server-deployment.yaml
   - sensitivity-analysis-server-service.yaml
+  - shortcircuit-server-deployment.yaml
+  - shortcircuit-server-service.yaml
 
 configMapGenerator:
   - name: geo-data-server-configmap-specific
@@ -94,4 +96,10 @@ configMapGenerator:
   - name: sensitivity-analysis-server-itools-configmap
     files:
       - config.yml=config/sensitivity-analysis-server-config.yml
+  - name: shortcircuit-server-configmap-specific
+    files:
+      - application.yml=config/shortcircuit-server-application.yml
+  - name: shortcircuit-server-itools-configmap
+    files:
+      - config.yml=config/shortcircuit-server-config.yml
 
