@@ -36,23 +36,6 @@ $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
 
-### Temporarily manual action
-
-----
-:warning: Temporarily, powsybl-network-store doesn't use liquibase and doesn't initialize its database automatically at start. You must start the technical profile [go to Technical Profile](#technical-profile), connect to its database (default name: iidm) 
-```bash 
-$ cd docker-compose/technical
-$ docker-compose up -d
-$ docker-compose exec postgres psql -U postgres iidm
-```
-and copy/paste the following file to create the schema : [schema.sql](https://raw.githubusercontent.com/powsybl/powsybl-network-store/main/network-store-server/src/main/resources/schema.sql)
-
-To finnish stop the technical profile
-```bash 
-$ docker-compose stop
-```
-----
-
 ## Docker compose deployment
 
 This is the preferred development deployment.
