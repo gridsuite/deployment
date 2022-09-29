@@ -51,10 +51,6 @@ configMapGenerator:
     files:
       - env.json
 
-  - name: database-properties-configmap
-    files:
-      - database.properties
-
   - name: gridstudy-app-configmap
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
