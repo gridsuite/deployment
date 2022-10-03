@@ -7,10 +7,4 @@ spec:
     spec:
       containers:
       - name: main
-        volumeMounts:
-        - mountPath: /config
-          name: database-properties-configmap-volume
-      volumes:
-        - name: database-properties-configmap-volume
-          configMap:
-            name: database-properties-configmap
+      #TODO environment variables for secrets

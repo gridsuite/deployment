@@ -5,9 +5,6 @@ bases:
   - ../../bases/admingridsuite
 
 configMapGenerator:
-  - name: database-properties-configmap
-    files:
-      - database.properties
   - name: gateway-configmap
     files:
       - allowed-issuers.yml

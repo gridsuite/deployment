@@ -6,6 +6,7 @@ metadata:
     name: notification-server
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-xs
 spec:

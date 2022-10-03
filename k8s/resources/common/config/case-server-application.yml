@@ -1,5 +1,1 @@
-spring:
-  data:
-    elasticsearch:
-      enabled : true
 case-store-directory: /cases

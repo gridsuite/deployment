@@ -9,7 +9,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -27,7 +26,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -60,7 +58,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -164,7 +161,6 @@ services:
       - $PWD/../../k8s/resources/study/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -184,7 +180,6 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     environment:
@@ -200,7 +195,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -245,7 +239,6 @@ services:
       - $PWD/../../k8s/resources/study/config/sensitivity-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:

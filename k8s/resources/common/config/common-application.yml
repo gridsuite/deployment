@@ -1,8 +1,18 @@
+spring:
+  data:
+    elasticsearch:
+      enabled : true
+      username: ${ELASTICSEARCH_USER:#{null}}
+      password: ${ELASTICSEARCH_PASSWORD:#{null}}
+  rabbitmq:
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
 powsybl-ws:
   environment:
 
   # Postgres database prefix
-  postgres:
+  database:
     databaseOrSchema:
       prefix: ${powsybl-ws.environment:}
 

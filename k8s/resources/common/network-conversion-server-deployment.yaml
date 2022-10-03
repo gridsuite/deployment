@@ -6,6 +6,8 @@ metadata:
     name: network-conversion-server
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-elasticsearch: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-xl
 spec:
