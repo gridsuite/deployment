@@ -30,6 +30,8 @@ spec:
               value: "http"
             - name: FLUENTD_SYSTEMD_CONF
               value: disable
+            - name: FLUENT_CONTAINER_TAIL_EXCLUDE_PATH
+              value: /var/log/containers/fluent*
           resources:
             limits:
               memory: 512Mi
