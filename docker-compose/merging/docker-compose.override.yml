@@ -9,7 +9,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -73,7 +72,6 @@ services:
     volumes:
       - $PWD/../../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     restart:
       unless-stopped
     depends_on:
@@ -96,7 +94,6 @@ services:
       - $PWD/../../k8s/resources/merging/config/case-import-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     depends_on:
       - logspout
     sysctls:
@@ -114,7 +111,6 @@ services:
       - $PWD/../../k8s/resources/merging/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../technical/database.properties:/config/database.properties:Z
     depends_on:
       - logspout
     sysctls:

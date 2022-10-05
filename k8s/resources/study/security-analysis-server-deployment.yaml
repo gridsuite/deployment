@@ -7,8 +7,9 @@ metadata:
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
-    gridsuite.org/size: springboot-l-forking
+    gridsuite.org/size: springboot-xl-forking
 spec:
   selector:
     matchLabels:

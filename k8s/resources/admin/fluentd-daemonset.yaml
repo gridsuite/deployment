@@ -20,7 +20,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: fluentd
-          image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
+          image: fluent/fluentd-kubernetes-daemonset:v1.15.2-debian-elasticsearch7-1.0
           env:
             - name:  FLUENT_ELASTICSEARCH_HOST
               value: "elasticsearch"
@@ -30,6 +30,8 @@ spec:
               value: "http"
             - name: FLUENTD_SYSTEMD_CONF
               value: disable
+            - name: FLUENT_CONTAINER_TAIL_EXCLUDE_PATH
+              value: /var/log/containers/fluent*
           resources:
             limits:
               memory: 512Mi
