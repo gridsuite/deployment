@@ -18,8 +18,7 @@
   ],
   "defaultParametersValues": {
     "fluxConvention": "target",
-    "mapManualRefresh": "false"
-  }
+    "enableDeveloperMode": "true"
 },
 {
   "name" : "Merge",
