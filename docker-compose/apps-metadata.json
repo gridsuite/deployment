@@ -20,7 +20,9 @@
     "fluxConvention": "target",
     "enableDeveloperMode": "true",
     "mapManualRefresh": "false"
+  }
 },
+{
   "name" : "Merge",
   "url"  : "http://localhost:81",
   "appColor" : "#2D9BF0",
