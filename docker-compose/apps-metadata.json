@@ -17,7 +17,8 @@
     }
   ],
   "defaultParametersValues": {
-    "fluxConvention": "target"
+    "fluxConvention": "target",
+    "enableDeveloperMode": "true"
   }
 },
 {
