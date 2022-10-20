@@ -18,7 +18,8 @@
   ],
   "defaultParametersValues": {
     "fluxConvention": "target",
-    "enableDeveloperMode": "true"
+    "enableDeveloperMode": "true",
+    "mapManualRefresh": "false"
   }
 },
 {
