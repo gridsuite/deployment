@@ -42,6 +42,7 @@ on:
       - griddyna_app_updated
       - sensitivity_analysis_server_updated
       - user_admin_server_updated
+      - shortcircuit_server_updated
 
 jobs:
   build:
