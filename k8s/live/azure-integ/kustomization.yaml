@@ -74,7 +74,7 @@ images:
     digest: 91fbc8f3ddb4fed871417bd9c92be3b61657f67bd57c98683bea7092e42fd997
   - name: docker.io/powsybl/network-store-server
     digest: 2de7d274626006d8db3ba35d09ea60f1dcd02c9f9a418d55183a10cf3ca5b0b1
-  - name: docker.io/gridsuite/notification-server
+  - name: docker.io/gridsuite/study-notification-server
     digest: 298756775ec0be4288cc561a16df062f0b404337cf5f2efa5027702a5d4cc3c8
   - name: docker.io/gridsuite/odre-server
     digest: 140c791e500be434c68a55796bfa888142c9dc3709d01144fb568bb0643900bf
