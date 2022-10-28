@@ -204,7 +204,7 @@ Download the recommended version of minikube and kubectl :
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
-
+PS : if you have rights issue, [you can download a .deb package and install it for minikube](https://minikube.sigs.k8s.io/docs/start/), and [use snap for kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-other-package-management)
 __Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
 Start minikube and activate ingress support:
