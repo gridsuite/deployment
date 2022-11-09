@@ -26,7 +26,7 @@ resources:
   - gateway-ingress.yaml
   - loadflow-server-ingress.yaml
   - balances-adjustment-server-ingress.yaml
-  - notification-server-ingress.yaml
+  - study-notification-server-ingress.yaml
   - merge-orchestrator-server-ingress.yaml
   - merge-notification-server-ingress.yaml
   - actions-server-ingress.yaml
