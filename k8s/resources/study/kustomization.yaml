@@ -22,8 +22,8 @@ resources:
   - gridstudy-app-service.yaml
   - study-server-deployment.yaml
   - study-server-service.yaml
-  - notification-server-deployment.yaml
-  - notification-server-service.yaml
+  - study-notification-server-deployment.yaml
+  - study-notification-server-service.yaml
   - security-analysis-server-deployment.yaml
   - security-analysis-server-service.yaml
   - dynamic-simulation-server-deployment.yaml
@@ -61,9 +61,9 @@ configMapGenerator:
   - name: odre-server-configmap-specific
     files:
       - application.yml=config/odre-server-application.yml
-  - name: notification-server-configmap-specific
+  - name: study-notification-server-configmap-specific
     files:
-      - application.yml=config/notification-server-application.yml
+      - application.yml=config/study-notification-server-application.yml
   - name: security-analysis-server-configmap-specific
     files:
       - application.yml=config/security-analysis-server-application.yml

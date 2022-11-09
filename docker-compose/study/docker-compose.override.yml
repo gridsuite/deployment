@@ -68,12 +68,12 @@ services:
     sysctls:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
-  notification-server:
-    image: gridsuite/notification-server:latest
+  study-notification-server:
+    image: gridsuite/study-notification-server:latest
     ports:
       - 5009:80
     volumes:
-      - $PWD/../../k8s/resources/study/config/notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
