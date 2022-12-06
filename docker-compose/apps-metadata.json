@@ -16,6 +16,12 @@
       "path" : "/studies/{elementUuid}"
     }
   ],
+  "predefinedEquipmentProperties" : {
+    "substation" : {
+      "region" : ["east", "south", "west", "north"],
+      "planet" : ["earth", "mars"]
+    }
+  },
   "defaultParametersValues": {
     "fluxConvention": "target",
     "enableDeveloperMode": "true",
