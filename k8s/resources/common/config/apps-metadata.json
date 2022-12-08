@@ -15,6 +15,11 @@
       "path" : "/studies/{elementUuid}"
     }
   ],
+  "predefinedEquipmentProperties" : {
+    "substation" : {
+      "Demo" : ["demo1", "demo2"]
+    }
+  },
   "defaultParametersValues": {
     "fluxConvention": "iidm",
     "mapManualRefresh": "false"
