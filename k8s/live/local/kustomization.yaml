@@ -46,6 +46,7 @@ resources:
   - user-admin-server-ingress.yaml
   - sensitivity-analysis-server-ingress.yaml
   - shortcircuit-server-ingress.yaml
+  - timeseries-server-ingress.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap

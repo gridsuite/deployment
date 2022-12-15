@@ -43,6 +43,7 @@ on:
       - sensitivity_analysis_server_updated
       - user_admin_server_updated
       - shortcircuit_server_updated
+      - timeseries_server_updated
 
 jobs:
   build:

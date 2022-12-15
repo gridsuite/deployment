@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timeseries-server
+  labels:
+    name: timeseries-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l
+spec:
+  selector:
+    matchLabels:
+      name: timeseries-server
+  template:
+    metadata:
+      labels:
+        name: timeseries-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/timeseries-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: timeseries-server-configmap-specific-volume
+      volumes:
+        - name: timeseries-server-configmap-specific-volume
+          configMap:
+            name: timeseries-server-configmap-specific
+        - name: timeseries-server-itools-configmap-volume
+          configMap:
+            name: timeseries-server-itools-configmap
