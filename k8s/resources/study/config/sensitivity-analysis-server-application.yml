@@ -1,6 +1,2 @@
-# default values for loadflow providers "Hades2" or "OpenLoadFlow"
-loadflow:
-  default-provider: OpenLoadFlow
-  
 sensi:
   resultsThreshold: 0.01
