@@ -1,18 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <title>GridSuite · Page not found</title>
-    <body>
-    <h1 style="display: flex; align-items: center"><img alt="logo" width="64" height="64" src="/favicon.ico"/>GridSuite</h1>
-    <div style="display: inline-block">
-        <div style="display: flex; flex-direction: column; align-items: center">
-        <h2>Error</h2>
-        <svg width="64" height="64" viewBox="0 0 24 24">
-            <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-        </svg>
-        <p>
-            Page not found
-        </p>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        .center-div {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 70vh;
+        }
+        /* i use the same style used in crid explorre front app */
+        .logo-title {
+            display: flex;
+            align-items: center;
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            font-size: 3rem;
+            line-height: 1.235;
+            letter-spacing: 0.00735em;
+        }
+
+        .message-style {
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="center-div">
+        
+        <a href="/"
+        style="text-decoration:none; color: inherit;">
+            <div class="logo-title">
+                <img alt="logo" width="128" height="128" src="/favicon.ico" />
+                <span style="margin-left: 20px; font-weight: bold;">Grid</span>
+                <span style="margin-right: 20px; color:#3DABE2">Explore</span>
+            </div>
+        </a>
+        <div class="message-style">
+            <p style="font-size: 1.35rem;">The requested URL was not found.</p>
         </div>
     </div>
-    </body>
+
+</body>
 </html>
