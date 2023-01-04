@@ -19,6 +19,15 @@
   "predefinedEquipmentProperties" : {
     "substation" : {
       "region" : ["east", "south", "west", "north"],
+      "tso" : [ "rtefrance", "elia", "energinet", "energinet",
+        "tennetDE", "transnetbw", "creosnet", "amprion", "50hertz",
+        "tennetNL", "swissgrid", "terna", "apg", "eles",
+        "ceps", "pse", "ree", "ren", "nationalgrid",
+        "eirgrid", "soni", "ost", "nosbih", "eso",
+        "Belenergo", "admie", "hops", "mavir", "litgrid",
+        "ast", "elering", "fingrid", "svk", "statnett",
+        "Landsnet", "cges", "mepso", "transelectrica", "ems",
+        "kostt", "sepsas", "teias", "ukrenergo" ],
       "totallyFree" : []
     }
   },
