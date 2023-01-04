@@ -19,7 +19,6 @@
   "predefinedEquipmentProperties" : {
     "substation" : {
       "region" : ["east", "south", "west", "north"],
-      "planet" : ["earth", "mars"],
       "totallyFree" : []
     }
   },
