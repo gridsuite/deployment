@@ -24,8 +24,3 @@ powsybl-ws:
   elasticsearch:
     index:
       prefix: ${powsybl-ws.environment:}
-
-
-# default values for loadflow providers "Hades2" or "OpenLoadFlow"
-loadflow:
-  default-provider: OpenLoadFlow
