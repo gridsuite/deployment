@@ -38,6 +38,8 @@ resources:
   - sensitivity-analysis-server-service.yaml
   - shortcircuit-server-deployment.yaml
   - shortcircuit-server-service.yaml
+  - timeseries-server-deployment.yaml
+  - timeseries-server-service.yaml
 
 configMapGenerator:
   - name: geo-data-server-configmap-specific
@@ -105,4 +107,7 @@ configMapGenerator:
   - name: shortcircuit-server-itools-configmap
     files:
       - config.yml=config/shortcircuit-server-config.yml
+  - name: timeseries-server-configmap-specific
+    files:
+      - application.yml=config/timeseries-server-application.yml
 
