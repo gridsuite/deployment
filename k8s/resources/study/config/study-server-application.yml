@@ -1,0 +1,8 @@
+loadflow:
+  default-provider: OpenLoadFlow
+
+security-analysis:
+  default-provider: OpenLoadFlow
+
+sensitivity-analysis:
+  default-provider: OpenLoadFlow

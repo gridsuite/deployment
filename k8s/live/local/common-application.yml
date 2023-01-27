@@ -1,7 +1,6 @@
 spring:
   data:
     elasticsearch:
-      enabled : true
       username: ${ELASTICSEARCH_USER:#{null}}
       password: ${ELASTICSEARCH_PASSWORD:#{null}}
   rabbitmq:
@@ -25,8 +24,3 @@ powsybl-ws:
   elasticsearch:
     index:
       prefix: ${powsybl-ws.environment:}
-
-
-# default values for loadflow providers "Hades2" or "OpenLoadFlow"
-loadflow:
-  default-provider: OpenLoadFlow
