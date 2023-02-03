@@ -1,8 +1,8 @@
-dynawo:
+dynawaltz:
   homeDir: /dynawo
   debug: true
 
-dynawo-default-parameters:
+dynawaltz-default-parameters:
     parametersFile: /dynawo-config/models.par
     network.parametersFile: /dynawo-config/network.par
     network.parametersId: "8"
