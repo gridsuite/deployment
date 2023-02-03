@@ -30,4 +30,11 @@
   "url"  : "/gridexplore",
   "appColor" : "#33AFED",
   "hiddenInAppsMenu" : false
-}]
+},
+{
+  "name" : "Dynamic Mapping",
+  "url"  : "/griddyna",
+  "appColor" : "#FFC11B",
+  "hiddenInAppsMenu" : false
+}
+]
