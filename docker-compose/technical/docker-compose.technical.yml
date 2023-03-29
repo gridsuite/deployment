@@ -26,6 +26,7 @@ services:
               -c listen_addresses='*' 
               -c shared_preload_libraries='auto_explain'
               -c auto_explain.log_min_duration=0
+              -c jit=false
               "
     environment:
       - POSTGRES_USER=postgres
