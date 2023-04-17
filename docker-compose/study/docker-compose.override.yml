@@ -44,6 +44,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -76,6 +78,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -91,6 +95,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -106,6 +112,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -121,6 +129,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -136,6 +146,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -223,6 +235,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:

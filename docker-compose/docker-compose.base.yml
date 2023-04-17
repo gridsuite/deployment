@@ -12,6 +12,8 @@ services:
       - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       - logspout
+    restart:
+      unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx512m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -128,6 +130,8 @@ services:
       - $PWD/../../k8s/resources/common/config/loadflow-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
@@ -158,6 +162,8 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -172,6 +178,8 @@ services:
       - $PWD/../../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
+    restart:
+      unless-stopped
     depends_on:
       - logspout
     environment:
