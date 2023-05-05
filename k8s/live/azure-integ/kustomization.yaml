@@ -98,6 +98,8 @@ images:
     digest: todo
   - name: docker.io/gridsuite/shortcircuit-server
     digest: todo
+  - name: docker.io/gridsuite/voltage-init-server
+    digest: todo
 
 # Patch ingress host
 patchesJson6902:

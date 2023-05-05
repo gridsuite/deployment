@@ -40,6 +40,8 @@ resources:
   - shortcircuit-server-service.yaml
   - timeseries-server-deployment.yaml
   - timeseries-server-service.yaml
+  - voltage-init-server-deployment.yaml
+  - voltage-init-server-service.yaml
 
 configMapGenerator:
   - name: geo-data-server-configmap-specific
@@ -110,4 +112,11 @@ configMapGenerator:
   - name: timeseries-server-configmap-specific
     files:
       - application.yml=config/timeseries-server-application.yml
+  - name: voltage-init-server-configmap-specific
+    files:
+      - application.yml=config/voltage-init-server-application.yml
+  - name: voltage-init-server-itools-configmap
+    files:
+      - config.yml=config/voltage-init-server-config.yml
+
 

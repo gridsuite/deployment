@@ -44,6 +44,7 @@ on:
       - user_admin_server_updated
       - shortcircuit_server_updated
       - timeseries_server_updated
+      - voltage_init_server_updated
 
 jobs:
   build:
