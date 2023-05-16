@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voltage-init-server
+  labels:
+    name: voltage-init-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-l-forking
+spec:
+  selector:
+    matchLabels:
+      name: voltage-init-server
+  template:
+    metadata:
+      labels:
+        name: voltage-init-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/voltage-init-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: voltage-init-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: voltage-init-server-itools-configmap-volume
+      volumes:
+        - name: voltage-init-server-configmap-specific-volume
+          configMap:
+            name: voltage-init-server-configmap-specific
+        - name: voltage-init-server-itools-configmap-volume
+          configMap:
+            name: voltage-init-server-itools-configmap
