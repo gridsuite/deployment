@@ -27,6 +27,7 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}case_metadata"; 
   create database "${DATABASE_PREFIX_NAME}timeseries";
   create database "${DATABASE_PREFIX_NAME}voltageinit";
+  create database "${DATABASE_PREFIX_NAME}loadflow";
 EOSQL
 }
 
