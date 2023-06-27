@@ -42,6 +42,8 @@ resources:
   - timeseries-server-service.yaml
   - voltage-init-server-deployment.yaml
   - voltage-init-server-service.yaml
+  - case-import-server-deployment.yaml
+  - case-import-server-service.yaml
 
 configMapGenerator:
   - name: geo-data-server-configmap-specific
@@ -118,5 +120,10 @@ configMapGenerator:
   - name: voltage-init-server-itools-configmap
     files:
       - config.yml=config/voltage-init-server-config.yml
-
+  - name: voltage-init-server-itools-configmap
+    files:
+      - config.yml=config/voltage-init-server-config.yml
+  - name: case-import-server-configmap-specific
+    files:
+      - application.yml=config/case-import-server-application.yml
 

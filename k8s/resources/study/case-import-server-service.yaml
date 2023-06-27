@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: case-import-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: case-import-server
+spec:
+  selector:
+    name: case-import-server
