@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settings-server
+  labels:
+    name: settings-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-m
+spec:
+  selector:
+    matchLabels:
+      name: settings-server
+  template:
+    metadata:
+      labels:
+        name: settings-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/settings-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: settings-server-configmap-specific-volume
+      volumes:
+        - name: settings-server-configmap-specific-volume
+          configMap:
+            name: settings-server-configmap-specific

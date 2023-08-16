@@ -100,6 +100,8 @@ images:
     digest: todo
   - name: docker.io/gridsuite/voltage-init-server
     digest: todo
+  - name: docker.io/gridsuite/settings-server
+    digest: todo
 
 # Patch ingress host
 patchesJson6902:
