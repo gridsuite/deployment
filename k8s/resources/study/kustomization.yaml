@@ -120,10 +120,6 @@ configMapGenerator:
   - name: voltage-init-server-itools-configmap
     files:
       - config.yml=config/voltage-init-server-config.yml
-  - name: voltage-init-server-itools-configmap
-    files:
-      - config.yml=config/voltage-init-server-config.yml
   - name: case-import-server-configmap-specific
     files:
       - application.yml=config/case-import-server-application.yml
-
