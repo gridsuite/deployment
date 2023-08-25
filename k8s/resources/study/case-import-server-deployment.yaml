@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case-import-server
+  labels:
+    name: case-import-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: case-import-server
+  template:
+    metadata:
+      labels:
+        name: case-import-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/case-import-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: case-import-server-configmap-specific-volume
+      volumes:
+        - name: case-import-server-configmap-specific-volume
+          configMap:
+            name: case-import-server-configmap-specific
+
