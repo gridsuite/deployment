@@ -2,9 +2,7 @@
 
 set -e
 
-function createDatabases()
-{
-psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
+psql --username $POSTGRES_USER --dbname $POSTGRES_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}ds";
   create database "${DATABASE_PREFIX_NAME}directory";
   create database "${DATABASE_PREFIX_NAME}study";
@@ -24,14 +22,8 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}useradmin";
   create database "${DATABASE_PREFIX_NAME}sensitivityanalysis";
   create database "${DATABASE_PREFIX_NAME}shortcircuit";
-  create database "${DATABASE_PREFIX_NAME}case_metadata"; 
+  create database "${DATABASE_PREFIX_NAME}case_metadata";
   create database "${DATABASE_PREFIX_NAME}timeseries";
   create database "${DATABASE_PREFIX_NAME}voltageinit";
   create database "${DATABASE_PREFIX_NAME}loadflow";
 EOSQL
-}
-
-until pg_isready; do
-  echo "psql: Postgres is unavailable to create databases - will retry later"
-  sleep 2
-done && createDatabases

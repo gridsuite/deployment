@@ -15,28 +15,50 @@ services:
     image: postgres:13.4-alpine
     ports:
       - "5432:5432"
-    command: "/init-databases.sh
-              -c listen_addresses='*'
-              -c shared_preload_libraries='auto_explain'
-              -c auto_explain.log_min_duration=0
-              -c jit=false
-              -c enable_seqscan=false
-              "
+    command: "-c listen_addresses='*' -c shared_preload_libraries='auto_explain' -c auto_explain.log_min_duration=0 -c jit=false -c enable_seqscan=false"
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_DEFAULT_DB=postgres
+      - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
       - $PWD/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
-      - $GRIDSUITE_DATABASES/init:/init-data:Z
-      - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
-      - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
-      - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
-      - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
+      - $PWD/../technical/create-postgres-databases.sh:/docker-entrypoint-initdb.d/create-postgres-databases.sh:ro
     restart: unless-stopped
+
+  postgres-init-geo-data:
+    profiles:
+      - all
+      - suite
+      - study
+    image: curlimages/curl
+    read_only: true
+    command: ["bash", "-c", "/init-geo-data.sh"]
+    restart: on-failure:10
+    volumes:
+      - $GRIDSUITE_DATABASES/init:/init-data:ro
+      - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:ro
+    depends_on:
+      - postgres
+      - geo-data-server
+
+  postgres-init-merging-data:
+    profiles:
+      - all
+      - suite
+      - merging
+    image: curlimages/curl
+    read_only: true
+    command: ["bash", "-c", "/init-merging-data.sh"]
+    restart: on-failure:10
+    volumes:
+      - $GRIDSUITE_DATABASES/init:/init-data:ro
+      - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:ro
+    depends_on:
+      - postgres
+      - cgmes-boundary-server
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
