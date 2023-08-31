@@ -38,7 +38,11 @@ $ cd deployment
 
 ## Docker compose deployment
 
-This is the preferred development deployment.
+> **Important**
+> [Docker Compose v2](https://docs.docker.com/compose/install/standalone/) is necessary to use the [profiles feature](https://docs.docker.com/compose/profiles/).  
+> _See instructions in [sub-section](#installing--updating-docker-compose-to-v2)_
+
+This is the preferred development deployment.  
 Install the orchestration tool docker-compose then launch the desired profile :
 
 ### Application profiles
@@ -245,6 +249,30 @@ http://localhost:5601
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
 
+### Installing / Updating docker-compose to v2
+Docker-compose v2 is necessary to have to profiles feature.  
+If possible, prefer to install it with your package manager if your on a Unix system.
+
+> [!NOTE]  
+> You need a client (docker-cli) of ~v19~ v20 at least to have the system of cli-plugins.
+> It isn't necessary to update your Docker engine or client else.
+
+You can install docker-compose with these commands, as instructed in [the doc](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually) and the [migration guide](https://docs.docker.com/compose/migrate/):
+```shell
+curl -LR --create-dirs -o $HOME/.local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
+#wget -x -O $HOME/.local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
+chmod +x $HOME/.local/bin/docker-compose
+mkdir -p $HOME/.docker/cli-plugins
+ln -s $HOME/.local/bin/docker-compose $HOME/.docker/cli-plugins/docker-compose
+docker compose version
+```
+You must get this output from docker compose now:
+> Docker Compose version v2.20.3
+
+> [!IMPORTANT]  
+> The commands shown will install the plugin user-side, so you don't need to remove your old docker-compose v1 if it is installed system-wide.
+
+
 ## k8s deployment with Minikube
 
 ### Minikube and kubectl setup
@@ -448,3 +476,4 @@ services:
 ...
 ```
 Now, when using ```docker-compose up```, your custom Docker image will be used.
+
