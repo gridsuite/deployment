@@ -45,7 +45,7 @@ $ cd deployment
 This is the preferred development deployment.  
 Install the orchestration tool docker-compose then launch the desired profile :
 
-### Application profiles
+### Docker-compose profiles
 
 | Component                     | _none_ | merging | study | dynmap | suite | import | kibana | pgadmin |
 |-------------------------------|--------|---------|-------|--------|-------|--------|--------|---------|
@@ -119,6 +119,13 @@ The correct CLI would be `docker compose --profile study stop study-server`.
 In case you want to do a `down` for everything, an `all` profile exist to simply :
 ```shell
 $ docker compose --profile all down
+```
+If you still have a container existing in the project, you will have this message during the `down`:
+```
+$ docker compose down
+[+] Running 2/1
+ ✔ Container abc-server             Removed                      10.6s
+ ! Network gridsuite_default        Resource is still in use     0.0s
 ```
 
 
@@ -255,7 +262,7 @@ In order to show documents in the case-server index with Kibana, you must first 
 
 ### Installing / Updating docker-compose to v2
 Docker-compose v2 is necessary to have to profiles feature.  
-If possible, prefer to install it with your package manager if your on a Unix system.
+If possible, prefer to install it with your package manager if you are on a Unix system.
 
 > [!NOTE]  
 > You need a client (docker-cli) of ~v19~ v20 at least to have the system of cli-plugins.
