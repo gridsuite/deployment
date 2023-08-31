@@ -12,13 +12,16 @@ x-cron-jobs: &cron-jobs-service
           limits:
             memory: 384M
 
+x-common-profiles:
+  profiles: &default-merging-profiles
+    - all
+    - suite
+    - merging
+
 
 services:
   merge-orchestrator-server:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -30,10 +33,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   merge-notification-server:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xs
@@ -45,10 +45,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   balances-adjustment-server:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -61,10 +58,7 @@ services:
       - ./../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:ro
 
   case-validation-server:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xs
@@ -76,10 +70,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   cgmes-boundary-server:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xs
@@ -91,10 +82,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   case-import-job:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     build:
       context: case-import-job
       args:
@@ -109,10 +97,7 @@ services:
     <<: *cron-jobs-service
 
   cgmes-assembling-job:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     build:
       context: cgmes-assembling-job
       args:
@@ -127,10 +112,7 @@ services:
     <<: *cron-jobs-service
 
   gridmerge-app:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     image: gridsuite/gridmerge-app:latest
     ports:
       - 81:8080
@@ -141,10 +123,7 @@ services:
       - logspout
 
   cgmes-boundary-import-job:
-    profiles:
-      - all
-      - merging
-      - suite
+    profiles: *default-merging-profiles
     build:
       context: cgmes-boundary-import-job
       args:
