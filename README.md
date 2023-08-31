@@ -58,7 +58,7 @@ Install the orchestration tool docker-compose then launch the desired profile :
 | kibana                        |        |         |       |        |       |        |    🗸   |         |
 | pgadmin                       |        |         |       |        |       |        |        |    🗸    |
 | apps-metadata-server          |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| mock_user_service             |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| mock-user-service             |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
 | gateway                       |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
 | actions-server                |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
 | case-server                   |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |

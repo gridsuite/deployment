@@ -175,7 +175,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
-  mock_user_service:
+  mock-user-service:
     image: gridsuite/oidc-mock-server
     ports:
       - 9090:9090
