@@ -24,8 +24,7 @@ services:
     volumes:
       - $PWD/../k8s/resources/dynamic-mapping/config/dynamic-mapping-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:

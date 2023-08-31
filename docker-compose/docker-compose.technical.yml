@@ -9,8 +9,7 @@ services:
       - 5672:5672
     depends_on:
       - logspout
-    restart:
-      unless-stopped
+    restart: unless-stopped
 
   postgres:
     build:
@@ -42,8 +41,7 @@ services:
       - $PWD/init-databases.sh:/init-databases.sh:Z
       - $PWD/init-geo-data.sh:/init-geo-data.sh:Z
       - $PWD/init-merging-data.sh:/init-merging-data.sh:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
@@ -55,8 +53,7 @@ services:
       - LOGSPOUT=ignore
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
-    restart:
-      unless-stopped
+    restart: unless-stopped
 
   kibana:
     profiles:
@@ -68,8 +65,7 @@ services:
       - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
-    restart:
-      unless-stopped
+    restart: unless-stopped
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
@@ -102,7 +98,7 @@ services:
       - pgadmin
     image: dpage/pgadmin4:latest
     ports:
-     - "12080:80"
+      - "12080:80"
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
       - PGADMIN_DEFAULT_PASSWORD=admin

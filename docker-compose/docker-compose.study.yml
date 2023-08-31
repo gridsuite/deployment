@@ -12,15 +12,14 @@ services:
       - $PWD/../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../k8s/resources/study/config/study-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   geo-data-server:
     profiles:
@@ -32,15 +31,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   single-line-diagram-server:
     profiles:
@@ -52,15 +50,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1792m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-modification-server:
     profiles:
@@ -72,15 +69,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   study-notification-server:
     profiles:
@@ -92,15 +88,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-notification-server:
     profiles:
@@ -112,8 +107,7 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -132,15 +126,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-gl-server:
     profiles:
@@ -152,15 +145,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   odre-server:
     profiles:
@@ -172,15 +164,14 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridstudy-app:
     profiles:
@@ -206,15 +197,14 @@ services:
       - $PWD/../k8s/resources/study/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-simulation-server:
     profiles:
@@ -228,13 +218,12 @@ services:
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-server:
     profiles:
@@ -246,8 +235,7 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -279,8 +267,7 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -300,8 +287,7 @@ services:
       - $PWD/../k8s/resources/study/config/sensitivity-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -321,8 +307,7 @@ services:
       - $PWD/../k8s/resources/study/config/shortcircuit-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -341,8 +326,7 @@ services:
     volumes:
       - $PWD/../k8s/resources/study/config/timeseries-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -362,8 +346,7 @@ services:
       - $PWD/../k8s/resources/study/config/voltage-init-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -381,8 +364,7 @@ services:
       - 5039:80
     volumes:
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
