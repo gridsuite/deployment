@@ -14,7 +14,7 @@ services:
 
   postgres:
     build:
-      context: $PWD/../technical
+      context: $PWD
       dockerfile: Dockerfile-postgres
       args:
         - http_proxy=${http_proxy-}
@@ -22,8 +22,8 @@ services:
         - no_proxy=${no_proxy-}
     ports:
       - "5432:5432"
-    command: "/init-databases.sh 
-              -c listen_addresses='*' 
+    command: "/init-databases.sh
+              -c listen_addresses='*'
               -c shared_preload_libraries='auto_explain'
               -c auto_explain.log_min_duration=0
               -c jit=false
@@ -34,15 +34,14 @@ services:
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
-      - $PWD/../.env
       - $PWD/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
       - $GRIDSUITE_DATABASES/init:/init-data:Z
-      - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
-      - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
-      - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
-      - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
+      - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - $PWD/init-databases.sh:/init-databases.sh:Z
+      - $PWD/init-geo-data.sh:/init-geo-data.sh:Z
+      - $PWD/init-merging-data.sh:/init-merging-data.sh:Z
     restart:
       unless-stopped
 
@@ -73,8 +72,8 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
     volumes:
-      - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
-      - $PWD/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - $PWD/pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
     environment:
       - LOGSPOUT=ignore
     depends_on:
@@ -104,4 +103,4 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
-      - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
+      - $PWD/servers_pgadmin.json:/pgadmin4/servers.json

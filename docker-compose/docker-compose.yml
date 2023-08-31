@@ -1,0 +1,10 @@
+version: '3.8'
+
+include:
+  - docker-compose.base.yml
+  - docker-compose.study.yml
+  - docker-compose.merging.yml
+  - docker-compose.mapping.yml
+  - docker-compose.technical.yml
+
+services: {}
