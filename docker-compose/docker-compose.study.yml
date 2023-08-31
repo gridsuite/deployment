@@ -1,6 +1,11 @@
 version: '3.8'
 x-common-profiles:
-  profiles: &default-study-profiles
+  profiles_1: &study-profiles-mandatory
+      - all
+      - suite
+      - study
+      - study-light
+  profiles_2: &study-profiles-optional
       - all
       - suite
       - study
@@ -8,7 +13,7 @@ x-common-profiles:
 
 services:
   study-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -21,7 +26,7 @@ services:
       - ./../k8s/resources/study/config/study-server-config.yml:/home/powsybl/.itools/config.yml:ro
 
   geo-data-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -33,7 +38,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   single-line-diagram-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xl
@@ -45,7 +50,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   network-modification-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -57,7 +62,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   study-notification-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xs
@@ -69,7 +74,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   directory-notification-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xs
@@ -81,7 +86,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   network-map-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -93,7 +98,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   cgmes-gl-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-xs
@@ -105,7 +110,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   odre-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -117,7 +122,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   gridstudy-app:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     image: gridsuite/gridstudy-app:latest
     ports:
       - 84:8080
@@ -128,7 +133,7 @@ services:
       - logspout
 
   security-analysis-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l-forking  # is xl-forking in k8s?
@@ -141,7 +146,7 @@ services:
       - ./../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:ro
 
   dynamic-simulation-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l-forking
@@ -155,7 +160,7 @@ services:
       - ./../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:ro
 
   directory-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-s
@@ -167,7 +172,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   gridexplore-app:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     image: gridsuite/gridexplore-app:latest
     ports:
       - 80:8080
@@ -178,7 +183,7 @@ services:
       - logspout
 
   explore-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-mandatory
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l  # is m in k8s?
@@ -190,7 +195,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   sensitivity-analysis-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l-forking
@@ -203,7 +208,7 @@ services:
       - ./../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:ro
 
   shortcircuit-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l-forking
@@ -216,7 +221,7 @@ services:
       - ./../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:ro
 
   timeseries-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l
@@ -228,7 +233,7 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
 
   voltage-init-server:
-    profiles: *default-study-profiles
+    profiles: *study-profiles-optional
     extends:
       file: docker-compose-extends.yml
       service: springboot-size-l-forking
