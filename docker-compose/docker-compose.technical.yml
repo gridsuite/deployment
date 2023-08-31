@@ -57,6 +57,7 @@ services:
 
   kibana:
     profiles:
+      - all
       - kibana
     image: docker.elastic.co/kibana/kibana:7.9.3
     ports:
@@ -95,6 +96,7 @@ services:
 
   pgadmin:
     profiles:
+      - all
       - pgadmin
     image: dpage/pgadmin4:latest
     ports:

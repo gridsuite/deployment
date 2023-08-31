@@ -110,12 +110,16 @@ $ docker compose --profile suite <cmd>
 
 You can also combine multiple profiles:
 ```shell
-$ cd docker-compose
 $ docker compose --profile study --profile mapping <cmd>
 ```
 But please note that services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
 For example `docker compose stop study-server` would not work because the profile `study` isn't passed in the CLI.
 The correct CLI would be `docker compose --profile study stop study-server`.
+
+In case you want to do a `down` for everything, an `all` profile exist to simply :
+```shell
+$ docker compose --profile all down
+```
 
 
 __Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1

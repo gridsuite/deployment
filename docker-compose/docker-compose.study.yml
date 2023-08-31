@@ -3,6 +3,7 @@ version: '3.8'
 services:
   study-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/study-server:latest
@@ -23,6 +24,7 @@ services:
 
   geo-data-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/geo-data-server:latest
@@ -42,6 +44,7 @@ services:
 
   single-line-diagram-server:
     profiles:
+      - all
       - study
       - suite
     image: powsybl/single-line-diagram-server:latest
@@ -61,6 +64,7 @@ services:
 
   network-modification-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/network-modification-server:latest
@@ -80,6 +84,7 @@ services:
 
   study-notification-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/study-notification-server:latest
@@ -99,6 +104,7 @@ services:
 
   directory-notification-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/directory-notification-server:latest
@@ -118,6 +124,7 @@ services:
 
   network-map-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/network-map-server:latest
@@ -137,6 +144,7 @@ services:
 
   cgmes-gl-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/cgmes-gl-server:latest
@@ -156,6 +164,7 @@ services:
 
   odre-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/odre-server:latest
@@ -175,6 +184,7 @@ services:
 
   gridstudy-app:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/gridstudy-app:latest
@@ -188,6 +198,7 @@ services:
 
   security-analysis-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/security-analysis-server:latest
@@ -208,6 +219,7 @@ services:
 
   dynamic-simulation-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/dynamic-simulation-server:latest
@@ -227,6 +239,7 @@ services:
 
   directory-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/directory-server:latest
@@ -246,6 +259,7 @@ services:
 
   gridexplore-app:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/gridexplore-app:latest
@@ -259,6 +273,7 @@ services:
 
   explore-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/explore-server:latest
@@ -278,6 +293,7 @@ services:
 
   sensitivity-analysis-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/sensitivity-analysis-server:latest
@@ -298,6 +314,7 @@ services:
 
   shortcircuit-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/shortcircuit-server:latest
@@ -318,6 +335,7 @@ services:
 
   timeseries-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/timeseries-server:latest
@@ -337,6 +355,7 @@ services:
 
   voltage-init-server:
     profiles:
+      - all
       - study
       - suite
     image: gridsuite/voltage-init-server:latest
@@ -358,6 +377,7 @@ services:
   #just here for dev purpose, we don't want to start with this profile unless we need to.
   case-import-server:
     profiles:
+      - all
       - import
     image: gridsuite/case-import-server:latest
     ports:

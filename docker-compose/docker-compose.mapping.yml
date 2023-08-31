@@ -3,6 +3,7 @@ version: '3.8'
 services:
   griddyna-app:
     profiles:
+      - all
       - dynmap
       - suite
     image: gridsuite/griddyna-app:latest
@@ -16,6 +17,7 @@ services:
 
   dynamic-mapping-server:
     profiles:
+      - all
       - dynmap
       - suite
     image: gridsuite/dynamic-mapping-server:latest

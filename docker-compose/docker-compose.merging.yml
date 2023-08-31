@@ -3,6 +3,7 @@ version: '3.8'
 services:
   merge-orchestrator-server:
     profiles:
+      - all
       - merging
       - suite
     image: gridsuite/merge-orchestrator-server:latest
@@ -22,6 +23,7 @@ services:
 
   merge-notification-server:
     profiles:
+      - all
       - merging
       - suite
     image: gridsuite/merge-notification-server:latest
@@ -40,6 +42,7 @@ services:
 
   balances-adjustment-server:
     profiles:
+      - all
       - merging
       - suite
     image: gridsuite/balances-adjustment-server:latest
@@ -59,6 +62,7 @@ services:
 
   case-validation-server:
     profiles:
+      - all
       - merging
       - suite
     image: gridsuite/case-validation-server:latest
@@ -77,6 +81,7 @@ services:
 
   cgmes-boundary-server:
     profiles:
+      - all
       - merging
       - suite
     image: gridsuite/cgmes-boundary-server:latest
@@ -96,6 +101,7 @@ services:
 
   case-import-job:
     profiles:
+      - all
       - merging
       - suite
     build:
@@ -116,6 +122,7 @@ services:
 
   cgmes-assembling-job:
     profiles:
+      - all
       - merging
       - suite
     build:
@@ -136,6 +143,7 @@ services:
 
   gridmerge-app:
     profiles:
+      - all
       - merging
       - suite
     image: gridsuite/gridmerge-app:latest
@@ -149,6 +157,7 @@ services:
 
   cgmes-boundary-import-job:
     profiles:
+      - all
       - merging
       - suite
     build:
