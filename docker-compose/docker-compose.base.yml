@@ -11,6 +11,13 @@ services:
       - ./../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/cases:/cases
+    depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   actions-server:
     extends:
@@ -22,6 +29,9 @@ services:
     volumes:
       - ./../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   filter-server:
     extends:
@@ -33,6 +43,9 @@ services:
     volumes:
       - ./../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   user-admin-server:
     extends:
@@ -44,6 +57,9 @@ services:
     volumes:
       - ./../k8s/resources/common/config/user-admin-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   report-server:
     extends:
@@ -55,6 +71,9 @@ services:
     volumes:
       - ./../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   network-store-server:
     extends:
@@ -66,6 +85,9 @@ services:
     volumes:
       - ./../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   network-conversion-server:
     extends:
@@ -77,6 +99,11 @@ services:
     volumes:
       - ./../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   loadflow-server:
     extends:
@@ -100,6 +127,12 @@ services:
     volumes:
       - ./../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
 
   config-notification-server:
     extends:
@@ -111,6 +144,12 @@ services:
     volumes:
       - ./../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+        required: false
 
   gateway:
     extends:
@@ -123,6 +162,11 @@ services:
       - ./../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./allowed-issuers.yml:/config/allowed-issuers.yml:ro
+    depends_on:
+      mock-user-service:
+        condition: service_started
+      user-admin-server:
+        condition: service_healthy
 
   mock-user-service:
     image: gridsuite/oidc-mock-server

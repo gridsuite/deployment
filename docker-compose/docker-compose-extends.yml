@@ -8,7 +8,8 @@ services:
     #  - 1234:80
     restart: unless-stopped
     depends_on:
-      - logspout
+      logspout:
+        condition: service_started
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -16,6 +17,14 @@ services:
       replicas: 1
       restart_policy:
         condition: unless-stopped
+    healthcheck:  #have curl and wget
+      test: ["CMD-SHELL", "curl -m 5 --silent --fail --request GET http://localhost:80/actuator/health | grep UP || exit 1"]
+      #test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/actuator/health | grep UP || exit 1"]
+      start_interval: 2s
+      start_period: 30s
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   springboot-size-xs:
     extends: spring-server

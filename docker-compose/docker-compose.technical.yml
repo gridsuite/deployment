@@ -10,6 +10,17 @@ services:
     depends_on:
       - logspout
     restart: unless-stopped
+    # A RabbitMQ node is considered healthy if all the below are true:
+    # * the rabbit app finished booting & it's running
+    # * there are no alarms
+    # * there is at least 1 active listener
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "eval", "'{ true, rabbit_app_booted_and_running } = { rabbit:is_booted(node()), rabbit_app_booted_and_running },{ [], no_alarms } = { rabbit:alarms(), no_alarms },[] /= rabbit_networking:active_listeners(),rabbitmq_node_is_healthy.'"]  # || exit 1
+      start_interval: 2s
+      start_period: 30s
+      interval: 1m30s
+      timeout: 20s
+      retries: 5
 
   postgres:
     build:
@@ -42,6 +53,17 @@ services:
       - ./init-geo-data.sh:/init-geo-data.sh:ro
       - ./init-merging-data.sh:/init-merging-data.sh:ro
     restart: unless-stopped
+    depends_on:
+      - logspout
+    healthcheck:
+      # force postgres to not use the local unix socket (test "external" connectibility)
+      #test: ["CMD-SHELL", "export PGPASSWORD=$${POSTGRES_PASSWORD:-} && [select=\"$(echo 'SELECT 1' | psql --host $(hostname -i || echo '127.0.0.1') --username $${POSTGRES_USER:-postgres} --dbname $${POSTGRES_DB:-$$POSTGRES_USER} --quiet --no-align --tuples-only)\" && [ "$select" = '1' ] ] && exit 0 || exit 1"]
+      test: ["CMD-SHELL", "pg_isready --quiet -U postgres || exit 1"]  #https://www.postgresql.org/docs/current/app-pg-isready.html
+      start_interval: 2s
+      start_period: 1m
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
@@ -54,6 +76,16 @@ services:
     volumes:
       - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
+    healthcheck:
+      #test: ["CMD-SHELL", "[ health=\"$(curl -fsSL http://$host:9200/_cat/health?h=status)\" && [ \"$(echo \"$health\" | sed -r 's/^[[:space:]]+|[[:space:]]+$//g')\" = 'green' ] ] && exit 0 || exit 1"]
+      test: ["CMD-SHELL", "[ \"$$(curl -fsSL \\\"http://$$(hostname --ip-address || echo '127.0.0.1'):9200/_cat/health?h=status\\\" | sed -r 's/^[[:space:]]+|[[:space:]]+$//g')\" = 'green' ] && exit 0 || exit 1"]
+      #test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
+      #test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      start_interval: 2s
+      start_period: 30s
+      interval: 1m
+      timeout: 30s
+      retries: 5
 
   kibana:
     profiles:
@@ -65,8 +97,17 @@ services:
     environment:
       - LOGSPOUT=ignore
     depends_on:
-      - elasticsearch
+      elasticsearch:
+          condition: service_started
+          required: false
     restart: unless-stopped
+    healthcheck:
+      #test: ["CMD-SHELL", "curl -s https://localhost:5601 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi"]
+      test: [ "CMD-SHELL", "curl --fail --silent --output /dev/null http://localhost:5601 || exit 1"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
@@ -76,11 +117,21 @@ services:
     environment:
       - LOGSPOUT=ignore
     depends_on:
-      - elasticsearch
+      elasticsearch:
+          condition: service_healthy
+    healthcheck:
+      #test: bin/logstash -t
+      test: ["CMD-SHELL", "[ \"$$(curl -fsSL -XGET \\\"http://$$(hostname --ip-address || echo '127.0.0.1'):9600/\\\" | sed -r 's/^[[:space:]]+|[[:space:]]+$//g')\" = 'green' ] && exit 0 || exit 1"] #grep '"status": "green",'
+      interval: 60s
+      timeout: 50s
+      retries: 5
 
   socat:
     image: alpine/socat
     command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+    depends_on:
+      logstash:
+        condition: service_healthy
 
   logspout:
     image: gliderlabs/logspout:v3.2.13
@@ -106,3 +157,14 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - ./servers_pgadmin.json:/pgadmin4/servers.json
+    depends_on:
+      postgres:
+        condition: service_started
+        required: false
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:80/misc/ping"]
+      start_interval: 3s
+      start_period: 10s
+      interval: 30s
+      timeout: 10s
+      retries: 5

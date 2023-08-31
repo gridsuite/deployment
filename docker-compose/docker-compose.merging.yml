@@ -31,6 +31,9 @@ services:
     volumes:
       - ./../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   merge-notification-server:
     profiles: *default-merging-profiles
@@ -43,6 +46,12 @@ services:
     volumes:
       - ./../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      merge-orchestrator-server:
+        condition: service_healthy
+        required: false
 
   balances-adjustment-server:
     profiles: *default-merging-profiles
@@ -80,6 +89,9 @@ services:
     volumes:
       - ./../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   case-import-job:
     profiles: *default-merging-profiles
@@ -95,6 +107,11 @@ services:
       - ./case-import-job/case-import-job-config.yml:/root/.itools/config.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     <<: *cron-jobs-service
+    depends_on:
+      logspout:
+        condition: service_started
+      postgres:
+        condition: service_healthy
 
   cgmes-assembling-job:
     profiles: *default-merging-profiles
@@ -110,6 +127,11 @@ services:
       - ./cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     <<: *cron-jobs-service
+    depends_on:
+      logspout:
+        condition: service_started
+      postgres:
+        condition: service_healthy
 
   gridmerge-app:
     profiles: *default-merging-profiles
@@ -120,7 +142,12 @@ services:
       - ./gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:ro
       - ./env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:ro
     depends_on:
-      - logspout
+      logspout:
+        condition: service_started
+      gateway:
+        condition: service_healthy
+      merge-orchestrator-server:
+        condition: service_healthy
 
   cgmes-boundary-import-job:
     profiles: *default-merging-profiles
