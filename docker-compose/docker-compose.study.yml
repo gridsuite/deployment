@@ -9,9 +9,9 @@ services:
     ports:
       - 5001:80
     volumes:
-      - $PWD/../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/study/config/study-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+      - $PWD/../k8s/resources/study/config/study-server-config.yml:/home/powsybl/.itools/config.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -29,8 +29,8 @@ services:
     ports:
       - 8087:80
     volumes:
-      - $PWD/../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -48,8 +48,8 @@ services:
     ports:
       - 5005:80
     volumes:
-      - $PWD/../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -67,8 +67,8 @@ services:
     ports:
       - 5007:80
     volumes:
-      - $PWD/../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -86,8 +86,8 @@ services:
     ports:
       - 5009:80
     volumes:
-      - $PWD/../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -105,8 +105,8 @@ services:
     ports:
       - 5004:80
     volumes:
-      - $PWD/../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -124,8 +124,8 @@ services:
     ports:
       - 5006:80
     volumes:
-      - $PWD/../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -143,8 +143,8 @@ services:
     ports:
       - 8095:80
     volumes:
-      - $PWD/../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -162,8 +162,8 @@ services:
     ports:
       - 8090:80
     volumes:
-      - $PWD/../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -181,8 +181,8 @@ services:
     ports:
       - 84:8080
     volumes:
-      - $PWD/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
-      - $PWD/env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
+      - $PWD/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:ro
+      - $PWD/env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:ro
     depends_on:
       - logspout
 
@@ -194,9 +194,9 @@ services:
     ports:
       - 5023:80
     volumes:
-      - $PWD/../k8s/resources/study/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../k8s/resources/study/config/security-analysis-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+      - $PWD/../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -214,10 +214,10 @@ services:
     ports:
       - 5032:80
     volumes:
-      - $PWD/../k8s/resources/study/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:Z
+      - $PWD/../k8s/resources/study/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+      - $PWD/../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:ro
+      - $PWD/../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:ro
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
@@ -233,8 +233,8 @@ services:
     ports:
       - 5026:80
     volumes:
-      - $PWD/../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -252,8 +252,8 @@ services:
     ports:
       - 80:8080
     volumes:
-      - $PWD/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
-      - $PWD/env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
+      - $PWD/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:ro
+      - $PWD/env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:ro
     depends_on:
       - logspout
 
@@ -265,8 +265,8 @@ services:
     ports:
       - 5029:80
     volumes:
-      - $PWD/../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -284,9 +284,9 @@ services:
     ports:
       - 5030:80
     volumes:
-      - $PWD/../k8s/resources/study/config/sensitivity-analysis-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../k8s/resources/study/config/sensitivity-analysis-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+      - $PWD/../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -304,9 +304,9 @@ services:
     ports:
       - 5031:80
     volumes:
-      - $PWD/../k8s/resources/study/config/shortcircuit-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../k8s/resources/study/config/shortcircuit-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+      - $PWD/../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -324,8 +324,8 @@ services:
     ports:
       - 5037:80
     volumes:
-      - $PWD/../k8s/resources/study/config/timeseries-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/study/config/timeseries-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -343,9 +343,9 @@ services:
     ports:
       - 5038:80
     volumes:
-      - $PWD/../k8s/resources/study/config/voltage-init-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../k8s/resources/study/config/voltage-init-server-application.yml:/config/specific/application.yml:ro
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
+      - $PWD/../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout
@@ -363,7 +363,7 @@ services:
     ports:
       - 5039:80
     volumes:
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
     restart: unless-stopped
     depends_on:
       - logspout

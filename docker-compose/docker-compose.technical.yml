@@ -35,12 +35,12 @@ services:
     env_file:
       - $PWD/.env
     volumes:
-      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
-      - $GRIDSUITE_DATABASES/init:/init-data:Z
-      - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:Z
-      - $PWD/init-databases.sh:/init-databases.sh:Z
-      - $PWD/init-geo-data.sh:/init-geo-data.sh:Z
-      - $PWD/init-merging-data.sh:/init-merging-data.sh:Z
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data
+      - $GRIDSUITE_DATABASES/init:/init-data
+      - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:ro
+      - $PWD/init-databases.sh:/init-databases.sh:ro
+      - $PWD/init-geo-data.sh:/init-geo-data.sh:ro
+      - $PWD/init-merging-data.sh:/init-merging-data.sh:ro
     restart: unless-stopped
 
   elasticsearch:
@@ -70,8 +70,8 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
     volumes:
-      - $PWD/pipelines.yml:/config/pipelines.yml:Z
-      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - $PWD/pipelines.yml:/config/pipelines.yml:ro
+      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
     environment:
       - LOGSPOUT=ignore
     depends_on:
