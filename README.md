@@ -10,7 +10,7 @@ The following subdirectories must be created with file **mode 777 (rwx)** :
 - **cases** : working directory for cases-server
 - **postgres** : databases Postgres
 - **elasticsearch** : indexes (documents) Elasticsearch
-- **init** : data files for initialization 
+- **init** : data files for initialization
 
 ```
 $ cd $GRIDSUITE_DATABASES
@@ -31,7 +31,7 @@ To do this, you must copy the following files in the init directory :
 
 ### Clone deployment repository
 
-```bash 
+```bash
 $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
@@ -43,23 +43,76 @@ Install the orchestration tool docker-compose then launch the desired profile :
 
 ### Application profiles
 
-```bash 
-$ cd docker-compose/suite
-$ docker-compose up
-```
-```bash 
-$ cd docker-compose/study
-$ docker-compose up
-```
-```bash 
-$ cd docker-compose/merging
-$ docker-compose up
+| Component                     | _none_ | merging | study | dynmap | suite | import | kibana | pgadmin |
+|-------------------------------|--------|---------|-------|--------|-------|--------|--------|---------|
+| rabbitmq                      |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| postgres                      |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| elasticsearch                 |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| logstash                      |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| socat                         |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| logspout                      |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| kibana                        |        |         |       |        |       |        |    🗸   |         |
+| pgadmin                       |        |         |       |        |       |        |        |    🗸    |
+| apps-metadata-server          |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| mock_user_service             |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| gateway                       |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| actions-server                |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| case-server                   |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| config-notification-server    |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| config-server                 |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| filter-server                 |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| loadflow-server               |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| network-conversion-server     |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| network-store-server          |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| report-server                 |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| user-admin-server             |   🗸    |    🗸    |   🗸   |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
+| griddyna-app                  |        |         |       |   🗸    |   🗸   |        |        |         |
+| dynamic-mapping-server        |        |         |       |   🗸    |   🗸   |        |        |         |
+| gridmerge-app                 |        |    🗸    |       |        |  🗸    |        |        |         |
+| balances-adjustment-server    |        |    🗸    |       |        |  🗸    |        |        |         |
+| case-import-job               |        |    🗸    |       |        |  🗸    |        |        |         |
+| case-validation-server        |        |    🗸    |       |        |  🗸    |        |        |         |
+| cgmes-assembling-job          |        |    🗸    |       |        |  🗸    |        |        |         |
+| cgmes-boundary-import-job     |        |    🗸    |       |        |  🗸    |        |        |         |
+| cgmes-boundary-server         |        |    🗸    |       |        |  🗸    |        |        |         |
+| merge-notification-server     |        |    🗸    |       |        |  🗸    |        |        |         |
+| merge-orchestrator-server     |        |    🗸    |       |        |  🗸    |        |        |         |
+| gridstudy-app                 |        |         |   🗸   |        |  🗸    |        |        |         |
+| cgmes-gl-server               |        |         |   🗸   |        |  🗸    |        |        |         |
+| directory-notification-server |        |         |   🗸   |        |  🗸    |        |        |         |
+| directory-server              |        |         |   🗸   |        |  🗸    |        |        |         |
+| dynamic-simulation-server     |        |         |   🗸   |        |  🗸    |        |        |         |
+| explore-server                |        |         |   🗸   |        |  🗸    |        |        |         |
+| geo-data-server               |        |         |   🗸   |        |  🗸    |        |        |         |
+| gridexplore-app               |        |         |   🗸   |        |  🗸    |        |        |         |
+| network-map-server            |        |         |   🗸   |        |  🗸    |        |        |         |
+| network-modification-server   |        |         |   🗸   |        |  🗸    |        |        |         |
+| odre-server                   |        |         |   🗸   |        |  🗸    |        |        |         |
+| security-analysis-server      |        |         |   🗸   |        |  🗸    |        |        |         |
+| sensitivity-analysis-server   |        |         |   🗸   |        |  🗸    |        |        |         |
+| shortcircuit-server           |        |         |   🗸   |        |  🗸    |        |        |         |
+| single-line-diagram-server    |        |         |   🗸   |        |  🗸    |        |        |         |
+| study-notification-server     |        |         |   🗸   |        |  🗸    |        |        |         |
+| study-server                  |        |         |   🗸   |        |  🗸    |        |        |         |
+| timeseries-server             |        |         |   🗸   |        |  🗸    |        |        |         |
+| voltage-init-server           |        |         |   🗸   |        |  🗸    |        |        |         |
+| case-import-server            |        |         |       |        |       |   🗸    |        |         |
+
+To use a profile, you use simply:
+```shell
+$ cd docker-compose
+$ docker compose --profile suite <cmd>
 ```
 
-```bash 
-$ cd docker-compose/dynamic-mapping
-$ docker-compose up
+You can also combine multiple profiles:
+```shell
+$ cd docker-compose
+$ docker compose --profile study --profile mapping <cmd>
 ```
+But please note that services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
+For example `docker compose stop study-server` would not work because the profile `study` isn't passed in the CLI.
+The correct CLI would be `docker compose --profile study stop study-server`.
+
 
 __Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
 
@@ -67,7 +120,7 @@ __Notes__ : The containers are accessible from your machine thought the ip addre
 
 ### Technical profile
 
-This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ... 
+This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ...
 
 |Software| Version used |
 --- | --- |
@@ -78,28 +131,28 @@ This profile allows you to launch only the technical services : postgres, elasti
 
 It is used for k8s deployment with Minikube.
 
-```bash 
+```bash
 $ cd docker-compose/technical
-$ docker-compose up
+$ docker compose up
 ```
 
 ### Update docker-compose images
 To synchronize with the latest images for a docker-compose profile, you need to :
 - delete the containers
-```bash 
-$ docker-compose down
+```bash
+$ docker compose down
 ```
 - get latest images
-```bash 
-$ docker-compose pull
+```bash
+$ docker compose pull
 ```
 - recreate containers
-```bash 
-$ docker-compose up
+```bash
+$ docker compose up
 ```
 
 - remove old images
-```bash 
+```bash
 $ docker image prune -f
 ```
 
@@ -155,7 +208,7 @@ RabbitMQ management UI:
 
 ```html
 http://localhost:15672
-default credentials : 
+default credentials :
    - username : guest
    - password : guest
 ```
@@ -166,7 +219,7 @@ PgAdmin UI:
 
 ```html
 http://localhost:12080/login
-default credentials : 
+default credentials :
    - username : admin@rte-france.com
    - password : admin
 ```
@@ -212,7 +265,7 @@ __Notes__: We require minikube 1.21+ for host.minikube.internal support inside c
 
 Start minikube and activate ingress support:
 ```bash
-$ minikube start --memory 24g --cpus=4 
+$ minikube start --memory 24g --cpus=4
 $ minikube addons enable ingress
 ```
 
@@ -253,18 +306,18 @@ $ find k8s/live/local/ -type f | xargs sed -i -e 's/<PASSWORD>/YOURPASSWORD/g'
 ```
 
 Start technical services with the docker-compose technical profile  :
-```bash 
+```bash
 $ cd docker-compose/technical
 $ docker-compose up -d
 ```
 
 Deploy k8s services:
-```bash 
+```bash
 $ kubectl apply -k k8s/live/local
 ```
 
 Verify all services and pods have been correctly started:
-```bash 
+```bash
 $ kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
@@ -312,26 +365,26 @@ http://<INGRESS_HOST>/case-import-server/swagger-ui.html
 ## How to use a local docker image into Minikube?
 
 Build and load a local image into Minikube:
-```bash 
+```bash
 $ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
 $ minikube image load local/<pod>
 ```
 
 Then add it to your deployment before (re)deploy:
-```bash 
+```bash
 $ vi <pod>-deployment.yaml
 +  image: docker.io/local/<pod>:latest
 ```
 
 Check the pod has started with your local image:
-```bash 
+```bash
 $ kubectl describe pod <pod-instance> | grep "Image:"
   Image:         docker.io/local/<pod>:latest
 ```
 
 ## Multiple environments with customized prefixes
 
-To deploy multiple environments we can use customized prefixed databases (Postgres), queues (rabbitMq) and indexes (elasticsearch).    
+To deploy multiple environments we can use customized prefixed databases (Postgres), queues (rabbitMq) and indexes (elasticsearch).
 
 You must follow those steps:
 1. Edit the `docker-compose/.env` file and  specify the prefix by defining the `DATABASE_PREFIX_NAME` property
@@ -359,14 +412,14 @@ All actions can be done from a docker-compose profile.
 
 ### Databases creation
 
-```bash 
+```bash
 $ docker-compose exec postgres /create-postgres-databases.sh
 ```
 
 ### Data initialization
 
 First update the data files in the directory `$GRIDSUITE_DATABASES/init`
-```bash 
+```bash
 $ docker-compose exec postgres /init-geo-data.sh
 $ docker-compose exec postgres /init-merging-data.sh
 ```
@@ -383,7 +436,7 @@ Be sure to have at least `odre-server` and `geo-data-server` containers running.
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
 Docker image is generated using the following command in the considered service folder:
-```bash 
+```bash
 mvn jib:dockerBuild -Djib.to.image=<my_image_name>
 ```
 Once the image has been generated, you have to modify the name of the image to use in docker-compose.yml file, for the considered service:

@@ -1,7 +1,5 @@
-version: '3'
-
+version: '3.8'
 services:
-
   case-server:
     image: powsybl/case-server:latest
     ports:

@@ -1,8 +1,10 @@
-version: '3'
+version: '3.8'
 
 services:
-
   study-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/study-server:latest
     ports:
       - 5001:80
@@ -21,6 +23,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   geo-data-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/geo-data-server:latest
     ports:
       - 8087:80
@@ -38,6 +43,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   single-line-diagram-server:
+    profiles:
+      - study
+      - suite
     image: powsybl/single-line-diagram-server:latest
     ports:
       - 5005:80
@@ -55,6 +63,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-modification-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/network-modification-server:latest
     ports:
       - 5007:80
@@ -72,6 +83,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   study-notification-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/study-notification-server:latest
     ports:
       - 5009:80
@@ -89,6 +103,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-notification-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/directory-notification-server:latest
     ports:
       - 5004:80
@@ -106,6 +123,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-map-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/network-map-server:latest
     ports:
       - 5006:80
@@ -123,6 +143,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-gl-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/cgmes-gl-server:latest
     ports:
       - 8095:80
@@ -140,6 +163,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   odre-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/odre-server:latest
     ports:
       - 8090:80
@@ -157,6 +183,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridstudy-app:
+    profiles:
+      - study
+      - suite
     image: gridsuite/gridstudy-app:latest
     ports:
       - 84:8080
@@ -167,6 +196,9 @@ services:
       - logspout
 
   security-analysis-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/security-analysis-server:latest
     ports:
       - 5023:80
@@ -185,6 +217,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-simulation-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/dynamic-simulation-server:latest
     ports:
       - 5032:80
@@ -202,6 +237,9 @@ services:
         - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/directory-server:latest
     ports:
       - 5026:80
@@ -219,6 +257,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridexplore-app:
+    profiles:
+      - study
+      - suite
     image: gridsuite/gridexplore-app:latest
     ports:
       - 80:8080
@@ -229,6 +270,9 @@ services:
       - logspout
 
   explore-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/explore-server:latest
     ports:
       - 5029:80
@@ -246,6 +290,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   sensitivity-analysis-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/sensitivity-analysis-server:latest
     ports:
       - 5030:80
@@ -264,6 +311,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   shortcircuit-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/shortcircuit-server:latest
     ports:
       - 5031:80
@@ -282,6 +332,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   timeseries-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/timeseries-server:latest
     ports:
       - 5037:80
@@ -299,6 +352,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   voltage-init-server:
+    profiles:
+      - study
+      - suite
     image: gridsuite/voltage-init-server:latest
     ports:
       - 5038:80
@@ -317,18 +373,20 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   #just here for dev purpose, we don't want to start with this profile unless we need to.
-  #case-import-server:
-    #image: gridsuite/case-import-server:latest
-    #ports:
-    #  - 5039:80
-    #volumes:
-    #  - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    #restart:
-    #  unless-stopped
-    #depends_on:
-    #  - logspout
-    #environment:
-    #  - JAVA_TOOL_OPTIONS=-Xmx768m
-    #command: --server.port=80 --spring.config.additional-location=/config/
-    #sysctls:
-    #  - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+  case-import-server:
+    profiles:
+      - import
+    image: gridsuite/case-import-server:latest
+    ports:
+      - 5039:80
+    volumes:
+      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart:
+      unless-stopped
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0

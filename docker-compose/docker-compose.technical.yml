@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
 
@@ -59,6 +59,8 @@ services:
       unless-stopped
 
   kibana:
+    profiles:
+      - kibana
     image: docker.elastic.co/kibana/kibana:7.9.3
     ports:
       - 5601:5601
@@ -96,6 +98,8 @@ services:
       - socat
 
   pgadmin:
+    profiles:
+      - pgadmin
     image: dpage/pgadmin4:latest
     ports:
      - "12080:80"

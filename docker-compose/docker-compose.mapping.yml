@@ -1,7 +1,10 @@
-version: '3'
+version: '3.8'
 
 services:
   griddyna-app:
+    profiles:
+      - dynmap
+      - suite
     image: gridsuite/griddyna-app:latest
     ports:
       - 83:8080
@@ -12,6 +15,9 @@ services:
       - logspout
 
   dynamic-mapping-server:
+    profiles:
+      - dynmap
+      - suite
     image: gridsuite/dynamic-mapping-server:latest
     ports:
       - 5036:80

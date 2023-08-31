@@ -1,8 +1,10 @@
-version: '3'
+version: '3.8'
 
 services:
-
   merge-orchestrator-server:
+    profiles:
+      - merging
+      - suite
     image: gridsuite/merge-orchestrator-server:latest
     ports:
       - 5020:80
@@ -20,6 +22,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   merge-notification-server:
+    profiles:
+      - merging
+      - suite
     image: gridsuite/merge-notification-server:latest
     ports:
       - 5002:80
@@ -35,6 +40,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   balances-adjustment-server:
+    profiles:
+      - merging
+      - suite
     image: gridsuite/balances-adjustment-server:latest
     ports:
       - 5010:80
@@ -51,6 +59,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-validation-server:
+    profiles:
+      - merging
+      - suite
     image: gridsuite/case-validation-server:latest
     ports:
       - 5011:80
@@ -66,6 +77,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-boundary-server:
+    profiles:
+      - merging
+      - suite
     image: gridsuite/cgmes-boundary-server:latest
     ports:
       - 5021:80
@@ -83,6 +97,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-import-job:
+    profiles:
+      - merging
+      - suite
     build:
       context: case-import-job
       args:
@@ -100,6 +117,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-assembling-job:
+    profiles:
+      - merging
+      - suite
     build:
       context: cgmes-assembling-job
       args:
@@ -117,6 +137,9 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridmerge-app:
+    profiles:
+      - merging
+      - suite
     image: gridsuite/gridmerge-app:latest
     ports:
       - 81:8080
@@ -127,6 +150,9 @@ services:
       - logspout
 
   cgmes-boundary-import-job:
+    profiles:
+      - merging
+      - suite
     build:
       context: cgmes-boundary-import-job
       args:
