@@ -35,8 +35,8 @@ services:
     env_file:
       - $PWD/.env
     volumes:
-      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data
-      - $GRIDSUITE_DATABASES/init:/init-data
+      - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/postgres/data:/var/lib/postgresql/data
+      - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/init:/init-data
       - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:ro
       - $PWD/init-databases.sh:/init-databases.sh:ro
       - $PWD/init-geo-data.sh:/init-geo-data.sh:ro
@@ -52,7 +52,7 @@ services:
       - discovery.type=single-node
       - LOGSPOUT=ignore
     volumes:
-      - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
+      - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
 
   kibana:
