@@ -6,6 +6,9 @@ services:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/study-server:latest
     ports:
       - 5001:80
@@ -13,174 +16,126 @@ services:
       - ./../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/study/config/study-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   geo-data-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/geo-data-server:latest
     ports:
       - 8087:80
     volumes:
       - ./../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   single-line-diagram-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xl
     image: powsybl/single-line-diagram-server:latest
     ports:
       - 5005:80
     volumes:
       - ./../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1792m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-modification-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/network-modification-server:latest
     ports:
       - 5007:80
     volumes:
       - ./../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   study-notification-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/study-notification-server:latest
     ports:
       - 5009:80
     volumes:
       - ./../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-notification-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/directory-notification-server:latest
     ports:
       - 5004:80
     volumes:
       - ./../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-map-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/network-map-server:latest
     ports:
       - 5006:80
     volumes:
       - ./../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-gl-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/cgmes-gl-server:latest
     ports:
       - 8095:80
     volumes:
       - ./../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   odre-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/odre-server:latest
     ports:
       - 8090:80
     volumes:
       - ./../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridstudy-app:
     profiles:
@@ -201,6 +156,9 @@ services:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l-forking  # is xl-forking in k8s?
     image: gridsuite/security-analysis-server:latest
     ports:
       - 5023:80
@@ -208,20 +166,15 @@ services:
       - ./../k8s/resources/study/config/security-analysis-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-simulation-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l-forking
     image: gridsuite/dynamic-simulation-server:latest
     ports:
       - 5032:80
@@ -230,32 +183,21 @@ services:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:ro
       - ./../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:ro
-    restart: unless-stopped
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-s
     image: gridsuite/directory-server:latest
     ports:
       - 5026:80
     volumes:
       - ./../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx256m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridexplore-app:
     profiles:
@@ -276,26 +218,24 @@ services:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l  # is m in k8s?
     image: gridsuite/explore-server:latest
     ports:
       - 5029:80
     volumes:
       - ./../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   sensitivity-analysis-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l-forking
     image: gridsuite/sensitivity-analysis-server:latest
     ports:
       - 5030:80
@@ -303,20 +243,15 @@ services:
       - ./../k8s/resources/study/config/sensitivity-analysis-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   shortcircuit-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l-forking
     image: gridsuite/shortcircuit-server:latest
     ports:
       - 5031:80
@@ -324,40 +259,30 @@ services:
       - ./../k8s/resources/study/config/shortcircuit-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   timeseries-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/timeseries-server:latest
     ports:
       - 5037:80
     volumes:
       - ./../k8s/resources/study/config/timeseries-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   voltage-init-server:
     profiles:
       - all
       - study
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l-forking
     image: gridsuite/voltage-init-server:latest
     ports:
       - 5038:80
@@ -365,30 +290,17 @@ services:
       - ./../k8s/resources/study/config/voltage-init-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   #just here for dev purpose, we don't want to start with this profile unless we need to.
   case-import-server:
     profiles:
       - all
       - import
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l  # is xs in k8s?
     image: gridsuite/case-import-server:latest
     ports:
       - 5039:80
     volumes:
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0

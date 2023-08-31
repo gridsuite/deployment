@@ -1,0 +1,75 @@
+version: '3.8'
+# Models for the docker-compose to reuse common configs
+
+services:
+
+  spring-server:
+    #ports:
+    #  - 1234:80
+    restart: unless-stopped
+    depends_on:
+      - logspout
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: unless-stopped
+
+  springboot-size-xs:
+    extends: spring-server
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx128m
+    deploy:
+        resources:
+            limits:
+              memory: 384M
+
+  springboot-size-s:
+    extends: spring-server
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx256m
+    deploy:
+        resources:
+            limits:
+              memory: 512M
+
+  springboot-size-m:
+    extends: spring-server
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx512m
+    deploy:
+        resources:
+            limits:
+              memory: 768M
+
+  springboot-size-l:
+    extends: spring-server
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+    deploy:
+        resources:
+            limits:
+              memory: 1G
+  springboot-size-l-forking:
+    extends: springboot-size-l
+    deploy:
+        resources:
+            limits:
+              memory: 1.5G
+
+  springboot-size-xl:
+    extends: spring-server
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx1792m
+    deploy:
+        resources:
+            limits:
+              memory: 2G
+  springboot-size-xl-forking:
+    extends: springboot-size-xl
+    deploy:
+        resources:
+            limits:
+              memory: 3G

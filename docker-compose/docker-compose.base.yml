@@ -1,6 +1,9 @@
 version: '3.8'
 services:
   case-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: powsybl/case-server:latest
     ports:
       - 5000:80
@@ -8,112 +11,77 @@ services:
       - ./../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/cases:/cases
-    depends_on:
-      - logspout
-    restart: unless-stopped
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   actions-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/actions-server:latest
     ports:
       - 5022:80
     volumes:
       - ./../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   filter-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/filter-server:latest
     ports:
       - 5027:80
     volumes:
       - ./../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
 
   user-admin-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/user-admin-server:latest
     ports:
       - 5033:80
     volumes:
       - ./../k8s/resources/common/config/user-admin-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
 
   report-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-m
     image: gridsuite/report-server:latest
     ports:
       - 5028:80
     volumes:
       - ./../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx512m
 
   network-store-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xl
     image: powsybl/network-store-server:latest
     ports:
       - 8080:80
     volumes:
       - ./../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1792m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-conversion-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xl
     image: powsybl/network-conversion-server:latest
     ports:
       - 5003:80
     volumes:
       - ./../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1792m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   loadflow-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l-forking
     image: gridsuite/loadflow-server:latest
     ports:
       - 5008:80
@@ -121,44 +89,33 @@ services:
       - ./../k8s/resources/common/config/loadflow-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/config-server:latest
     ports:
       - 5025:80
     volumes:
       - ./../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-notification-server:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/config-notification-server:latest
     ports:
       - 5024:80
     volumes:
       - ./../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gateway:
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/gateway:latest
     ports:
       - 9000:80
@@ -166,14 +123,6 @@ services:
       - ./../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./allowed-issuers.yml:/config/allowed-issuers.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   mock-user-service:
     image: gridsuite/oidc-mock-server
@@ -215,3 +164,7 @@ services:
       - ./gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:ro
     depends_on:
       - logspout
+    deploy:
+        resources:
+            limits:
+              memory: 128M

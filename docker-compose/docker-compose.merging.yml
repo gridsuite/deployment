@@ -1,50 +1,57 @@
 version: '3.8'
 
+x-cron-jobs: &cron-jobs-service
+  #tmpfs:
+  #  - /tmp
+  depends_on:
+    - logspout
+  sysctls:
+    - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+  deploy:
+      resources:
+          limits:
+            memory: 384M
+
+
 services:
   merge-orchestrator-server:
     profiles:
       - all
       - merging
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/merge-orchestrator-server:latest
     ports:
       - 5020:80
     volumes:
       - ./../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   merge-notification-server:
     profiles:
       - all
       - merging
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/merge-notification-server:latest
     ports:
       - 5002:80
     volumes:
       - ./../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   balances-adjustment-server:
     profiles:
       - all
       - merging
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l
     image: gridsuite/balances-adjustment-server:latest
     ports:
       - 5010:80
@@ -52,52 +59,36 @@ services:
       - ./../k8s/resources/merging/config/balances-adjustment-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
       - ./../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:ro
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-validation-server:
     profiles:
       - all
       - merging
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/case-validation-server:latest
     ports:
       - 5011:80
     volumes:
       - ./../k8s/resources/merging/config/case-validation-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-boundary-server:
     profiles:
       - all
       - merging
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-xs
     image: gridsuite/cgmes-boundary-server:latest
     ports:
       - 5021:80
     volumes:
       - ./../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   case-import-job:
     profiles:
@@ -115,10 +106,7 @@ services:
       - ./../k8s/resources/merging/config/case-import-job-application.yml:/config/specific/application.yml:ro
       - ./case-import-job/case-import-job-config.yml:/root/.itools/config.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    depends_on:
-      - logspout
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    <<: *cron-jobs-service
 
   cgmes-assembling-job:
     profiles:
@@ -136,10 +124,7 @@ services:
       - ./../k8s/resources/merging/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:ro
       - ./cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    depends_on:
-      - logspout
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    <<: *cron-jobs-service
 
   gridmerge-app:
     profiles:
@@ -169,5 +154,4 @@ services:
     volumes:
       - ./cgmes-boundary-import-job/job-crontab:/root/job-crontab:ro
       - ./cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:ro
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    <<: *cron-jobs-service

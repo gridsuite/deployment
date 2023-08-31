@@ -20,17 +20,12 @@ services:
       - all
       - dynmap
       - suite
+    extends:
+      file: docker-compose-extends.yml
+      service: springboot-size-l  # should be m or s ?
     image: gridsuite/dynamic-mapping-server:latest
     ports:
       - 5036:80
     volumes:
       - ./../k8s/resources/dynamic-mapping/config/dynamic-mapping-server-application.yml:/config/specific/application.yml:ro
       - ./../k8s/resources/common/config/common-application.yml:/config/common/application.yml:ro
-    restart: unless-stopped
-    depends_on:
-      - logspout
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
-    sysctls:
-      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
