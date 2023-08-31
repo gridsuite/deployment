@@ -13,7 +13,7 @@ services:
 
   postgres:
     build:
-      context: $PWD
+      context: .
       dockerfile: Dockerfile-postgres
       args:
         - http_proxy=${http_proxy-}
@@ -33,14 +33,14 @@ services:
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
-      - $PWD/.env
+      - .env
     volumes:
       - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/postgres/data:/var/lib/postgresql/data
       - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/init:/init-data
-      - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:ro
-      - $PWD/init-databases.sh:/init-databases.sh:ro
-      - $PWD/init-geo-data.sh:/init-geo-data.sh:ro
-      - $PWD/init-merging-data.sh:/init-merging-data.sh:ro
+      - ./create-postgres-databases.sh:/create-postgres-databases.sh:ro
+      - ./init-databases.sh:/init-databases.sh:ro
+      - ./init-geo-data.sh:/init-geo-data.sh:ro
+      - ./init-merging-data.sh:/init-merging-data.sh:ro
     restart: unless-stopped
 
   elasticsearch:
@@ -70,8 +70,8 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.9.3
     volumes:
-      - $PWD/pipelines.yml:/config/pipelines.yml:ro
-      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./pipelines.yml:/config/pipelines.yml:ro
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
     environment:
       - LOGSPOUT=ignore
     depends_on:
@@ -103,4 +103,4 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
-      - $PWD/servers_pgadmin.json:/pgadmin4/servers.json
+      - ./servers_pgadmin.json:/pgadmin4/servers.json
