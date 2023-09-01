@@ -4,8 +4,9 @@ services:
   study-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/study-server:latest
     ports:
       - 5001:80
@@ -25,8 +26,9 @@ services:
   geo-data-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/geo-data-server:latest
     ports:
       - 8087:80
@@ -45,8 +47,9 @@ services:
   single-line-diagram-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: powsybl/single-line-diagram-server:latest
     ports:
       - 5005:80
@@ -65,8 +68,9 @@ services:
   network-modification-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/network-modification-server:latest
     ports:
       - 5007:80
@@ -85,8 +89,9 @@ services:
   study-notification-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/study-notification-server:latest
     ports:
       - 5009:80
@@ -105,8 +110,9 @@ services:
   directory-notification-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/directory-notification-server:latest
     ports:
       - 5004:80
@@ -125,8 +131,9 @@ services:
   network-map-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/network-map-server:latest
     ports:
       - 5006:80
@@ -145,8 +152,8 @@ services:
   cgmes-gl-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/cgmes-gl-server:latest
     ports:
       - 8095:80
@@ -165,8 +172,8 @@ services:
   odre-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/odre-server:latest
     ports:
       - 8090:80
@@ -185,8 +192,8 @@ services:
   gridstudy-app:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/gridstudy-app:latest
     ports:
       - 84:8080
@@ -199,8 +206,8 @@ services:
   security-analysis-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/security-analysis-server:latest
     ports:
       - 5023:80
@@ -220,8 +227,8 @@ services:
   dynamic-simulation-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/dynamic-simulation-server:latest
     ports:
       - 5032:80
@@ -240,8 +247,9 @@ services:
   directory-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/directory-server:latest
     ports:
       - 5026:80
@@ -260,8 +268,9 @@ services:
   gridexplore-app:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/gridexplore-app:latest
     ports:
       - 80:8080
@@ -274,8 +283,9 @@ services:
   explore-server:
     profiles:
       - all
-      - study
       - suite
+      - study
+      - study-light
     image: gridsuite/explore-server:latest
     ports:
       - 5029:80
@@ -294,8 +304,8 @@ services:
   sensitivity-analysis-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/sensitivity-analysis-server:latest
     ports:
       - 5030:80
@@ -315,8 +325,8 @@ services:
   shortcircuit-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/shortcircuit-server:latest
     ports:
       - 5031:80
@@ -336,8 +346,8 @@ services:
   timeseries-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/timeseries-server:latest
     ports:
       - 5037:80
@@ -356,8 +366,8 @@ services:
   voltage-init-server:
     profiles:
       - all
-      - study
       - suite
+      - study
     image: gridsuite/voltage-init-server:latest
     ports:
       - 5038:80
