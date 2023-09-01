@@ -43,7 +43,7 @@ $ cd deployment
 > _See instructions in [sub-section](#installing--updating-docker-compose-to-v2)_
 
 This is the preferred development deployment.  
-Install the orchestration tool docker-compose then launch the desired profile :
+Install the orchestration tool [Docker Compose v2](https://github.com/docker/compose) then launch the desired profile :
 
 ### Docker-compose profiles
 
@@ -110,7 +110,7 @@ $ docker compose --profile suite <cmd>
 
 You can also combine multiple profiles:
 ```shell
-$ docker compose --profile study --profile mapping <cmd>
+$ docker compose --profile study --profile dynmap <cmd>
 ```
 But please note that services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
 For example `docker compose stop study-server` would not work because the profile `study` isn't passed in the CLI.
@@ -261,7 +261,7 @@ In order to show documents in the case-server index with Kibana, you must first 
 
 
 ### Installing / Updating docker-compose to v2
-Docker-compose v2 is necessary to have to profiles feature.  
+[Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose projet which use profiles feature.  
 If possible, prefer to install it with your package manager if you are on a Unix system.
 
 > [!NOTE]  
