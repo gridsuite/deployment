@@ -112,11 +112,15 @@ You can also combine multiple profiles:
 ```shell
 $ docker compose --profile study --profile dynmap <cmd>
 ```
-But please note that services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
-For example `docker compose stop study-server` would not work because the profile `study` isn't passed in the CLI.
-The correct CLI would be `docker compose --profile study stop study-server`.
 
-In case you want to do a `down` for everything, an `all` profile exist to simply :
+> [!IMPORTANT]  
+> Contrary to what the Docker documentation say:
+>   * With the commands `up` & `down`, services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
+>     For example `docker compose up study-server` would not work because the profile `study` isn't passed in the CLI.
+>     The correct CLI would be `docker compose --profile study up study-server`.
+>   * With the commands `start`, `stop`, `restart`, the `--profile ...` as no effect because theses commands affect the containers already created by a previous `up` command.
+
+In case you want to do a `down` for everything, an `all` profile exist to simplify :
 ```shell
 $ docker compose --profile all down
 ```
@@ -268,7 +272,7 @@ If possible, prefer to install it with your package manager if you are on a Unix
 > You need a client (docker-cli) of ~v19~ v20 at least to have the system of cli-plugins.
 > It isn't necessary to update your Docker engine or client else.
 
-You can install docker-compose with these commands, as instructed in [the doc](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually) and the [migration guide](https://docs.docker.com/compose/migrate/):
+You can install Docker Compose v2 with these commands, as instructed in [the doc](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually) and the [migration guide](https://docs.docker.com/compose/migrate/):
 ```shell
 curl -LR --create-dirs -o $HOME/.local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
 #wget -x -O $HOME/.local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
@@ -278,7 +282,7 @@ ln -s $HOME/.local/bin/docker-compose $HOME/.docker/cli-plugins/docker-compose
 docker compose version
 ```
 You must get this output from docker compose now:
-> Docker Compose version v2.20.3
+> Docker Compose version v2.xx.x
 
 > [!IMPORTANT]  
 > The commands shown will install the plugin user-side, so you don't need to remove your old docker-compose v1 if it is installed system-wide.
