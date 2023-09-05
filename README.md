@@ -146,6 +146,7 @@ http://localhost:5030/swagger-ui.html  // sensitivity-analysis-server
 http://localhost:5031/swagger-ui.html  // shortcircuit-server
 http://localhost:5037/swagger-ui.html  // timeseries-server
 http://localhost:5038/swagger-ui.html  // voltage-init-server
+http://localhost:5039/swagger-ui.html  // case-import-server
 ```
 
 ### RabbitMQ console
@@ -305,6 +306,7 @@ http://<INGRESS_HOST>/sensitivity-analysis-server/swagger-ui.html
 http://<INGRESS_HOST>/shortcircuit-server/swagger-ui.html
 http://<INGRESS_HOST>/timeseries-server/swagger-ui.html
 http://<INGRESS_HOST>/voltage-init-server/swagger-ui.html
+http://<INGRESS_HOST>/case-import-server/swagger-ui.html
 ```
 
 ## How to use a local docker image into Minikube?
