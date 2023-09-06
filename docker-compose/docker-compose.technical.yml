@@ -26,6 +26,7 @@ services:
               -c shared_preload_libraries='auto_explain'
               -c auto_explain.log_min_duration=0
               -c jit=false
+              -c enable_seqscan=false
               "
     environment:
       - POSTGRES_USER=postgres
@@ -44,13 +45,16 @@ services:
     restart: unless-stopped
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.12
     ports:
       - 9200:9200
       - 9300:9300
     environment:
       - discovery.type=single-node
       - LOGSPOUT=ignore
+      - xpack.security.enabled=false
+      - ingest.geoip.downloader.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     volumes:
       - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
@@ -59,7 +63,7 @@ services:
     profiles:
       - all
       - kibana
-    image: docker.elastic.co/kibana/kibana:7.9.3
+    image: docker.elastic.co/kibana/kibana:7.17.12
     ports:
       - 5601:5601
     environment:
@@ -69,7 +73,7 @@ services:
     restart: unless-stopped
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.9.3
+    image: docker.elastic.co/logstash/logstash:7.17.12
     volumes:
       - ./pipelines.yml:/config/pipelines.yml:ro
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
