@@ -47,20 +47,23 @@ services:
       unless-stopped
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.12
     ports:
       - 9200:9200
       - 9300:9300
     environment:
       - discovery.type=single-node
       - LOGSPOUT=ignore
+      - xpack.security.enabled=false
+      - ingest.geoip.downloader.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     restart:
       unless-stopped
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.0
+    image: docker.elastic.co/kibana/kibana:7.17.12
     ports:
       - 5601:5601
     environment:
@@ -71,7 +74,7 @@ services:
       unless-stopped
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.17.0
+    image: docker.elastic.co/logstash/logstash:7.17.12
     volumes:
       - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
       - $PWD/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
