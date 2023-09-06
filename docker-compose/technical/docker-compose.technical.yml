@@ -27,6 +27,7 @@ services:
               -c shared_preload_libraries='auto_explain'
               -c auto_explain.log_min_duration=0
               -c jit=false
+              -c enable_seqscan=false
               "
     environment:
       - POSTGRES_USER=postgres
@@ -102,7 +103,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4:latest
     ports:
-     - "12080:80"
+      - "12080:80"
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
       - PGADMIN_DEFAULT_PASSWORD=admin
