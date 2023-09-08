@@ -229,6 +229,7 @@ services:
       - all
       - suite
       - study
+      - dynmap
     image: gridsuite/dynamic-simulation-server:latest
     ports:
       - 5032:80
@@ -348,6 +349,7 @@ services:
       - all
       - suite
       - study
+      - dynmap
     image: gridsuite/timeseries-server:latest
     ports:
       - 5037:80

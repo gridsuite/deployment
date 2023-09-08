@@ -85,7 +85,7 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 | cgmes-gl-server               |        |         |   🗸   |             |        |  🗸    |        |        |         |
 | directory-notification-server |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
 | directory-server              |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
-| dynamic-simulation-server     |        |         |   🗸   |             |        |  🗸    |        |        |         |
+| dynamic-simulation-server     |        |         |   🗸   |             |   🗸    |  🗸    |        |        |         |
 | explore-server                |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
 | geo-data-server               |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
 | gridexplore-app               |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
@@ -98,7 +98,7 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 | single-line-diagram-server    |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
 | study-notification-server     |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
 | study-server                  |        |         |   🗸   |      🗸      |        |  🗸    |        |        |         |
-| timeseries-server             |        |         |   🗸   |             |        |  🗸    |        |        |         |
+| timeseries-server             |        |         |   🗸   |             |   🗸    |  🗸    |        |        |         |
 | voltage-init-server           |        |         |   🗸   |             |        |  🗸    |        |        |         |
 | case-import-server            |        |         |       |             |        |       |   🗸    |        |         |
 
