@@ -1,6 +1,14 @@
 version: '3.9'
 services:
   case-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: powsybl/case-server:latest
     ports:
       - 5000:80
@@ -18,6 +26,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   actions-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/actions-server:latest
     ports:
       - 5022:80
@@ -34,6 +50,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   filter-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/filter-server:latest
     ports:
       - 5027:80
@@ -50,6 +74,14 @@ services:
       - JAVA_TOOL_OPTIONS=-Xmx768m
 
   user-admin-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/user-admin-server:latest
     ports:
       - 5033:80
@@ -66,6 +98,14 @@ services:
       - JAVA_TOOL_OPTIONS=-Xmx128m
 
   report-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/report-server:latest
     ports:
       - 5028:80
@@ -82,6 +122,14 @@ services:
       - JAVA_TOOL_OPTIONS=-Xmx512m
 
   network-store-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: powsybl/network-store-server:latest
     ports:
       - 8080:80
@@ -98,6 +146,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-conversion-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: powsybl/network-conversion-server:latest
     ports:
       - 5003:80
@@ -114,6 +170,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   loadflow-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/loadflow-server:latest
     ports:
       - 5008:80
@@ -131,6 +195,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/config-server:latest
     ports:
       - 5025:80
@@ -145,6 +217,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-notification-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/config-notification-server:latest
     ports:
       - 5024:80
@@ -159,6 +239,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gateway:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/gateway:latest
     ports:
       - 9000:80
@@ -176,6 +264,14 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   mock-user-service:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: gridsuite/oidc-mock-server
     ports:
       - 9090:9090
@@ -207,6 +303,14 @@ services:
       - logspout
 
   apps-metadata-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynmap
+      - import
     image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
     ports:
       - 8070:8080
