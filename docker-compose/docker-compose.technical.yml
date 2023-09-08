@@ -36,8 +36,8 @@ services:
     env_file:
       - .env
     volumes:
-      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data
-      - $GRIDSUITE_DATABASES/init:/init-data
+      - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/postgres/data:/var/lib/postgresql/data
+      - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/init:/init-data
       - ./create-postgres-databases.sh:/create-postgres-databases.sh:ro
       - ./init-databases.sh:/init-databases.sh:ro
       - ./init-geo-data.sh:/init-geo-data.sh:ro
@@ -56,7 +56,7 @@ services:
       - ingest.geoip.downloader.enabled=false
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
     volumes:
-      - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
+      - ${GRIDSUITE_DATABASES:-/tmp/gridsuite}/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
 
   kibana:
