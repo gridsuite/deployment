@@ -114,11 +114,11 @@ $ docker compose --profile study --profile dynmap <cmd>
 ```
 
 > [!IMPORTANT]  
-> Contrary to what the Docker documentation say:
+> The `--profile` argument isn't always mandatory:
 >   * With the commands `up` & `down`, services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
 >     For example `docker compose up study-server` would not work because the profile `study` isn't passed in the CLI.
 >     The correct CLI would be `docker compose --profile study up study-server`.
->   * With the commands `start`, `stop`, `restart`, the `--profile ...` as no effect because theses commands affect the containers already created by a previous `up` command.
+>   * With the commands `start`, `stop`, `restart`, the `--profile ...` has no effect because theses commands affect the containers already created by a previous `up` command.
 
 In case you want to do a `down` for everything, an `all` profile exist to simplify :
 ```shell
