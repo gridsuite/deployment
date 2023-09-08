@@ -8,6 +8,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: powsybl/case-server:latest
     ports:
@@ -33,6 +34,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/actions-server:latest
     ports:
@@ -57,6 +59,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/filter-server:latest
     ports:
@@ -81,6 +84,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/user-admin-server:latest
     ports:
@@ -105,6 +109,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/report-server:latest
     ports:
@@ -129,6 +134,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: powsybl/network-store-server:latest
     ports:
@@ -153,6 +159,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: powsybl/network-conversion-server:latest
     ports:
@@ -177,6 +184,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/loadflow-server:latest
     ports:
@@ -202,6 +210,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/config-server:latest
     ports:
@@ -224,6 +233,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/config-notification-server:latest
     ports:
@@ -246,6 +256,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/gateway:latest
     ports:
@@ -271,6 +282,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: gridsuite/oidc-mock-server
     ports:
@@ -310,6 +322,7 @@ services:
       - study-light
       - merging
       - dynmap
+      - dynsim
       - import
     image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
     ports:

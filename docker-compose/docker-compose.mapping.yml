@@ -4,8 +4,9 @@ services:
   griddyna-app:
     profiles:
       - all
-      - dynmap
       - suite
+      - dynmap
+      - dynsim
     image: gridsuite/griddyna-app:latest
     ports:
       - 83:8080
@@ -18,8 +19,9 @@ services:
   dynamic-mapping-server:
     profiles:
       - all
-      - dynmap
       - suite
+      - dynmap
+      - dynsim
     image: gridsuite/dynamic-mapping-server:latest
     ports:
       - 5036:80
