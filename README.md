@@ -47,60 +47,28 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 
 ### Docker-compose profiles
 
-| Component                     | _none_ | merging | study | study-light | dynmap | dynsim | suite | import | kibana | pgadmin |
-|-------------------------------|--------|---------|-------|-------------|--------|--------|-------|--------|--------|---------|
-| rabbitmq                      |   🗸    |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| postgres                      |   🗸    |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| elasticsearch                 |   🗸    |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| logstash                      |   🗸    |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| socat                         |   🗸    |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| logspout                      |   🗸    |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |   🗸    |    🗸    |
-| kibana                        |        |         |       |             |        |        |       |        |    🗸   |         |
-| pgadmin                       |        |         |       |             |        |        |       |        |        |    🗸    |
-| apps-metadata-server          |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| mock-user-service             |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| gateway                       |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| actions-server                |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| case-server                   |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| config-notification-server    |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| config-server                 |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| filter-server                 |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| loadflow-server               |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| network-conversion-server     |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| network-store-server          |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| report-server                 |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| user-admin-server             |        |    🗸    |   🗸   |      🗸      |   🗸    |   🗸    |   🗸   |   🗸    |        |         |
-| griddyna-app                  |        |         |       |             |   🗸    |   🗸    |   🗸   |        |        |         |
-| dynamic-mapping-server        |        |         |       |             |   🗸    |   🗸    |   🗸   |        |        |         |
-| gridmerge-app                 |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| balances-adjustment-server    |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| case-import-job               |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| case-validation-server        |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| cgmes-assembling-job          |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| cgmes-boundary-import-job     |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| cgmes-boundary-server         |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| merge-notification-server     |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| merge-orchestrator-server     |        |    🗸    |       |             |        |        |  🗸    |        |        |         |
-| gridstudy-app                 |        |         |   🗸   |             |        |   🗸    |  🗸    |        |        |         |
-| cgmes-gl-server               |        |         |   🗸   |             |        |        |  🗸    |        |        |         |
-| directory-notification-server |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| directory-server              |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| dynamic-simulation-server     |        |         |   🗸   |             |        |   🗸    |  🗸    |        |        |         |
-| explore-server                |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| geo-data-server               |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| gridexplore-app               |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| network-map-server            |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| network-modification-server   |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| odre-server                   |        |         |   🗸   |             |        |        |  🗸    |        |        |         |
-| security-analysis-server      |        |         |   🗸   |             |        |        |  🗸    |        |        |         |
-| sensitivity-analysis-server   |        |         |   🗸   |             |        |        |  🗸    |        |        |         |
-| shortcircuit-server           |        |         |   🗸   |             |        |        |  🗸    |        |        |         |
-| single-line-diagram-server    |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| study-notification-server     |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| study-server                  |        |         |   🗸   |      🗸      |        |   🗸    |  🗸    |        |        |         |
-| timeseries-server             |        |         |   🗸   |             |        |   🗸    |  🗸    |        |        |         |
-| voltage-init-server           |        |         |   🗸   |             |        |        |  🗸    |        |        |         |
-| case-import-server            |        |         |       |             |        |        |       |   🗸    |        |         |
+<!-- we add some style to the html render on github -->
+<style type="text/css">
+.vertical-th table th:not(:first-child) {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+</style>
+<div class="vertical-th" style="all:unset">
+
+| Component \ Service | _(none)_ | merging | study | study-light | dynmap | dynsim | suite | import | kibana | pgadmin |
+|---|---|---|---|---|---|---|---|---|---|---|
+| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| kibana | | | | | | | | | ✅ | |
+| pgadmin | | | | | | | | | | ✅ |
+| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
+| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | |
+| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | |
+| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | |
+| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
+| case&#8209;import&#8209;server | | | | | | | | ✅ | | |
+</div>
 
 To use a profile, you use simply:
 ```shell
