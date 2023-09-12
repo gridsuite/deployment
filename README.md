@@ -48,27 +48,86 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 ### Docker-compose profiles
 
 <!-- we add some style to the html render on github -->
-<style type="text/css">
-.vertical-th table th:not(:first-child) {
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-}
-</style>
-<div class="vertical-th" style="all:unset">
-
-| Component \ Service | _(none)_ | merging | study | study-light | dynmap | dynsim | suite | import | kibana | pgadmin |
-|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| kibana | | | | | | | | | ✅ | |
-| pgadmin | | | | | | | | | | ✅ |
-| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
-| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | |
-| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | |
-| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | |
-| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
-| case&#8209;import&#8209;server | | | | | | | | ✅ | | |
-</div>
+<svg fill="none" viewBox="auto" min-width="830" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <div class="container" style="all:unset">
+        <table>
+          <thead>
+            <tr>
+              <th>Component \ Service</th>
+              <th><em>(none)</em></th>
+              <th>merging</th>
+              <th>study</th>
+              <th>study-light</th>
+              <th>dynmap</th>
+              <th>dynsim</th>
+              <th>suite</th>
+              <th>import</th>
+              <th>kibana</th>
+              <th>pgadmin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>rabbitmq<br>postgres<br>elasticsearch<br>logstash<br>socat<br>logspout</td>
+              <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+            </tr>
+            <tr>
+              <td>kibana</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✅</td><td></td>
+            </tr>
+            <tr>
+              <td>pgadmin</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✅</td>
+            </tr>
+            <tr>
+              <td>apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>actions‑server<br>case‑server<br>config‑notification‑server<br>config‑server<br>filter‑server<br>loadflow‑server<br>network‑conversion‑server<br>network‑store‑server<br>report‑server<br>user‑admin‑server</td>
+              <td></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>griddyna‑app<br>dynamic‑mapping‑server</td>
+              <td></td><td></td><td></td><td></td><td>✅</td><td>✅</td><td>✅</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>gridmerge‑app<br>balances‑adjustment‑server<br>case‑import‑job<br>case‑validation‑server<br>cgmes‑assembling‑job<br>cgmes‑boundary‑import‑job<br>cgmes‑boundary‑server<br>merge‑notification‑server<br>merge‑orchestrator‑server</td>
+              <td></td><td>✅</td><td></td><td></td><td></td><td></td><td>✅</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>gridstudy‑app<br>dynamic‑simulation‑server<br>timeseries‑server</td>
+              <td></td><td></td><td>✅</td><td></td><td></td><td>✅</td><td>✅</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>cgmes‑gl‑server<br>odre‑server<br>security‑analysis‑server<br>sensitivity‑analysis‑server<br>shortcircuit‑server<br>voltage‑init‑server</td>
+              <td></td><td></td><td>✅</td><td></td><td></td><td></td><td>✅</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>directory‑notification‑server<br>directory‑server<br>explore‑server<br>geo‑data‑server<br>gridexplore‑app<br>network‑map‑server<br>network‑modification‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server</td>
+              <td></td><td></td><td>✅</td><td>✅</td><td></td><td>✅</td><td>✅</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td>case‑import‑server</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✅</td><td></td><td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <style type="text/css">
+        .container {
+          display: flex;
+          width: 100%;
+          /*height: 300px;*/
+          background-color: black;
+          color: white;
+        }
+        .container table th:not(:first-child) {
+          writing-mode: vertical-lr;
+          /*transform: rotate(180deg);*/
+        }
+      </style>
+    </div>
+  </foreignObject>
+</svg>
 
 To use a profile, you use simply:
 ```shell
