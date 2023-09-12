@@ -48,7 +48,9 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 ### Docker-compose profiles
 
 <!-- we add some style to the html render on github -->
-<br/><img src="./readme-profiles.svg" alt="Docker Compose profiles" height="auto" width="100%"/>
+<object data="readme-profiles.svg" width="100%" height="auto" type="image/svg+xml">
+  <img src="./readme-profiles.svg" alt="Docker Compose profiles" height="auto" width="100%" max-width="100%"/>
+</object>
 
 To use a profile, you use simply:
 ```shell
