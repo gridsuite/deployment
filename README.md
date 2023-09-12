@@ -47,15 +47,6 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 
 ### Docker-compose profiles
 
-<!-- we add some style to the html render on github -->
-<style type="text/css">
-.vertical-th table th:not(:first-child) {
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-}
-</style>
-<div class="vertical-th" style="all:unset">
-
 | Component \ Service | _(none)_ | merging | study | study-light | dynmap | dynsim | suite | import | kibana | pgadmin |
 |---|---|---|---|---|---|---|---|---|---|---|
 | rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -68,7 +59,6 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 | cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | |
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
 | case&#8209;import&#8209;server | | | | | | | | ✅ | | |
-</div>
 
 To use a profile, you use simply:
 ```shell
