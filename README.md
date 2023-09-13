@@ -47,7 +47,7 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 
 ### Docker-compose profiles
 
-| Component \ Service | _(none)_ | merging | study | study-light | dynmap | dynsim | suite | import | kibana | pgadmin |
+| Component \ Service | _(none)_ | merging | study | study-light | dyna-map | dyna-sim | suite | import | kibana | pgadmin |
 |---|---|---|---|---|---|---|---|---|---|---|
 | rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | kibana | | | | | | | | | ✅ | |
@@ -68,7 +68,7 @@ $ docker compose --profile suite <cmd>
 
 You can also combine multiple profiles:
 ```shell
-$ docker compose --profile study --profile dynmap <cmd>
+$ docker compose --profile study --profile dyna-map <cmd>
 ```
 
 > [!IMPORTANT]  
