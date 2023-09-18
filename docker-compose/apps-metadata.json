@@ -7,7 +7,7 @@
 },
 {
   "name" : "Study",
-  "url"  : "http://localhost:84",
+  "url"  : "http://localhost:80",
   "appColor" : "#0CA789",
   "hiddenInAppsMenu" : true,
   "resources" : [
