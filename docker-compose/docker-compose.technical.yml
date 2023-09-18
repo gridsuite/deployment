@@ -38,10 +38,10 @@ services:
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data
       - $GRIDSUITE_DATABASES/init:/init-data
-      - ./create-postgres-databases.sh:/create-postgres-databases.sh:ro
-      - ./init-databases.sh:/init-databases.sh:ro
-      - ./init-geo-data.sh:/init-geo-data.sh:ro
-      - ./init-merging-data.sh:/init-merging-data.sh:ro
+      - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - $PWD/init-databases.sh:/init-databases.sh:Z
+      - $PWD/init-geo-data.sh:/init-geo-data.sh:Z
+      - $PWD/init-merging-data.sh:/init-merging-data.sh:Z
     restart: unless-stopped
 
   elasticsearch:
@@ -75,8 +75,8 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.17.12
     volumes:
-      - ./pipelines.yml:/config/pipelines.yml:ro
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - $PWD/pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
     environment:
       - LOGSPOUT=ignore
     depends_on:
@@ -94,7 +94,7 @@ services:
       - BACKLOG=false
       - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /var/run/docker.sock:/tmp/docker.sock:Z
     depends_on:
       - socat
 
@@ -109,4 +109,4 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
-      - ./servers_pgadmin.json:/pgadmin4/servers.json
+      - $PWD/servers_pgadmin.json:/pgadmin4/servers.json
