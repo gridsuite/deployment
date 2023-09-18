@@ -112,7 +112,7 @@ Applications:
 http://localhost:80 // gridexplore
 http://localhost:81 // gridmerge
 http://localhost:83 // griddyna
-http://localhost:84 // gridstudy
+http://localhost:80 // gridstudy
 ```
 
 Swagger UI:
