@@ -3,7 +3,10 @@
   "name" : "Explore",
   "url"  : "http://localhost:80",
   "appColor" : "#33AFED",
-  "hiddenInAppsMenu" : false
+  "hiddenInAppsMenu" : false,
+  "defaultImportStudyParametersValues" : {
+    "paramsWithAllOptionSelected" : ["iidm.import.xml.extensions"]
+  }
 },
 {
   "name" : "Study",
