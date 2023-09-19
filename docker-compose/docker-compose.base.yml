@@ -16,7 +16,7 @@ services:
     volumes:
       - $PWD/../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $GRIDSUITE_DATABASES/cases:/cases
+      - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       - logspout
     restart: unless-stopped
