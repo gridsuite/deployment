@@ -7,7 +7,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/study-server:latest
     ports:
       - 5001:80
@@ -30,7 +30,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/geo-data-server:latest
     ports:
       - 8087:80
@@ -52,7 +52,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: powsybl/single-line-diagram-server:latest
     ports:
       - 5005:80
@@ -74,7 +74,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/network-modification-server:latest
     ports:
       - 5007:80
@@ -96,7 +96,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/study-notification-server:latest
     ports:
       - 5009:80
@@ -118,7 +118,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/directory-notification-server:latest
     ports:
       - 5004:80
@@ -140,7 +140,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/network-map-server:latest
     ports:
       - 5006:80
@@ -201,7 +201,7 @@ services:
       - all
       - suite
       - study
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/gridstudy-app:latest
     ports:
       - 84:8080
@@ -237,7 +237,7 @@ services:
       - all
       - suite
       - study
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/dynamic-simulation-server:latest
     ports:
       - 5032:80
@@ -259,7 +259,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/directory-server:latest
     ports:
       - 5026:80
@@ -281,7 +281,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/gridexplore-app:latest
     ports:
       - 80:8080
@@ -297,7 +297,7 @@ services:
       - suite
       - study
       - study-light
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/explore-server:latest
     ports:
       - 5029:80
@@ -360,7 +360,7 @@ services:
       - all
       - suite
       - study
-      - dyna-sim
+      - dynamic-simulation
     image: gridsuite/timeseries-server:latest
     ports:
       - 5037:80

@@ -5,8 +5,8 @@ services:
     profiles:
       - all
       - suite
-      - dyna-map
-      - dyna-sim
+      - dynamic-mapping
+      - dynamic-simulation
     image: gridsuite/griddyna-app:latest
     ports:
       - 83:8080
@@ -20,8 +20,8 @@ services:
     profiles:
       - all
       - suite
-      - dyna-map
-      - dyna-sim
+      - dynamic-mapping
+      - dynamic-simulation
     image: gridsuite/dynamic-mapping-server:latest
     ports:
       - 5036:80

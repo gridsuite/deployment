@@ -75,7 +75,7 @@ __Notes__ : The containers are accessible from your machine thought the ip addre
 This is the preferred development deployment.
 
 Here the resume of the profiles and what services they includes:
-| Component \ Service | _(none)_ | merging | study | study-light | dyna-map | dyna-sim | suite | import | kibana | pgadmin |
+| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin |
 |---|---|---|---|---|---|---|---|---|---|---|
 | rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | kibana | | | | | | | | | ✅ | |
@@ -96,7 +96,7 @@ $ docker compose --profile suite <cmd>
 
 You can also combine multiple profiles:
 ```shell
-$ docker compose --profile study --profile dyna-map <cmd>
+$ docker compose --profile study --profile dynamic-mapping <cmd>
 ```
 
 > [!IMPORTANT]  
