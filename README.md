@@ -39,14 +39,42 @@ $ cd deployment
 ## Docker compose deployment
 
 > **Important**
-> [Docker Compose v2](https://docs.docker.com/compose/install/standalone/) is necessary to use the [profiles feature](https://docs.docker.com/compose/profiles/).  
+> [Docker Compose v2](https://docs.docker.com/compose/install/standalone/) is mandatory.  
 > _See instructions in [sub-section](#installing--updating-docker-compose-to-v2)_
 
-This is the preferred development deployment.  
-Install the orchestration tool [Docker Compose v2](https://github.com/docker/compose) then launch the desired profile :
+
+### Application profiles _(alias)_
+> [!NOTE]  
+> These folders act now like an alias to a `docker compose --profile <folder_name>`, with the difference that they will be considered like another project stack,
+> so compose commands will not affect others folders state.
+>
+> We recommand to use profiles as explained in the [next section](#docker-compose-profiles), as these folders are keep for compatibility with the old way to use this project.
+
+```bash
+$ cd docker-compose/suite
+$ docker compose up
+```
+```bash
+$ cd docker-compose/study
+$ docker compose up
+```
+```bash
+$ cd docker-compose/merging
+$ docker compose up
+```
+```bash
+$ cd docker-compose/dynamic-mapping
+$ docker compose up
+```
+
+__Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
+
+__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
 ### Docker-compose profiles
+This is the preferred development deployment.
 
+Here the resume of the profiles and what services they includes:
 | Component \ Service | _(none)_ | merging | study | study-light | dyna-map | dyna-sim | suite | import | kibana | pgadmin |
 |---|---|---|---|---|---|---|---|---|---|---|
 | rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -60,7 +88,7 @@ Install the orchestration tool [Docker Compose v2](https://github.com/docker/com
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
 | case&#8209;import&#8209;server | | | | | | | | ✅ | | |
 
-To use a profile, you use simply:
+To use a profile, you use:
 ```shell
 $ cd docker-compose
 $ docker compose --profile suite <cmd>
@@ -78,10 +106,18 @@ $ docker compose --profile study --profile dyna-map <cmd>
 >     The correct CLI would be `docker compose --profile study up study-server`.
 >   * With the commands `start`, `stop`, `restart`, the `--profile ...` has no effect because theses commands affect the containers already created by a previous `up` command.
 
+For changing of profile(s) running without `down`&`up` everything (for example you have `up` the profile `suite` and you want now use the profile `study`), you can instead `stop` & `up`:
+```shell
+# previously: docker compose --profile suite up -d
+$ docker compose --profile suite stop
+$ docker compose --profile study up -d
+```
+
 In case you want to do a `down` for everything, an `all` profile exist to simplify :
 ```shell
 $ docker compose --profile all down
 ```
+
 If you still have a container existing in the project, you will have this message during the `down`:
 ```
 $ docker compose down
@@ -90,10 +126,6 @@ $ docker compose down
  ! Network gridsuite_default        Resource is still in use     0.0s
 ```
 
-
-__Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
-
-__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
 ### Technical profile
 
@@ -223,7 +255,7 @@ In order to show documents in the case-server index with Kibana, you must first 
 
 
 ### Installing / Updating docker-compose to v2
-[Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose projet which use profiles feature.  
+[Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose projet which use [profiles feature](https://docs.docker.com/compose/profiles/).  
 If possible, prefer to install it with your package manager if you are on a Unix system.
 
 > [!NOTE]  
