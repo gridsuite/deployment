@@ -13,7 +13,7 @@ services:
 
   postgres:
     build:
-      context: .
+      context: $PWD/../technical
       dockerfile: Dockerfile-postgres
       args:
         - http_proxy=${http_proxy-}
@@ -34,14 +34,14 @@ services:
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
-      - .env
+      - $PWD/.env
     volumes:
-      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data
-      - $GRIDSUITE_DATABASES/init:/init-data
-      - $PWD/create-postgres-databases.sh:/create-postgres-databases.sh:Z
-      - $PWD/init-databases.sh:/init-databases.sh:Z
-      - $PWD/init-geo-data.sh:/init-geo-data.sh:Z
-      - $PWD/init-merging-data.sh:/init-merging-data.sh:Z
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
+      - $GRIDSUITE_DATABASES/init:/init-data:Z
+      - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
+      - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
+      - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
     restart: unless-stopped
 
   elasticsearch:
@@ -75,8 +75,8 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.17.12
     volumes:
-      - $PWD/pipelines.yml:/config/pipelines.yml:Z
-      - $PWD/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
+      - $PWD/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
     environment:
       - LOGSPOUT=ignore
     depends_on:
@@ -94,7 +94,7 @@ services:
       - BACKLOG=false
       - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:Z
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - socat
 
@@ -109,4 +109,4 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
-      - $PWD/servers_pgadmin.json:/pgadmin4/servers.json
+      - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json

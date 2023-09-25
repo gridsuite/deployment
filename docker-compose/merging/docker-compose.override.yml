@@ -10,8 +10,8 @@ services:
     ports:
       - 5020:80
     volumes:
-      - $PWD/../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       - logspout
@@ -30,8 +30,8 @@ services:
     ports:
       - 5002:80
     volumes:
-      - $PWD/../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -49,9 +49,9 @@ services:
     ports:
       - 5010:80
     volumes:
-      - $PWD/../k8s/resources/merging/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
       - logspout
     environment:
@@ -69,8 +69,8 @@ services:
     ports:
       - 5011:80
     volumes:
-      - $PWD/../k8s/resources/merging/config/case-validation-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/case-validation-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     environment:
@@ -88,8 +88,8 @@ services:
     ports:
       - 5021:80
     volumes:
-      - $PWD/../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       - logspout
@@ -105,16 +105,16 @@ services:
       - merging
       - suite
     build:
-      context: case-import-job
+      context: merging/case-import-job
       args:
         - http_proxy=${http_proxy-}
         - https_proxy=${https_proxy-}
         - no_proxy=${no_proxy-}
     volumes:
-      - $PWD/case-import-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../k8s/resources/merging/config/case-import-job-application.yml:/config/specific/application.yml:Z
-      - $PWD/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../merging/case-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../../k8s/resources/merging/config/case-import-job-application.yml:/config/specific/application.yml:Z
+      - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     sysctls:
@@ -126,16 +126,16 @@ services:
       - merging
       - suite
     build:
-      context: cgmes-assembling-job
+      context: merging/cgmes-assembling-job
       args:
         - http_proxy=${http_proxy-}
         - https_proxy=${https_proxy-}
         - no_proxy=${no_proxy-}
     volumes:
-      - $PWD/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
-      - $PWD/../k8s/resources/merging/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
-      - $PWD/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
-      - $PWD/../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../merging/cgmes-assembling-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../../k8s/resources/merging/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
+      - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       - logspout
     sysctls:
@@ -150,8 +150,8 @@ services:
     ports:
       - 81:8080
     volumes:
-      - $PWD/gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
-      - $PWD/env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
+      - $PWD/../gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
     depends_on:
       - logspout
 
@@ -161,13 +161,13 @@ services:
       - merging
       - suite
     build:
-      context: cgmes-boundary-import-job
+      context: merging/cgmes-boundary-import-job
       args:
         - http_proxy=${http_proxy-}
         - https_proxy=${https_proxy-}
         - no_proxy=${no_proxy-}
     volumes:
-      - $PWD/cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
-      - $PWD/cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
+      - $PWD/../merging/cgmes-boundary-import-job/job-crontab:/root/job-crontab:Z
+      - $PWD/../merging/cgmes-boundary-import-job/cgmes-boundary-import-job-config.yml:/root/.itools/config.yml:Z
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
