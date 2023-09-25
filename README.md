@@ -45,10 +45,11 @@ $ cd deployment
 
 ### Application profiles _(alias)_
 > [!NOTE]  
-> These folders act now like an alias to a `docker compose --profile <folder_name>`, with the difference that they will be considered like another project stack,
+> These folders (other than `explicit-profiles`) act now like an alias to `docker compose --project-name grid<name> --profile <folder_name> ...`,
+> with the difference that they have implicitly a profile active and will be considered like another project stack,
 > so compose commands will not affect others folders state.
 >
-> We recommand to use profiles as explained in the [next section](#docker-compose-profiles), as these folders are keep for compatibility with the old way to use this project.
+> If you want to use profiles other than the ones associated with the foldes (`dynamic-mapping`, `merging`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
 
 ```bash
 $ cd docker-compose/suite
@@ -72,7 +73,8 @@ __Notes__ : When using docker-compose for deployment, your machine is accessible
 __Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
 ### Docker-compose profiles
-This is the preferred development deployment.
+This is the preferred development deployment.  
+_All describe in this section is inside the folder `explicit-profiles`._
 
 Here the resume of the profiles and what services they includes:
 | Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin |
@@ -90,7 +92,7 @@ Here the resume of the profiles and what services they includes:
 
 To use a profile, you use:
 ```shell
-$ cd docker-compose
+$ cd docker-compose/explicit-profiles
 $ docker compose --profile suite <cmd>
 ```
 
