@@ -45,11 +45,7 @@ $ cd deployment
 
 ### Application profiles _(alias)_
 > [!NOTE]  
-> These folders (other than `explicit-profiles`) act now like an alias to `docker compose --project-name grid<name> --profile <folder_name> ...`,
-> with the difference that they have implicitly a profile active and will be considered like another project stack,
-> so compose commands will not affect others folders state.
->
-> If you want to use profiles other than the ones associated with the foldes (`dynamic-mapping`, `merging`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
+> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `merging`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
 
 ```bash
 $ cd docker-compose/suite
@@ -71,6 +67,11 @@ $ docker compose up
 __Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
 
 __Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
+
+__Notes__ :
+These folders (other than `explicit-profiles`) act now like an alias to `docker compose --project-name grid<name> --profile <folder_name> ...`,
+with the difference that they have implicitly a profile active and will be considered like another project stack,
+so compose commands will not affect others folders state.
 
 ### Docker-compose profiles
 This is the preferred development deployment.  
@@ -102,7 +103,7 @@ $ docker compose --profile study --profile dynamic-mapping <cmd>
 ```
 
 > [!IMPORTANT]  
-> The `--profile` argument isn't always mandatory:
+> The `--profile` argument isn't always mandatory with some commands:
 >   * With the commands `up` & `down`, services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
 >     For example `docker compose up study-server` would not work because the profile `study` isn't passed in the CLI.
 >     The correct CLI would be `docker compose --profile study up study-server`.
