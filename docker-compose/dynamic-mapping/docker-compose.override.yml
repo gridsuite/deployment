@@ -11,7 +11,7 @@ services:
     ports:
       - 83:8080
     volumes:
-      - $PWD/../griddyna-app-idpSettings.json:/opt/bitnami/apache/htdocs/griddyna/idpSettings.json:Z
+      - $PWD/../dynamic-mapping/griddyna-app-idpSettings.json:/opt/bitnami/apache/htdocs/griddyna/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/griddyna/env.json:Z
     depends_on:
       - logspout
