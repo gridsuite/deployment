@@ -75,9 +75,9 @@ so compose commands will not affect others folders state.
 
 ### Docker-compose profiles
 This is the preferred development deployment.  
-_All describe in this section is inside the folder `explicit-profiles`._
+_Everything described in this section is inside the folder `explicit-profiles`._
 
-Here the resume of the profiles and what services they includes:
+Here's the summary of the profiles and what services they includes:
 | Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin |
 |---|---|---|---|---|---|---|---|---|---|---|
 | rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -109,7 +109,7 @@ $ docker compose --profile study --profile dynamic-mapping <cmd>
 >     The correct CLI would be `docker compose --profile study up study-server`.
 >   * With the commands `start`, `stop`, `restart`, the `--profile ...` has no effect because theses commands affect the containers already created by a previous `up` command.
 
-For changing of profile(s) running without `down`&`up` everything (for example you have `up` the profile `suite` and you want now use the profile `study`), you can instead `stop` & `up`:
+To change the running profile('s) without `down`&`up` everything (for example you have `up` the profile `suite` and you want now use the profile `study`), you can instead `stop` & `up`:
 ```shell
 # previously: docker compose --profile suite up -d
 $ docker compose --profile suite stop
@@ -258,7 +258,7 @@ In order to show documents in the case-server index with Kibana, you must first 
 
 
 ### Installing / Updating docker-compose to v2
-[Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose projet which use [profiles feature](https://docs.docker.com/compose/profiles/).  
+[Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose project which uses [profiles feature](https://docs.docker.com/compose/profiles/).  
 If possible, prefer to install it with your package manager if you are on a Unix system.
 
 > [!NOTE]  

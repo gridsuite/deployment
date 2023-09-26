@@ -1,4 +1,0 @@
-version: '4.0'
-services: {}
-
-# This file is here only for $COMPOSE_PROFILES to be recognese by docker compose, nothing more
