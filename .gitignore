@@ -1,3 +1,5 @@
+/db_*
+
 # IntelliJ
 /.idea
 *.iml
