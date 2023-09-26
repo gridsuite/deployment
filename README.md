@@ -344,7 +344,7 @@ $ find k8s/live/local/ -type f | xargs sed -i -e 's/<PASSWORD>/YOURPASSWORD/g'
 Start technical services with the docker-compose technical profile  :
 ```bash
 $ cd docker-compose/technical
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 Deploy k8s services:
@@ -449,15 +449,15 @@ All actions can be done from a docker-compose profile.
 ### Databases creation
 
 ```bash
-$ docker-compose exec postgres /create-postgres-databases.sh
+$ docker compose exec postgres /create-postgres-databases.sh
 ```
 
 ### Data initialization
 
 First update the data files in the directory `$GRIDSUITE_DATABASES/init`
 ```bash
-$ docker-compose exec postgres /init-geo-data.sh
-$ docker-compose exec postgres /init-merging-data.sh
+$ docker compose exec postgres /init-geo-data.sh
+$ docker compose exec postgres /init-merging-data.sh
 ```
 
 **Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. You have to execute those REST requests :
@@ -483,5 +483,5 @@ services:
     image: <my_image_name>:latest
 ...
 ```
-Now, when using ```docker-compose up```, your custom Docker image will be used.
+Now, when using ```docker compose up```, your custom Docker image will be used.
 
