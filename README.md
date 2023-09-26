@@ -10,7 +10,7 @@ The following subdirectories must be created with file **mode 777 (rwx)** :
 - **cases** : working directory for cases-server
 - **postgres** : databases Postgres
 - **elasticsearch** : indexes (documents) Elasticsearch
-- **init** : data files for initialization 
+- **init** : data files for initialization
 
 ```
 $ cd $GRIDSUITE_DATABASES
@@ -31,43 +31,108 @@ To do this, you must copy the following files in the init directory :
 
 ### Clone deployment repository
 
-```bash 
+```bash
 $ git clone https://github.com/gridsuite/deployment.git
 $ cd deployment
 ```
 
 ## Docker compose deployment
 
-This is the preferred development deployment.
-Install the orchestration tool docker-compose then launch the desired profile :
+> **Important**
+> [Docker Compose v2](https://docs.docker.com/compose/install/standalone/) is mandatory.  
+> _See instructions in [sub-section](#installing--updating-docker-compose-to-v2)_
 
-### Application profiles
 
-```bash 
+### Application profiles _(alias)_
+> [!NOTE]  
+> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `merging`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
+
+```bash
 $ cd docker-compose/suite
-$ docker-compose up
+$ docker compose up
 ```
-```bash 
+```bash
 $ cd docker-compose/study
-$ docker-compose up
+$ docker compose up
 ```
-```bash 
+```bash
 $ cd docker-compose/merging
-$ docker-compose up
+$ docker compose up
 ```
-
-```bash 
+```bash
 $ cd docker-compose/dynamic-mapping
-$ docker-compose up
+$ docker compose up
 ```
 
 __Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
 
 __Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
+__Notes__ :
+These folders (other than `explicit-profiles`) act now like an alias to `docker compose --project-name grid<name> --profile <folder_name> ...`,
+with the difference that they have implicitly a profile active and will be considered like another project stack,
+so compose commands will not affect others folders state.
+
+### Docker-compose profiles
+This is the preferred development deployment.  
+_Everything described in this section is inside the folder `explicit-profiles`._
+
+Here's the summary of the profiles and what services they includes:
+| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin |
+|---|---|---|---|---|---|---|---|---|---|---|
+| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| kibana | | | | | | | | | ✅ | |
+| pgadmin | | | | | | | | | | ✅ |
+| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
+| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | |
+| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | |
+| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | |
+| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
+| case&#8209;import&#8209;server | | | | | | | | ✅ | | |
+
+To use a profile, you use:
+```shell
+$ cd docker-compose/explicit-profiles
+$ docker compose --profile suite <cmd>
+```
+
+You can also combine multiple profiles:
+```shell
+$ docker compose --profile study --profile dynamic-mapping <cmd>
+```
+
+> [!IMPORTANT]  
+> The `--profile` argument isn't always mandatory with some commands:
+>   * With the commands `up` & `down`, services/container who belongs to at least one profile can't be accessed if the profile isn't specified.
+>     For example `docker compose up study-server` would not work because the profile `study` isn't passed in the CLI.
+>     The correct CLI would be `docker compose --profile study up study-server`.
+>   * With the commands `start`, `stop`, `restart`, the `--profile ...` has no effect because theses commands affect the containers already created by a previous `up` command.
+
+To change the running profile('s) without `down`&`up` everything (for example you have `up` the profile `suite` and you want now use the profile `study`), you can instead `stop` & `up`:
+```shell
+# previously: docker compose --profile suite up -d
+$ docker compose --profile suite stop
+$ docker compose --profile study up -d
+```
+
+In case you want to do a `down` for everything, an `all` profile exist to simplify :
+```shell
+$ docker compose --profile all down
+```
+
+If you still have a container existing in the project, you will have this message during the `down`:
+```
+$ docker compose down
+[+] Running 2/1
+ ✔ Container abc-server             Removed                      10.6s
+ ! Network gridsuite_default        Resource is still in use     0.0s
+```
+
+
 ### Technical profile
 
-This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ... 
+This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ...
 
 |Software| Version used |
 --- | --- |
@@ -78,28 +143,28 @@ This profile allows you to launch only the technical services : postgres, elasti
 
 It is used for k8s deployment with Minikube.
 
-```bash 
+```bash
 $ cd docker-compose/technical
-$ docker-compose up
+$ docker compose up
 ```
 
 ### Update docker-compose images
 To synchronize with the latest images for a docker-compose profile, you need to :
 - delete the containers
-```bash 
-$ docker-compose down
+```bash
+$ docker compose down
 ```
 - get latest images
-```bash 
-$ docker-compose pull
+```bash
+$ docker compose pull
 ```
 - recreate containers
-```bash 
-$ docker-compose up
+```bash
+$ docker compose up
 ```
 
 - remove old images
-```bash 
+```bash
 $ docker image prune -f
 ```
 
@@ -155,7 +220,7 @@ RabbitMQ management UI:
 
 ```html
 http://localhost:15672
-default credentials : 
+default credentials :
    - username : guest
    - password : guest
 ```
@@ -166,7 +231,7 @@ PgAdmin UI:
 
 ```html
 http://localhost:12080/login
-default credentials : 
+default credentials :
    - username : admin@rte-france.com
    - password : admin
 ```
@@ -192,6 +257,30 @@ http://localhost:5601
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
 
+### Installing / Updating docker-compose to v2
+[Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose project which uses [profiles feature](https://docs.docker.com/compose/profiles/).  
+If possible, prefer to install it with your package manager if you are on a Unix system.
+
+> [!NOTE]  
+> You need a client (docker-cli) of ~v19~ v20 at least to have the system of cli-plugins.
+> It isn't necessary to update your Docker engine or client else.
+
+You can install Docker Compose v2 with these commands, as instructed in [the doc](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually) and the [migration guide](https://docs.docker.com/compose/migrate/):
+```shell
+curl -LR --create-dirs -o $HOME/.local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
+#wget -x -O $HOME/.local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
+chmod +x $HOME/.local/bin/docker-compose
+mkdir -p $HOME/.docker/cli-plugins
+ln -s $HOME/.local/bin/docker-compose $HOME/.docker/cli-plugins/docker-compose
+docker compose version
+```
+You must get this output from docker compose now:
+> Docker Compose version v2.xx.x
+
+> [!IMPORTANT]  
+> The commands shown will install the plugin user-side, so you don't need to remove your old docker-compose v1 if it is installed system-wide.
+
+
 ## k8s deployment with Minikube
 
 ### Minikube and kubectl setup
@@ -212,7 +301,7 @@ __Notes__: We require minikube 1.21+ for host.minikube.internal support inside c
 
 Start minikube and activate ingress support:
 ```bash
-$ minikube start --memory 24g --cpus=4 
+$ minikube start --memory 24g --cpus=4
 $ minikube addons enable ingress
 ```
 
@@ -253,18 +342,18 @@ $ find k8s/live/local/ -type f | xargs sed -i -e 's/<PASSWORD>/YOURPASSWORD/g'
 ```
 
 Start technical services with the docker-compose technical profile  :
-```bash 
+```bash
 $ cd docker-compose/technical
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 Deploy k8s services:
-```bash 
+```bash
 $ kubectl apply -k k8s/live/local
 ```
 
 Verify all services and pods have been correctly started:
-```bash 
+```bash
 $ kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
@@ -312,26 +401,26 @@ http://<INGRESS_HOST>/case-import-server/swagger-ui.html
 ## How to use a local docker image into Minikube?
 
 Build and load a local image into Minikube:
-```bash 
+```bash
 $ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
 $ minikube image load local/<pod>
 ```
 
 Then add it to your deployment before (re)deploy:
-```bash 
+```bash
 $ vi <pod>-deployment.yaml
 +  image: docker.io/local/<pod>:latest
 ```
 
 Check the pod has started with your local image:
-```bash 
+```bash
 $ kubectl describe pod <pod-instance> | grep "Image:"
   Image:         docker.io/local/<pod>:latest
 ```
 
 ## Multiple environments with customized prefixes
 
-To deploy multiple environments we can use customized prefixed databases (Postgres), queues (rabbitMq) and indexes (elasticsearch).    
+To deploy multiple environments we can use customized prefixed databases (Postgres), queues (rabbitMq) and indexes (elasticsearch).
 
 You must follow those steps:
 1. Edit the `docker-compose/.env` file and  specify the prefix by defining the `DATABASE_PREFIX_NAME` property
@@ -359,16 +448,16 @@ All actions can be done from a docker-compose profile.
 
 ### Databases creation
 
-```bash 
-$ docker-compose exec postgres /create-postgres-databases.sh
+```bash
+$ docker compose exec postgres /create-postgres-databases.sh
 ```
 
 ### Data initialization
 
 First update the data files in the directory `$GRIDSUITE_DATABASES/init`
-```bash 
-$ docker-compose exec postgres /init-geo-data.sh
-$ docker-compose exec postgres /init-merging-data.sh
+```bash
+$ docker compose exec postgres /init-geo-data.sh
+$ docker compose exec postgres /init-merging-data.sh
 ```
 
 **Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. You have to execute those REST requests :
@@ -383,7 +472,7 @@ Be sure to have at least `odre-server` and `geo-data-server` containers running.
 In order to use your own versions of Spring services with docker-compose, you have to generate your own Docker images (using jib:dockerBuild Maven goal) and modify the docker-compose.yml to use these images.
 
 Docker image is generated using the following command in the considered service folder:
-```bash 
+```bash
 mvn jib:dockerBuild -Djib.to.image=<my_image_name>
 ```
 Once the image has been generated, you have to modify the name of the image to use in docker-compose.yml file, for the considered service:
@@ -394,4 +483,5 @@ services:
     image: <my_image_name>:latest
 ...
 ```
-Now, when using ```docker-compose up```, your custom Docker image will be used.
+Now, when using ```docker compose up```, your custom Docker image will be used.
+

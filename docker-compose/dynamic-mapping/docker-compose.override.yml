@@ -1,7 +1,12 @@
-version: '3'
+version: '4.0'
 
 services:
   griddyna-app:
+    profiles:
+      - all
+      - suite
+      - dynamic-mapping
+      - dynamic-simulation
     image: gridsuite/griddyna-app:latest
     ports:
       - 83:8080
@@ -12,14 +17,18 @@ services:
       - logspout
 
   dynamic-mapping-server:
+    profiles:
+      - all
+      - suite
+      - dynamic-mapping
+      - dynamic-simulation
     image: gridsuite/dynamic-mapping-server:latest
     ports:
       - 5036:80
     volumes:
       - $PWD/../../k8s/resources/dynamic-mapping/config/dynamic-mapping-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
