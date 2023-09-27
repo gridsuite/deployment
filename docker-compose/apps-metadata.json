@@ -38,6 +38,9 @@
     "fluxConvention": "target",
     "enableDeveloperMode": "true",
     "mapManualRefresh": "false"
+  },
+  "defaultImportStudyParametersValues" : {
+    "paramsWithAllOptionSelected" : ["iidm.export.xml.extensions"]
   }
 },
 {
