@@ -105,7 +105,7 @@ services:
       - merging
       - suite
     build:
-      context: merging/case-import-job
+      context: $PWD/../merging/case-import-job
       args:
         - http_proxy=${http_proxy-}
         - https_proxy=${https_proxy-}
@@ -126,7 +126,7 @@ services:
       - merging
       - suite
     build:
-      context: merging/cgmes-assembling-job
+      context: $PWD/../merging/cgmes-assembling-job
       args:
         - http_proxy=${http_proxy-}
         - https_proxy=${https_proxy-}
@@ -161,7 +161,7 @@ services:
       - merging
       - suite
     build:
-      context: merging/cgmes-boundary-import-job
+      context: $PWD/../merging/cgmes-boundary-import-job
       args:
         - http_proxy=${http_proxy-}
         - https_proxy=${https_proxy-}
