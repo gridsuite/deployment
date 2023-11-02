@@ -22,7 +22,11 @@ services:
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
-    command: --server.port=80 --spring.config.additional-location=/config/
+    # command: --server.port=80 --spring.config.additional-location=/config/
+    # using host ip address for s3 endpoint because spring cloud aws 2.x doesn't allow
+    # spring.cloud.aws.s3.path-style-access-enabled (only spring cloud aws 3.x), to be revisisted ?
+    # docker-compose doesn't put wildcard dns entries *.minio so we need path style
+    command: --server.port=80 --spring.config.additional-location=/config/ --cloud.aws.endpoint=http://172.17.0.1:19000 --case-store-bucket=bucket-gridsuite
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
