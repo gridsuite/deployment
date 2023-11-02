@@ -1,8 +1,15 @@
-version: '3'
-
+version: '4.0'
 services:
-
   case-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: powsybl/case-server:latest
     ports:
       - 5000:80
@@ -12,77 +19,109 @@ services:
       - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       - logspout
-    restart:
-      unless-stopped
+    restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx512m
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+    # command: --server.port=80 --spring.config.additional-location=/config/
     # using host ip address for s3 endpoint because spring cloud aws 2.x doesn't allow
     # spring.cloud.aws.s3.path-style-access-enabled (only spring cloud aws 3.x), to be revisisted ?
     # docker-compose doesn't put wildcard dns entries *.minio so we need path style
-    command: --server.port=80 --spring.config.additional-location=/config/ --cloud.aws.s3.endpoint=http://172.17.0.1:19000 --case-store-bucket=bucket-gridsuite
+    command: --server.port=80 --spring.config.additional-location=/config/ --cloud.aws.endpoint=http://172.17.0.1:19000 --case-store-bucket=bucket-gridsuite
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   actions-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/actions-server:latest
     ports:
       - 5022:80
     volumes:
       - $PWD/../../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   filter-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/filter-server:latest
     ports:
       - 5027:80
     volumes:
       - $PWD/../../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
 
   user-admin-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/user-admin-server:latest
     ports:
       - 5033:80
     volumes:
       - $PWD/../../k8s/resources/common/config/user-admin-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
 
   report-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/report-server:latest
     ports:
       - 5028:80
     volumes:
       - $PWD/../../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -92,40 +131,65 @@ services:
       - JAVA_TOOL_OPTIONS=-Xmx512m
 
   network-store-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: powsybl/network-store-server:latest
     ports:
       - 8080:80
     volumes:
       - $PWD/../../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1792m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-conversion-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: powsybl/network-conversion-server:latest
     ports:
       - 5003:80
     volumes:
       - $PWD/../../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1792m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   loadflow-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/loadflow-server:latest
     ports:
       - 5008:80
@@ -133,47 +197,71 @@ services:
       - $PWD/../../k8s/resources/common/config/loadflow-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/config-server:latest
     ports:
       - 5025:80
     volumes:
       - $PWD/../../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   config-notification-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/config-notification-server:latest
     ports:
       - 5024:80
     volumes:
       - $PWD/../../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gateway:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/gateway:latest
     ports:
       - 9000:80
@@ -181,17 +269,25 @@ services:
       - $PWD/../../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
-  mock_user_service:
+  mock-user-service:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: gridsuite/oidc-mock-server
     ports:
       - 9090:9090
@@ -223,6 +319,15 @@ services:
       - logspout
 
   apps-metadata-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
     image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
     ports:
       - 8070:8080
@@ -231,5 +336,3 @@ services:
       - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout
-
-

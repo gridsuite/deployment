@@ -1,4 +1,3 @@
 # default values for loadflow providers "Hades2" or "OpenLoadFlow"
 sensitivity-analysis:
   default-provider: OpenLoadFlow
-  results-threshold: 0.01

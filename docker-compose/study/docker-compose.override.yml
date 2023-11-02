@@ -1,8 +1,13 @@
-version: '3'
+version: '4.0'
 
 services:
-
   study-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/study-server:latest
     ports:
       - 5001:80
@@ -10,93 +15,117 @@ services:
       - $PWD/../../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/study-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   geo-data-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/geo-data-server:latest
     ports:
       - 8087:80
     volumes:
       - $PWD/../../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   single-line-diagram-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: powsybl/single-line-diagram-server:latest
     ports:
       - 5005:80
     volumes:
       - $PWD/../../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1792m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-modification-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/network-modification-server:latest
     ports:
       - 5007:80
     volumes:
       - $PWD/../../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   study-notification-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/study-notification-server:latest
     ports:
       - 5009:80
     volumes:
       - $PWD/../../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-notification-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/directory-notification-server:latest
     ports:
       - 5004:80
     volumes:
       - $PWD/../../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -106,57 +135,73 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   network-map-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/network-map-server:latest
     ports:
       - 5006:80
     volumes:
       - $PWD/../../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   cgmes-gl-server:
+    profiles:
+      - all
+      - suite
+      - study
     image: gridsuite/cgmes-gl-server:latest
     ports:
       - 8095:80
     volumes:
       - $PWD/../../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx128m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   odre-server:
+    profiles:
+      - all
+      - suite
+      - study
     image: gridsuite/odre-server:latest
     ports:
       - 8090:80
     volumes:
       - $PWD/../../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridstudy-app:
+    profiles:
+      - all
+      - suite
+      - study
+      - dynamic-simulation
     image: gridsuite/gridstudy-app:latest
     ports:
       - 84:8080
@@ -167,6 +212,10 @@ services:
       - logspout
 
   security-analysis-server:
+    profiles:
+      - all
+      - suite
+      - study
     image: gridsuite/security-analysis-server:latest
     ports:
       - 5023:80
@@ -174,17 +223,21 @@ services:
       - $PWD/../../k8s/resources/study/config/security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   dynamic-simulation-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - dynamic-simulation
     image: gridsuite/dynamic-simulation-server:latest
     ports:
       - 5032:80
@@ -193,23 +246,27 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
-        - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   directory-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/directory-server:latest
     ports:
       - 5026:80
     volumes:
       - $PWD/../../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -219,6 +276,12 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   gridexplore-app:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/gridexplore-app:latest
     ports:
       - 80:8080
@@ -229,14 +292,19 @@ services:
       - logspout
 
   explore-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
     image: gridsuite/explore-server:latest
     ports:
       - 5029:80
     volumes:
       - $PWD/../../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -246,6 +314,10 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   sensitivity-analysis-server:
+    profiles:
+      - all
+      - suite
+      - study
     image: gridsuite/sensitivity-analysis-server:latest
     ports:
       - 5030:80
@@ -253,8 +325,7 @@ services:
       - $PWD/../../k8s/resources/study/config/sensitivity-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -264,6 +335,10 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   shortcircuit-server:
+    profiles:
+      - all
+      - suite
+      - study
     image: gridsuite/shortcircuit-server:latest
     ports:
       - 5031:80
@@ -271,8 +346,7 @@ services:
       - $PWD/../../k8s/resources/study/config/shortcircuit-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -282,14 +356,18 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   timeseries-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - dynamic-simulation
     image: gridsuite/timeseries-server:latest
     ports:
       - 5037:80
     volumes:
       - $PWD/../../k8s/resources/study/config/timeseries-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
@@ -299,6 +377,10 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
   voltage-init-server:
+    profiles:
+      - all
+      - suite
+      - study
     image: gridsuite/voltage-init-server:latest
     ports:
       - 5038:80
@@ -306,8 +388,26 @@ services:
       - $PWD/../../k8s/resources/study/config/voltage-init-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:Z
-    restart:
-      unless-stopped
+    restart: unless-stopped
+    depends_on:
+      - logspout
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+
+  #just here for dev purpose, we don't want to start with this profile unless we need to.
+  case-import-server:
+    profiles:
+      - all
+      - import
+    image: gridsuite/case-import-server:latest
+    ports:
+      - 5039:80
+    volumes:
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
     depends_on:
       - logspout
     environment:
