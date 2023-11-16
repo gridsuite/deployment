@@ -1,6 +1,6 @@
 network:
   default-impl-name: NetworkStore
 
-# Nb of concurrent courcirc processes - should be in-sync with shortcircuitanalysis.run.shortcircuitanalysisGroup
+# Nb of concurrent courcirc processes - should be in-sync with shortcircuitanalysis.run.shortcircuitanalysisGroup queue concurrency
 computation-local:
   available-core: 2
