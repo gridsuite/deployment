@@ -9,16 +9,11 @@ metadata:
       client_header_buffer_size 64k;
       large_client_header_buffers 4 64k;
 spec:
-  defaultBackend:
-    service:
-      name: default-backend
-      port:
-        number: 80
   rules:
   - http:
       paths:
       - path: /
-        pathType: Exact
+        pathType: Prefix
         backend:
           service:
             name: default-backend
