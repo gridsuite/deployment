@@ -62,11 +62,6 @@ patches:
     kind: Deployment
     labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
     annotationSelector: "gridsuite.org/size=springboot-l"
-- path: patches/deployments-springboot-size-l-forking.yaml
-  target:
-    kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-l-forking"
 - path: patches/deployments-springboot-size-xl.yaml
   target:
     kind: Deployment
@@ -77,6 +72,16 @@ patches:
     kind: Deployment
     labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
     annotationSelector: "gridsuite.org/size=springboot-xl-forking"
+- path: patches/deployments-springboot-size-xxl.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xxl"
+- path: patches/deployments-springboot-size-xxl-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xxl-forking"
 - path: patches/deployments-springboot-elasticsearch-config.yaml
   target:
     kind: Deployment

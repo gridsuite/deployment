@@ -9,7 +9,7 @@ spec:
         - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-Xmx768m"
+            value: "-Xmx586m"
           resources:
             requests:
               memory: "1Gi"
