@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: main
-        image: docker.io/gridsuite/gridexplore-app:latest
+        image: docker.io/gridsuite/gridexplore-app:new
         volumeMounts:
         - mountPath: /opt/bitnami/apache/htdocs/gridexplore/env.json
           subPath: env.json
