@@ -8,8 +8,8 @@ spec:
       containers:
         - name: main
           env:
-            - name: JAVA_TOOL_OPTIONS
-              value: "-Xmx576m"
+          - name: JAVA_TOOL_OPTIONS
+            value: "-Xmx576m"
           resources:
             requests:
               memory: "1Gi"
