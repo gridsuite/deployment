@@ -77,6 +77,11 @@ patches:
     kind: Deployment
     labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
     annotationSelector: "gridsuite.org/size=springboot-xl"
+- path: patches/deployments-springboot-size-xl-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    annotationSelector: "gridsuite.org/size=springboot-xl-forking"
 - path: patches/deployments-springboot-size-xxl.yaml
   target:
     kind: Deployment
