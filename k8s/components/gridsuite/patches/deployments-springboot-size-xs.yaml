@@ -9,9 +9,9 @@ spec:
         - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-Xmx128m"
+            value: "-Xmx186m"
           resources:
             requests:
-              memory: "384Mi"
+              memory: "512Mi"
             limits:
-              memory: "384Mi"
+              memory: "512Mi"

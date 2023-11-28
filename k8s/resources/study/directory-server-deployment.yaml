@@ -9,7 +9,7 @@ metadata:
     gridsuite.org/springboot-with-database: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
-    gridsuite.org/size: springboot-s
+    gridsuite.org/size: springboot-xs
 spec:
   selector:
     matchLabels:
