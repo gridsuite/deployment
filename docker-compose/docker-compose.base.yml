@@ -21,15 +21,15 @@ services:
       - logspout
     restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx576m
+      - JAVA_TOOL_OPTIONS=-Xmx576m #deployment: 768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 1g
+    memswap_limit: 1g #deployment: 1280m
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 1g #deployment: 1280m
 
   actions-server:
     profiles:
@@ -171,15 +171,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1408m
+      - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 2g
+    memswap_limit: 1664m #deployment: 1408m
     deploy:
       resources:
         limits:
-          memory: 2g
+          memory: 1664m #deployment: 1408m
 
   network-conversion-server:
     profiles:
@@ -201,15 +201,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1408m
+      - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 2g
+    memswap_limit: 1280m  #deployment: 2048m
     deploy:
       resources:
         limits:
-          memory: 2g
+          memory: 1280m  #deployment: 2048m
 
   loadflow-server:
     profiles:
@@ -232,15 +232,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1408m
+      - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 3g
+    memswap_limit: 1792m #deployment: 3072m
     deploy:
       resources:
         limits:
-          memory: 3g
+          memory: 1792m #deployment: 3072m
 
   config-server:
     profiles:

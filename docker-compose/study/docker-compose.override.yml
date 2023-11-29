@@ -73,15 +73,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1408m
+      - JAVA_TOOL_OPTIONS=-Xmx384m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 2g
+    memswap_limit: 768m
     deploy:
       resources:
         limits:
-          memory: 2g
+          memory: 768m
 
   network-modification-server:
     profiles:
@@ -378,15 +378,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx576m
+      - JAVA_TOOL_OPTIONS=-Xmx384m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 1g
+    memswap_limit: 768m
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 768m
 
   sensitivity-analysis-server:
     profiles:
@@ -430,15 +430,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1408m
+      - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 3g
+    memswap_limit: 1792m
     deploy:
       resources:
         limits:
-          memory: 3g
+          memory: 1792m
 
   timeseries-server:
     profiles:
@@ -482,15 +482,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1408m
+      - JAVA_TOOL_OPTIONS=-Xmx768m # deployment: -Xmx1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 3g
+    memswap_limit: 1792m # deployment: 3072m
     deploy:
       resources:
         limits:
-          memory: 3g
+          memory: 1792m # deployment: 3072m
 
   #just here for dev purpose, we don't want to start with this profile unless we need to.
   case-import-server:
@@ -506,12 +506,12 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx576m
+      - JAVA_TOOL_OPTIONS=-Xmx576m # deployment: 768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 1g
+    memswap_limit: 1g # deployment: 1280m
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 1g # deployment: 1280m
