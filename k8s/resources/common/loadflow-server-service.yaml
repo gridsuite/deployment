@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     name: loadflow-server
+    app-prometheus-metrics: true
     app.kubernetes.io/component: gridsuite-springboot
   name: loadflow-server
 spec:
