@@ -384,6 +384,7 @@ services:
       - 8070:8080
     volumes:
       - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - $PWD/../authentication.json:/opt/bitnami/apache/htdocs/authentication.json:Z
       - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout

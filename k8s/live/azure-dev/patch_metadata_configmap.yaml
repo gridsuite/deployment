@@ -8,6 +8,8 @@
       path: keys
     - key: openid-configuration
       path: .well-known/openid-configuration
+    - key: authentication.json
+      path: authentication.json
 - op: add
   path: /spec/template/spec/volumes/1
   value:
