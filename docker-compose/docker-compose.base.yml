@@ -21,10 +21,15 @@ services:
       - logspout
     restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx576m #deployment: 768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1g #deployment: 1280m
+    deploy:
+      resources:
+        limits:
+          memory: 1g #deployment: 1280m
 
   actions-server:
     profiles:
@@ -46,10 +51,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   filter-server:
     profiles:
@@ -74,7 +84,12 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx576m
+    memswap_limit: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   user-admin-server:
     profiles:
@@ -99,7 +114,12 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
 
   report-server:
     profiles:
@@ -124,7 +144,12 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx512m
+      - JAVA_TOOL_OPTIONS=-Xmx384m
+    memswap_limit: 768m
+    deploy:
+      resources:
+        limits:
+          memory: 768m
 
   network-store-server:
     profiles:
@@ -146,10 +171,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1792m
+      - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1664m #deployment: 2048m
+    deploy:
+      resources:
+        limits:
+          memory: 1664m #deployment: 2048m
 
   network-conversion-server:
     profiles:
@@ -171,10 +201,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx1792m
+      - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1280m  #deployment: 2048m
+    deploy:
+      resources:
+        limits:
+          memory: 1280m  #deployment: 2048m
 
   loadflow-server:
     profiles:
@@ -197,10 +232,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1792m #deployment: 3072m
+    deploy:
+      resources:
+        limits:
+          memory: 1792m #deployment: 3072m
 
   config-server:
     profiles:
@@ -220,10 +260,15 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
 
   config-notification-server:
     profiles:
@@ -243,10 +288,15 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
 
   gateway:
     profiles:
@@ -269,10 +319,15 @@ services:
     depends_on:
       - logspout
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
 
   mock-user-service:
     profiles:
@@ -329,6 +384,12 @@ services:
       - 8070:8080
     volumes:
       - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - $PWD/../authentication.json:/opt/bitnami/apache/htdocs/authentication.json:Z
       - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       - logspout
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
