@@ -30,6 +30,7 @@ configMapGenerator:
       - openid-configuration
       - keys
   - name: apps-metadata-server-httpdconf-configmap
+    behavior: replace
     files:
       - bitnami.conf=gridapps-metadata-httpd.conf
   - name: gateway-configmap
