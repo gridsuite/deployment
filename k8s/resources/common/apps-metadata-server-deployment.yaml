@@ -20,7 +20,13 @@ spec:
           volumeMounts:
             - mountPath: /opt/bitnami/apache/htdocs/
               name: apps-metadata-server-configmap-volume
+            - mountPath: /opt/bitnami/apache/conf/bitnami/bitnami.conf
+              subPath: bitnami.conf
+              name: apps-metadata-server-httpdconf-configmap-volume
       volumes:
         - name: apps-metadata-server-configmap-volume
           configMap:
             name: apps-metadata-server-configmap
+        - name: apps-metadata-server-httpdconf-configmap-volume
+          configMap:
+            name: apps-metadata-server-httpdconf-configmap

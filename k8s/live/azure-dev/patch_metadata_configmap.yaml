@@ -8,17 +8,3 @@
       path: keys
     - key: openid-configuration
       path: .well-known/openid-configuration
-- op: add
-  path: /spec/template/spec/volumes/1
-  value:
-      name: apps-metadata-server-configmap-httpdconf-volume
-      configMap:
-        name: apps-metadata-server-httpdconf-configmap
-
-- op: add
-  path: /spec/template/spec/containers/0/volumeMounts/1
-  value:
-    name: apps-metadata-server-configmap-httpdconf-volume
-    mountPath: /opt/bitnami/apache/conf/bitnami/bitnami.conf
-    subPath: bitnami.conf
-
