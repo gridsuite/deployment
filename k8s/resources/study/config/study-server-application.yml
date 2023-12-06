@@ -6,3 +6,6 @@ security-analysis:
 
 sensitivity-analysis:
   default-provider: OpenLoadFlow
+
+non-evacuated-energy:
+  default-provider: OpenLoadFlow
