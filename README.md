@@ -258,7 +258,7 @@ http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
 
-### Grafana
+### Grafana console for metrics
 Grafana UI:
 ```html
 http://localhost:7000
