@@ -116,8 +116,7 @@ services:
       - all
       - metrics
     image: prom/prometheus
-    command:
-      - --enable-feature=exemplar-storage
+    command: --enable-feature=exemplar-storage
     volumes:
       - $PWD/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
     restart: unless-stopped
