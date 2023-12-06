@@ -4,7 +4,7 @@ datasources:
     - name: Prometheus
       type: prometheus
       access: proxy
-      url: http://172.17.0.1:8000
+      url: http://prometheus:9090
       editable: false
       jsonData:
         httpMethod: POST

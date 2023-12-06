@@ -118,9 +118,9 @@ services:
     image: prom/prometheus
     command:
       - --enable-feature=exemplar-storage
-      - --config.file=/etc/prometheus/prometheus.yml
     volumes:
-      - $PWD/../technical/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - $PWD/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
+    restart: unless-stopped
     ports:
       - "8000:9090"
 
@@ -132,9 +132,12 @@ services:
     volumes:
       - $PWD/../technical/grafana/config/datasources:/etc/grafana/provisioning/datasources:ro
       - $PWD/../technical/grafana/config/dashboards:/etc/grafana/provisioning/dashboards:ro
+    restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=false
     ports:
       - "7000:3000"
