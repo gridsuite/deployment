@@ -78,18 +78,19 @@ This is the preferred development deployment.
 _Everything described in this section is inside the folder `explicit-profiles`._
 
 Here's the summary of the profiles and what services they includes:
-| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin |
-|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| kibana | | | | | | | | | ✅ | |
-| pgadmin | | | | | | | | | | ✅ |
-| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
-| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | |
-| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | |
-| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | |
-| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
-| case&#8209;import&#8209;server | | | | | | | | ✅ | | |
+| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
+| kibana | | | | | | | | | ✅ | | |
+| pgadmin | | | | | | | | | | ✅ | |
+| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
+| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
+| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | | |
+| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | | |
+| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | | |
+| case&#8209;import&#8209;server | | | | | | | | ✅ | | | |
+| grafana<br/>prometheus | | | | | | | | | | | ✅ |
 
 To use a profile, you use:
 ```shell
