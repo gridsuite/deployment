@@ -139,6 +139,8 @@ This profile allows you to launch only the technical services : postgres, elasti
 |Postgres|13.4|
 |RabbitMQ|latest|
 |Elasticsearch|7.9.3|
+|Grafana|latest|
+|Prometheus|latest|
 
 
 It is used for k8s deployment with Minikube.
@@ -247,7 +249,6 @@ Username : postgres
 Password : postgres
 ```
 
-
 ### Kibana console for Elasticsearch
 
 Kibana management UI:
@@ -255,6 +256,12 @@ Kibana management UI:
 http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
+
+### Grafana
+Grafana UI:
+```html
+http://localhost:7000
+```
 
 
 ### Installing / Updating docker-compose to v2
