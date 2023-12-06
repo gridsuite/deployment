@@ -131,7 +131,7 @@ services:
     volumes:
       - $PWD/../technical/grafana/config/datasources:/etc/grafana/provisioning/datasources:ro
       - $PWD/../technical/grafana/config/dashboards:/etc/grafana/provisioning/dashboards:ro
-      - $PWD/../technical/grafana/dashboards:/var/lib/grafana/dashboards:rw
+      - $PWD/../technical/grafana/dashboards:/var/lib/grafana/dashboards:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
