@@ -130,8 +130,8 @@ services:
       - metrics
     image: grafana/grafana
     volumes:
-      - $PWD/../technical/grafana/config/datasources:/etc/grafana/provisioning/datasources:ro
-      - $PWD/../technical/grafana/config/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - $PWD/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - $PWD/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
