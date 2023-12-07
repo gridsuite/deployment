@@ -115,7 +115,7 @@ services:
     profiles:
       - all
       - metrics
-    image: prom/prometheus
+    image: prom/prometheus:v2.28.1
     command: --enable-feature=exemplar-storage
     volumes:
       - $PWD/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
@@ -127,7 +127,7 @@ services:
     profiles:
       - all
       - metrics
-    image: grafana/grafana
+    image: grafana/grafana:8.2.3
     volumes:
       - $PWD/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
       - $PWD/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
