@@ -135,13 +135,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Max (Computation)",
+      "title": "Computation time (max)",
       "type": "timeseries"
     },
     {
@@ -223,13 +223,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Count (Computation)",
+      "title": "Computation count",
       "type": "timeseries"
     },
     {
@@ -311,13 +311,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Max (Load network)",
+      "title": "Network load time (max)",
       "type": "timeseries"
     },
     {
@@ -399,13 +399,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Max (Save network)",
+      "title": "Network save time (max)",
       "type": "timeseries"
     },
     {
@@ -487,13 +487,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Max (Save results)",
+      "title": "Results save time (max)",
       "type": "timeseries"
     },
     {
@@ -575,13 +575,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Max (Send report)",
+      "title": "Report send time (max)",
       "type": "timeseries"
     },
     {
@@ -663,13 +663,13 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Max (Delete report)",
+      "title": "Report delete time (max)",
       "type": "timeseries"
     }
   ],
