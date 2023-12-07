@@ -149,7 +149,7 @@
           "useBackend": false
         }
       ],
-      "title": "Max",
+      "title": "Max (Computation)",
       "type": "timeseries"
     },
     {
@@ -248,7 +248,7 @@
           "useBackend": false
         }
       ],
-      "title": "Count",
+      "title": "Count (Computation)",
       "type": "timeseries"
     },
     {
