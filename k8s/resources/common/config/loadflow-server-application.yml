@@ -1,2 +1,12 @@
 loadflow:
   default-provider: OpenLoadFlow
+
+management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info

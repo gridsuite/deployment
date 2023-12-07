@@ -110,3 +110,33 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
+
+  prometheus:
+    profiles:
+      - all
+      - metrics
+    image: prom/prometheus:v2.28.1
+    command: --enable-feature=exemplar-storage
+    volumes:
+      - $PWD/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
+    restart: unless-stopped
+    ports:
+      - "8000:9090"
+
+  grafana:
+    profiles:
+      - all
+      - metrics
+    image: grafana/grafana:8.2.3
+    volumes:
+      - $PWD/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - $PWD/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+    restart: unless-stopped
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=false
+    ports:
+      - "7000:3000"
