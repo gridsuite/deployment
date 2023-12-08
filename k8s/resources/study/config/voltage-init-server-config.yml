@@ -1,2 +1,6 @@
 network:
   default-impl-name: NetworkStore
+
+# Nb of concurrent processes - should be in-sync with voltageinit.run.voltageinitGroup queue concurrency
+computation-local:
+  available-core: 2
