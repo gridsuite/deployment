@@ -9,3 +9,7 @@ dynawaltz-default-parameters:
     solver.type: IDA
     solver.parametersFile: /dynawo-config/solvers.par
     solver.parametersId: "1"
+
+# Nb of concurrent processes - should be in-sync with ds.run.dsGroup queue concurrency
+computation-local:
+  available-core: 2

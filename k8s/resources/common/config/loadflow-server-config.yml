@@ -9,3 +9,7 @@ dynaflow:
 #Workaround iidm in-memory impl present on classpath (needed by cvg-extension)
 network:
   default-impl-name: NetworkStore
+
+# Nb of LF concurrent processes - should be in-sync with loadflow.run.loadflowGroup queue concurrency
+computation-local:
+  available-core: 4
