@@ -123,6 +123,8 @@ services:
     restart: unless-stopped
     ports:
       - "8000:9090"
+    depends_on:
+      - prepare-volumes
 
   grafana:
     profiles:
@@ -141,6 +143,15 @@ services:
       - GF_ANALYTICS_CHECK_FOR_UPDATES=false
     ports:
       - "7000:3000"
+
+  # This service run once for preparing volumes with correct permissions (volumes default as root)
+  prepare-volumes:
+    image: alpine:latest
+    user: root
+    command: "chown 65534:65534 /data/prometheus || true"
+    restart: no
+    volumes:
+      - prometheus_data:/data/prometheus
 
 volumes:
   prometheus_data:
