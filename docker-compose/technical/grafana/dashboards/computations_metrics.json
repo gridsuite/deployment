@@ -119,7 +119,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -147,7 +148,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_run_seconds_max{computation_name='$COMPUTATION'}",
+          "expr": "app_run_seconds_max{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -245,7 +246,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_run_seconds_count{computation_name='$COMPUTATION'}",
+          "expr": "app_run_seconds_count{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -307,7 +308,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -335,7 +337,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_network_load_seconds_max{computation_name='$COMPUTATION'}",
+          "expr": "app_network_load_seconds_max{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -397,7 +399,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -425,7 +428,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_network_save_seconds_max{computation_name='$COMPUTATION'}",
+          "expr": "app_network_save_seconds_max{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -487,7 +490,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -515,7 +519,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_results_save_seconds_max{computation_name='$COMPUTATION'}",
+          "expr": "app_results_save_seconds_max{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -577,7 +581,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -605,7 +610,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_report_send_seconds_max{computation_name='$COMPUTATION'}",
+          "expr": "app_report_send_seconds_max{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -667,7 +672,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -695,7 +701,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_report_delete_seconds_max{computation_name='$COMPUTATION'}",
+          "expr": "app_report_delete_seconds_max{computation_name='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -863,6 +869,29 @@
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "label_values(kube_pod_info, namespace)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "namespace",
+        "options": [],
+        "query": {
+          "query": "label_values(kube_pod_info, namespace)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },

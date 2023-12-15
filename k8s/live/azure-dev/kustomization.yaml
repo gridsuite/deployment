@@ -41,6 +41,10 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
+  - name: study-server-itools-configmap
+    behavior: merge
+    files:
+      - config.yml=study-server-config.yml
 
 # Patch ingress host
 patchesJson6902:
