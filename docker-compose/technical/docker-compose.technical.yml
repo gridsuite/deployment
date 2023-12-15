@@ -119,6 +119,7 @@ services:
     command: --enable-feature=exemplar-storage
     volumes:
       - $PWD/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus/data
     restart: unless-stopped
     ports:
       - "8000:9090"
@@ -140,3 +141,7 @@ services:
       - GF_ANALYTICS_CHECK_FOR_UPDATES=false
     ports:
       - "7000:3000"
+
+volumes:
+  prometheus_data:
+    name: gridsuite-prometheus-data
