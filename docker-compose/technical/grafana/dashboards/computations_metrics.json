@@ -53,9 +53,24 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
+  "iteration": 1702628895634,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Computation reports",
+      "type": "row"
+    },
     {
       "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
@@ -113,7 +128,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "options": {
@@ -132,14 +147,24 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_run_seconds_max{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_run_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
           "useBackend": false
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "op": "gt",
+          "value": 0,
+          "visible": true
         }
       ],
       "title": "Computation time (max)",
@@ -201,7 +226,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 1
       },
       "id": 1,
       "options": {
@@ -220,10 +245,12 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_run_seconds_count{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_run_seconds_count{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
@@ -290,7 +317,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 9
       },
       "id": 3,
       "options": {
@@ -309,10 +336,12 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_network_load_seconds_max{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_network_load_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
@@ -379,7 +408,7 @@
         "h": 7,
         "w": 7,
         "x": 8,
-        "y": 8
+        "y": 9
       },
       "id": 4,
       "options": {
@@ -398,10 +427,12 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_network_save_seconds_max{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_network_save_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
@@ -468,7 +499,7 @@
         "h": 7,
         "w": 9,
         "x": 15,
-        "y": 8
+        "y": 9
       },
       "id": 5,
       "options": {
@@ -487,10 +518,12 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_results_save_seconds_max{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_results_save_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
@@ -557,7 +590,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 15
+        "y": 16
       },
       "id": 7,
       "options": {
@@ -576,10 +609,12 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_report_send_seconds_max{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_report_send_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
@@ -646,7 +681,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 15
+        "y": 16
       },
       "id": 6,
       "options": {
@@ -665,10 +700,12 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_loadflow_report_delete_seconds_max{namespace=\"$namespace\", error=\"none\"}",
+          "exemplar": true,
+          "expr": "app_report_delete_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
+          "interval": "",
           "legendFormat": "{{provider}}",
           "range": true,
           "refId": "A",
@@ -679,7 +716,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "schemaVersion": 31,
   "style": "dark",
   "tags": [],
@@ -689,8 +726,10 @@
         "current": {
           "selected": false,
           "text": "Prometheus",
-          "value": "PBFA97CFB590B2093"
+          "value": "Prometheus"
         },
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "DataSrc Prometheus",
@@ -703,6 +742,37 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "loadflow",
+          "value": "loadflow"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "COMPUTATION",
+        "options": [
+          {
+            "selected": true,
+            "text": "loadflow",
+            "value": "loadflow"
+          },
+          {
+            "selected": false,
+            "text": "sa",
+            "value": "sa"
+          }
+        ],
+        "query": "loadflow, sa",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
       },
       {
         "allValue": null,
@@ -735,7 +805,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "LoadFlow",
-  "uid": "c5dfb18b-40d7-41f1-9121-130e421303cb",
-  "version": 3
+  "title": "Computations",
+  "uid": "UplRgsDIz",
+  "version": 7
 }
