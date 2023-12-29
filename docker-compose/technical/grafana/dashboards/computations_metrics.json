@@ -767,9 +767,14 @@
             "selected": false,
             "text": "sa",
             "value": "sa"
+          },
+          {
+            "selected": false,
+            "text": "sensi",
+            "value": "sensi"
           }
         ],
-        "query": "loadflow, sa",
+        "query": "loadflow, sa, sensi",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
