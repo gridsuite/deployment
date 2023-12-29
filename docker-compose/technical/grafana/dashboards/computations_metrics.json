@@ -53,7 +53,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1702628895634,
+  "iteration": 1703587516814,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -119,6 +119,87 @@
                 "value": 80
               }
             ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "app_computation_count_total{type='$COMPUTATION', namespace='$namespace', status='OK'}",
+          "interval": "",
+          "legendFormat": "{{provider}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Computation with success count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "s"
         },
@@ -127,7 +208,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 1
       },
       "id": 2,
@@ -148,7 +229,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_run_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_run_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -175,6 +256,89 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "app_computation_count_total{type='$COMPUTATION', namespace='$namespace', status='NOK'}",
+          "interval": "",
+          "legendFormat": "{{provider}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Computation with error count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
             "mode": "palette-classic"
           },
           "custom": {
@@ -226,7 +390,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 1
+        "y": 9
       },
       "id": 1,
       "options": {
@@ -246,7 +410,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_run_seconds_count{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_run_seconds_count{type='$COMPUTATION', namespace=\"$namespace\", error=\"ExecutionException\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -257,7 +421,7 @@
           "useBackend": false
         }
       ],
-      "title": "Computation count",
+      "title": "Computation with exception count",
       "type": "timeseries"
     },
     {
@@ -317,7 +481,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 9
+        "y": 17
       },
       "id": 3,
       "options": {
@@ -337,7 +501,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_network_load_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_network_load_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -408,7 +572,7 @@
         "h": 7,
         "w": 7,
         "x": 8,
-        "y": 9
+        "y": 17
       },
       "id": 4,
       "options": {
@@ -428,7 +592,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_network_save_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_network_save_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -499,7 +663,7 @@
         "h": 7,
         "w": 9,
         "x": 15,
-        "y": 9
+        "y": 17
       },
       "id": 5,
       "options": {
@@ -519,7 +683,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_results_save_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_results_save_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -590,7 +754,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 24
       },
       "id": 7,
       "options": {
@@ -610,7 +774,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_report_send_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_report_send_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -681,7 +845,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 24
       },
       "id": 6,
       "options": {
@@ -701,7 +865,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_report_delete_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_computation_report_delete_seconds_max{type='$COMPUTATION', namespace=\"$namespace\", error=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -746,7 +910,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "loadflow",
           "value": "loadflow"
         },
@@ -812,5 +976,5 @@
   "timezone": "",
   "title": "Computations",
   "uid": "UplRgsDIz",
-  "version": 7
+  "version": 8
 }

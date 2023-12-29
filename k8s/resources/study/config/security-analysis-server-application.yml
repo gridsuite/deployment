@@ -1,3 +1,9 @@
 # default values for loadflow providers "Hades2" or "OpenSecurityAnalysis"
 security-analysis:
   default-provider: OpenLoadFlow
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
