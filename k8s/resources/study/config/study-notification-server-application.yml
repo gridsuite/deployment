@@ -2,4 +2,8 @@ logging:
   level:
     org.gridsuite.study.notification.server.NotificationWebSocketHandler: DEBUG
 
-    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
