@@ -931,9 +931,14 @@
             "selected": false,
             "text": "sa",
             "value": "sa"
+          },
+          {
+            "selected": false,
+            "text": "voltageInit",
+            "value": "voltageInit"
           }
         ],
-        "query": "loadflow, sa",
+        "query": "loadflow, sa, voltageInit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
