@@ -931,9 +931,14 @@
             "selected": false,
             "text": "sa",
             "value": "sa"
+          },
+          {
+            "selected": false,
+            "text": "dynamicSimulation",
+            "value": "dynamicSimulation"
           }
         ],
-        "query": "loadflow, sa",
+        "query": "loadflow, sa, dynamicSimulation",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
