@@ -931,9 +931,14 @@
             "selected": false,
             "text": "sa",
             "value": "sa"
+          },
+          {
+            "selected": false,
+            "text": "shortcircuit",
+            "value": "shortcircuit"
           }
         ],
-        "query": "loadflow, sa",
+        "query": "loadflow, sa, shortcircuit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
