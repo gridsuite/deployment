@@ -936,9 +936,14 @@
             "selected": false,
             "text": "dynamicSimulation",
             "value": "dynamicSimulation"
+          },
+          {
+            "selected": false,
+            "text": "shortcircuit",
+            "value": "shortcircuit"
           }
         ],
-        "query": "loadflow, sa, dynamicSimulation",
+        "query": "loadflow, sa, dynamicSimulation, shortcircuit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
