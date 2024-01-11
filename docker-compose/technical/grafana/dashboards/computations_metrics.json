@@ -941,9 +941,14 @@
             "selected": false,
             "text": "shortcircuit",
             "value": "shortcircuit"
+          },
+          {
+            "selected": false,
+            "text": "voltageInit",
+            "value": "voltageInit"
           }
         ],
-        "query": "loadflow, sa, dynamicSimulation, shortcircuit",
+        "query": "loadflow, sa, dynamicSimulation, shortcircuit, voltageInit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
