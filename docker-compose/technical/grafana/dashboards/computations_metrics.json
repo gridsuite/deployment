@@ -410,7 +410,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_run_seconds_count{type='$COMPUTATION', namespace=\"$namespace\", error=\"ExecutionException\"}",
+          "expr": "app_computation_run_seconds_count{type='$COMPUTATION', namespace=\"$namespace\", error!=\"none\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -934,11 +934,21 @@
           },
           {
             "selected": false,
+            "text": "dynamicSimulation",
+            "value": "dynamicSimulation"
+          },
+          {
+            "selected": false,
+            "text": "shortcircuit",
+            "value": "shortcircuit"
+          },
+          {
+            "selected": false,
             "text": "voltageInit",
             "value": "voltageInit"
           }
         ],
-        "query": "loadflow, sa, voltageInit",
+        "query": "loadflow, sa, dynamicSimulation, shortcircuit, voltageInit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
