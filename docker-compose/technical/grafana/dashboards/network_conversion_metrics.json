@@ -65,7 +65,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 9,
+      "id": 1,
       "panels": [],
       "title": "Network import/export reports",
       "type": "row"
@@ -128,7 +128,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 2,
       "options": {
         "legend": {
           "calcs": [],
@@ -209,7 +209,7 @@
         "x": 12,
         "y": 0
       },
-      "id": 2,
+      "id": 3,
       "options": {
         "legend": {
           "calcs": [],
@@ -304,7 +304,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "app_conversion_failed_total{namespace=\"$namespace\", error=\"none\"}",
+          "expr": "app_conversion_failed_total{namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -372,7 +372,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Network",
-  "uid": "PPgAm4dIz",
+  "title": "Network conversion",
+  "uid": "PUjAm8dPh",
   "version": 3
 }
