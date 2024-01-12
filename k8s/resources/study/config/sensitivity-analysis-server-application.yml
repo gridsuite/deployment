@@ -2,6 +2,9 @@
 sensitivity-analysis:
   default-provider: OpenLoadFlow
 
+non-evacuated-energy:
+  default-provider: OpenLoadFlow
+
 management:
   endpoints:
     web:
