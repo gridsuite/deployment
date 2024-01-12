@@ -48,5 +48,11 @@
   "url"  : "http://localhost:83",
   "appColor" : "#FFC11B",
   "hiddenInAppsMenu" : false
+},
+{
+  "name" : "Admin",
+  "url"  : "http://localhost:83",
+  "appColor" : "#FD3745",
+  "hiddenInAppsMenu" : true
 }
 ]

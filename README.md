@@ -179,6 +179,7 @@ Applications:
 ```html
 http://localhost:80 // gridexplore
 http://localhost:81 // gridmerge
+http://localhost:82 // gridadmin
 http://localhost:83 // griddyna
 http://localhost:84 // gridstudy
 ```
