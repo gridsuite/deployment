@@ -934,6 +934,11 @@
           },
           {
             "selected": false,
+            "text": "sensi",
+            "value": "sensi"
+          },
+          {
+            "selected": false,
             "text": "dynamicSimulation",
             "value": "dynamicSimulation"
           },
@@ -948,7 +953,7 @@
             "value": "voltageInit"
           }
         ],
-        "query": "loadflow, sa, dynamicSimulation, shortcircuit, voltageInit",
+        "query": "loadflow, sa, sensi, dynamicSimulation, shortcircuit, voltageInit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
