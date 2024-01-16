@@ -14,6 +14,9 @@ resources:
   - single-line-diagram-server-service.yaml
   - network-modification-server-deployment.yaml
   - network-modification-server-service.yaml
+  - gridadmin-app-deployment.yaml
+  - gridadmin-app-ingress.yaml
+  - gridadmin-app-service.yaml
   - gridexplore-app-deployment.yaml
   - gridexplore-app-ingress.yaml
   - gridexplore-app-service.yaml
