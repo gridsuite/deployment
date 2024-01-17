@@ -373,6 +373,7 @@ http://<INGRESS_HOST>/gridstudy/
 http://<INGRESS_HOST>/gridmerge/
 http://<INGRESS_HOST>/griddyna/
 http://<INGRESS_HOST>/gridexplore/
+http://<INGRESS_HOST>/gridadmin/
 ```
 
 Swagger UI:
