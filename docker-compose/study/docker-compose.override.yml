@@ -521,11 +521,6 @@ services:
       - all
       - suite
       - study
-      #- study-light
-      #- merging
-      #- dynamic-mapping
-      #- dynamic-simulation
-      #- import
     image: gridsuite/gridadmin-app:latest
     ports:
       - 82:8080
