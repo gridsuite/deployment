@@ -1,3 +1,12 @@
 # default values for loadflow providers "Hades2" or "OpenLoadFlow"
 sensitivity-analysis:
   default-provider: OpenLoadFlow
+
+non-evacuated-energy:
+  default-provider: OpenLoadFlow
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
