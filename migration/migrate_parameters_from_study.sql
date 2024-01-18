@@ -1,4 +1,8 @@
-/* How to rollback in case of error?
+/*
+ * Run command:
+ * $ psql --host=host_name --port=5432 --username=user_name --dbname=database_name --echo-errors --expanded=auto --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=file.sql --log-file=migrate_parameters.log
+ *
+ * How to rollback in case of error?
  * There is multiples migrations done by this script (se "migrate" variable),
  *  so only rollback the migration who failed.
  * If it failed at the end of the script, check before if there wasn't non-rollback-able update/delete!
