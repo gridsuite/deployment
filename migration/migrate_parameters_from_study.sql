@@ -11,15 +11,31 @@
  *   $ truncate table <to_schema>.<to_table>
  *   $ update study.study set <from_old_id>=coalesce(<from_old_id>, <from_new_uuid>), <from_new_uuid>=null
  */
+/* Dev notes:
+ * Because json functions to extract list of elements from array or object return a setof, which isn't usable from for & foreach loops,
+ *  we use tricks by casting into text and treating it and re-casting it to json array.
+ */
 DO
 $body$
 <<fn>>
 DECLARE
     study_name text := quote_ident('study');
     migrate constant jsonb[] := array[
-        '{"from_table": "short_circuit_parameters", "from_old_id": "short_circuit_parameters_entity_id", "from_new_uuid": "short_circuit_parameters_uuid", "to_schema": "shortcircuit", "to_table": "analysis_parameters"}'
+        /* Config format:
+         *   - from_table (string): source table name
+         *   - to_schema (string): destination database/schema (depends if multi-database/schema structure)
+         *   - to_table (string): destination table name
+         *   - from_old_id (string): source table old entity ID column name
+         *   - from_new_uuid (string): source table new UUID column name
+         *   - additional_tables (array[object]): additional tables to copy
+         *       - from_table (string): source table name
+         *       - to_table (string): destination table name
+         */
+        '{"from_table": "short_circuit_parameters", "from_old_id": "short_circuit_parameters_entity_id", "from_new_uuid": "short_circuit_parameters_uuid", "to_schema": "shortcircuit", "to_table": "analysis_parameters", "additional_tables": []}'
     ];
     params jsonb;
+    additional_table jsonb;
+    additional_first bool;
     path_from text;
     path_to text;
     remote_databases bool;
@@ -72,34 +88,57 @@ BEGIN
             if remote_databases then
                 execute format('create server if not exists %s foreign data wrapper postgres_fdw options (dbname %L)', concat('lnk_', params->>'to_schema'), params->>'to_schema');
                 execute format('create user mapping if not exists for %s server %s options (user %L)', current_user, concat('lnk_', params->>'to_schema'), current_user);
-                execute format('import foreign schema %I limit to (%I) from server %s into %I', 'public', params->>'to_table', concat('lnk_', params->>'to_schema'), 'public');
-                path_from := concat(quote_ident('public'), '.', quote_ident(params->>'from_table'));
-                path_to := concat('public.', quote_ident(params->>'to_table'));
-                execute format('select string_agg(attname, '','') from pg_attribute where attnum >=1 and attrelid = (select ft.ftrelid' ||
-                               ' from pg_foreign_table ft left join pg_foreign_server fs on ft.ftserver=fs.oid left join pg_foreign_data_wrapper fdw on fs.srvfdw = fdw.oid left join pg_roles on pg_roles.oid=fdw.fdwowner' ||
-                               ' where pg_roles.rolname=current_user and fdw.fdwname=%L and fs.srvname=%L limit 1)', 'postgres_fdw', concat('lnk_', params->>'to_schema')) --and ftoptions like '%tablename=...%'
-                into insert_columns; --[...] ; there isn't oid cast for foreign tables
-                raise notice 'insert_columns=%', insert_columns;
-                if insert_columns is null then --the create&import commands don't raise an exception if something isn't right...
-                    raise exception 'A silent problem seem to happen during the connection to the remote database' using errcode = 'fdw_error', hint='Check if the server is created and the table imported';
-                end if;
             else
-                path_from := concat(study_name, '.', quote_ident(params->>'from_table'));
-                path_to := concat(quote_ident(params->>'to_schema'), '.', quote_ident(params->>'to_table'));
                 study_name := concat(study_name, '.', study_name); --study server use same name for schema and table name
-                execute format('select string_agg(attname, '','') from pg_attribute where attrelid = %L::regclass and attnum >=1', path_to)
-                into insert_columns; --columns order may be different between src & dst tables
             end if;
-            raise debug 'table locations: study=% src="%" dst="%"', study_name, path_from, path_to;
 
-            raise notice 'copy data from % to %', path_from, path_to;
-            execute format('insert into %s(%s) select %s from %s', path_to, insert_columns, insert_columns, path_from); --... on conflict do nothing/update
-            get current diagnostics rows_affected = row_count;
-            raise info 'Copied % items from % to %', rows_affected, path_from, path_to;
 
-            execute format('update %s set %I=%I, %I=null', study_name, params->>'from_new_uuid', params->>'from_old_id', params->>'from_old_id');
-            get current diagnostics rows_affected = row_count;
-            raise info 'Copied % IDs in % from % to %', rows_affected, study_name, params->>'from_old_id', params->>'from_new_uuid';
+            additional_first := true;
+            foreach additional_table in array array_prepend(format('{"from_table": %s, "to_table": %s}', params->'from_table', params->'to_table'),
+                                                            array_remove(string_to_array(replace(replace(trim(both '[]' from (params->'additional_tables')::text), '}, {', '}\n{'), '},{', '}\n{'), '\n', ''), null)
+                                                           )::jsonb[] loop
+                raise debug 'debug additional table = %', additional_table;
+
+                if remote_databases then
+                    -- rename for potential conflict with foreign table name
+                    execute format('alter table %I rename to %I', additional_table->>'to_table', concat(additional_table->>'to_table', '_old'));
+
+                    execute format('import foreign schema %I limit to (%I) from server %s into %I', 'public', additional_table->>'to_table', concat('lnk_', params->>'to_schema'), 'public');
+                    path_from := concat(quote_ident('public'), '.', quote_ident(additional_table->>'from_table'));
+                    path_to := concat('public.', quote_ident(additional_table->>'to_table'));
+                    execute format('select string_agg(attname, '','') from pg_attribute where attnum >=1 and attrelid = (select ft.ftrelid' ||
+                                   ' from pg_foreign_table ft left join pg_foreign_server fs on ft.ftserver=fs.oid left join pg_foreign_data_wrapper fdw on fs.srvfdw = fdw.oid left join pg_roles on pg_roles.oid=fdw.fdwowner' ||
+                                   ' where pg_roles.rolname=current_user and fdw.fdwname=%L and fs.srvname=%L limit 1)', 'postgres_fdw', concat('lnk_', additional_table->>'to_schema')) --and ftoptions like '%tablename=...%'
+                    into insert_columns; --[...] ; there isn't oid cast for foreign tables
+                    raise notice 'insert_columns=%', insert_columns;
+                    if insert_columns is null then --the create&import commands don't raise an exception if something isn't right...
+                        raise exception 'A silent problem seem to happen during the connection to the remote database' using errcode = 'fdw_error', hint='Check if the server is created and the table imported';
+                    end if;
+                else
+                    path_from := concat(study_name, '.', quote_ident(additional_table->>'from_table'));
+                    path_to := concat(quote_ident(params->>'to_schema'), '.', quote_ident(additional_table->>'to_table'));
+                    execute format('select string_agg(attname, '','') from pg_attribute where attrelid = %L::regclass and attnum >=1', path_to)
+                    into insert_columns; --columns order may be different between src & dst tables
+                end if;
+                raise debug 'table locations: study=% src="%" dst="%"', study_name, path_from, path_to;
+
+                raise notice 'copy data from % to %', path_from, path_to;
+                execute format('insert into %s(%s) select %s from %s', path_to, insert_columns, insert_columns, path_from); --... on conflict do nothing/update
+                get current diagnostics rows_affected = row_count;
+                raise info 'Copied % items from % to %', rows_affected, path_from, path_to;
+
+                if additional_first then
+                    additional_first := false;
+                    execute format('update %s set %I=%I, %I=null', study_name, params->>'from_new_uuid', params->>'from_old_id', params->>'from_old_id');
+                    get current diagnostics rows_affected = row_count;
+                    raise info 'Moved % IDs in % from % to %', rows_affected, study_name, params->>'from_old_id', params->>'from_new_uuid';
+                end if;
+
+                if remote_databases then
+                    execute format('drop foreign table if exists %I.%I cascade', params->>'to_schema', additional_table->>'to_table');
+                    execute format('alter table %I rename to %I', concat(additional_table->>'to_table', '_old'), additional_table->>'to_table'); --restore original name
+                end if;
+            end loop;
 
             /*execute format('truncate table %s', path_from);
             raise info 'Emptied old table %', path_from;*/
