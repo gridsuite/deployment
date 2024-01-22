@@ -29,6 +29,9 @@
         "Landsnet", "cges", "mepso", "transelectrica", "ems",
         "kostt", "sepsas", "teias", "ukrenergo" ],
       "totallyFree" : []
+    },
+    "load":  {
+      "codeOI": []
     }
   },
   "defaultParametersValues": {
