@@ -91,6 +91,11 @@ configMapGenerator:
     files:
       - application.yml=common-application.yml
 
+  - name: apps-metadata-server-configmap
+    behavior: merge
+    files:
+      - authentication.json
+
 patches:
 - path: patches/ingresses.yaml
   target:
