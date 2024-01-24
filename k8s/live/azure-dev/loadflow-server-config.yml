@@ -1,3 +1,19 @@
+hades2:
+  homeDir: /hades2
+  debug: false
+
+dynaflow:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+#Workaround iidm in-memory impl present on classpath (needed by cvg-extension)
+network:
+  default-impl-name: NetworkStore
+
+# Nb of LF concurrent processes - should be in-sync with loadflow.run.loadflowGroup queue concurrency
+computation-local:
+  available-core: 4
+
 load-flow-default-parameters:
   voltageInitMode: DC_VALUES
   phaseShifterRegulationOn: true
