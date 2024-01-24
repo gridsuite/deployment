@@ -35,6 +35,7 @@ DECLARE
          */
         --'{"from_table": "short_circuit_parameters", "from_old_id": "short_circuit_parameters_entity_id", "from_new_uuid": "short_circuit_parameters_uuid", "to_schema": "shortcircuit", "to_table": "analysis_parameters", "additional_tables": []}',
         '{"from_table": "load_flow_parameters", "from_old_id": "load_flow_parameters_entity_id", "from_new_uuid": "load_flow_parameters_uuid", "to_schema": "loadflow", "to_table": "load_flow_parameters", "additional_tables": [{"from_table": "load_flow_parameters_entity_countries_to_balance", "to_table": "load_flow_parameters_entity_countries_to_balance"}, {"from_table": "load_flow_specific_parameters", "to_table": "load_flow_specific_parameters"}]}'
+        --'{"from_table": "security_analysis_parameters", "from_old_id": "security_analysis_parameters_entity_id", "from_new_uuid": "security_analysis_parameters_uuid", "to_schema": "sa", "to_table": "security_analysis_parameters", "additional_tables": []}',
     ];
     params jsonb;
     additional_table jsonb;
