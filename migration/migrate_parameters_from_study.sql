@@ -1,9 +1,11 @@
 /*
  * Run command:
- * $ psql --host=host_name --port=5432 --username=user_name --dbname=database_name --echo-errors --expanded=auto --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=file.sql --log-file=migrate_parameters.log
+ * multi-database case : $ psql --host=host_name --port=5432 --username=user_name --dbname=study -csearch_path=public --echo-errors --expanded=auto --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=file.sql --log-file=migrate_parameters.log
+ * multi-schema case : $ psql --host=host_name --port=5432 --username=user_name --dbname=database_name -csearch_path=study --echo-errors --expanded=auto --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=file.sql --log-file=migrate_parameters.log
  *
  * How to rollback in case of error?
- * There is multiples migrations done by this script (se "migrate" variable),
+ * Normally this script run itself inside a transaction, so if an exception is raised, the transaction is rollback.
+ * There is multiples migrations done by this script (see "migrate" variable),
  *  so only rollback the migration who failed.
  * If it failed at the end of the script, check before if there wasn't non-rollback-able update/delete!
  *  If you're not sure, ask GridSuite devs or read this script in detail.
@@ -53,7 +55,7 @@ DECLARE
     err_pg_exception_context text;
 BEGIN
     --lock table study in exclusive mode;
-    raise log 'Script starting at %', now();
+    raise log 'Script % starting at %', 'v1.7', now();
     raise log 'user=%, db=%, schema=%', current_user, current_database(), current_schema();
 
     /* Case OPF: copy from db.study.<table> to db.<service>.<table> (easy, no problem to migrate)
@@ -97,28 +99,30 @@ BEGIN
             foreach additional_table in array array_prepend(format('{"from_table": %s, "to_table": %s}', params->'from_table', params->'to_table'),
                                                             array_remove(string_to_array(replace(replace(trim(both '[]' from (params->'additional_tables')::text), '}, {', '}\n{'), '},{', '}\n{'), '\n', ''), null)
                                                            )::jsonb[] loop
-                raise debug 'debug additional table = %', additional_table;
+                raise debug 'debug table input = %', additional_table;
 
                 if remote_databases then
                     -- rename for potential conflict with foreign table name
-                    execute format('alter table %I rename to %I', additional_table->>'to_table', concat(additional_table->>'to_table', '_old'));
+                    execute format('alter table if exists %I rename to %I', additional_table->>'to_table', concat(additional_table->>'to_table', '_old'));
 
                     execute format('import foreign schema %I limit to (%I) from server %s into %I', 'public', additional_table->>'to_table', concat('lnk_', params->>'to_schema'), 'public');
-                    path_from := concat(quote_ident('public'), '.', quote_ident(additional_table->>'from_table'));
+                    path_from := concat(quote_ident('public'), '.', quote_ident(concat(additional_table->>'from_table', '_old')));
                     path_to := concat('public.', quote_ident(additional_table->>'to_table'));
                     execute format('select string_agg(attname, '','') from pg_attribute where attnum >=1 and attrelid = (select ft.ftrelid' ||
                                    ' from pg_foreign_table ft left join pg_foreign_server fs on ft.ftserver=fs.oid left join pg_foreign_data_wrapper fdw on fs.srvfdw = fdw.oid left join pg_roles on pg_roles.oid=fdw.fdwowner' ||
-                                   ' where pg_roles.rolname=current_user and fdw.fdwname=%L and fs.srvname=%L limit 1)', 'postgres_fdw', concat('lnk_', additional_table->>'to_schema')) --and ftoptions like '%tablename=...%'
+                                   ' where pg_roles.rolname=current_user and fdw.fdwname=%L and fs.srvname=%L and %L=any(ft.ftoptions))',
+                                   'postgres_fdw', concat('lnk_', params->>'to_schema'), concat('table_name=', additional_table->>'to_table')) --and ftoptions like '%tablename=...%'
                     into insert_columns; --[...] ; there isn't oid cast for foreign tables
-                    raise notice 'insert_columns=%', insert_columns;
-                    if insert_columns is null then --the create&import commands don't raise an exception if something isn't right...
-                        raise exception 'A silent problem seem to happen during the connection to the remote database' using errcode = 'fdw_error', hint='Check if the server is created and the table imported';
-                    end if;
+                    --the create&import commands don't raise an exception if something isn't right, so insert_column result can be null
                 else
                     path_from := concat(study_name, '.', quote_ident(additional_table->>'from_table'));
                     path_to := concat(quote_ident(params->>'to_schema'), '.', quote_ident(additional_table->>'to_table'));
                     execute format('select string_agg(attname, '','') from pg_attribute where attrelid = %L::regclass and attnum >=1', path_to)
                     into insert_columns; --columns order may be different between src & dst tables
+                end if;
+                raise notice 'insert_columns=%', insert_columns;
+                if insert_columns is null then
+                    raise exception 'A silent problem seem to happen during the connection to the remote database' using errcode = 'fdw_error', hint='Check if the server is created and the table imported';
                 end if;
                 raise debug 'table locations: study=% src="%" dst="%"', study_name, path_from, path_to;
 
@@ -135,8 +139,8 @@ BEGIN
                 end if;
 
                 if remote_databases then
-                    execute format('drop foreign table if exists %I.%I cascade', params->>'to_schema', additional_table->>'to_table');
-                    execute format('alter table %I rename to %I', concat(additional_table->>'to_table', '_old'), additional_table->>'to_table'); --restore original name
+                    execute format('drop foreign table if exists public.%I cascade', additional_table->>'to_table');
+                    execute format('alter table if exists %I rename to %I', concat(additional_table->>'to_table', '_old'), additional_table->>'to_table'); --restore original name
                 end if;
             end loop;
 
