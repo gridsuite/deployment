@@ -1,7 +1,7 @@
 /*
  * Run command:
- * multi-database case : $ psql --host=host_name --port=5432 --username=user_name --dbname=study -csearch_path=public --echo-errors --expanded=auto --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=file.sql --log-file=migrate_parameters.log
- * multi-schema case : $ psql --host=host_name --port=5432 --username=user_name --dbname=database_name -csearch_path=study --echo-errors --expanded=auto --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=file.sql --log-file=migrate_parameters.log
+ * multi-database case : $ psql --expanded --echo-errors --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=migrate_parameters_from_study.sql --log-file=migrate_parameters.log "host=host_name user=user_name dbname=study port=5432 options=-csearch_path=public"
+ * multi-schema case : $ psql --expanded --echo-errors --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=migrate_parameters_from_study.sql --log-file=migrate_parameters.log "host=host_name user=user_name dbname=database_name port=5432 options=-csearch_path=study"
  *
  * How to rollback in case of error?
  * Normally this script run itself inside a transaction, so if an exception is raised, the transaction is rollback.
