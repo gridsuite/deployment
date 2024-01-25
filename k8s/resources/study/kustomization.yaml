@@ -61,9 +61,6 @@ configMapGenerator:
   - name: study-server-configmap-specific
     files:
       - application.yml=config/study-server-application.yml
-  - name: study-server-itools-configmap
-    files:
-      - config.yml=config/study-server-config.yml
   - name: cgmes-gl-server-configmap-specific
     files:
       - application.yml=config/cgmes-gl-server-application.yml
