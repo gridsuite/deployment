@@ -94,8 +94,6 @@ BEGIN
             if remote_databases then
                 execute format('create server if not exists %s foreign data wrapper postgres_fdw options (dbname %L)', concat('lnk_', params->>'to_schema'), params->>'to_schema');
                 execute format('create user mapping if not exists for %s server %s options (user %L)', current_user, concat('lnk_', params->>'to_schema'), current_user);
-            else
-                study_name := concat(study_name, '.', study_name); --study server use same name for schema and table name
             end if;
 
 
