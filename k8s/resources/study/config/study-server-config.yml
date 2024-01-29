@@ -1,7 +1,0 @@
-load-flow-default-parameters:
-  voltageInitMode: DC_VALUES
-  phaseShifterRegulationOn: true
-  twtSplitShuntAdmittance: true
-  dcUseTransformerRatio: false
-  countriesToBalance:
-    - FR

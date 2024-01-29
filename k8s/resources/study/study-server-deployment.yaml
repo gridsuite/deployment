@@ -26,12 +26,7 @@ spec:
           volumeMounts:
             - mountPath: /config/specific
               name: study-server-configmap-specific-volume
-            - mountPath: /home/powsybl/.itools
-              name: study-server-itools-configmap-volume
       volumes:
         - name: study-server-configmap-specific-volume
           configMap:
             name: study-server-configmap-specific
-        - name: study-server-itools-configmap-volume
-          configMap:
-            name: study-server-itools-configmap
