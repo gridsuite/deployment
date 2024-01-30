@@ -36,7 +36,7 @@ services:
     env_file:
       - $PWD/.env
     volumes:
-      - $GRIDSUITE_DATABASES/postgres14/data:/var/lib/postgresql/data:Z
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
       - $GRIDSUITE_DATABASES/init:/init-data:Z
       - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
       - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
