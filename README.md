@@ -136,8 +136,8 @@ $ docker compose down
 This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ...
 
 |Software| Version used |
---- | --- |
-|Postgres|13.4|
+--- |  |
+|Postgres|14.9|
 |RabbitMQ|latest|
 |Elasticsearch|7.9.3|
 |Grafana|latest|
