@@ -32,6 +32,15 @@
     },
     "load":  {
       "codeOI": []
+    },
+    "generator":{
+      "codeOI": [],
+      "genreCvg": ["AUTRE","BIOMASSE","CCG","CHARBON", "CONGRNERATION",
+      "COMPENSATEUR_SYNCHRONE","COMPENSATEUR_SYNCHRONE_VIMP", "DIESEL",
+      "EJP", "EOLIEN", "EOLIEN_OFFSHORE", "FICTIF", "FIL_DE_L_EAU", "FUEL", "GAZ",
+      "HYDROLIENNE", "NUCLEAIRE"
+    ],
+      "categorieENTSOE": []
     }
   },
   "defaultParametersValues": {
