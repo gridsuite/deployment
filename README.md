@@ -465,7 +465,7 @@ $ docker compose exec postgres /create-postgres-databases.sh
 
 ### Data initialization
 
-First, we have to update the data files in the directory `$GRIDSUITE_DATABASES/init`
+First update the data files in the directory `$GRIDSUITE_DATABASES/init`
 
 [See the initial data loading section for more information.](#data_init)
 
@@ -478,13 +478,6 @@ Make sure the `postgres`, `odre-server` and `geo-data-server` services are up wi
 $ docker compose exec postgres /init-geo-data.sh
 $ docker compose exec postgres /init-merging-data.sh
 ```
-
-If you have lines and substations data as json files, you can use curl to upload those to the geo-data-server like this :
-```bash
-$ curl -H 'Content-Type: application/json' -d@geo_data_lines.json 'http://localhost:8087/v1/lines'
-$ curl -H 'Content-Type: application/json' -d@geo_data_substations.json 'http://localhost:8087/v1/substations'
-```
-
 
 **Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. You have to execute those REST requests :
 
