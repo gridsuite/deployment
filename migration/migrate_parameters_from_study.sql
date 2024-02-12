@@ -21,7 +21,8 @@ DO
 $body$
 <<fn>>
 DECLARE
-    study_name text := quote_ident('study');
+    schema_prefix constant text := '';
+    study_name text := 'study';
     migrate constant jsonb[] := array[
         /* Config format:
          *   - from_table (string): source table name
@@ -44,6 +45,7 @@ DECLARE
     additional_first bool;
     path_from text;
     path_to text;
+    to_schema_full text;
     remote_databases bool;
     insert_columns text;
     rows_affected integer;
@@ -61,6 +63,8 @@ BEGIN
     --lock table study in exclusive mode;
     raise log 'Script % starting at %', 'v1.7', now();
     raise log 'user=%, db=%, schema=%', current_user, current_database(), current_schema();
+
+    study_name := quote_ident(concat(fn.schema_prefix, fn.study_name));
 
     /* Case OPF: copy from db.study.<table> to db.<service>.<table> (easy, no problem to migrate)
      * Case localdev & Azure: copy from study.public.<table> to <service>.public.<table> (need to copy between databases...)
@@ -88,12 +92,13 @@ BEGIN
 
     foreach params in array migrate loop
         raise debug 'migration data = %', params;
+        to_schema_full := concat(fn.schema_prefix, params->>'to_schema');
         /*Note: quote_indent() ⇔ %I ≠ quote_literal() ⇔ %L */
         begin
 
             if remote_databases then
-                execute format('create server if not exists %s foreign data wrapper postgres_fdw options (dbname %L)', concat('lnk_', params->>'to_schema'), params->>'to_schema');
-                execute format('create user mapping if not exists for %s server %s options (user %L)', current_user, concat('lnk_', params->>'to_schema'), current_user);
+                execute format('create server if not exists %s foreign data wrapper postgres_fdw options (dbname %L)', concat('lnk_', to_schema_full), to_schema_full);
+                execute format('create user mapping if not exists for %s server %s options (user %L)', current_user, concat('lnk_', to_schema_full), current_user);
             end if;
 
 
@@ -107,18 +112,18 @@ BEGIN
                     -- rename for potential conflict with foreign table name
                     execute format('alter table if exists %I rename to %I', additional_table->>'to_table', concat(additional_table->>'to_table', '_old'));
 
-                    execute format('import foreign schema %I limit to (%I) from server %s into %I', 'public', additional_table->>'to_table', concat('lnk_', params->>'to_schema'), 'public');
+                    execute format('import foreign schema %I limit to (%I) from server %s into %I', 'public', additional_table->>'to_table', concat('lnk_', to_schema_full), 'public');
                     path_from := concat(quote_ident('public'), '.', quote_ident(concat(additional_table->>'from_table', '_old')));
                     path_to := concat('public.', quote_ident(additional_table->>'to_table'));
                     execute format('select string_agg(attname, '','') from pg_attribute where attnum >=1 and attrelid = (select ft.ftrelid' ||
                                    ' from pg_foreign_table ft left join pg_foreign_server fs on ft.ftserver=fs.oid left join pg_foreign_data_wrapper fdw on fs.srvfdw = fdw.oid left join pg_roles on pg_roles.oid=fdw.fdwowner' ||
                                    ' where pg_roles.rolname=current_user and fdw.fdwname=%L and fs.srvname=%L and %L=any(ft.ftoptions))',
-                                   'postgres_fdw', concat('lnk_', params->>'to_schema'), concat('table_name=', additional_table->>'to_table')) --and ftoptions like '%tablename=...%'
+                                   'postgres_fdw', concat('lnk_', to_schema_full), concat('table_name=', additional_table->>'to_table')) --and ftoptions like '%tablename=...%'
                     into insert_columns; --[...] ; there isn't oid cast for foreign tables
                     --the create&import commands don't raise an exception if something isn't right, so insert_column result can be null
                 else
                     path_from := concat(study_name, '.', quote_ident(additional_table->>'from_table'));
-                    path_to := concat(quote_ident(params->>'to_schema'), '.', quote_ident(additional_table->>'to_table'));
+                    path_to := concat(quote_ident(to_schema_full), '.', quote_ident(additional_table->>'to_table'));
                     execute format('select string_agg(attname, '','') from pg_attribute where attrelid = %L::regclass and attnum >=1', path_to)
                     into insert_columns; --columns order may be different between src & dst tables
                 end if;
@@ -151,9 +156,9 @@ BEGIN
 
             if remote_databases then
                 /*use "drop ... if exist ...", so not need "if remote_databases then ..."*/
-                --execute format('drop foreign table if exists %I.%I' cascade, 'public', params[i]->>'to_schema');
-                --execute format('drop user mapping if exists for current_user server %s', 'lnk_'||params[i]->>'to_schema');
-                execute format('drop server if exists %s cascade', concat('lnk_', params->>'to_schema'));
+                --execute format('drop foreign table if exists %I.%I' cascade, 'public', to_schema_full);
+                --execute format('drop user mapping if exists for current_user server %s', 'lnk_'||to_schema_full);
+                execute format('drop server if exists %s cascade', concat('lnk_', to_schema_full));
             end if;
 
         exception when others then --we don't block the script but alert the admin
