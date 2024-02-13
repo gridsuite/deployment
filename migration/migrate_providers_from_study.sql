@@ -1,7 +1,7 @@
 /*
  * Run command:
- * multi-database case : $ psql --expanded --echo-errors --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=migrate_parameters_from_study.sql --log-file=migrate_parameters.log "host=host_name user=user_name dbname=study port=5432 options=-csearch_path=public"
- * multi-schema case : $ psql --expanded --echo-errors --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=migrate_parameters_from_study.sql --log-file=migrate_parameters.log "host=host_name user=user_name dbname=database_name port=5432 options=-csearch_path=study"
+ * multi-database case : $ psql --expanded --echo-errors --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=migrate_providers_from_study.sql --log-file=migrate_providers.log "host=host_name user=user_name dbname=study port=5432 options=-csearch_path=public"
+ * multi-schema case : $ psql --expanded --echo-errors --single-transaction --command='\conninfo' --command='\encoding utf-8' --file=migrate_providers_from_study.sql --log-file=migrate_providers.log "host=host_name user=user_name dbname=database_name port=5432 options=-csearch_path=study"
  *
  */
 DO
@@ -19,7 +19,9 @@ DECLARE
          *   - src_id_column (string): source table column name to match with destination table
          *   - dest_id_column (string): destination table column name to match with source table
          */
-        '{"from_table": "study", "to_schema": "loadflow", "to_table": "load_flow_parameters", "from_column": "load_flow_provider", "to_column": "provider", "src_id_column" : "load_flow_parameters_uuid", "dest_id_column" : "id"}'
+        '{"from_table": "study", "to_schema": "loadflow", "to_table": "load_flow_parameters", "from_column": "load_flow_provider", "to_column": "provider", "src_id_column" : "load_flow_parameters_uuid", "dest_id_column" : "id"}',
+        '{"from_table": "study", "to_schema": "sensitivityanalysis", "to_table": "sensitivity_analysis_parameters", "from_column": "sensitivity_analysis_provider", "to_column": "provider", "src_id_column" : "sensitivity_analysis_parameters_uuid", "dest_id_column" : "id"}',
+        '{"from_table": "study", "to_schema": "sa", "to_table": "security_analysis_parameters", "from_column": "security_analysis_provider", "to_column": "provider", "src_id_column" : "security_analysis_parameters_uuid", "dest_id_column" : "id"}'        
         --TODO other providers
     ];
     params jsonb;
@@ -91,8 +93,8 @@ BEGIN
             end if;
             raise debug 'table locations: study=% src="%" dst="%"', study_name, path_from, path_to;
             raise notice 'copy data from % to %', path_from, path_to;
-            execute format('update %s set %s = %s from %s where public.study.load_flow_parameters_uuid = public.load_flow_parameters.id',
-							path_to, params->>'to_column', concat(path_from, '.', params->>'from_column'), path_from, concat(path_from, '.', params->>'src_id_column'), concat(path_to, '.', 'dest_id_column')); --... on conflict do nothing/update
+            execute format('update %s set %I = %s from %s where %s.%I = %s.%I',
+                           path_to, params->>'to_column', concat(path_from, '.', quote_ident(params->>'from_column')), path_from, concat(path_from, '.', quote_ident(params->>'src_id_column')), concat(path_to, '.', quote_ident(params->>'dest_id_column')));
             get current diagnostics rows_affected = row_count;
             raise info 'Copied % items from % to %', rows_affected, path_from, path_to;
 
