@@ -17,11 +17,11 @@ $ cd $GRIDSUITE_DATABASES
 $ chmod 777 cases postgres elasticsearch init
 ```
 
-| :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose !   |
-|---------------------------------------------|
+| :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose ! |
+|---------------------------------------------------------------------------------------------------------------------------------|
 
 
-All databases are created automatically at start as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, ...).
+<a name="data_init"></a>All databases are created automatically at start as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, ...).
 
 To do this, you must copy the following files in the init directory :
 - [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_substations.json)
@@ -135,13 +135,13 @@ $ docker compose down
 
 This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ...
 
-|Software| Version used |
---- | --- |
-|Postgres|13.4|
-|RabbitMQ|latest|
-|Elasticsearch|7.9.3|
-|Grafana|latest|
-|Prometheus|latest|
+| Software      | Version used |
+|---------------|--------------|
+| Postgres      | 14.9         |
+| RabbitMQ      | latest       |
+| Elasticsearch | 7.9.3        |
+| Grafana       | latest       |
+| Prometheus    | latest       |
 
 
 It is used for k8s deployment with Minikube.
@@ -297,10 +297,10 @@ This setup is heavyweight and matches a realworld deployment. It is useful to re
 
 Download the recommended version of minikube and kubectl :
 
-|Software| Version recommendation |Last Version  | Link|
---- | --- | --- | ---
-|kubectl |1.21+|1.24.X|[Download](https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl)|
-|minikube|1.21+|1.26.X|[Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)|
+| Software | Version recommendation | Last Version | Link                                                                                                  |
+|----------|------------------------|--------------|-------------------------------------------------------------------------------------------------------|
+| kubectl  | 1.21+                  | 1.24.X       | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl) |
+| minikube | 1.21+                  | 1.26.X       | [Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)              |
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
@@ -456,6 +456,9 @@ All actions can be done from a docker-compose profile.
 
 ### Databases creation
 
+With a terminal, go to the docker directory where you ran the `docker compose up -d` command.
+
+Make sure the `postgres` service is up with the `docker compose ps | grep postgres` command.
 ```bash
 $ docker compose exec postgres /create-postgres-databases.sh
 ```
@@ -463,6 +466,14 @@ $ docker compose exec postgres /create-postgres-databases.sh
 ### Data initialization
 
 First update the data files in the directory `$GRIDSUITE_DATABASES/init`
+
+[See the initial data loading section for more information.](#data_init)
+
+Alternatively, you can do this :
+
+With a terminal, go to the docker directory where you ran the `docker compose up -d` command.
+
+Make sure the `postgres`, `odre-server` and `geo-data-server` services are up with the `docker compose ps` command.
 ```bash
 $ docker compose exec postgres /init-geo-data.sh
 $ docker compose exec postgres /init-merging-data.sh
