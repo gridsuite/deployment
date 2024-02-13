@@ -1,5 +1,4 @@
 {
-  "__elements": {},
   "__requires": [
     {
       "type": "grafana",
@@ -61,7 +60,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 9,
+      "id": 15,
       "panels": [],
       "targets": [
         {
@@ -72,7 +71,7 @@
           "refId": "A"
         }
       ],
-      "title": "Computation reports",
+      "title": "Network conversion reports",
       "type": "row"
     },
     {
@@ -130,7 +129,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -140,7 +140,7 @@
         "x": 0,
         "y": 1
       },
-      "id": 13,
+      "id": 9,
       "options": {
         "legend": {
           "calcs": [],
@@ -160,13 +160,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_computation_count_total{type='$COMPUTATION', status='OK'}",
+          "expr": "app_conversion_import_seconds_max{error=\"none\"} / on(format) app_conversion_import_buses_max{}",
           "interval": "",
-          "legendFormat": "{{provider}}",
+          "legendFormat": "{{format}}",
           "refId": "A"
         }
       ],
-      "title": "Computation with success count",
+      "title": "Import time (normalized max)",
       "type": "timeseries"
     },
     {
@@ -234,6 +234,101 @@
         "w": 12,
         "x": 12,
         "y": 1
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "app_conversion_export_seconds_max{error=\"none\"} / on(format) app_conversion_export_buses_max{}",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Export time (normalized max)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 9
       },
       "id": 2,
       "options": {
@@ -254,226 +349,14 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_run_seconds_max{type='$COMPUTATION', error=\"none\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
+          "expr": "app_conversion_import_seconds_max{error=\"none\"}",
           "interval": "",
-          "legendFormat": "{{provider}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "title": "Computation time (max)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 9
-      },
-      "id": 11,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": true,
-          "expr": "app_computation_count_total{type='$COMPUTATION', status='NOK'}",
-          "interval": "",
-          "legendFormat": "{{provider}}",
+          "legendFormat": "{{format}}",
           "refId": "A"
         }
       ],
-      "title": "Computation with error count",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 9
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "exemplar": true,
-          "expr": "app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "{{provider}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "Computation with exception count",
+      "title": "Import time (max)",
       "type": "timeseries"
     },
     {
@@ -537,7 +420,101 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "app_conversion_export_seconds_max{error=\"none\"}",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Export time (max)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 17
@@ -561,21 +538,14 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_network_save_seconds_max{type='$COMPUTATION', error=\"none\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
+          "expr": "app_conversion_import_buses_max{}",
           "interval": "",
-          "legendFormat": "{{provider}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
+          "legendFormat": "{{format}}",
+          "refId": "A"
         }
       ],
-      "title": "Network save time (max)",
+      "title": "Imported buses (max)",
       "type": "timeseries"
     },
     {
@@ -633,13 +603,12 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "s"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 12,
         "x": 12,
         "y": 17
@@ -663,21 +632,14 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_results_save_seconds_max{type='$COMPUTATION', error=\"none\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
+          "expr": "app_conversion_export_buses_max{}",
           "interval": "",
-          "legendFormat": "{{provider}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
+          "legendFormat": "{{format}}",
+          "refId": "A"
         }
       ],
-      "title": "Results save time (max)",
+      "title": "Exported buses (max)",
       "type": "timeseries"
     },
     {
@@ -735,8 +697,7 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "s"
+          }
         },
         "overrides": []
       },
@@ -744,9 +705,9 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 25
       },
-      "id": 7,
+      "id": 14,
       "options": {
         "legend": {
           "calcs": [],
@@ -765,21 +726,14 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_report_send_seconds_max{type='$COMPUTATION', error=\"none\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
+          "expr": "app_conversion_import_seconds_count{error=\"none\"}",
           "interval": "",
-          "legendFormat": "{{provider}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
+          "legendFormat": "{{format}}",
+          "refId": "A"
         }
       ],
-      "title": "Report send time (max)",
+      "title": "Import with success count",
       "type": "timeseries"
     },
     {
@@ -837,8 +791,7 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "s"
+          }
         },
         "overrides": []
       },
@@ -846,7 +799,101 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 25
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "app_conversion_export_seconds_count{error=\"none\"}",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Export with success count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 33
       },
       "id": 6,
       "options": {
@@ -867,21 +914,108 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_report_delete_seconds_max{type='$COMPUTATION', error=\"none\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
+          "expr": "app_conversion_import_seconds_count{error!=\"none\"}",
           "interval": "",
-          "legendFormat": "{{provider}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
+          "legendFormat": "{{format}}",
+          "refId": "A"
         }
       ],
-      "title": "Report delete time (max)",
+      "title": "Import with exception count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "app_conversion_export_seconds_count{error!=\"none\"}",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Export with exception count",
       "type": "timeseries"
     }
   ],
@@ -891,6 +1025,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
         "hide": 0,
         "includeAll": false,
         "label": "DataSrc Prometheus",
@@ -903,53 +1042,6 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": "loadflow",
-          "value": "loadflow"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "COMPUTATION",
-        "options": [
-          {
-            "selected": true,
-            "text": "loadflow",
-            "value": "loadflow"
-          },
-          {
-            "selected": false,
-            "text": "sa",
-            "value": "sa"
-          },
-          {
-            "selected": false,
-            "text": "sensi",
-            "value": "sensi"
-          },
-          {
-            "selected": false,
-            "text": "dynamicSimulation",
-            "value": "dynamicSimulation"
-          },
-          {
-            "selected": false,
-            "text": "shortcircuit",
-            "value": "shortcircuit"
-          },
-          {
-            "selected": false,
-            "text": "voltageInit",
-            "value": "voltageInit"
-          }
-        ],
-        "query": "loadflow, sa, sensi, dynamicSimulation, shortcircuit, voltageInit",
-        "queryValue": "",
-        "skipUrlSync": false,
-        "type": "custom"
       }
     ]
   },
@@ -959,8 +1051,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Computations",
-  "uid": "UplRgsDIz",
+  "title": "Network conversions",
+  "uid": "PUjAm8dPh",
   "version": 1,
   "weekStart": ""
 }

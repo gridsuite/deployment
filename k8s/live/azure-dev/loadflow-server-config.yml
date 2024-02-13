@@ -19,5 +19,3 @@ load-flow-default-parameters:
   phaseShifterRegulationOn: true
   twtSplitShuntAdmittance: true
   dcUseTransformerRatio: false
-  countriesToBalance:
-    - FR

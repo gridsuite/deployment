@@ -32,6 +32,7 @@ configMapGenerator:
     files:
       - openid-configuration
       - keys
+      - authentication.json
   - name: apps-metadata-server-httpdconf-configmap
     behavior: replace
     files:
@@ -44,10 +45,10 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
-  - name: study-server-itools-configmap
+  - name: loadflow-server-itools-configmap
     behavior: merge
     files:
-      - config.yml=study-server-config.yml
+      - config.yml=loadflow-server-config.yml
 
 # Patch ingress host
 patchesJson6902:
