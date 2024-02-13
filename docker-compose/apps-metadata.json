@@ -32,6 +32,17 @@
     },
     "load":  {
       "codeOI": []
+    },
+    "generator":{
+      "codeOI": [],
+      "genreCvg": ["AUTRE","BIOMASSE","CCG","CHARBON", "COGENERATION",
+      "COMPENSATEUR_SYNCHRONE","COMPENSATEUR_SYNCHRONE_VIMP", "DIESEL",
+      "EJP", "EOLIEN", "EOLIEN_OFFSHORE", "FICTIF", "FIL_DE_L_EAU", "FUEL", "GAZ",
+      "HYDROLIENNE", "NUCLEAIRE", "PILE_A_COMBUSTIBLE", "PHOTOVOLTAIQUE", "PHOTOVOLTAIQUE_DIFFUS",
+      "PHOTOVOLTAIQUE_PLUS_STOCKAGE", "POMPAGE", "POWER_TO_GAS", "SOLAIRE_THERMIQUE", "STEP",
+      "STOCKAGE_BARRAGE", "TAC", "TURBINAGE"
+    ],
+      "categorieENTSOE": []
     }
   },
   "defaultParametersValues": {
