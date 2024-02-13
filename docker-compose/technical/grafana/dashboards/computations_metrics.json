@@ -908,7 +908,7 @@
         "current": {
           "selected": true,
           "text": "loadflow",
-          "value": "LoadFlow"
+          "value": "loadflow"
         },
         "hide": 0,
         "includeAll": false,
@@ -918,7 +918,7 @@
           {
             "selected": true,
             "text": "loadflow",
-            "value": "LoadFlow"
+            "value": "loadflow"
           },
           {
             "selected": false,
