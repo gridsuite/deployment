@@ -93,7 +93,7 @@ BEGIN
             end if;
             raise debug 'table locations: study=% src="%" dst="%"', study_name, path_from, path_to;
             raise notice 'copy data from % to %', path_from, path_to;
-            execute format('update %s set %I = %s from %s where %s.%I = %s.%I',
+            execute format('update %s set %I = %s from %s where %s = %s',
                            path_to, params->>'to_column', concat(path_from, '.', quote_ident(params->>'from_column')), path_from, concat(path_from, '.', quote_ident(params->>'src_id_column')), concat(path_to, '.', quote_ident(params->>'dest_id_column')));
             get current diagnostics rows_affected = row_count;
             raise info 'Copied % items from % to %', rows_affected, path_from, path_to;
