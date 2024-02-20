@@ -50,4 +50,4 @@ done
 
 # Assuming the Docker Compose file is relative to the script's execution path
 cd docker-compose/explicit-profiles || { echo "Failed to change directory. Check if the path is correct. Exiting."; exit 1; }
-docker compose --profile study up -d || { echo "Docker Compose failed to start. Check Docker setup. Exiting."; exit 1; }
+docker compose --profile suite up -d || { echo "Docker Compose failed to start. Check Docker setup. Exiting."; exit 1; }
