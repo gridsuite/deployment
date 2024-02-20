@@ -21,10 +21,4 @@ configMapGenerator:
 patchesStrategicMerge:
 - limit-gridexplore-cases.yaml
 - fluentd-containerd.yaml # default fluentd parse is for docker, on azure we use containerd
-- |-
-  apiVersion: v1
-  kind: Deployment
-  metadata:
-    name: gridadmin-app
-  $patch: delete
-  # We disable/don't deploy GridAdmin in the Azure/demo environment
+- disable-gridadmin.yml # We disable/don't deploy GridAdmin in the Azure/demo environment
