@@ -14,28 +14,9 @@ download_file() {
   fi
 }
 
-# Check if ENV exists or if new given in commandline parameter, if not, ask user for a path (relative or absolute)
-if [ -z "$1" ] && [ -n "$GRIDSUITE_DATABASES" ]; then
-  echo "Using GRIDSUITE_DATABASES from environment: $GRIDSUITE_DATABASES"
-else
-  if [ -n "$1" ]; then
-    # Convert to absolute path and create path structure
-    GRIDSUITE_DATABASES=$(realpath "$1")
-    export GRIDSUITE_DATABASES
-  else
-    if [ -z "$GRIDSUITE_DATABASES" ]; then
-      echo "Enter the root directory location for GRIDSUITE_DATABASES:"
-      read USER_INPUT
-      GRIDSUITE_DATABASES=$(realpath "$USER_INPUT")
-      export GRIDSUITE_DATABASES
-    fi
-  fi
-fi
-
-if [ -z "$GRIDSUITE_DATABASES" ]; then
-  echo "GRIDSUITE_DATABASES is not set. Exiting."
-  exit 1
-fi
+# Set databases path
+GRIDSUITE_DATABASES=$(realpath "DATABASES")
+export GRIDSUITE_DATABASES
 
 # Create the subdirectories with the required file mode
 mkdir -p "$GRIDSUITE_DATABASES/cases" "$GRIDSUITE_DATABASES/postgres" "$GRIDSUITE_DATABASES/elasticsearch" "$GRIDSUITE_DATABASES/init" || { echo "Failed to create directories. Exiting."; exit 1; }
@@ -52,6 +33,23 @@ download_file "https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server
 download_file "https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json" "$GRIDSUITE_DATABASES/init/tsos.json"
 
 echo "Configuration files downloaded."
+
+# Update IP
+# Capture the first IP address into a variable
+target_ip=$(hostname -I | awk '{print $1}')
+
+# Use the variable as needed
+echo "The target IP address is: $target_ip"
+
+# Loop through all files in the directory
+for file in "docker-compose/explicit-profiles"/*; do
+  # Check if file exists to avoid errors with sed command when no files match
+  if [ -f "$file" ]; then
+    # Use sed to replace 'localhost' and '172.17.0.1' with 'target_ip' in-place
+    sed -i "s/localhost/$target_ip/g" "$file"
+    sed -i "s/172.17.0.1/$target_ip/g" "$file"
+  fi
+done
 
 # Assuming the Docker Compose file is relative to the script's execution path
 cd docker-compose/explicit-profiles || { echo "Failed to change directory. Check if the path is correct. Exiting."; exit 1; }
