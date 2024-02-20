@@ -41,14 +41,11 @@ target_ip=$(hostname -I | awk '{print $1}')
 # Use the variable as needed
 echo "The target IP address is: $target_ip"
 
-# Loop through all files in the directory
-for file in "docker-compose"/*; do
-  # Check if file exists to avoid errors with sed command when no files match
-  if [ -f "$file" ]; then
-    # Use sed to replace 'localhost' and '172.17.0.1' with 'target_ip' in-place
-    sed -i "s/localhost/$target_ip/g" "$file"
-    sed -i "s/172.17.0.1/$target_ip/g" "$file"
-  fi
+# Find all files in the directory and its subdirectories
+find "docker-compose" -type f | while read -r file; do
+  # Use sed to replace 'localhost' and '172.17.0.1' with 'target_ip' in-place
+  sed -i "s/localhost/$target_ip/g" "$file"
+  sed -i "s/172.17.0.1/$target_ip/g" "$file"
 done
 
 # Assuming the Docker Compose file is relative to the script's execution path
