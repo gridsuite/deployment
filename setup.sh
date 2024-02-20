@@ -42,7 +42,7 @@ target_ip=$(hostname -I | awk '{print $1}')
 echo "The target IP address is: $target_ip"
 
 # Loop through all files in the directory
-for file in "docker-compose/explicit-profiles"/*; do
+for file in "docker-compose"/*; do
   # Check if file exists to avoid errors with sed command when no files match
   if [ -f "$file" ]; then
     # Use sed to replace 'localhost' and '172.17.0.1' with 'target_ip' in-place
