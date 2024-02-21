@@ -46,7 +46,7 @@ on:
       - timeseries_server_updated
       - voltage_init_server_updated
       - case_import_server_updated
-      #- gridadmin_app_updated  We don't deploy GridAdmin to Azure, so no need to react to event
+      - gridadmin_app_updated
 
 jobs:
   build:
