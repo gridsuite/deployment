@@ -106,7 +106,7 @@ services:
     ports:
       - "12080:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
+      - PGADMIN_DEFAULT_EMAIL=admin@localhost.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json

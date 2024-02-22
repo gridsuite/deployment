@@ -236,7 +236,7 @@ PgAdmin UI:
 ```html
 http://localhost:12080/login
 default credentials :
-   - username : admin@rte-france.com
+   - username : admin@localhost.com
    - password : admin
 ```
 
