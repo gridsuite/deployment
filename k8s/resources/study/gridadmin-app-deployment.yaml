@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gridadmin-app
+  labels:
+    name: gridadmin-app
+    version: "1"
+    app.kubernetes.io/component: gridsuite-apache
+    gridsuite.org/apache-gridapp: "true"
+spec:
+  selector:
+    matchLabels:
+      name: gridadmin-app
+  template:
+    metadata:
+      labels:
+        name: gridadmin-app
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/gridadmin-app:latest
+        volumeMounts:
+        - mountPath: /opt/bitnami/apache/htdocs/gridadmin/env.json
+          subPath: env.json
+          name: gridapps-env-configmap-volume
+        - mountPath: /opt/bitnami/apache/htdocs/gridadmin/idpSettings.json
+          subPath: idpSettings.json
+          name: gridadmin-app-configmap-volume
+      volumes:
+        - name: gridadmin-app-configmap-volume
+          configMap:
+            name: gridadmin-app-configmap
