@@ -514,3 +514,22 @@ services:
       resources:
         limits:
           memory: 384m
+
+  gridadmin-app:
+    profiles:
+      - all
+      - suite
+      - study
+    image: gridsuite/gridadmin-app:latest
+    ports:
+      - 82:8080
+    volumes:
+      - $PWD/../study/gridadmin-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridadmin/idpSettings.json:Z
+      - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridadmin/env.json:Z
+    depends_on:
+      - logspout
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
