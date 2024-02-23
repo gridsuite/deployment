@@ -87,7 +87,7 @@ Here's the summary of the profiles and what services they includes:
 | griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
 | gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | | |
 | gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | | ✅ | | | | ✅ | | | | |
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | | |
 | case&#8209;import&#8209;server | | | | | | | | ✅ | | | |
 | grafana<br/>prometheus | | | | | | | | | | | ✅ |
@@ -179,6 +179,7 @@ Applications:
 ```html
 http://localhost:80 // gridexplore
 http://localhost:81 // gridmerge
+http://localhost:82 // gridadmin
 http://localhost:83 // griddyna
 http://localhost:84 // gridstudy
 ```
@@ -235,7 +236,7 @@ PgAdmin UI:
 ```html
 http://localhost:12080/login
 default credentials :
-   - username : admin@rte-france.com
+   - username : admin@localhost.com
    - password : admin
 ```
 
@@ -372,6 +373,7 @@ http://<INGRESS_HOST>/gridstudy/
 http://<INGRESS_HOST>/gridmerge/
 http://<INGRESS_HOST>/griddyna/
 http://<INGRESS_HOST>/gridexplore/
+http://<INGRESS_HOST>/gridadmin/
 ```
 
 Swagger UI:
