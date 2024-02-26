@@ -4,7 +4,7 @@ on:
   push:
   repository_dispatch:
     types:
-      - case_updated
+      - case_server_updated
       - cgmes_gl_server_updated
       - geo_data_updated
       - network_conversion_server_updated
