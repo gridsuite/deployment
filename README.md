@@ -420,6 +420,7 @@ Build and load a local image into Minikube:
 $ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
 $ minikube image load local/<pod>
 ```
+__Notes__: If you have issues, you can build with the Docker deamon bundled in the minikube to directly have access to the image inside the minikube, [instructions here](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 
 Then add it to your deployment before (re)deploy:
 ```bash
