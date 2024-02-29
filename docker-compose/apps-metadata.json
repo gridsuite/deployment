@@ -43,6 +43,21 @@
       "STOCKAGE_BARRAGE", "TAC", "TURBINAGE"
     ],
       "categorieENTSOE": []
+    },
+    "line":  {
+      "codeOI": []
+    },
+    "twt":  {
+      "codeOI": []
+    },
+    "battery":  {
+      "codeOI": []
+    },
+    "shuntCompensator":  {
+      "codeOI": []
+    },
+    "voltageLevel":  {
+      "codeOI": []
     }
   },
   "defaultParametersValues": {
