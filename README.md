@@ -298,31 +298,36 @@ This setup is heavyweight and matches a realworld deployment. It is useful to re
 
 Download the recommended version of minikube and kubectl :
 
-| Software | Version recommendation | Last Version | Link                                                                                                  |
-|----------|------------------------|--------------|-------------------------------------------------------------------------------------------------------|
-| kubectl  | 1.21+                  | 1.24.X       | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl) |
-| minikube | 1.21+                  | 1.26.X       | [Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)              |
+| Software | Version recommendation | Last supported version | Link                                                                                                  |
+|----------|------------------------|------------------------|-------------------------------------------------------------------------------------------------------|
+| kubectl  | 1.21+                  | 1.27.4                 | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.27.4/bin/linux/amd64/kubectl) |
+| minikube | 1.21+                  | 1.31.2                 | [Download](https://storage.googleapis.com/minikube/releases/v1.31.2/minikube-linux-amd64)             |
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
 
 __Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
-Start minikube and activate ingress support:
+__Notes__: Minikube 1.32.0 has been tested and is not working on our stack, so please use version 1.31.2 or below.
+
+Start minikube :
 ```bash
 $ minikube start --memory 24g --cpus=4
-$ minikube addons enable ingress
 ```
 
 To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
 ```bash
 $ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
-$ minikube addons enable ingress
 ```
 
 __Notes__: With last version of minikube, *docker* is the default driver (was *virtualbox* before) which could forbid memory definition depending of your user privilegies.
 
 see [kubernetes-version param doc](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64) for versions support.
+
+Activate ingress support:
+```bash
+$ minikube addons enable ingress
+```
 
 Verify everything is ok with:
 ```bash
@@ -415,6 +420,7 @@ Build and load a local image into Minikube:
 $ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
 $ minikube image load local/<pod>
 ```
+__Notes__: If you have issues, you can build with the Docker deamon bundled in the minikube to directly have access to the image inside the minikube, [instructions here](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 
 Then add it to your deployment before (re)deploy:
 ```bash
