@@ -350,7 +350,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_import_seconds_max{error=\"none\"}",
+          "expr": "max(app_conversion_import_seconds_max{error=\"none\"}) by (format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -445,7 +445,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_export_seconds_max{error=\"none\"}",
+          "expr": "max(app_conversion_export_seconds_max{error=\"none\"}) by (format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -539,7 +539,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_import_buses_max{}",
+          "expr": "max(app_conversion_import_buses_max{}) by (format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -633,7 +633,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_export_buses_max{}",
+          "expr": "max(app_conversion_export_buses_max{}) by (format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -727,7 +727,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_import_seconds_count{error=\"none\"}",
+          "expr": "max(app_conversion_import_seconds_count{error=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -821,7 +821,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_export_seconds_count{error=\"none\"}",
+          "expr": "max(app_conversion_export_seconds_count{error=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -915,7 +915,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_import_seconds_count{error!=\"none\"}",
+          "expr": "max(app_conversion_import_seconds_count{error!=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -1009,7 +1009,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_export_seconds_count{error!=\"none\"}",
+          "expr": "max(app_conversion_export_seconds_count{error!=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
