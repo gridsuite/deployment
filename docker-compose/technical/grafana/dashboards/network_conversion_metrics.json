@@ -727,7 +727,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_conversion_import_seconds_count{error=\"none\"}) by(format)",
+          "expr": "sum(app_conversion_import_seconds_count{error=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -821,7 +821,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_conversion_export_seconds_count{error=\"none\"}) by(format)",
+          "expr": "sum(app_conversion_export_seconds_count{error=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -915,7 +915,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_conversion_import_seconds_count{error!=\"none\"}) by(format)",
+          "expr": "sum(app_conversion_import_seconds_count{error!=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -1009,7 +1009,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_conversion_export_seconds_count{error!=\"none\"}) by(format)",
+          "expr": "sum(app_conversion_export_seconds_count{error!=\"none\"}) by(format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
