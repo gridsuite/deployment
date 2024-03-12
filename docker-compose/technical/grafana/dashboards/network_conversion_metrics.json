@@ -160,7 +160,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_import_seconds_max{error=\"none\"} / on(format) app_conversion_import_buses_max{}",
+          "expr": "max by(format) (app_conversion_import_seconds_max{error=\"none\"} / on(format, instance) app_conversion_import_buses_max{})",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -255,7 +255,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_conversion_export_seconds_max{error=\"none\"} / on(format) app_conversion_export_buses_max{}",
+          "expr": "max by(format) (app_conversion_export_seconds_max{error=\"none\"} / on(format, instance) app_conversion_export_buses_max{})",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"

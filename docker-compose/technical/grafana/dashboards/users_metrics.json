@@ -159,7 +159,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_users{}",
+          "expr": "sum(app_users{})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -253,7 +253,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_connections{}",
+          "expr": "sum(app_connections{})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
