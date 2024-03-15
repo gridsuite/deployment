@@ -220,7 +220,7 @@ services:
       - all
       - suite
       - study
-    image: local/odre-server:latest
+    image: gridsuite/odre-server:latest
     ports:
       - 8090:80
     volumes:
