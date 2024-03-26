@@ -927,26 +927,26 @@
           },
           {
             "selected": false,
-            "text": "sensi",
-            "value": "sensi"
+            "text": "sensitivityanalysis",
+            "value": "sensitivityanalysis"
           },
           {
             "selected": false,
-            "text": "dynamicSimulation",
-            "value": "dynamicSimulation"
+            "text": "ds",
+            "value": "ds"
           },
           {
             "selected": false,
-            "text": "shortcircuit",
-            "value": "shortcircuit"
+            "text": "shortcircuitanalysis",
+            "value": "shortcircuitanalysis"
           },
           {
             "selected": false,
-            "text": "voltageInit",
-            "value": "voltageInit"
+            "text": "voltageinit",
+            "value": "voltageinit"
           }
         ],
-        "query": "loadflow, sa, sensi, dynamicSimulation, shortcircuit, voltageInit",
+        "query": "loadflow, sa, sensitivityanalysis, ds, shortcircuitanalysis, voltageinit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
