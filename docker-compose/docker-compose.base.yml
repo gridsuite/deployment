@@ -347,14 +347,7 @@ services:
       - ISSUER_HOST=172.17.0.1:9090
       - CLIENT_COUNT=9
 
-      # Old client-id for local dev on fronts
-      # TODO remove ?
-      - CLIENT_ID=my-client-2
-      - CLIENT_REDIRECT_URI=http://localhost:3000/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:3000/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI=http://localhost:3000/silent-renew-callback
-
-      # Default client ID for conatiners (grid*-app-idpSettings.json)
+      # Client IDs for containers (grid*-app-idpSettings.json)
       - CLIENT_ID_2=gridexplore-client
       - CLIENT_REDIRECT_URI_2=http://localhost:80/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:80/logout-callback

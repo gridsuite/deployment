@@ -29,16 +29,6 @@ spec:
         - name: CLIENT_COUNT
           value: "6"
 
-        # Client ID for local devs (grid*-app/public/idpSettings.json)
-        - name: CLIENT_ID
-          value: "my-client-2"
-        - name: CLIENT_REDIRECT_URI
-          value: "http://localhost:3000/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI
-          value: "http://localhost:3000/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI
-          value: "http://localhost:3000/silent-renew-callback"
-
         - name: CLIENT_ID_2
           value: "gridexplore-client"
         - name: CLIENT_REDIRECT_URI_2
