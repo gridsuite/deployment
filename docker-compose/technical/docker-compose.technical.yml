@@ -3,10 +3,11 @@ version: '4.0'
 services:
 
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management
     ports:
       - 15672:15672
       - 5672:5672
+      - 15692:15692
     depends_on:
       - logspout
     restart: unless-stopped
@@ -131,6 +132,7 @@ services:
     volumes:
       - $PWD/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
       - $PWD/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - $PWD/../technical/grafana/alerting:/etc/grafana/provisioning/alerting:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true

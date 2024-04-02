@@ -1,0 +1,137 @@
+{
+  "apiVersion": 1,
+  "groups": [
+    {
+      "orgId": 1,
+      "name": "10sEval",
+      "folder": "Alerts",
+      "interval": "10s",
+      "rules": [
+        {
+          "uid": "f154b805-ea70-4640-8ccb-71abb97e9803",
+          "title": "CheckReadyQueues",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 21600,
+                "to": 0
+              },
+              "datasourceUid": "PBFA97CFB590B2093",
+              "model": {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "PBFA97CFB590B2093"
+                },
+                "disableTextWrap": false,
+                "editorMode": "builder",
+                "expr": "rabbitmq_detailed_queue_messages_ready{queue=~\".*.run.*\"}",
+                "fullMetaSearch": false,
+                "includeNullMetadata": true,
+                "instant": false,
+                "interval": "",
+                "intervalMs": 15000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": true,
+                "refId": "A",
+                "useBackend": false
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 21600,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": ["B"]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 21600,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [5],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": ["C"]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "UplRgsDIz",
+          "panelId": 14,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "UplRgsDIz",
+            "__panelId__": "14",
+            "description": "The rule checks regularly if the \"run computation\" ready queues have more than X messages",
+            "summary": "If this alert is triggered, there is probably an issue with the calculation server\n- low dimensioning, the queue is now emptied fast enough\n- server crash, the queue is not emptied anymore\nIt leads to longer response time for users trying to run calculations"
+          },
+          "labels": {},
+          "isPaused": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 5,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "datasource": "-- Grafana --",
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 1,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": true,
+          "normal": false,
+          "pending": true
+        },
+        "viewMode": "list"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Computation queues alerts firing",
+      "type": "alertlist"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "datasource": "-- Grafana --",
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 1,
+        "stateFilter": {
+          "error": false,
+          "firing": false,
+          "noData": false,
+          "normal": true,
+          "pending": false
+        },
+        "viewMode": "list"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Computation queues alerts",
+      "type": "alertlist"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Alerts summary",
+  "uid": "dc0a07dd-9c17-4826-997c-5d5e8fcc8b50",
+  "version": 5,
+  "weekStart": ""
+}
