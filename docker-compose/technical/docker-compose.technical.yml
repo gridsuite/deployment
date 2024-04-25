@@ -45,6 +45,17 @@ services:
       - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
     restart: unless-stopped
 
+  postgres-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    ports:
+      - "9187:9187"
+    environment:
+      - DATA_SOURCE_NAME=postgresql://postgres:postgres@postgres:5432/postgres?sslmode=disable
+    restart: unless-stopped
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
     ports:
