@@ -64,7 +64,7 @@
           "refId": "A"
         }
       ],
-      "title": "Computation queues alerts firing",
+      "title": "Alerts firing",
       "type": "alertlist"
     },
     {
@@ -109,7 +109,7 @@
           "refId": "A"
         }
       ],
-      "title": "Computation queues alerts",
+      "title": "Alerts",
       "type": "alertlist"
     }
   ],
