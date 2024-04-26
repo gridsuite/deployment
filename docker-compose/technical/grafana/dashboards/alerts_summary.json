@@ -23,10 +23,7 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": {},
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -52,26 +49,12 @@
         },
         "viewMode": "list"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "expr": "",
-          "instant": false,
-          "range": true,
-          "refId": "A"
-        }
-      ],
+      "targets": [],
       "title": "Alerts firing",
       "type": "alertlist"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": {},
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -97,23 +80,12 @@
         },
         "viewMode": "list"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "expr": "",
-          "instant": false,
-          "range": true,
-          "refId": "A"
-        }
-      ],
+      "targets": [],
       "title": "Alerts",
       "type": "alertlist"
     }
   ],
-  "refresh": "",
+  "refresh": "auto",
   "schemaVersion": 38,
   "tags": [],
   "templating": {
