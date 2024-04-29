@@ -71,6 +71,7 @@ services:
       - xpack.security.enabled=false
       - ingest.geoip.downloader.enabled=false
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - action.auto_create_index=false
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped

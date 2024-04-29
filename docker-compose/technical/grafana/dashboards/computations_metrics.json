@@ -902,7 +902,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Messages with ready state count in rabbitmq queue.\nDisplay how many calculation are waiting to be ran.\nCalculation currently running are now counted here",
+      "description": "Messages with ready state count in rabbitmq queue.\nDisplay how many calculation are waiting to be ran.\nCalculation currently running are not counted here",
       "fieldConfig": {
         "defaults": {
           "color": {
