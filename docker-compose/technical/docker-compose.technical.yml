@@ -76,6 +76,19 @@ services:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
 
+  elasticsearch-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/elasticsearch-exporter:v1.7.0
+    command:
+      - '--es.uri=http://elasticsearch:9200'
+    ports:
+      - "9114:9114"
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+
   kibana:
     profiles:
       - all

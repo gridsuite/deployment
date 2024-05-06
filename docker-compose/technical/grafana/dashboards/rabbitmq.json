@@ -2,7 +2,7 @@
   "__inputs": [
     {
       "name": "DS_PROMETHEUS",
-      "label": "DS_PROMETHEUS",
+      "label": "prometheus",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "8.3.4"
+      "version": "10.2.2"
     },
     {
       "type": "datasource",
@@ -8104,15 +8104,9 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "default",
-          "value": "default"
-        },
-        "datasource": "PBFA97CFB590B2093",
-        "hide": 2,
+        "hide": 0,
         "includeAll": false,
-        "label": "datasource",
+        "label": "DataSrc Prometheus",
         "multi": false,
         "name": "DS_PROMETHEUS",
         "options": [],
