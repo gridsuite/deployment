@@ -3,7 +3,6 @@ kind: Service
 metadata:
   labels:
     name: directory-notification-server
-    app-prometheus-metrics: enabled
     app.kubernetes.io/component: gridsuite-springboot
   name: directory-notification-server
 spec:
