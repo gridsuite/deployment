@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     name: filter-server
+    app-prometheus-metrics: enabled
     app.kubernetes.io/component: gridsuite-springboot
   name: filter-server
 spec:

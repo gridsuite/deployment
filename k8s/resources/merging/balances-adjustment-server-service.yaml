@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     name: balances-adjustment-server
+    app-prometheus-metrics: enabled
     app.kubernetes.io/component: gridsuite-springboot
   name: balances-adjustment-server
 spec:
