@@ -21,3 +21,7 @@ load-flow-default-parameters:
   dcUseTransformerRatio: false
   countriesToBalance:
     - FR
+
+#TODO: to be removed when ReferenceTerminals extension is implemented
+open-loadflow-default-parameters:
+  writeReferenceTerminals: false
