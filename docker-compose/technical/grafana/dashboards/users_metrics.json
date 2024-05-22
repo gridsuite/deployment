@@ -160,7 +160,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "count(count by (user) (app_users{}))",
+          "expr": "count(count by (user) (app_users))",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -317,7 +317,7 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": false
       },
       "pluginVersion": "10.2.2",
       "targets": [
@@ -329,7 +329,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "sum by(user) (app_users)",
+          "expr": "sum by (user) (app_users)",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -340,7 +340,7 @@
           "useBackend": false
         }
       ],
-      "title": "List of connected users",
+      "title": "Number of connections per user (${__to:date:DD/MM/YYYY HH:mm})",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -418,7 +418,7 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": false
       },
       "pluginVersion": "10.2.2",
       "targets": [
@@ -430,7 +430,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "app_users",
+          "expr": "app_users{user!=\"\"}",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -441,7 +441,7 @@
           "useBackend": false
         }
       ],
-      "title": "List of users from: ${__from:date:DD/MM/YYYY HH \\h mm} to: ${__to:date:DD/MM/YYYY HH \\h mm}",
+      "title": "List of users (${__from:date:DD/MM/YYYY HH:mm} → ${__to:date:DD/MM/YYYY HH:mm})",
       "transformations": [
         {
           "id": "filterFieldsByName",
