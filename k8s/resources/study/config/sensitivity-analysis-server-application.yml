@@ -4,9 +4,3 @@ sensitivity-analysis:
 
 non-evacuated-energy:
   default-provider: OpenLoadFlow
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: prometheus, health, info
