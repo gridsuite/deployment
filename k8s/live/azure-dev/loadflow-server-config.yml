@@ -19,3 +19,7 @@ load-flow-default-parameters:
   phaseShifterRegulationOn: true
   twtSplitShuntAdmittance: true
   dcUseTransformerRatio: false
+
+#TODO: to be removed when ReferenceTerminals extension is implemented
+open-loadflow-default-parameters:
+  writeReferenceTerminals: false
