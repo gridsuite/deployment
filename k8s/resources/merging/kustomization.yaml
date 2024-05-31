@@ -2,45 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - case-validation-server-deployment.yaml
-  - case-validation-server-service.yaml
-  - gridmerge-app-deployment.yaml
-  - gridmerge-app-ingress.yaml
-  - gridmerge-app-service.yaml
-  - balances-adjustment-server-deployment.yaml
-  - balances-adjustment-server-service.yaml
-  - case-import-cronjob.yaml
-  - merge-orchestrator-server-deployment.yaml
-  - merge-orchestrator-server-service.yaml
-  - merge-notification-server-deployment.yaml
-  - merge-notification-server-service.yaml
-  - cgmes-boundary-server-deployment.yaml
-  - cgmes-boundary-server-service.yaml
-  - cgmes-assembling-cronjob.yaml
-  - cgmes-boundary-import-cronjob.yaml
-
-configMapGenerator:
-  - name: case-validation-server-configmap-specific
-    files:
-      - application.yml=config/case-validation-server-application.yml
-  - name: balances-adjustment-server-configmap-specific
-    files:
-      - application.yml=config/balances-adjustment-server-application.yml
-  - name: balances-adjustment-server-itools-configmap
-    files:
-      - config.yml=config/balances-adjustment-server-config.yml
-  - name: merge-orchestrator-server-configmap-specific
-    files:
-      - application.yml=config/merge-orchestrator-server-application.yml
-  - name: merge-notification-server-configmap-specific
-    files:
-      - application.yml=config/merge-notification-server-application.yml
-  - name: cgmes-boundary-server-configmap-specific
-    files:
-      - application.yml=config/cgmes-boundary-server-application.yml
-  - name: case-import-job-configmap-specific
-    files:
-      - application.yml=config/case-import-job-application.yml
-  - name: cgmes-assembling-job-configmap-specific
-    files:
-      - application.yml=config/cgmes-assembling-job-application.yml
+  - case-validation-server
+  - gridmerge-app
+  - balances-adjustment-server
+  - case-import-cronjob
+  - merge-orchestrator-server
+  - merge-notification-server
+  - cgmes-boundary-server
+  - cgmes-assembling-cronjob
+  - cgmes-boundary-import-cronjob

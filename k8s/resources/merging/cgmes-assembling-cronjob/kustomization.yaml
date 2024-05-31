@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- cgmes-assembling-cronjob.yaml
+configMapGenerator:
+- name: cgmes-assembling-job-configmap-specific
+  files:
+  - application.yml=config/cgmes-assembling-job-application.yml

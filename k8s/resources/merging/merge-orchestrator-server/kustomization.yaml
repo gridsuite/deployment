@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- merge-orchestrator-server-service.yaml
+- merge-orchestrator-server-deployment.yaml
+configMapGenerator:
+- name: merge-orchestrator-server-configmap-specific
+  files:
+  - application.yml=config/merge-orchestrator-server-application.yml
