@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- directory-notification-server-deployment.yaml
+- directory-notification-server-service.yaml
+configMapGenerator:
+- name: directory-notification-server-configmap-specific
+  files:
+  - application.yml=config/directory-notification-server-application.yml

@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- voltage-init-server-service.yaml
+- voltage-init-server-deployment.yaml
+configMapGenerator:
+- name: voltage-init-server-configmap-specific
+  files:
+  - application.yml=config/voltage-init-server-application.yml
+- name: voltage-init-server-itools-configmap
+  files:
+  - config.yml=config/voltage-init-server-config.yml

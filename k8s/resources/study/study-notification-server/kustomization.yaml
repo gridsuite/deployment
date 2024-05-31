@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- study-notification-server-deployment.yaml
+- study-notification-server-service.yaml
+configMapGenerator:
+- name: study-notification-server-configmap-specific
+  files:
+  - application.yml=config/study-notification-server-application.yml

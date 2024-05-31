@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- odre-server-service.yaml
+- odre-server-deployment.yaml
+configMapGenerator:
+- name: odre-server-configmap-specific
+  files:
+  - application.yml=config/odre-server-application.yml
