@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- default-backend-service.yaml
+- default-backend-deployment.yaml
+configMapGenerator:
+- name: default-backend-htdocs-configmap
+  files:
+  - 404.html=config/default-backend/404.html
+  - favicon.ico=config/default-backend/favicon.ico
+- name: default-backend-conf-configmap
+  files:
+  - bitnami.conf=config/default-backend/httpd.conf

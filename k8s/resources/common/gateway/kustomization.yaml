@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- root-ingress.yaml
+- gateway-service.yaml
+- gateway-deployment.yaml
+configMapGenerator:
+- name: gateway-configmap-specific
+  files:
+  - application.yml=config/gateway-application.yml

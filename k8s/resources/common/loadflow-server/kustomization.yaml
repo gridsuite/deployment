@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- loadflow-server-service.yaml
+- loadflow-server-deployment.yaml
+configMapGenerator:
+- name: loadflow-server-configmap-specific
+  files:
+  - application.yml=config/loadflow-server-application.yml
+- name: loadflow-server-itools-configmap
+  files:
+  - config.yml=config/loadflow-server-config.yml
