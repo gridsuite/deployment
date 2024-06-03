@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: not-important
+  labels:
+    app-prometheus-metrics: enabled
 spec:
   type: ClusterIP
   ports:
