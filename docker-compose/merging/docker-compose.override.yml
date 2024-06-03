@@ -49,6 +49,7 @@ services:
       resources:
         limits:
           memory: 384m
+    restart: unless-stopped
 
   balances-adjustment-server:
     profiles:
@@ -74,6 +75,7 @@ services:
       resources:
         limits:
           memory: 1g
+    restart: unless-stopped
 
   case-validation-server:
     profiles:
@@ -98,6 +100,7 @@ services:
       resources:
         limits:
           memory: 384m
+    restart: unless-stopped
 
   cgmes-boundary-server:
     profiles:
@@ -184,6 +187,7 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
 
   cgmes-boundary-import-job:
     profiles:

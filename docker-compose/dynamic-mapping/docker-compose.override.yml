@@ -20,6 +20,7 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
 
   dynamic-mapping-server:
     profiles:

@@ -259,6 +259,7 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
 
   security-analysis-server:
     profiles:
@@ -359,6 +360,7 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
 
   explore-server:
     profiles:
@@ -533,3 +535,4 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
