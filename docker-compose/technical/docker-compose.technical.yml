@@ -83,10 +83,12 @@ services:
       - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
+    restart: unless-stopped
 
   socat:
     image: alpine/socat
     command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+    restart: unless-stopped
 
   logspout:
     image: gliderlabs/logspout:v3.2.13
@@ -99,6 +101,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - socat
+    restart: unless-stopped
 
   pgadmin:
     profiles:
@@ -112,6 +115,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
+    restart: unless-stopped
 
   prometheus:
     profiles:

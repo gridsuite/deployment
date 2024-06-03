@@ -400,6 +400,7 @@ services:
       - CLIENT_SILENT_REDIRECT_URI_10=http://localhost:3004/silent-renew-callback
     depends_on:
       - logspout
+    restart: unless-stopped
 
   apps-metadata-server:
     profiles:
@@ -426,3 +427,4 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
