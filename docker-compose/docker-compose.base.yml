@@ -420,6 +420,7 @@ services:
       logspout:
         condition: "service_started"
         required: false
+    restart: unless-stopped
 
   apps-metadata-server:
     profiles:
@@ -448,3 +449,4 @@ services:
       resources:
         limits:
           memory: 128m
+    restart: unless-stopped
