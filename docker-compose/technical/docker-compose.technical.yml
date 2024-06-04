@@ -9,7 +9,9 @@ services:
       - 5672:5672
       - 15692:15692
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
 
   postgres:
@@ -71,7 +73,7 @@ services:
       - xpack.security.enabled=false
       - ingest.geoip.downloader.enabled=false
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - action.auto_create_index=false
+      - action.auto_create_index=filebeat-*
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
@@ -103,6 +105,9 @@ services:
     restart: unless-stopped
 
   logstash:
+    profiles:
+      - all
+      - kibana
     image: docker.elastic.co/logstash/logstash:8.7.1
     volumes:
       - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
@@ -111,12 +116,20 @@ services:
       - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
+    restart: unless-stopped
 
   socat:
+    profiles:
+      - all
+      - kibana
     image: alpine/socat
     command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+    restart: unless-stopped
 
   logspout:
+    profiles:
+      - all
+      - kibana
     image: gliderlabs/logspout:v3.2.13
     command: 'tcp://socat:5000?filter.name=grid*'
     environment:
@@ -127,6 +140,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - socat
+    restart: unless-stopped
 
   pgadmin:
     profiles:
@@ -140,6 +154,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
+    restart: unless-stopped
 
   prometheus:
     profiles:
