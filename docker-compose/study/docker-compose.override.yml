@@ -15,6 +15,10 @@ services:
       - $PWD/../../k8s/resources/study/config/study-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -40,6 +44,10 @@ services:
       - $PWD/../../k8s/resources/study/config/geo-data-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -65,6 +73,10 @@ services:
       - $PWD/../../k8s/resources/study/config/single-line-diagram-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx384m #deployment: 576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -90,6 +102,10 @@ services:
       - $PWD/../../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -115,6 +131,10 @@ services:
       - $PWD/../../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -140,6 +160,10 @@ services:
       - $PWD/../../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -165,6 +189,10 @@ services:
       - $PWD/../../k8s/resources/study/config/network-map-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m #deployment: 768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -188,6 +216,10 @@ services:
       - $PWD/../../k8s/resources/study/config/cgmes-gl-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -211,6 +243,10 @@ services:
       - $PWD/../../k8s/resources/study/config/odre-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -234,6 +270,10 @@ services:
     volumes:
       - $PWD/../study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     memswap_limit: 128m
     deploy:
       resources:
@@ -253,6 +293,10 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -304,6 +348,10 @@ services:
       - $PWD/../../k8s/resources/study/config/directory-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx186m # not used by the native image
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -328,6 +376,10 @@ services:
     volumes:
       - $PWD/../study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     memswap_limit: 128m
     deploy:
       resources:
@@ -348,6 +400,10 @@ services:
       - $PWD/../../k8s/resources/study/config/explore-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx384m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -372,6 +428,10 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -396,6 +456,10 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -420,6 +484,10 @@ services:
       - $PWD/../../k8s/resources/study/config/timeseries-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -444,6 +512,10 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: -Xmx1086m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -466,6 +538,10 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -488,6 +564,10 @@ services:
     volumes:
       - $PWD/../study/gridadmin-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridadmin/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridadmin/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     memswap_limit: 128m
     deploy:
       resources:

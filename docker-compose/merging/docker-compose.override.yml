@@ -13,6 +13,10 @@ services:
       - $PWD/../../k8s/resources/merging/config/merge-orchestrator-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -35,6 +39,10 @@ services:
     volumes:
       - $PWD/../../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -58,6 +66,10 @@ services:
       - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -80,6 +92,10 @@ services:
     volumes:
       - $PWD/../../k8s/resources/merging/config/case-validation-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -103,6 +119,10 @@ services:
       - $PWD/../../k8s/resources/merging/config/cgmes-boundary-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -130,6 +150,10 @@ services:
       - $PWD/../../k8s/resources/merging/config/case-import-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -149,6 +173,10 @@ services:
       - $PWD/../../k8s/resources/merging/config/cgmes-assembling-job-application.yml:/config/specific/application.yml:Z
       - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -163,6 +191,10 @@ services:
     volumes:
       - $PWD/../merging/gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     memswap_limit: 128m
     deploy:
       resources:

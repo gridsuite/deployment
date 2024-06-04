@@ -17,6 +17,10 @@ services:
       - $PWD/../../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $GRIDSUITE_DATABASES/cases:/cases:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m #deployment: 768m
@@ -46,6 +50,10 @@ services:
       - $PWD/../../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -74,6 +82,10 @@ services:
       - $PWD/../../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -102,6 +114,10 @@ services:
       - $PWD/../../k8s/resources/common/config/user-admin-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -130,6 +146,10 @@ services:
       - $PWD/../../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -158,6 +178,10 @@ services:
       - $PWD/../../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -186,6 +210,10 @@ services:
       - $PWD/../../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -215,6 +243,10 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -300,6 +332,10 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
     restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -380,6 +416,10 @@ services:
       - CLIENT_REDIRECT_URI_10=http://localhost:3004/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_10=http://localhost:3004/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_10=http://localhost:3004/silent-renew-callback
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
 
   apps-metadata-server:
     profiles:
@@ -399,6 +439,10 @@ services:
       - $PWD/../authentication.json:/opt/bitnami/apache/htdocs/authentication.json:Z
       - $PWD/../version.json:/opt/bitnami/apache/htdocs/version.json:Z
       - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     memswap_limit: 128m
     deploy:
       resources:

@@ -8,6 +8,10 @@ services:
       - 15672:15672
       - 5672:5672
       - 15692:15692
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
 
   postgres:
