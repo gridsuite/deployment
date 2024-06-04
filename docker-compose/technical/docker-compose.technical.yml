@@ -9,7 +9,9 @@ services:
       - 5672:5672
       - 15692:15692
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
 
   postgres:
@@ -75,6 +77,9 @@ services:
     restart: unless-stopped
 
   logstash:
+    profiles:
+      - all
+      - kibana
     image: docker.elastic.co/logstash/logstash:8.7.1
     volumes:
       - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
@@ -86,11 +91,17 @@ services:
     restart: unless-stopped
 
   socat:
+    profiles:
+      - all
+      - kibana
     image: alpine/socat
     command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
     restart: unless-stopped
 
   logspout:
+    profiles:
+      - all
+      - kibana
     image: gliderlabs/logspout:v3.2.13
     command: 'tcp://socat:5000?filter.name=grid*'
     environment:
