@@ -80,8 +80,8 @@ _Everything described in this section is inside the folder `explicit-profiles`._
 Here's the summary of the profiles and what services they includes:
 | Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
-| kibana | | | | | | | | | ✅ | | |
+| rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
+| kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | | ✅ | | |
 | pgadmin | | | | | | | | | | ✅ | |
 | apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
 | griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
