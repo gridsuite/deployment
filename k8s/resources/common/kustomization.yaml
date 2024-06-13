@@ -76,7 +76,6 @@ configMapGenerator:
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
-      - config/authentication.json
       - config/version.json
   - name: apps-metadata-server-httpdconf-configmap
     files:
