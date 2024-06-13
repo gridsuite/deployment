@@ -10,5 +10,3 @@
       path: keys
     - key: openid-configuration
       path: .well-known/openid-configuration
-    - key: authentication.json
-      path: authentication.json

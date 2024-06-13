@@ -32,7 +32,6 @@ configMapGenerator:
     files:
       - openid-configuration
       - keys
-      - authentication.json
   - name: apps-metadata-server-httpdconf-configmap
     behavior: replace
     files:
