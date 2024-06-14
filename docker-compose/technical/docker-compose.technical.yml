@@ -47,6 +47,21 @@ services:
       - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
     restart: unless-stopped
 
+  postgres-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    ports:
+      - "9187:9187"
+    environment:
+      - DATA_SOURCE_USER=postgres
+      - DATA_SOURCE_PASS=postgres
+      - DATA_SOURCE_URI=postgres:5432/postgres?sslmode=disable
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
     ports:
@@ -62,6 +77,19 @@ services:
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
+
+  elasticsearch-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/elasticsearch-exporter:v1.7.0
+    command:
+      - '--es.uri=http://elasticsearch:9200'
+    ports:
+      - "9114:9114"
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
 
   kibana:
     profiles:
