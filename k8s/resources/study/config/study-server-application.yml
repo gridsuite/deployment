@@ -1,2 +1,14 @@
 non-evacuated-energy:
   default-provider: OpenLoadFlow
+
+# 2 servers are optional (not delivered in open-source)
+gridsuite:
+  services:
+    -
+      name: state-estimation-server
+      base-uri: http://state-estimation-server/
+      optional: true
+    -
+      name: shortcircuit-server
+      base-uri: http://shortcircuit-server/
+      optional: true
