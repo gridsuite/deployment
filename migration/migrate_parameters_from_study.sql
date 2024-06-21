@@ -22,7 +22,7 @@ $body$
 <<fn>>
 DECLARE
     schema_prefix constant text := '';
-    study_schema /*constant*/ text := quote_ident(concat(fn.schema_prefix, 'study'));
+    study_schema constant text := quote_ident(concat(fn.schema_prefix, 'study'));
     migrate constant jsonb[] := array[
         /* Config format:
          *   - from_table (string): source table name
@@ -34,10 +34,10 @@ DECLARE
          *       - from_table (string): source table name
          *       - to_table (string): destination table name
          */
-        '{"from_table": "short_circuit_parameters", "from_old_id": "short_circuit_parameters_entity_id", "from_new_uuid": "short_circuit_parameters_uuid", "to_schema": "shortcircuit", "to_table": "shortcircuit_parameters", "additional_tables": []}'
-        /*'{"from_table": "load_flow_parameters", "from_old_id": "load_flow_parameters_entity_id", "from_new_uuid": "load_flow_parameters_uuid", "to_schema": "loadflow", "to_table": "load_flow_parameters", "additional_tables": [{"from_table": "load_flow_parameters_entity_countries_to_balance", "to_table": "load_flow_parameters_entity_countries_to_balance"}, {"from_table": "load_flow_specific_parameters", "to_table": "load_flow_specific_parameters"}]}',
+        --'{"from_table": "short_circuit_parameters", "from_old_id": "short_circuit_parameters_entity_id", "from_new_uuid": "short_circuit_parameters_uuid", "to_schema": "shortcircuit", "to_table": "analysis_parameters", "additional_tables": []}',
+        '{"from_table": "load_flow_parameters", "from_old_id": "load_flow_parameters_entity_id", "from_new_uuid": "load_flow_parameters_uuid", "to_schema": "loadflow", "to_table": "load_flow_parameters", "additional_tables": [{"from_table": "load_flow_parameters_entity_countries_to_balance", "to_table": "load_flow_parameters_entity_countries_to_balance"}, {"from_table": "load_flow_specific_parameters", "to_table": "load_flow_specific_parameters"}]}',
         '{"from_table": "security_analysis_parameters", "from_old_id": "security_analysis_parameters_entity_id", "from_new_uuid": "security_analysis_parameters_uuid", "to_schema": "sa", "to_table": "security_analysis_parameters", "additional_tables": []}',
-        '{"from_table": "sensitivity_analysis_parameters", "from_old_id": "sensitivity_analysis_parameters_entity_id", "from_new_uuid": "sensitivity_analysis_parameters_uuid", "to_schema": "sensitivityanalysis", "to_table": "sensitivity_analysis_parameters", "additional_tables": [{"from_table": "contingencies", "to_table": "contingencies"}, {"from_table": "injections", "to_table": "injections"}, {"from_table": "monitored_branch", "to_table": "monitored_branch"}, {"from_table": "sensitivity_factor_for_injection_entity", "to_table": "sensitivity_factor_for_injection_entity"}, {"from_table": "sensitivity_factor_for_node_entity", "to_table": "sensitivity_factor_for_node_entity"}, {"from_table": "sensitivity_factor_with_distrib_type_entity", "to_table": "sensitivity_factor_with_distrib_type_entity"}, {"from_table": "sensitivity_factor_with_sensi_type_for_hvdc_entity", "to_table": "sensitivity_factor_with_sensi_type_for_hvdc_entity"}, {"from_table": "sensitivity_factor_with_sensi_type_for_pst_entity", "to_table": "sensitivity_factor_with_sensi_type_for_pst_entity"}]}'*/
+        '{"from_table": "sensitivity_analysis_parameters", "from_old_id": "sensitivity_analysis_parameters_entity_id", "from_new_uuid": "sensitivity_analysis_parameters_uuid", "to_schema": "sensitivityanalysis", "to_table": "sensitivity_analysis_parameters", "additional_tables": [{"from_table": "contingencies", "to_table": "contingencies"}, {"from_table": "injections", "to_table": "injections"}, {"from_table": "monitored_branch", "to_table": "monitored_branch"}, {"from_table": "sensitivity_factor_for_injection_entity", "to_table": "sensitivity_factor_for_injection_entity"}, {"from_table": "sensitivity_factor_for_node_entity", "to_table": "sensitivity_factor_for_node_entity"}, {"from_table": "sensitivity_factor_with_distrib_type_entity", "to_table": "sensitivity_factor_with_distrib_type_entity"}, {"from_table": "sensitivity_factor_with_sensi_type_for_hvdc_entity", "to_table": "sensitivity_factor_with_sensi_type_for_hvdc_entity"}, {"from_table": "sensitivity_factor_with_sensi_type_for_pst_entity", "to_table": "sensitivity_factor_with_sensi_type_for_pst_entity"}]}'
         --TODO dynaflow
     ];
     params jsonb;
@@ -61,7 +61,7 @@ DECLARE
     err_pg_exception_context text;
 BEGIN
     --lock table study in exclusive mode;
-    raise log 'Script % starting at %', 'v1.8.3', now();
+    raise log 'Script % starting at %', 'v1.8.1', now();
     raise log 'user=%, db=%, schema=%', current_user, current_database(), current_schema();
 
     /* Case OPF: copy from db.study.<table> to db.<service>.<table> (easy, no problem to migrate)
@@ -80,7 +80,6 @@ BEGIN
             raise exception 'Invalid current database "%"', current_database() using hint='Assuming script launch at "'||study_schema||'.*.*"', errcode='invalid_database_definition';
         end if;
         remote_databases := true;
-        study_schema := concat(study_schema, '.', quote_ident('public'));
         create extension if not exists postgres_fdw;
     else
         raise exception 'Can''t detect type of database' using
@@ -100,6 +99,7 @@ BEGIN
                 execute format('create user mapping if not exists for %s server %s options (user %L)', current_user, concat('lnk_', to_schema_full), current_user);
             end if;
 
+
             additional_first := true;
             foreach additional_table in array array_prepend(format('{"from_table": %s, "to_table": %s}', params->'from_table', params->'to_table'),
                                                             array_remove(string_to_array(replace(replace(trim(both '[]' from (params->'additional_tables')::text), '}, {', '}\n{'), '},{', '}\n{'), '\n', ''), null)
@@ -111,7 +111,7 @@ BEGIN
                     execute format('alter table if exists %I rename to %I', additional_table->>'to_table', concat(additional_table->>'to_table', '_old'));
 
                     execute format('import foreign schema %I limit to (%I) from server %s into %I', 'public', additional_table->>'to_table', concat('lnk_', to_schema_full), 'public');
-                    path_from := concat(quote_ident('public'), '.', quote_ident(concat(additional_table->>'from_table'/*, '_old'*/)));
+                    path_from := concat(quote_ident('public'), '.', quote_ident(concat(additional_table->>'from_table', '_old')));
                     path_to := concat('public.', quote_ident(additional_table->>'to_table'));
                     execute format('select string_agg(attname, '','') from pg_attribute where attnum >=1 and attrelid = (select ft.ftrelid' ||
                                    ' from pg_foreign_table ft left join pg_foreign_server fs on ft.ftserver=fs.oid left join pg_foreign_data_wrapper fdw on fs.srvfdw = fdw.oid left join pg_roles on pg_roles.oid=fdw.fdwowner' ||

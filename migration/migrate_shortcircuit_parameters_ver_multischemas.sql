@@ -1,0 +1,4 @@
+insert into shortcircuit.shortcircuit_parameters(id, initial_voltage_profile_mode, min_voltage_drop_proportional_threshold, predefined_parameters, study_type, with_feeder_result, with_limit_violations, with_loads, with_neutral_position, with_shunt_compensators, with_voltage_result, with_vsc_converter_stations)
+    select id, initial_voltage_profile_mode, min_voltage_drop_proportional_threshold, predefined_parameters, study_type, with_feeder_result, with_limit_violations, with_loads, with_neutral_position, with_shunt_compensators, with_voltage_result, with_vsc_converter_stations from study.short_circuit_parameters;
+update study.study set short_circuit_parameters_uuid=short_circuit_parameters_entity_id, short_circuit_parameters_entity_id=null
+    where short_circuit_parameters_entity_id is not null;
