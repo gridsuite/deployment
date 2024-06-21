@@ -36,4 +36,10 @@
   "url"  : "/griddyna",
   "appColor" : "#FFC11B",
   "hiddenInAppsMenu" : false
+},
+{
+  "name" : "Admin",
+  "url"  : "/gridadmin",
+  "appColor" : "#FD3745",
+  "hiddenInAppsMenu" : true
 }]

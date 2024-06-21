@@ -160,7 +160,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_computation_count_total{type='$COMPUTATION', status='OK'}",
+          "expr": "sum(app_computation_count_total{type='$COMPUTATION', status='OK'}) by (provider)",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
@@ -257,7 +257,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_run_seconds_max{type='$COMPUTATION', error=\"none\"}",
+          "expr": "max(app_computation_run_seconds_max{type='$COMPUTATION', error=\"none\"}) by (provider)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -365,7 +365,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "app_computation_count_total{type='$COMPUTATION', status='NOK'}",
+          "expr": "sum(app_computation_count_total{type='$COMPUTATION', status='NOK'}) by (provider)",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
@@ -462,7 +462,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}",
+          "expr": "sum(app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}) by (provider)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -564,7 +564,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_network_save_seconds_max{type='$COMPUTATION', error=\"none\"}",
+          "expr": "max(app_computation_network_save_seconds_max{type='$COMPUTATION', error=\"none\"}) by (provider)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -666,7 +666,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_results_save_seconds_max{type='$COMPUTATION', error=\"none\"}",
+          "expr": "max(app_computation_results_save_seconds_max{type='$COMPUTATION', error=\"none\"}) by (provider)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -768,7 +768,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_report_send_seconds_max{type='$COMPUTATION', error=\"none\"}",
+          "expr": "max(app_computation_report_send_seconds_max{type='$COMPUTATION', error=\"none\"}) by (provider)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -870,7 +870,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "app_computation_report_delete_seconds_max{type='$COMPUTATION', error=\"none\"}",
+          "expr": "max(app_computation_report_delete_seconds_max{type='$COMPUTATION', error=\"none\"}) by (provider)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -882,6 +882,119 @@
         }
       ],
       "title": "Report delete time (max)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 15,
+      "panels": [],
+      "title": "Computation queues",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Messages with ready state count in rabbitmq queue.\nDisplay how many calculation are waiting to be ran.\nCalculation currently running are not counted here",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rabbitmq_detailed_queue_messages_ready{queue=~\".*.${COMPUTATION}..*\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{queue}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Computation run ready queue",
       "type": "timeseries"
     }
   ],
@@ -927,26 +1040,26 @@
           },
           {
             "selected": false,
-            "text": "sensi",
-            "value": "sensi"
+            "text": "sensitivityanalysis",
+            "value": "sensitivityanalysis"
           },
           {
             "selected": false,
-            "text": "dynamicSimulation",
-            "value": "dynamicSimulation"
+            "text": "ds",
+            "value": "ds"
           },
           {
             "selected": false,
-            "text": "shortcircuit",
-            "value": "shortcircuit"
+            "text": "shortcircuitanalysis",
+            "value": "shortcircuitanalysis"
           },
           {
             "selected": false,
-            "text": "voltageInit",
-            "value": "voltageInit"
+            "text": "voltageinit",
+            "value": "voltageinit"
           }
         ],
-        "query": "loadflow, sa, sensi, dynamicSimulation, shortcircuit, voltageInit",
+        "query": "loadflow, sa, sensitivityanalysis, ds, shortcircuitanalysis, voltageinit",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
@@ -961,6 +1074,6 @@
   "timezone": "",
   "title": "Computations",
   "uid": "UplRgsDIz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

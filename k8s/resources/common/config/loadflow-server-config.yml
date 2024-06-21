@@ -10,6 +10,9 @@ dynaflow:
 network:
   default-impl-name: NetworkStore
 
+dynaflow-default-parameters:
+  mergeLoads: false
+
 # Nb of LF concurrent processes - should be in-sync with loadflow.run.loadflowGroup queue concurrency
 computation-local:
   available-core: 4
@@ -21,3 +24,7 @@ load-flow-default-parameters:
   dcUseTransformerRatio: false
   countriesToBalance:
     - FR
+
+#TODO: to be removed when ReferenceTerminals extension is implemented
+open-loadflow-default-parameters:
+  writeReferenceTerminals: false

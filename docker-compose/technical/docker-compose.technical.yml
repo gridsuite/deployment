@@ -3,12 +3,15 @@ version: '4.0'
 services:
 
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management
     ports:
       - 15672:15672
       - 5672:5672
+      - 15692:15692
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
 
   postgres:
@@ -44,6 +47,21 @@ services:
       - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
     restart: unless-stopped
 
+  postgres-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    ports:
+      - "9187:9187"
+    environment:
+      - DATA_SOURCE_USER=postgres
+      - DATA_SOURCE_PASS=postgres
+      - DATA_SOURCE_URI=postgres:5432/postgres?sslmode=disable
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
     ports:
@@ -55,9 +73,23 @@ services:
       - xpack.security.enabled=false
       - ingest.geoip.downloader.enabled=false
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - action.auto_create_index=filebeat-*
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     restart: unless-stopped
+
+  elasticsearch-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/elasticsearch-exporter:v1.7.0
+    command:
+      - '--es.uri=http://elasticsearch:9200'
+    ports:
+      - "9114:9114"
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
 
   kibana:
     profiles:
@@ -73,6 +105,9 @@ services:
     restart: unless-stopped
 
   logstash:
+    profiles:
+      - all
+      - kibana
     image: docker.elastic.co/logstash/logstash:8.7.1
     volumes:
       - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
@@ -81,12 +116,20 @@ services:
       - LOGSPOUT=ignore
     depends_on:
       - elasticsearch
+    restart: unless-stopped
 
   socat:
+    profiles:
+      - all
+      - kibana
     image: alpine/socat
     command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+    restart: unless-stopped
 
   logspout:
+    profiles:
+      - all
+      - kibana
     image: gliderlabs/logspout:v3.2.13
     command: 'tcp://socat:5000?filter.name=grid*'
     environment:
@@ -97,6 +140,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - socat
+    restart: unless-stopped
 
   pgadmin:
     profiles:
@@ -106,10 +150,11 @@ services:
     ports:
       - "12080:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@rte-france.com
+      - PGADMIN_DEFAULT_EMAIL=admin@localhost.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
+    restart: unless-stopped
 
   prometheus:
     profiles:
@@ -131,6 +176,7 @@ services:
     volumes:
       - $PWD/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
       - $PWD/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - $PWD/../technical/grafana/alerting:/etc/grafana/provisioning/alerting:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true

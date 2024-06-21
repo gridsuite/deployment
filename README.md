@@ -80,14 +80,14 @@ _Everything described in this section is inside the folder `explicit-profiles`._
 Here's the summary of the profiles and what services they includes:
 | Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
-| kibana | | | | | | | | | ✅ | | |
+| rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
+| kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | | ✅ | | |
 | pgadmin | | | | | | | | | | ✅ | |
 | apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
 | griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
 | gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | | |
 | gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | | ✅ | | | | ✅ | | | | |
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | | |
 | case&#8209;import&#8209;server | | | | | | | | ✅ | | | |
 | grafana<br/>prometheus | | | | | | | | | | | ✅ |
@@ -179,6 +179,7 @@ Applications:
 ```html
 http://localhost:80 // gridexplore
 http://localhost:81 // gridmerge
+http://localhost:82 // gridadmin
 http://localhost:83 // griddyna
 http://localhost:84 // gridstudy
 ```
@@ -235,7 +236,7 @@ PgAdmin UI:
 ```html
 http://localhost:12080/login
 default credentials :
-   - username : admin@rte-france.com
+   - username : admin@localhost.com
    - password : admin
 ```
 
@@ -297,31 +298,36 @@ This setup is heavyweight and matches a realworld deployment. It is useful to re
 
 Download the recommended version of minikube and kubectl :
 
-| Software | Version recommendation | Last Version | Link                                                                                                  |
-|----------|------------------------|--------------|-------------------------------------------------------------------------------------------------------|
-| kubectl  | 1.21+                  | 1.24.X       | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl) |
-| minikube | 1.21+                  | 1.26.X       | [Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)              |
+| Software | Version recommendation | Last supported version | Link                                                                                                  |
+|----------|------------------------|------------------------|-------------------------------------------------------------------------------------------------------|
+| kubectl  | 1.21+                  | 1.27.4                 | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.27.4/bin/linux/amd64/kubectl) |
+| minikube | 1.21+                  | 1.31.2                 | [Download](https://storage.googleapis.com/minikube/releases/v1.31.2/minikube-linux-amd64)             |
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
 
 __Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
-Start minikube and activate ingress support:
+__Notes__: Minikube 1.32.0 has been tested and is not working on our stack, so please use version 1.31.2 or below.
+
+Start minikube :
 ```bash
 $ minikube start --memory 24g --cpus=4
-$ minikube addons enable ingress
 ```
 
 To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
 ```bash
 $ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
-$ minikube addons enable ingress
 ```
 
 __Notes__: With last version of minikube, *docker* is the default driver (was *virtualbox* before) which could forbid memory definition depending of your user privilegies.
 
 see [kubernetes-version param doc](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64) for versions support.
+
+Activate ingress support:
+```bash
+$ minikube addons enable ingress
+```
 
 Verify everything is ok with:
 ```bash
@@ -372,6 +378,7 @@ http://<INGRESS_HOST>/gridstudy/
 http://<INGRESS_HOST>/gridmerge/
 http://<INGRESS_HOST>/griddyna/
 http://<INGRESS_HOST>/gridexplore/
+http://<INGRESS_HOST>/gridadmin/
 ```
 
 Swagger UI:
@@ -413,6 +420,7 @@ Build and load a local image into Minikube:
 $ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
 $ minikube image load local/<pod>
 ```
+__Notes__: If you have issues, you can build with the Docker deamon bundled in the minikube to directly have access to the image inside the minikube, [instructions here](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 
 Then add it to your deployment before (re)deploy:
 ```bash

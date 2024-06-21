@@ -1,11 +1,2 @@
-loadflow:
-  default-provider: OpenLoadFlow
-
-security-analysis:
-  default-provider: OpenLoadFlow
-
-sensitivity-analysis:
-  default-provider: OpenLoadFlow
-
 non-evacuated-energy:
   default-provider: OpenLoadFlow

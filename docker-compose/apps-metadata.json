@@ -43,6 +43,21 @@
       "STOCKAGE_BARRAGE", "TAC", "TURBINAGE"
     ],
       "categorieENTSOE": []
+    },
+    "line":  {
+      "codeOI": []
+    },
+    "twt":  {
+      "codeOI": []
+    },
+    "battery":  {
+      "codeOI": []
+    },
+    "shuntCompensator":  {
+      "codeOI": []
+    },
+    "voltageLevel":  {
+      "codeOI": []
     }
   },
   "defaultParametersValues": {
@@ -62,5 +77,11 @@
   "url"  : "http://localhost:83",
   "appColor" : "#FFC11B",
   "hiddenInAppsMenu" : false
+},
+{
+  "name" : "Admin",
+  "url"  : "http://localhost:82",
+  "appColor" : "#FD3745",
+  "hiddenInAppsMenu" : true
 }
 ]
