@@ -7,6 +7,7 @@ metadata:
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-computation-log-storage: "true"
   annotations:
     gridsuite.org/size: springboot-xl-forking
 spec:

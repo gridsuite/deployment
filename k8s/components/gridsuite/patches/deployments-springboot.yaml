@@ -34,10 +34,16 @@ spec:
               path: /actuator/health/readiness
               port: 8080
           args: ["--spring.config.additional-location=/config/"]
+          resources:
+            requests:
+              ephemeral-storage: 8Mi
+            limits:
+              ephemeral-storage: 8Mi
       restartPolicy: Always
       volumes:
         - name: common-application-configmap-volume
           configMap:
             name: common-application-configmap
         - name: tmp-emptydir
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 5Mi
