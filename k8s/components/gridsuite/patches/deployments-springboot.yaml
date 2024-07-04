@@ -36,9 +36,9 @@ spec:
           args: ["--spring.config.additional-location=/config/"]
           resources:
             requests:
-              ephemeral-storage: 8Mi
+              ephemeral-storage: 100Mi
             limits:
-              ephemeral-storage: 8Mi
+              ephemeral-storage: 512Mi
       restartPolicy: Always
       volumes:
         - name: common-application-configmap-volume
@@ -46,4 +46,4 @@ spec:
             name: common-application-configmap
         - name: tmp-emptydir
           emptyDir:
-            sizeLimit: 5Mi
+            sizeLimit: 500Mi

@@ -14,8 +14,10 @@ spec:
               resources:
                 requests:
                   memory: "384Mi"
+                  ephemeral-storage: 100Mi
                 limits:
                   memory: "384Mi"
+                  ephemeral-storage: 512Mi
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-emptydir
@@ -29,7 +31,8 @@ spec:
               imagePullPolicy: IfNotPresent
           volumes:
             - name: tmp-emptydir
-              emptyDir: {}
+              emptyDir:
+                sizeLimit: 500Mi
             - name: common-application-configmap-volume
               configMap:
                 name: common-application-configmap

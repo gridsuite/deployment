@@ -17,8 +17,10 @@ spec:
         resources:
           requests:
             memory: "128Mi"
+            ephemeral-storage: 12Mi
           limits:
             memory: "128Mi"
+            ephemeral-storage: 12Mi
         startupProbe:
           httpGet:
             path: /
@@ -34,4 +36,5 @@ spec:
             port: 8080
       volumes:
         - name: run-emptydir
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 10Mi

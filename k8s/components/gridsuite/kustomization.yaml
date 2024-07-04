@@ -100,11 +100,7 @@ patches:
   target:
     kind: Deployment
     labelSelector: "gridsuite.org/springboot-with-rabbitmq=true"
-- path: patches/deployments-springboot-computation-log-storage.yaml
-  target:
-    kind: Deployment
-    labelSelector: "gridsuite.org/springboot-with-computation-log-storage=true"
-- path: patches/cleanup-voltageinit-sidecar.yaml
+- path: patches/cleanup-voltage-init-logs-sidecar.yaml
   target:
     kind: Deployment
     name: voltage-init-server
