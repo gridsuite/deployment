@@ -24,8 +24,9 @@ spec:
                 total_size=$(du -s /tmp | awk '{print $1}')
                 if [ $total_size -gt 80000 ]; then
                   echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ") - Cleaning up /tmp..."
-                  ls -d -t /tmp/*/ | tail -n +6 | xargs rm -rf
+                  # Keep the 3 most recent log directories
+                  ls -dt /tmp/ampl_* 2>/dev/null | tail -n +4 | xargs -rI {} sh -c 'echo Deleting {}; rm -rf "{}"'
                   echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ") - Cleanup completed."
                 fi
-                sleep 86400
+                sleep 60
               done
