@@ -28,8 +28,6 @@ spec:
               name: dynawo-config-configmap-volume
             - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
-            - mountPath: /home/powsybl/.itools/tmp
-              name: itoolstmp-emptydir
       volumes:
         - name: dynamic-simulation-server-configmap-specific-volume
           configMap:
@@ -40,5 +38,3 @@ spec:
         - name: dynawo-itools-configmap-volume
           configMap:
             name: dynawo-itools-configmap
-        - name: itoolstmp-emptydir
-          emptyDir: { }
