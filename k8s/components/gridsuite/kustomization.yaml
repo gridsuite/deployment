@@ -100,7 +100,3 @@ patches:
   target:
     kind: Deployment
     labelSelector: "gridsuite.org/springboot-with-rabbitmq=true"
-- path: patches/cleanup-voltage-init-logs-sidecar.yaml
-  target:
-    kind: Deployment
-    name: voltage-init-server
