@@ -1,6 +1,6 @@
 begin transaction isolation level serializable;
 update networkmodifications.modification e
-set date = (select creation_date from modification_elements where id = e.id),
+set date = (select creation_date from modification_elements where new_id = e.id),
     modifications_order = 0,
     message_type = 'COMPOSITE_MODIFICATION',
     message_values = '{}'
