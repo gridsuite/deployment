@@ -183,7 +183,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "{pod=\"$pod\"} |~ \"$search\"",
+          "expr": "{pod=\"$pod\"} |~ \"$search\" | pattern \"<r> stdout F <message>\" | line_format \"{{.message}}\"",
           "maxLines": 5000,
           "queryType": "range",
           "refId": "A"
