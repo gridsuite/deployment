@@ -20,7 +20,7 @@ spec:
             ephemeral-storage: 12Mi
           limits:
             memory: "128Mi"
-            ephemeral-storage: 12Mi
+            ephemeral-storage: 64Mi
         startupProbe:
           httpGet:
             path: /
