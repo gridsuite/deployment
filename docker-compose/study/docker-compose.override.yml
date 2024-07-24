@@ -115,7 +115,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1280m
+          memory: 1280m #deployment: 1664m
 
   study-notification-server:
     profiles:
