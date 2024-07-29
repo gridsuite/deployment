@@ -16,6 +16,8 @@
       "path" : "/studies/{elementUuid}"
     }
   ],
+  "favoriteCountries": ["DE", "BE", "ES", "FR", "IT", "LU", "GB", "CH"],
+  "defaultCountry": "FR",
   "predefinedEquipmentProperties" : {
     "substation" : {
       "region" : ["east", "south", "west", "north"],
