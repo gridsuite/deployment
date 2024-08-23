@@ -23,6 +23,19 @@
   "liveNow": false,
   "panels": [
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "panels": [],
+      "title": "Network modifications",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -85,7 +98,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "options": {
@@ -118,7 +131,7 @@
           "useBackend": false
         }
       ],
-      "title": "Network modification apply max duration",
+      "title": "Modification time (max)",
       "type": "timeseries"
     },
     {
@@ -184,7 +197,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 1
       },
       "id": 1,
       "options": {
@@ -217,7 +230,7 @@
           "useBackend": false
         }
       ],
-      "title": "Network modification apply count",
+      "title": "Modification with success count",
       "type": "timeseries"
     }
   ],
@@ -255,6 +268,6 @@
   "timezone": "",
   "title": "Network modifications",
   "uid": "e6035e2e-2575-44a7-9afb-c6e35b961199",
-  "version": 7,
+  "version": 3,
   "weekStart": ""
 }
