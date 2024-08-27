@@ -44,6 +44,9 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
+  - name: user-admin-server-configmap-specific
+    files:
+      - application.yml=config/user-admin-server-application.yml
   - name: loadflow-server-itools-configmap
     behavior: merge
     files:

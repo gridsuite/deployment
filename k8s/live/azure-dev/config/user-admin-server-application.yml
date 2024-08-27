@@ -1,0 +1,3 @@
+useradmin:
+  defaultAllowedCases: 20
+  defaultAllowedBuilds: 20
