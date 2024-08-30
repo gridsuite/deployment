@@ -1,0 +1,3 @@
+useradmin:
+  defaultMaxAllowedCases: 20
+  defaultMaxAllowedBuilds: 20
