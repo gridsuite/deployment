@@ -45,6 +45,7 @@ services:
       - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
       - $PWD/../technical/init-geo-data.sh:/init-geo-data.sh:Z
       - $PWD/../technical/init-merging-data.sh:/init-merging-data.sh:Z
+      - $PWD/../technical/init-lines-catalog.sh:/init-lines-catalog.sh:Z
     restart: unless-stopped
 
   postgres-exporter:
