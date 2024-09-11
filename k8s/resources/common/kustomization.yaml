@@ -34,6 +34,8 @@ resources:
   - config-notification-server-service.yaml
   - user-admin-server-deployment.yaml
   - user-admin-server-service.yaml
+  - user-identity-oidc-replication-server-deployment.yaml
+  - user-identity-server-service.yaml
 
 configMapGenerator:
   - name: default-backend-htdocs-configmap
@@ -89,3 +91,6 @@ configMapGenerator:
   - name: user-admin-server-configmap-specific
     files:
       - application.yml=config/user-admin-server-application.yml
+  - name: user-identity-oidc-replication-server-configmap-specific
+    files:
+      - application.yml=config/user-identity-oidc-replication-server-application.yml
