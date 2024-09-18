@@ -16,6 +16,8 @@
       "path" : "/studies/{elementUuid}"
     }
   ],
+  "favoriteCountries": ["DE", "BE", "ES", "FR", "IT", "LU", "GB", "CH"],
+  "defaultCountry": "FR",
   "predefinedEquipmentProperties" : {
     "substation" : {
       "region" : ["east", "south", "west", "north"],
@@ -29,6 +31,35 @@
         "Landsnet", "cges", "mepso", "transelectrica", "ems",
         "kostt", "sepsas", "teias", "ukrenergo" ],
       "totallyFree" : []
+    },
+    "load":  {
+      "codeOI": []
+    },
+    "generator":{
+      "codeOI": [],
+      "genreCvg": ["AUTRE","BIOMASSE","CCG","CHARBON", "COGENERATION",
+      "COMPENSATEUR_SYNCHRONE","COMPENSATEUR_SYNCHRONE_VIMP", "DIESEL",
+      "EJP", "EOLIEN", "EOLIEN_OFFSHORE", "FICTIF", "FIL_DE_L_EAU", "FUEL", "GAZ",
+      "HYDROLIENNE", "NUCLEAIRE", "PILE_A_COMBUSTIBLE", "PHOTOVOLTAIQUE", "PHOTOVOLTAIQUE_DIFFUS",
+      "PHOTOVOLTAIQUE_PLUS_STOCKAGE", "POMPAGE", "POWER_TO_GAS", "SOLAIRE_THERMIQUE", "STEP",
+      "STOCKAGE_BARRAGE", "TAC", "TURBINAGE"
+    ],
+      "categorieENTSOE": []
+    },
+    "line":  {
+      "codeOI": []
+    },
+    "twt":  {
+      "codeOI": []
+    },
+    "battery":  {
+      "codeOI": []
+    },
+    "shuntCompensator":  {
+      "codeOI": []
+    },
+    "voltageLevel":  {
+      "codeOI": []
     }
   },
   "defaultParametersValues": {
@@ -48,5 +79,11 @@
   "url"  : "http://localhost:83",
   "appColor" : "#FFC11B",
   "hiddenInAppsMenu" : false
+},
+{
+  "name" : "Admin",
+  "url"  : "http://localhost:82",
+  "appColor" : "#FD3745",
+  "hiddenInAppsMenu" : true
 }
 ]

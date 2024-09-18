@@ -1,2 +1,0 @@
-load-flow-default-parameters:
-  voltageInitMode: DC_VALUES

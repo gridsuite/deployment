@@ -86,6 +86,10 @@ configMapGenerator:
     files:
       - idpSettings.json=griddyna-app-idpSettings.json
 
+  - name: gridadmin-app-configmap
+    files:
+      - idpSettings.json=gridadmin-app-idpSettings.json
+
   - name: common-application-configmap
     behavior: merge
     files:

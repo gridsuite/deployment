@@ -1,5 +1,3 @@
 logging:
   level:
     org.gridsuite.study.notification.server.NotificationWebSocketHandler: DEBUG
-
-    

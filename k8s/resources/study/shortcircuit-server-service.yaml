@@ -8,3 +8,4 @@ metadata:
 spec:
   selector:
     name: shortcircuit-server
+

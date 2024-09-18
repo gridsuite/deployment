@@ -1,0 +1,8 @@
+{
+    "authority" : "https://login.microsoftonline.com/common/v2.0",
+    "client_id" : "590a2d0c-6fb7-4c2f-ac2d-c874fe98a88b",
+    "redirect_uri": "https://demo.gridsuite.org/gridadmin/sign-in-callback",
+    "post_logout_redirect_uri" : "https://demo.gridsuite.org/gridadmin/logout-callback",
+    "silent_redirect_uri" : "https://demo.gridsuite.org/gridadmin/silent-renew-callback",
+    "scope" : "openid User.read profile"
+}

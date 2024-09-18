@@ -14,12 +14,19 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   merge-notification-server:
     profiles:
@@ -33,12 +40,20 @@ services:
       - $PWD/../../k8s/resources/merging/config/merge-notification-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+    restart: unless-stopped
 
   balances-adjustment-server:
     profiles:
@@ -53,12 +68,20 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/merging/config/balances-adjustment-server-config.yml:/home/powsybl/.itools/config.yml:Z
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    restart: unless-stopped
 
   case-validation-server:
     profiles:
@@ -72,12 +95,20 @@ services:
       - $PWD/../../k8s/resources/merging/config/case-validation-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+    restart: unless-stopped
 
   cgmes-boundary-server:
     profiles:
@@ -92,12 +123,19 @@ services:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
 
   case-import-job:
     profiles:
@@ -116,7 +154,9 @@ services:
       - $PWD/../merging/case-import-job/case-import-job-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -137,7 +177,9 @@ services:
       - $PWD/../merging/cgmes-assembling-job/cgmes-assembling-job-config.yml:/root/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
 
@@ -153,7 +195,15 @@ services:
       - $PWD/../merging/gridmerge-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmerge/idpSettings.json:Z
       - $PWD/../env.json:/opt/bitnami/apache/htdocs/gridmerge/env.json:Z
     depends_on:
-      - logspout
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
 
   cgmes-boundary-import-job:
     profiles:

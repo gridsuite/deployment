@@ -76,6 +76,10 @@ configMapGenerator:
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
+      - config/version.json
+  - name: apps-metadata-server-httpdconf-configmap
+    files:
+      - bitnami.conf=config/apps-metadata-server/httpd.conf
   - name: config-server-configmap-specific
     files:
       - application.yml=config/config-server-application.yml

@@ -18,11 +18,11 @@ spec:
         name: odre-server
     spec:
       containers:
-      - name: main
-        image: docker.io/gridsuite/odre-server:latest
-        volumeMounts:
-        - mountPath: /config/specific
-          name: odre-server-configmap-specific-volume
+        - name: main
+          image: docker.io/gridsuite/odre-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: odre-server-configmap-specific-volume
       volumes:
         - name: odre-server-configmap-specific-volume
           configMap:

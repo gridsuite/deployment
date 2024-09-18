@@ -5,3 +5,7 @@ hades2:
 #Workaround iidm in-memory impl present on classpath (needed by cvg-extension)
 network:
   default-impl-name: NetworkStore
+
+# Nb of sensi concurrent processes - should be in-sync with sensitivityanalysis.run.sensitivityanalysisGroup queue concurrency
+computation-local:
+  available-core: 2

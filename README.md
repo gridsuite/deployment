@@ -17,17 +17,18 @@ $ cd $GRIDSUITE_DATABASES
 $ chmod 777 cases postgres elasticsearch init
 ```
 
-| :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose !   |
-|---------------------------------------------|
+| :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose ! |
+|---------------------------------------------------------------------------------------------------------------------------------|
 
 
-All databases are created automatically at start as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, ...).
+<a name="data_init"></a>When the postgres container is created, all databases are created automatically as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, lines catalog...).
 
-To do this, you must copy the following files in the init directory :
+To do this, you must copy the following files in the init directory (_$GRIDSUITE_DATABASES/init_), **before** creating the postgres container:
 - [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_substations.json)
 - [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_lines.json)
 - [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
 - [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
+- [lines-catalog.json](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/test/resources/lines-catalog.json)
 
 ### Clone deployment repository
 
@@ -64,11 +65,11 @@ $ cd docker-compose/dynamic-mapping
 $ docker compose up
 ```
 
-__Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
+__Note__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
 
-__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
+__Note__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
-__Notes__ :
+__Note__ :
 These folders (other than `explicit-profiles`) act now like an alias to `docker compose --project-name grid<name> --profile <folder_name> ...`,
 with the difference that they have implicitly a profile active and will be considered like another project stack,
 so compose commands will not affect others folders state.
@@ -78,18 +79,19 @@ This is the preferred development deployment.
 _Everything described in this section is inside the folder `explicit-profiles`._
 
 Here's the summary of the profiles and what services they includes:
-| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin |
-|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch<br/>logstash<br/>socat<br/>logspout | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| kibana | | | | | | | | | ✅ | |
-| pgadmin | | | | | | | | | | ✅ |
-| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
-| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | |
-| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | |
-| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server | | | ✅ | | | | ✅ | | | |
-| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | |
-| case&#8209;import&#8209;server | | | | | | | | ✅ | | |
+| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
+| kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | | ✅ | | |
+| pgadmin | | | | | | | | | | ✅ | |
+| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
+| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
+| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | | |
+| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | | ✅ | | | | ✅ | | | | |
+| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | | |
+| case&#8209;import&#8209;server | | | | | | | | ✅ | | | |
+| grafana<br/>prometheus | | | | | | | | | | | ✅ |
 
 To use a profile, you use:
 ```shell
@@ -134,11 +136,13 @@ $ docker compose down
 
 This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ...
 
-|Software| Version used |
---- | --- |
-|Postgres|13.4|
-|RabbitMQ|latest|
-|Elasticsearch|7.9.3|
+| Software      | Version used |
+|---------------|--------------|
+| Postgres      | 14.9         |
+| RabbitMQ      | latest       |
+| Elasticsearch | 7.9.3        |
+| Grafana       | latest       |
+| Prometheus    | latest       |
 
 
 It is used for k8s deployment with Minikube.
@@ -176,6 +180,7 @@ Applications:
 ```html
 http://localhost:80 // gridexplore
 http://localhost:81 // gridmerge
+http://localhost:82 // gridadmin
 http://localhost:83 // griddyna
 http://localhost:84 // gridstudy
 ```
@@ -232,7 +237,7 @@ PgAdmin UI:
 ```html
 http://localhost:12080/login
 default credentials :
-   - username : admin@rte-france.com
+   - username : admin@localhost.com
    - password : admin
 ```
 
@@ -247,7 +252,6 @@ Username : postgres
 Password : postgres
 ```
 
-
 ### Kibana console for Elasticsearch
 
 Kibana management UI:
@@ -255,6 +259,12 @@ Kibana management UI:
 http://localhost:5601
 ```
 In order to show documents in the case-server index with Kibana, you must first create the index pattern ('Management' page) : case-server*
+
+### Grafana console for metrics
+Grafana UI:
+```html
+http://localhost:7000
+```
 
 
 ### Installing / Updating docker-compose to v2
@@ -289,31 +299,36 @@ This setup is heavyweight and matches a realworld deployment. It is useful to re
 
 Download the recommended version of minikube and kubectl :
 
-|Software| Version recommendation |Last Version  | Link|
---- | --- | --- | ---
-|kubectl |1.21+|1.24.X|[Download](https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl)|
-|minikube|1.21+|1.26.X|[Download](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)|
+| Software | Version recommendation | Last supported version | Link                                                                                                  |
+|----------|------------------------|------------------------|-------------------------------------------------------------------------------------------------------|
+| kubectl  | 1.21+                  | 1.27.4                 | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.27.4/bin/linux/amd64/kubectl) |
+| minikube | 1.21+                  | 1.31.2                 | [Download](https://storage.googleapis.com/minikube/releases/v1.31.2/minikube-linux-amd64)             |
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
 
 __Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
 
-Start minikube and activate ingress support:
+__Notes__: Minikube 1.32.0 has been tested and is not working on our stack, so please use version 1.31.2 or below.
+
+Start minikube :
 ```bash
 $ minikube start --memory 24g --cpus=4
-$ minikube addons enable ingress
 ```
 
 To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
 ```bash
 $ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
-$ minikube addons enable ingress
 ```
 
 __Notes__: With last version of minikube, *docker* is the default driver (was *virtualbox* before) which could forbid memory definition depending of your user privilegies.
 
 see [kubernetes-version param doc](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64) for versions support.
+
+Activate ingress support:
+```bash
+$ minikube addons enable ingress
+```
 
 Verify everything is ok with:
 ```bash
@@ -364,6 +379,7 @@ http://<INGRESS_HOST>/gridstudy/
 http://<INGRESS_HOST>/gridmerge/
 http://<INGRESS_HOST>/griddyna/
 http://<INGRESS_HOST>/gridexplore/
+http://<INGRESS_HOST>/gridadmin/
 ```
 
 Swagger UI:
@@ -405,6 +421,7 @@ Build and load a local image into Minikube:
 $ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
 $ minikube image load local/<pod>
 ```
+__Notes__: If you have issues, you can build with the Docker deamon bundled in the minikube to directly have access to the image inside the minikube, [instructions here](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 
 Then add it to your deployment before (re)deploy:
 ```bash
@@ -448,6 +465,9 @@ All actions can be done from a docker-compose profile.
 
 ### Databases creation
 
+With a terminal, go to the docker directory where you ran the `docker compose up -d` command.
+
+Make sure the `postgres` service is up with the `docker compose ps | grep postgres` command.
 ```bash
 $ docker compose exec postgres /create-postgres-databases.sh
 ```
@@ -455,8 +475,17 @@ $ docker compose exec postgres /create-postgres-databases.sh
 ### Data initialization
 
 First update the data files in the directory `$GRIDSUITE_DATABASES/init`
+
+[See the initial data loading section for more information.](#data_init)
+
+Alternatively, you can do this :
+
+With a terminal, go to the docker directory where you ran the `docker compose up -d` command.
+
+Make sure the `postgres`, `odre-server`, `geo-data-server` and `network-modification-server` services are up with the `docker compose ps` command.
 ```bash
 $ docker compose exec postgres /init-geo-data.sh
+$ docker compose exec postgres /init-lines-catalog.sh
 $ docker compose exec postgres /init-merging-data.sh
 ```
 

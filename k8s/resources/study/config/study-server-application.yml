@@ -1,8 +1,10 @@
-loadflow:
+non-evacuated-energy:
   default-provider: OpenLoadFlow
 
-security-analysis:
-  default-provider: OpenLoadFlow
-
-sensitivity-analysis:
-  default-provider: OpenLoadFlow
+# optional server (not delivered in open-source)
+gridsuite:
+  services:
+    -
+      name: state-estimation-server
+      base-uri: http://state-estimation-server/
+      optional: true

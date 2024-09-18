@@ -24,12 +24,16 @@ configMapGenerator:
   - name: griddyna-app-configmap
     files:
       - idpSettings.json=griddyna-app-idpSettings.json
+  - name: gridadmin-app-configmap
+    files:
+      - idpSettings.json=gridadmin-app-idpSettings.json
   - name: apps-metadata-server-configmap
     behavior: merge
     files:
       - openid-configuration
       - keys
   - name: apps-metadata-server-httpdconf-configmap
+    behavior: replace
     files:
       - bitnami.conf=gridapps-metadata-httpd.conf
   - name: gateway-configmap
@@ -40,6 +44,14 @@ configMapGenerator:
     behavior: merge
     files:
       - application.yml=common-application.yml
+  - name: user-admin-server-configmap-specific
+    behavior: merge
+    files:
+      - application.yml=config/user-admin-server-application.yml
+  - name: loadflow-server-itools-configmap
+    behavior: merge
+    files:
+      - config.yml=loadflow-server-config.yml
 
 # Patch ingress host
 patchesJson6902:
@@ -121,4 +133,15 @@ patchesJson6902:
       kind: Ingress
       name: griddyna-app-ingress
     path: patch_ingress.yaml
-
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: gridadmin-app-ingress
+    path: patch_tls_ingress.yaml
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: gridadmin-app-ingress
+    path: patch_ingress.yaml
