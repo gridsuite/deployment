@@ -101,7 +101,7 @@ images:
     digest: 27368e11a16ced56422ff48ed66270f5d1a1f3f0649403dc5ffceff91243c592
   - name: docker.io/gridsuite/sensitivity-analysis-server
     digest: todo
-  - name: docker.io/gridsuite/shortcircuit-server
+  - name: docker.io/gridsuite/shortcircuit-analysis-server
     digest: todo
   - name: docker.io/gridsuite/voltage-init-server
     digest: todo

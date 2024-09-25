@@ -45,7 +45,7 @@ resources:
   - dynamic-mapping-server-ingress.yaml
   - user-admin-server-ingress.yaml
   - sensitivity-analysis-server-ingress.yaml
-  - shortcircuit-server-ingress.yaml
+  - shortcircuit-analysis-server-ingress.yaml
   - timeseries-server-ingress.yaml
   - voltage-init-server-ingress.yaml
 
