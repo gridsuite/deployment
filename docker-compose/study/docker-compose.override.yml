@@ -445,18 +445,18 @@ services:
         limits:
           memory: 1792m #deployment: 3072m
 
-  shortcircuit-server:
+  shortcircuit-analysis-server:
     profiles:
       - all
       - suite
       - study
-    image: gridsuite/shortcircuit-server:latest
+    image: gridsuite/shortcircuit-analysis-server:latest
     ports:
       - 5031:80
     volumes:
-      - $PWD/../../k8s/resources/study/config/shortcircuit-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/shortcircuit-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - $PWD/../../k8s/resources/study/config/shortcircuit-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:

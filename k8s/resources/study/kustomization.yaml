@@ -39,8 +39,8 @@ resources:
   - directory-notification-server-service.yaml
   - sensitivity-analysis-server-deployment.yaml
   - sensitivity-analysis-server-service.yaml
-  - shortcircuit-server-deployment.yaml
-  - shortcircuit-server-service.yaml
+  - shortcircuit-analysis-server-deployment.yaml
+  - shortcircuit-analysis-server-service.yaml
   - timeseries-server-deployment.yaml
   - timeseries-server-service.yaml
   - voltage-init-server-deployment.yaml
@@ -105,12 +105,12 @@ configMapGenerator:
   - name: sensitivity-analysis-server-itools-configmap
     files:
       - config.yml=config/sensitivity-analysis-server-config.yml
-  - name: shortcircuit-server-configmap-specific
+  - name: shortcircuit-analysis-server-configmap-specific
     files:
-      - application.yml=config/shortcircuit-server-application.yml
-  - name: shortcircuit-server-itools-configmap
+      - application.yml=config/shortcircuit-analysis-server-application.yml
+  - name: shortcircuit-analysis-server-itools-configmap
     files:
-      - config.yml=config/shortcircuit-server-config.yml
+      - config.yml=config/shortcircuit-analysis-server-config.yml
   - name: timeseries-server-configmap-specific
     files:
       - application.yml=config/timeseries-server-application.yml
