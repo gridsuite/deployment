@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spreadsheet-config-server
+  labels:
+    name: spreadsheet-config-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-m
+spec:
+  selector:
+    matchLabels:
+      name: spreadsheet-config-server
+  template:
+    metadata:
+      labels:
+        name: spreadsheet-config-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/spreadsheet-config-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: spreadsheet-config-server-configmap-specific-volume
+      volumes:
+        - name: spreadsheet-config-server-configmap-specific-volume
+          configMap:
+            name: spreadsheet-config-server-configmap-specific

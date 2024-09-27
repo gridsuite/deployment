@@ -129,6 +129,38 @@ services:
         limits:
           memory: 384m
 
+  spreadsheet-config-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - merging
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
+    image: gridsuite/spreadsheet-config-server:latest
+    ports:
+      - 5035:80
+    volumes:
+      - $PWD/../../k8s/resources/common/config/spreadsheet-config-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
   report-server:
     profiles:
       - all

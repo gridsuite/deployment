@@ -34,6 +34,8 @@ resources:
   - config-notification-server-service.yaml
   - user-admin-server-deployment.yaml
   - user-admin-server-service.yaml
+  - spreadsheet-config-server-deployment.yaml
+  - spreadsheet-config-server-service.yaml
 
 configMapGenerator:
   - name: default-backend-htdocs-configmap
@@ -89,3 +91,6 @@ configMapGenerator:
   - name: user-admin-server-configmap-specific
     files:
       - application.yml=config/user-admin-server-application.yml
+  - name: spreadsheet-config-server-configmap-specific
+    files:
+      - application.yml=config/spreadsheet-config-server-application.yml
