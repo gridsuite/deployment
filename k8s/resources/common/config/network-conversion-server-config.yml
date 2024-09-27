@@ -1,0 +1,3 @@
+import-export-parameters-default-value:
+  #TODO: to be removed when merge is implemented in the network-store
+  iidm.import.cgmes.cgm-with-subnetworks: false

@@ -64,6 +64,9 @@ configMapGenerator:
   - name: loadflow-server-itools-configmap
     files:
       - config.yml=config/loadflow-server-config.yml
+  - name: network-conversion-server-itools-configmap
+    files:
+      - config.yml=config/network-conversion-server-config.yml
   - name: actions-server-configmap-specific
     files:
       - application.yml=config/actions-server-application.yml
