@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./docker-compose
+        working-directory: docker-compose
     steps:
       - id: checkout
         name: Checkout sources
@@ -23,7 +23,7 @@ jobs:
         with:
           sparse-checkout: |
             .github
-            k8s
+            docker-compose
       #- name: Install buildx
       #  uses: docker/setup-buildx-action@v3
       #  with:
