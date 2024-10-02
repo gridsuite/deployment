@@ -1,8 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-commonLabels:
-  app: gridsuite
+labels:
+  - includeSelectors: true
+    pairs:
+      app: gridsuite
 
 resources:
   - root-ingress.yaml
@@ -94,3 +96,4 @@ configMapGenerator:
   - name: spreadsheet-config-server-configmap-specific
     files:
       - application.yml=config/spreadsheet-config-server-application.yml
+

@@ -1,13 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
- - ../../bases/admingridsuite
-
 components:
   - ../../components/gridsuite
 
 resources:
+  - ../../bases/admingridsuite
   - oidc-mock-server-deployment.yaml
   - oidc-mock-server-ingress.yaml
   - oidc-mock-server-service.yaml
@@ -54,49 +52,40 @@ configMapGenerator:
   - name: gridapps-env-configmap
     files:
       - env.json
-
   - name: gridstudy-app-configmap
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
-
   - name: gridexplore-app-configmap
     files:
       - idpSettings.json=gridexplore-app-idpSettings.json
-
   - name: gridmerge-app-configmap
     files:
       - idpSettings.json=gridmerge-app-idpSettings.json
-
   - name: gateway-configmap
     files:
       - allowed-issuers.yml
-
   - name: case-import-job-itools-configmap
     files:
       - config.yml=case-import-job-config.yml
-
   - name: cgmes-assembling-job-itools-configmap
     files:
       - config.yml=cgmes-assembling-job-config.yml
-
   - name: cgmes-boundary-import-job-configmap
     files:
       - config.yml=cgmes-boundary-import-job-config.yml
-
   - name: griddyna-app-configmap
     files:
       - idpSettings.json=griddyna-app-idpSettings.json
-
   - name: gridadmin-app-configmap
     files:
       - idpSettings.json=gridadmin-app-idpSettings.json
-
   - name: common-application-configmap
     behavior: merge
     files:
       - application.yml=common-application.yml
 
 patches:
-- path: patches/ingresses.yaml
-  target:
-    kind: Ingress
+  - path: patches/ingresses.yaml
+    target:
+      kind: Ingress
+
