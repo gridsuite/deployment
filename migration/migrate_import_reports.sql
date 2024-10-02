@@ -3,16 +3,16 @@ CREATE TABLE report.severity_temp
     LIKE report.severity INCLUDING ALL
 );
 WITH RECURSIVE root(id) AS (select report_uuid from study.root_node_info),
-               included_nodes(id, level) AS (SELECT id, 0 as level
-                                             FROM report.report_node r
-                                             WHERE r.id IN (SELECT id from root)
+               included_nodes(id) AS (SELECT id
+                                      FROM report.report_node r
+                                      WHERE r.id IN (SELECT id from root)
 
-                                             UNION ALL
+                                      UNION ALL
 
-                                             SELECT r.id, level + 1
-                                             FROM included_nodes incn
-                                                      INNER JOIN report.report_node r
-                                                                 ON r.parent_id = incn.id)
+                                      SELECT r.id
+                                      FROM included_nodes incn
+                                               INNER JOIN report.report_node r
+                                                          ON r.parent_id = incn.id)
 INSERT
 INTO report.severity_temp
 SELECT *
@@ -24,16 +24,16 @@ CREATE TABLE report.report_node_temp
     LIKE report.report_node INCLUDING ALL
 );
 WITH RECURSIVE root(id) AS (select report_uuid from study.root_node_info),
-               included_nodes(id, level) AS (SELECT id, 0 as level
-                                             FROM report.report_node r
-                                             WHERE r.id IN (SELECT id from root)
+               included_nodes(id) AS (SELECT id
+                                      FROM report.report_node r
+                                      WHERE r.id IN (SELECT id from root)
 
-                                             UNION ALL
+                                      UNION ALL
 
-                                             SELECT r.id, level + 1
-                                             FROM included_nodes incn
-                                                      INNER JOIN report.report_node r
-                                                                 ON r.parent_id = incn.id)
+                                      SELECT r.id
+                                      FROM included_nodes incn
+                                               INNER JOIN report.report_node r
+                                                          ON r.parent_id = incn.id)
 INSERT
 INTO report.report_node_temp
 SELECT *
