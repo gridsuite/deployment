@@ -1,11 +1,4 @@
 dynawo:
-  homeDir: /dynawo
+  homeDir: /dynawo-launcher
   debug: true
 
-dynawo-default-parameters:
-    parametersFile: /test/models.par
-    network.parametersFile: /test/network.par
-    network.parametersId: "8"
-    solver.type: IDA
-    solver.parametersFile: /test/solvers.par
-    solver.parametersId: "1"
