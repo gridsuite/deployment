@@ -7,8 +7,9 @@ on:
     tags:
       - 'v[0-9]+'
   pull_request:
-    #paths:
-    #  - docker-compose/*
+    paths:
+      - docker-compose/**
+      - k8s/resources/**/config/**
 
 env:
   GRIDSUITE_DATABASES: /tmp/gs_db
@@ -27,12 +28,13 @@ jobs:
           sparse-checkout: |
             .github
             docker-compose
+            k8s
       #- name: Install buildx
       #  uses: docker/setup-buildx-action@v3
       #  with:
       #    version: v0.9.1 # Buildx version
       - name: mkdir
-        run: mkdir ./build
+        run: mkdir -v ./build
       - name: Debug version
         run: docker version --format '{{json .}}' | jq | tee ./build/docker_version.json
       - name: List Docker compose profiles
@@ -56,6 +58,9 @@ jobs:
       - name: Build Docker compose for each profiles
         working-directory: docker-compose/explicit-profiles
         run: docker compose config --profiles | xargs -t -L 1 -I{} docker compose --profile {} config --output ../build/docker-compose.{}.yml
+      #- name: Verify Docker compose images
+      #  working-directory: docker-compose/explicit-profiles
+      #  run: docker compose --profile all config --resolve-image-digests --output ../build/docker-compose_digest.yml
       - name: Build old docker-compose dynamic-mapping
         working-directory: docker-compose/dynamic-mapping
         run: docker compose config --output ../build/dynamic-mapping.yml

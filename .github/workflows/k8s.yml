@@ -7,8 +7,8 @@ on:
     tags:
       - 'v[0-9]+'
   pull_request:
-    #paths:
-    #  - k8s/*
+    paths:
+      - k8s/**
 
 jobs:
   verify_k8s:
@@ -27,7 +27,7 @@ jobs:
             .github
             k8s
       - name: mkdir
-        run: mkdir ./build
+        run: mkdir -v ./build
       - name: Debug version
         run: kubectl version --client=true --output=json | tee ./build/kubectl_version.json
       - id: bake-local
