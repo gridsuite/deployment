@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-ui
+  labels:
+    name: swagger-ui
+    app.kubernetes.io/component: gridsuite-swaggerui
+spec:
+  selector:
+    matchLabels:
+      name: swagger-ui
+  template:
+    metadata:
+      labels:
+        name: swagger-ui
+    spec:
+      containers:
+        - name: main
+          image: swaggerapi/swagger-ui:latest
+          restartPolicy: Always
+          env:
+            - name: NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE
+              value: 'true'
+            - name: PORT_IPV6
+              value: 8080
+            - name: BASE_URL
+              value: /swagger
+            - name: DEEP_LINKING
+              value: 'true'
+            - name: DISPLAY_REQUEST_DURATION
+              value: 'true'
+            - name: FILTER
+              value: 'true'
+            - name: SHOW_EXTENSIONS
+              value: 'true'
+            - name: VALIDATOR_URL
+              value: 'null'
+            - name: URLS_PRIMARY_NAME
+              value: gateway
+            - name: URLS
+              value: >
+                [
+                {"url":"https://github.com/elastic/elasticsearch-specification/raw/8.12/output/openapi/elasticsearch-serverless-openapi.json","name":"ElasticSearch API"},
+                {"url":"https://github.com/elastic/kibana/raw/refs/tags/v8.7.1/x-pack/plugins/fleet/common/openapi/bundled.json","name":"Kibana plugin Fleet API"},
+                {"url":"/gateway/v3/api-docs","name":"gateway"},
+                {"url":"/actions-server/v3/api-docs","name":"actions-server"},
+                {"url":"/balances-adjustment-server/v3/api-docs","name":"balances-adjustment-server"},
+                {"url":"/case-import-server/v3/api-docs","name":"case-import-server"},
+                {"url":"/case-server/v3/api-docs","name":"case-server"},
+                {"url":"/case-validation-server/v3/api-docs","name":"case-validation-server"},
+                {"url":"/cgmes-boundary-server/v3/api-docs","name":"cgmes-boundary-server"},
+                {"url":"/cgmes-gl-server/v3/api-docs","name":"cgmes-gl-server"},
+                {"url":"/config-notification-server/v3/api-docs","name":"config-notification-server"},
+                {"url":"/config-server/v3/api-docs","name":"config-server"},
+                {"url":"/directory-notification-server/v3/api-docs","name":"directory-notification-server"},
+                {"url":"/directory-server/v3/api-docs","name":"directory-server"},
+                {"url":"/dynamic-mapping-server/v3/api-docs","name":"dynamic-mapping-server"},
+                {"url":"/dynamic-simulation-server/v3/api-docs","name":"dynamic-simulation-server"},
+                {"url":"/explore-server/v3/api-docs","name":"explore-server"},
+                {"url":"/filter-server/v3/api-docs","name":"filter-server"},
+                {"url":"/geo-data-server/v3/api-docs","name":"geo-data-server"},
+                {"url":"/loadflow-server/v3/api-docs","name":"loadflow-server"},
+                {"url":"/merge-notification-server/v3/api-docs","name":"merge-notification-server"},
+                {"url":"/merge-orchestrator-server/v3/api-docs","name":"merge-orchestrator-server"},
+                {"url":"/network-conversion-server/v3/api-docs","name":"network-conversion-server"},
+                {"url":"/network-map-server/v3/api-docs","name":"network-map-server"},
+                {"url":"/network-modification-server/v3/api-docs","name":"network-modification-server"},
+                {"url":"/network-store-server/v3/api-docs","name":"network-store-server"},
+                {"url":"/odre-server/v3/api-docs","name":"odre-server"},
+                {"url":"/report-server/v3/api-docs","name":"report-server"},
+                {"url":"/security-analysis-server/v3/api-docs","name":"security-analysis-server"},
+                {"url":"/sensitivity-analysis-server/v3/api-docs","name":"sensitivity-analysis-server"},
+                {"url":"/shortcircuit-server/v3/api-docs","name":"shortcircuit-server"},
+                {"url":"/single-line-diagram-server/v3/api-docs","name":"single-line-diagram-server"},
+                {"url":"/spreadsheet-config-server/v3/api-docs","name":"spreadsheet-config-server"},
+                {"url":"/study-notification-server/v3/api-docs","name":"study-notification-server"},
+                {"url":"/study-server/v3/api-docs","name":"study-server"},
+                {"url":"/timeseries-server/v3/api-docs","name":"timeseries-server"},
+                {"url":"/user-admin-server/v3/api-docs","name":"user-admin-server"},
+                {"url":"/voltage-init-server/v3/api-docs","name":"voltage-init-server"}
+                ]
+          resources:
+            limits:
+              cpi: '1'
+              memory: 50Mi
+            requests: 20Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: swagger-ui
+    app.kubernetes.io/component: gridsuite-swaggerui
+  name: swagger-ui
+spec:
+  selector:
+    name: swagger-ui
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: swagger-ui-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # our containers host at '/' so can't possibly make a difference between
+      # '/XXX/' and '/XXX' (trailing slash) (which would respectively become
+      # '/' and '' inside the container but an empty path doesn't exist in http)
+      # so always redirect '/XXX' to '/XXX/' in the client outside the container
+      rewrite ^/swagger$ /swagger/ permanent;
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /swagger(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: swagger-ui
+            port:
+              number: 8080
