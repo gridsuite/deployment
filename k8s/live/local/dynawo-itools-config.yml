@@ -1,4 +1,4 @@
 dynawo:
-  homeDir: /dynawo-launcher
+  homeDir: /dynaflow-launcher
   debug: true
 
