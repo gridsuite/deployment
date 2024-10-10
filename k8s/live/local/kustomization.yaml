@@ -49,6 +49,7 @@ resources:
   - shortcircuit-server-ingress.yaml
   - timeseries-server-ingress.yaml
   - voltage-init-server-ingress.yaml
+  - spreadsheet-config-server-ingress.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap

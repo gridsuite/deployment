@@ -21,13 +21,14 @@ $ chmod 777 cases postgres elasticsearch init
 |---------------------------------------------------------------------------------------------------------------------------------|
 
 
-<a name="data_init"></a>All databases are created automatically at start as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, ...).
+<a name="data_init"></a>When the postgres container is created, all databases are created automatically as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, lines catalog...).
 
-To do this, you must copy the following files in the init directory :
+To do this, you must copy the following files in the init directory (_$GRIDSUITE_DATABASES/init_), **before** creating the postgres container:
 - [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_substations.json)
 - [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_lines.json)
 - [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
 - [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
+- [lines-catalog.json](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/test/resources/lines-catalog.json)
 
 ### Clone deployment repository
 
@@ -64,11 +65,11 @@ $ cd docker-compose/dynamic-mapping
 $ docker compose up
 ```
 
-__Notes__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
+__Note__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
 
-__Notes__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
+__Note__ : The containers are accessible from your machine thought the ip address `127.0.0.1` (localhost) or `172.17.0.1` and the corresponding port
 
-__Notes__ :
+__Note__ :
 These folders (other than `explicit-profiles`) act now like an alias to `docker compose --project-name grid<name> --profile <folder_name> ...`,
 with the difference that they have implicitly a profile active and will be considered like another project stack,
 so compose commands will not affect others folders state.
@@ -214,6 +215,7 @@ http://localhost:5033/swagger-ui.html  // user-admin-server
 http://localhost:5034/swagger-ui.html  // user-identity-server
 http://localhost:5030/swagger-ui.html  // sensitivity-analysis-server
 http://localhost:5031/swagger-ui.html  // shortcircuit-server
+http://localhost:5035/swagger-ui.html  // spreadsheet-config-server
 http://localhost:5037/swagger-ui.html  // timeseries-server
 http://localhost:5038/swagger-ui.html  // voltage-init-server
 http://localhost:5039/swagger-ui.html  // case-import-server
@@ -413,6 +415,7 @@ http://<INGRESS_HOST>/shortcircuit-server/swagger-ui.html
 http://<INGRESS_HOST>/timeseries-server/swagger-ui.html
 http://<INGRESS_HOST>/voltage-init-server/swagger-ui.html
 http://<INGRESS_HOST>/case-import-server/swagger-ui.html
+http://<INGRESS_HOST>/spreadsheet-config-server/swagger-ui.html
 ```
 
 ## How to use a local docker image into Minikube?
@@ -483,9 +486,10 @@ Alternatively, you can do this :
 
 With a terminal, go to the docker directory where you ran the `docker compose up -d` command.
 
-Make sure the `postgres`, `odre-server` and `geo-data-server` services are up with the `docker compose ps` command.
+Make sure the `postgres`, `odre-server`, `geo-data-server` and `network-modification-server` services are up with the `docker compose ps` command.
 ```bash
 $ docker compose exec postgres /init-geo-data.sh
+$ docker compose exec postgres /init-lines-catalog.sh
 $ docker compose exec postgres /init-merging-data.sh
 ```
 

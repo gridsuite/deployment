@@ -48,6 +48,7 @@ on:
       - voltage_init_server_updated
       - case_import_server_updated
       - gridadmin_app_updated
+      - spreadsheet_config_server_updated
 
 jobs:
   build:

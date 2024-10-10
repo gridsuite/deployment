@@ -29,6 +29,7 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}voltageinit";
   create database "${DATABASE_PREFIX_NAME}loadflow";
   create database "${DATABASE_PREFIX_NAME}stateestimation";
+  create database "${DATABASE_PREFIX_NAME}spreadsheetconfig";
   create database "${DATABASE_PREFIX_NAME}useridentity_oidcreplication";
 EOSQL
 }
