@@ -4,12 +4,12 @@ on:
   push:
   repository_dispatch:
     types:
-      - case_updated
+      - case_server_updated
       - cgmes_gl_server_updated
       - geo_data_updated
       - network_conversion_server_updated
       - network_map_server_updated
-      - network_store_updated
+      - network_store_server_updated
       - single_line_diagram_server_updated
       - gridstudy_app_updated
       - study_server_updated
