@@ -192,14 +192,7 @@ services:
   swagger-ui:
     #profiles: all
     image: swaggerapi/swagger-ui:latest
-    healthcheck:
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_interval: 5s
-      start_period: 10s
-      #test: curl --fail --noproxy '*' -so /dev/null http://localhost:8080/swagger/
-      test: wget -Y off -O /dev/null http://localhost:8080/swagger/
+    build: ./technical/swagger
     restart: unless-stopped
     deploy:
       replicas: 1
@@ -220,60 +213,15 @@ services:
       - 9080:8080
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    volumes:
-      - $PWD/../technical/swagger-proxy-cors.conf:/etc/nginx/templates/embedding.conf:ro
-      #- $PWD/../technical/nginx-docker.conf:/etc/nginx/conf.d/docker.conf:ro
     environment:
-      NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE: true
-      PORT_IPV6: 8080
+      NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE: true  # with deploy limits, will redduce the number of wrokers
       BASE_URL: /swagger
-      EMBEDDING: false  #hack for cors
-      DEEP_LINKING: true
-      DISPLAY_REQUEST_DURATION: true
-      FILTER: true
-      SHOW_EXTENSIONS: true
-      VALIDATOR_URL: null
+      #TRY_IT_OUT_ENABLED: true  #enable "Try it out" by default
       URLS_PRIMARY_NAME: gateway
       URLS: >
         [
         {"url":"https://github.com/elastic/elasticsearch-specification/raw/8.12/output/openapi/elasticsearch-serverless-openapi.json","name":"ElasticSearch API"},
-        {"url":"https://github.com/elastic/kibana/raw/refs/tags/v8.7.1/x-pack/plugins/fleet/common/openapi/bundled.json","name":"Kibana plugin Fleet API"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/9000","name":"[9000] gateway"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5022","name":"[5022] actions"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5010","name":"[5010] balances-adjustment"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5039","name":"[5039] case-import"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5000","name":"[5000] case"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5011","name":"[5011] case-validation"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5021","name":"[5021] cgmes-boundary"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/8095","name":"[8095] cgmes-gl"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5024","name":"[5024] config-notification"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5025","name":"[5025] config"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5004","name":"[5004] directory-notification"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5026","name":"[5026] directory"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5036","name":"[5036] dynamic-mapping"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5032","name":"[5032] dynamic-simulation"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5029","name":"[5029] explore"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5027","name":"[5027] filter"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/8087","name":"[8087] geo-data"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5008","name":"[5008] loadflow"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5002","name":"[5002] merge-notification"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5020","name":"[5020] merge-orchestrator"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5003","name":"[5003] network-conversion"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5006","name":"[5006] network-map"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5007","name":"[5007] network-modification"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/8080","name":"[8080] network-store"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/8090","name":"[8090] odre"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5028","name":"[5028] report"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5023","name":"[5023] security-analysis"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5030","name":"[5030] sensitivity-analysis"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5031","name":"[5031] shortcircuit"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5005","name":"[5005] single-line-diagram"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5035","name":"[5035] spreadsheet-config"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5009","name":"[5009] study-notification"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5001","name":"[5001] study"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5037","name":"[5037] timeseries"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5033","name":"[5033] user-admin"},
-        {"url":"http://localhost:9080/swagger/proxy-cors/5038","name":"[5038] voltage-init"}
+        {"url":"https://github.com/elastic/kibana/raw/refs/tags/v8.7.1/x-pack/plugins/fleet/common/openapi/bundled.json","name":"Kibana plugin Fleet API"}
         ]
       # no spec found for:
       #   https://rawcdn.githack.com/rabbitmq/rabbitmq-server/v3.13.7/deps/rabbitmq_management/priv/www/api/index.html
