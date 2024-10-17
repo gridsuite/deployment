@@ -1,8 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-commonLabels:
-  app: gridsuite
+labels:
+  - includeSelectors: true
+    pairs:
+      app: gridsuite
 
 patches:
 - path: patches/deployments.yaml
@@ -11,27 +13,27 @@ patches:
 - path: patches/deployments-springboot.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
 - path: patches/deployments-springboot-dbconfig.yaml
   target:
     kind: Deployment
-    labelSelector: "gridsuite.org/springboot-with-database=true"
+    labelSelector: gridsuite.org/springboot-with-database=true
 - path: patches/deployments-apache.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-apache"
+    labelSelector: app.kubernetes.io/component=gridsuite-apache
 - path: patches/deployments-apache-gridapp.yaml
   target:
     kind: Deployment
-    labelSelector: "gridsuite.org/apache-gridapp=true"
+    labelSelector: gridsuite.org/apache-gridapp=true
 - path: patches/services-springboot.yaml
   target:
     kind: Service
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
 - path: patches/services-apache.yaml
   target:
     kind: Service
-    labelSelector: "app.kubernetes.io/component=gridsuite-apache"
+    labelSelector: app.kubernetes.io/component=gridsuite-apache
 - path: patches/cronjobs.yaml
   target:
     kind: CronJob
@@ -41,67 +43,68 @@ patches:
 - path: patches/cronjobs-dbconfig.yaml
   target:
     kind: CronJob
-    labelSelector: "gridsuite.org/cronjob-with-database=true"
+    labelSelector: gridsuite.org/cronjob-with-database=true
 - path: patches/deployments-springboot-size-xxs.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-xxs"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-xxs
 - path: patches/deployments-springboot-size-xs.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-xs"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-xs
 - path: patches/deployments-springboot-size-s.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-s"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-s
 - path: patches/deployments-springboot-size-m.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-m"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-m
 - path: patches/deployments-springboot-size-l.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-l"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-l
 - path: patches/deployments-springboot-size-l-forking.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-l-forking"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-l-forking
 - path: patches/deployments-springboot-size-xl.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-xl"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-xl
 - path: patches/deployments-springboot-size-xl-forking.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-xl-forking"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-xl-forking
 - path: patches/deployments-springboot-size-xxl.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-xxl"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-xxl
 - path: patches/deployments-springboot-size-xxl-forking.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springboot-xxl-forking"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springboot-xxl-forking
 - path: patches/deployments-springnative-size-xs.yaml
   target:
     kind: Deployment
-    labelSelector: "app.kubernetes.io/component=gridsuite-springboot"
-    annotationSelector: "gridsuite.org/size=springnative-xs"
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/size=springnative-xs
 - path: patches/deployments-springboot-elasticsearch-config.yaml
   target:
     kind: Deployment
-    labelSelector: "gridsuite.org/springboot-with-elasticsearch=true"
+    labelSelector: gridsuite.org/springboot-with-elasticsearch=true
 - path: patches/deployments-springboot-rabbitmq-config.yaml
   target:
     kind: Deployment
-    labelSelector: "gridsuite.org/springboot-with-rabbitmq=true"
+    labelSelector: gridsuite.org/springboot-with-rabbitmq=true
+
