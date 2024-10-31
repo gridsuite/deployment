@@ -130,7 +130,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "computations/min"
         },
         "overrides": []
       },
@@ -160,13 +161,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(app_computation_count_total{type='$COMPUTATION', status='OK'}) by (provider)",
+          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[5m]) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation with success count",
+      "title": "Computation Density (successful computations/min)",
       "type": "timeseries"
     },
     {
@@ -335,7 +336,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "errors/min"
         },
         "overrides": []
       },
@@ -365,13 +367,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(app_computation_count_total{type='$COMPUTATION', status='NOK'}) by (provider)",
+          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[5m]) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation with error count",
+      "title": "Computation Error Density (errors/min)",
       "type": "timeseries"
     },
     {
