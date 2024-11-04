@@ -161,7 +161,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[5m]) * 60",
+          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL]) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
@@ -367,7 +367,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[5m]) * 60",
+          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[$RATE_INTERVAL]) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
@@ -1062,6 +1062,43 @@
           }
         ],
         "query": "loadflow, sa, sensitivityanalysis, ds, shortcircuitanalysis, voltageinit",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "5m",
+          "value": "5m"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "RATE_INTERVAL",
+        "options": [
+          {
+            "selected": true,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          }
+        ],
+        "query": "5m,10m,30m,1h",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
