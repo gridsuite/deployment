@@ -8,3 +8,34 @@ gridsuite:
       name: state-estimation-server
       base-uri: http://state-estimation-server/
       optional: true
+
+    - name: geo-data-server
+      base-uri: http://172.17.0.1:8087
+    - name: network-map-server
+      base-uri: http://172.17.0.1:5006
+    - name: network-modification-server
+      base-uri: http://172.17.0.1:5007
+    - name: loadflow-server
+      base-uri: http://172.17.0.1:5008
+    - name: actions-server
+      base-uri: http://172.17.0.1:5022
+    - name: filter-server
+      base-uri: http://172.17.0.1:5027
+    - name: security-analysis-server
+      base-uri: http://172.17.0.1:5023
+    - name: report-server
+      base-uri: http://172.17.0.1:5028
+    - name: sensitivity-analysis-server
+      base-uri: http://172.17.0.1:5030
+    - name: shortcircuit-server
+      base-uri: http://172.17.0.1:5031
+    - name: dynamic-simulation-server
+      base-uri: http://172.17.0.1:5032
+    - name: timeseries-server
+      base-uri: http://172.17.0.1:5037
+    - name: dynamic-mapping-server
+      base-uri: http://172.17.0.1:5036
+    - name: voltage-init-server
+      base-uri: http://172.17.0.1:5038
+    - name: user-admin-server
+      base-uri: http://172.17.0.1:5033

@@ -1,0 +1,2 @@
+import-export-parameters-default-value:
+  iidm.export.ampl.export-version: "1.0"
