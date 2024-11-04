@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - ../../overlays/azure
 
 components:
@@ -107,7 +107,7 @@ images:
     digest: todo
 
 # Patch ingress host
-patchesJson6902:
+patches:
   - target:
       group: networking.k8s.io
       version: v1
@@ -192,3 +192,4 @@ patchesJson6902:
       kind: Ingress
       name: gridadmin-app-ingress
     path: patch_ingress.yaml
+
