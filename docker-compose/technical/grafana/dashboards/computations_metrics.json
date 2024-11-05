@@ -161,13 +161,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL]) * 60",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL])) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation Density (successful computations/min)",
+      "title": "Computation Rate (successful computations/min)",
       "type": "timeseries"
     },
     {
@@ -367,13 +367,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[$RATE_INTERVAL]) * 60",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[$RATE_INTERVAL])) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation Error Density (errors/min)",
+      "title": "Computation Error Rate (errors/min)",
       "type": "timeseries"
     },
     {
