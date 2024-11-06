@@ -48,6 +48,7 @@ on:
       - case_import_server_updated
       - gridadmin_app_updated
       - spreadsheet_config_server_updated
+      - dynamic_security_analysis_server_updated
 
 jobs:
   build:
