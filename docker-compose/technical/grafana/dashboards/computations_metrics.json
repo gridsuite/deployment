@@ -161,7 +161,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL])) * 60",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL])) by (provider) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
@@ -367,7 +367,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[$RATE_INTERVAL])) * 60",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL])) by (provider) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
