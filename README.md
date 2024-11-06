@@ -208,6 +208,7 @@ http://localhost:5028/swagger-ui.html  // report-server
 http://localhost:5029/swagger-ui.html  // explore-server
 http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
 http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
+http://localhost:5034/swagger-ui.html  // dynamic-security-analysis-server
 http://localhost:5027/swagger-ui.html  // filter-server
 http://localhost:5010/swagger-ui.html  // balances-adjustment-server
 http://localhost:5011/swagger-ui.html  // case-validation-server
@@ -405,6 +406,7 @@ http://<INGRESS_HOST>/directory-server/swagger-ui.html
 http://<INGRESS_HOST>/balances-adjustment-server/swagger-ui.html
 http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
+http://<INGRESS_HOST>/dynamic-security-analysis-server/swagger-ui.html
 http://<INGRESS_HOST>/filter-server/swagger-ui.html
 http://<INGRESS_HOST>/report-server/swagger-ui.html
 http://<INGRESS_HOST>/user-admin-server/swagger-ui.html

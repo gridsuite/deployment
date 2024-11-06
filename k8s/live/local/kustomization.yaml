@@ -34,6 +34,7 @@ resources:
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
+  - dynamic-security-analysis-server-ingress.yaml
   - directory-server-ingress.yaml
   - explore-server-ingress.yaml
   - external-postgres-service.yaml
@@ -47,7 +48,6 @@ resources:
   - timeseries-server-ingress.yaml
   - voltage-init-server-ingress.yaml
   - spreadsheet-config-server-ingress.yaml
-  - dynamic-security-analysis-server-ingress.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap

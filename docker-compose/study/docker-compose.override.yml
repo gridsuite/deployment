@@ -344,7 +344,7 @@ services:
     ports:
       - 5034:80
     volumes:
-      - $PWD/../../k8s/resources/study/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/dynamic-security-analysis-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
