@@ -34,6 +34,7 @@ on:
       - case_validation_server_updated
       - directory_server_updated
       - dynamic_simulation_server_updated
+      - dynamic_security_analysis_server_updated
       - report_server_updated
       - gridexplore_app_updated
       - directory-notification_server_updated
@@ -48,7 +49,6 @@ on:
       - case_import_server_updated
       - gridadmin_app_updated
       - spreadsheet_config_server_updated
-      - dynamic_security_analysis_server_updated
 
 jobs:
   build:

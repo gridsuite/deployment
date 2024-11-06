@@ -6,6 +6,7 @@ function createDatabases()
 {
 psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}ds";
+  create database "${DATABASE_PREFIX_NAME}dynamicsecurityanalysis";
   create database "${DATABASE_PREFIX_NAME}directory";
   create database "${DATABASE_PREFIX_NAME}study";
   create database "${DATABASE_PREFIX_NAME}actions";
@@ -24,13 +25,12 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}useradmin";
   create database "${DATABASE_PREFIX_NAME}sensitivityanalysis";
   create database "${DATABASE_PREFIX_NAME}shortcircuit";
-  create database "${DATABASE_PREFIX_NAME}case_metadata"; 
+  create database "${DATABASE_PREFIX_NAME}case_metadata";
   create database "${DATABASE_PREFIX_NAME}timeseries";
   create database "${DATABASE_PREFIX_NAME}voltageinit";
   create database "${DATABASE_PREFIX_NAME}loadflow";
   create database "${DATABASE_PREFIX_NAME}stateestimation";
   create database "${DATABASE_PREFIX_NAME}spreadsheetconfig";
-  create database "${DATABASE_PREFIX_NAME}dynamicsecurityanalysis";
 EOSQL
 }
 
