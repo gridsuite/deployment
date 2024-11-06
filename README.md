@@ -84,7 +84,7 @@ Here's the summary of the profiles and what services they includes:
 | rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
 | kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | | ✅ | | |
 | pgadmin | | | | | | | | | | ✅ | |
-| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
+| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>spreadsheet&#8209;config&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
 | griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
 | gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | | |
 | gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | | |
@@ -176,49 +176,47 @@ $ docker image prune -f
 
 You can now access to all applications and swagger UIs of the Spring services of the chosen profile:
 
-Applications:
-```html
-http://localhost:80 // gridexplore
-http://localhost:81 // gridmerge
-http://localhost:82 // gridadmin
-http://localhost:83 // griddyna
-http://localhost:84 // gridstudy
-```
+- Applications:
+  - http://localhost:80 :: gridexplore
+  - http://localhost:81 :: gridmerge
+  - http://localhost:82 :: gridadmin
+  - http://localhost:83 :: griddyna
+  - http://localhost:84 :: gridstudy
 
-Swagger UI:
-```html
-http://localhost:5000/swagger-ui.html  // case-server
-http://localhost:8095/swagger-ui.html  // cgmes-gl-server
-http://localhost:8087/swagger-ui.html  // geo-data-server
-http://localhost:5003/swagger-ui.html  // network-conversion-server
-http://localhost:8080/swagger-ui.html  // network-store-server
-http://localhost:5006/swagger-ui.html  // network-map-server
-http://localhost:8090/swagger-ui.html  // odre-server
-http://localhost:5005/swagger-ui.html  // single-line-diagram-server
-http://localhost:5001/swagger-ui.html  // study-server
-http://localhost:5007/swagger-ui.html  // network-modification-server
-http://localhost:5008/swagger-ui.html  // loadflow-server
-http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
-http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
-http://localhost:5022/swagger-ui.html  // actions-server
-http://localhost:5023/swagger-ui.html  // security-analysis-server
-http://localhost:5025/swagger-ui.html  // config-server
-http://localhost:5026/swagger-ui.html  // directory-server
-http://localhost:5028/swagger-ui.html  // report-server
-http://localhost:5029/swagger-ui.html  // explore-server
-http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
-http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
-http://localhost:5027/swagger-ui.html  // filter-server
-http://localhost:5010/swagger-ui.html  // balances-adjustment-server
-http://localhost:5011/swagger-ui.html  // case-validation-server
-http://localhost:5033/swagger-ui.html  // user-admin-server
-http://localhost:5030/swagger-ui.html  // sensitivity-analysis-server
-http://localhost:5031/swagger-ui.html  // shortcircuit-server
-http://localhost:5035/swagger-ui.html  // spreadsheet-config-server
-http://localhost:5037/swagger-ui.html  // timeseries-server
-http://localhost:5038/swagger-ui.html  // voltage-init-server
-http://localhost:5039/swagger-ui.html  // case-import-server
-```
+- Aggregated Swagger-UI: http://localhost:9080/swagger/
+- Swagger-UI per server:
+  - http://localhost:5000/swagger-ui.html :: case-server
+  - http://localhost:8095/swagger-ui.html :: cgmes-gl-server
+  - http://localhost:8087/swagger-ui.html :: geo-data-server
+  - http://localhost:5003/swagger-ui.html :: network-conversion-server
+  - http://localhost:8080/swagger-ui.html :: network-store-server
+  - http://localhost:5006/swagger-ui.html :: network-map-server
+  - http://localhost:8090/swagger-ui.html :: odre-server
+  - http://localhost:5005/swagger-ui.html :: single-line-diagram-server
+  - http://localhost:5001/swagger-ui.html :: study-server
+  - http://localhost:5007/swagger-ui.html :: network-modification-server
+  - http://localhost:5008/swagger-ui.html :: loadflow-server
+  - http://localhost:5020/swagger-ui.html :: merge-orchestrator-server
+  - http://localhost:5021/swagger-ui.html :: cgmes-boundary-server
+  - http://localhost:5022/swagger-ui.html :: actions-server
+  - http://localhost:5023/swagger-ui.html :: security-analysis-server
+  - http://localhost:5025/swagger-ui.html :: config-server
+  - http://localhost:5026/swagger-ui.html :: directory-server
+  - http://localhost:5028/swagger-ui.html :: report-server
+  - http://localhost:5029/swagger-ui.html :: explore-server
+  - http://localhost:5036/swagger-ui.html :: dynamic-mapping-server
+  - http://localhost:5032/swagger-ui.html :: dynamic-simulation-server
+  - http://localhost:5027/swagger-ui.html :: filter-server
+  - http://localhost:5010/swagger-ui.html :: balances-adjustment-server
+  - http://localhost:5011/swagger-ui.html :: case-validation-server
+  - http://localhost:5033/swagger-ui.html :: user-admin-server
+  - http://localhost:5030/swagger-ui.html :: sensitivity-analysis-server
+  - http://localhost:5031/swagger-ui.html :: shortcircuit-server
+  - http://localhost:5035/swagger-ui.html :: spreadsheet-config-server
+  - http://localhost:5037/swagger-ui.html :: timeseries-server
+  - http://localhost:5038/swagger-ui.html :: voltage-init-server
+  - http://localhost:5039/swagger-ui.html :: case-import-server
+
 
 ### RabbitMQ console
 
@@ -290,6 +288,18 @@ You must get this output from docker compose now:
 
 > [!IMPORTANT]  
 > The commands shown will install the plugin user-side, so you don't need to remove your old docker-compose v1 if it is installed system-wide.
+
+
+### Tips & tricks
+
+#### Some commands that can be useful
+```shell
+# Get all services that have ports bound on host
+docker compose --profile all config --services | xargs printf -- 'grid-%s-1\n' | tr '\n' ' ' | xargs docker inspect | jq 'map( { (.Name|tostring): .HostConfig.PortBindings } ) | add'
+
+# Get the list of all ports bound on host
+docker compose --profile all config --services | xargs printf -- 'grid-%s-1\n' | tr '\n' ' ' | xargs docker inspect | jq 'map(.HostConfig.PortBindings[] | add | .HostPort | tonumber) | . + [3000,3001,3002,3003,3004,5035,5041] | sort'
+```
 
 
 ## k8s deployment with Minikube

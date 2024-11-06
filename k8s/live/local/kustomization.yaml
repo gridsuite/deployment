@@ -47,6 +47,7 @@ resources:
   - timeseries-server-ingress.yaml
   - voltage-init-server-ingress.yaml
   - spreadsheet-config-server-ingress.yaml
+  - swagger-ui.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap

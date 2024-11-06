@@ -187,3 +187,45 @@ services:
       - GF_ANALYTICS_CHECK_FOR_UPDATES=false
     ports:
       - "7000:3000"
+
+  # accessible at http://localhost:9080/swagger/
+  swagger-ui:
+    #profiles: all
+    image: swaggerapi/swagger-ui:latest
+    build: ./technical/swagger
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+      #restart_policy:
+      #  condition: on-failure
+      #  delay: 5s
+      #  max_attempts: 3
+      #  window: 20s
+      resources:
+        # use ~14MB RAM when tested
+        limits:
+          # we limit the number of worker processes nginx create
+          cpus: '1'
+          memory: 50M
+        reservations:
+          memory: 20M
+    ports:
+      - 9080:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE: true  # with deploy limits, will redduce the number of wrokers
+      BASE_URL: /swagger
+      #TRY_IT_OUT_ENABLED: true  #enable "Try it out" by default
+      URLS_PRIMARY_NAME: gateway
+      URLS: >
+        [
+        {"url":"https://github.com/elastic/elasticsearch-specification/raw/8.12/output/openapi/elasticsearch-serverless-openapi.json","name":"ElasticSearch API"},
+        {"url":"https://github.com/elastic/kibana/raw/refs/tags/v8.7.1/x-pack/plugins/fleet/common/openapi/bundled.json","name":"Kibana plugin Fleet API"}
+        ]
+      # no spec found for:
+      #   https://rawcdn.githack.com/rabbitmq/rabbitmq-server/v3.13.7/deps/rabbitmq_management/priv/www/api/index.html
+      #   https://github.com/prometheus/prometheus/blob/main/docs/querying/api.md?plain=1
+      #     https://prometheus.io/docs/prometheus/latest/querying/api/
+      #   https://www.elastic.co/docs/api/doc/kibana
+      #     WIP: https://github.com/elastic/kibana/issues/137240
