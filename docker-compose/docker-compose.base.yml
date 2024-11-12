@@ -273,6 +273,7 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:

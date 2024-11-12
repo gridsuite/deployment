@@ -58,6 +58,9 @@ configMapGenerator:
   - name: network-conversion-server-configmap-specific
     files:
       - application.yml=config/network-conversion-server-application.yml
+  - name: network-conversion-server-itools-configmap
+    files:
+      - config.yml=config/network-conversion-server-config.yml
   - name: network-store-server-configmap-specific
     files:
       - application.yml=config/network-store-server-application.yml
