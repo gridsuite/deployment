@@ -509,7 +509,6 @@ services:
     ports:
       - 5038:80
     volumes:
-      - $PWD/../../k8s/resources/study/config/voltage-init-server-config.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
