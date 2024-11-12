@@ -12,7 +12,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: user-identity-oidc-replication-server
+      name: user-identity-server
   template:
     metadata:
       labels:
