@@ -42,6 +42,7 @@ resources:
   - external-kibana-service.yaml
   - dynamic-mapping-server-ingress.yaml
   - user-admin-server-ingress.yaml
+  - user-identity-server-ingress.yaml
   - sensitivity-analysis-server-ingress.yaml
   - shortcircuit-server-ingress.yaml
   - timeseries-server-ingress.yaml

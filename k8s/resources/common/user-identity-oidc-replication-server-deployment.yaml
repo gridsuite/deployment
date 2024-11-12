@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-identity-oidc-replication-server
+  labels:
+    name: user-identity-oidc-replication-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+  annotations:
+    gridsuite.org/size: springboot-xs
+spec:
+  selector:
+    matchLabels:
+      name: user-identity-oidc-replication-server
+  template:
+    metadata:
+      labels:
+        name: user-identity-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/user-identity-oidc-replication-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: user-identity-oidc-replication-server-configmap-specific-volume
+      volumes:
+        - name: user-identity-oidc-replication-server-configmap-specific-volume
+          configMap:
+            name: user-identity-oidc-replication-server-configmap-specific

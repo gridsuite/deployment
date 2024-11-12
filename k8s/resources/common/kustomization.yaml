@@ -38,6 +38,8 @@ resources:
   - user-admin-server-service.yaml
   - spreadsheet-config-server-deployment.yaml
   - spreadsheet-config-server-service.yaml
+  - user-identity-oidc-replication-server-deployment.yaml
+  - user-identity-server-service.yaml
 
 configMapGenerator:
   - name: default-backend-htdocs-configmap
@@ -96,4 +98,7 @@ configMapGenerator:
   - name: spreadsheet-config-server-configmap-specific
     files:
       - application.yml=config/spreadsheet-config-server-application.yml
+  - name: user-identity-oidc-replication-server-configmap-specific
+    files:
+      - application.yml=config/user-identity-oidc-replication-server-application.yml
 
