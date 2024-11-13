@@ -2,5 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 # must be in a component to be applied after the gridsuite component
-patchesStrategicMerge:
-- limit-max-public-cases.yaml
+patches:
+  - path: limit-max-public-cases.yaml
+

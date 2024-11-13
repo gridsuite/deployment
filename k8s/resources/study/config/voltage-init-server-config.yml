@@ -4,3 +4,7 @@ network:
 # Nb of concurrent processes - should be in-sync with voltageinit.run.voltageinitGroup queue concurrency
 computation-local:
   available-core: 2
+
+# TODO: to remove when upgrade to powsybl-optimizer v0.9.0 is done
+import-export-parameters-default-value:
+  iidm.export.ampl.export-version: "1.0"

@@ -42,11 +42,13 @@ on:
       - griddyna_app_updated
       - sensitivity_analysis_server_updated
       - user_admin_server_updated
+      - user_identity_oidc_replication_server_updated
       - shortcircuit_server_updated
       - timeseries_server_updated
       - voltage_init_server_updated
       - case_import_server_updated
       - gridadmin_app_updated
+      - spreadsheet_config_server_updated
 
 jobs:
   build:
