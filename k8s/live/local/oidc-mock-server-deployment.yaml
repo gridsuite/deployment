@@ -27,7 +27,7 @@ spec:
         - name: ISSUER_PREFIX
           value: "/oidc-mock-server"
         - name: CLIENT_COUNT
-          value: "10"
+          value: "8"
 
         # Client ID for containers (grid*-app-idpSettings.json)
         - name: CLIENT_ID
