@@ -30,75 +30,75 @@ spec:
           value: "10"
 
         # Client ID for containers (grid*-app-idpSettings.json)
-        - name: CLIENT_ID_EXPLORE
+        - name: CLIENT_ID
           value: "gridexplore-client"
-        - name: CLIENT_REDIRECT_URI_EXPLORE
+        - name: CLIENT_REDIRECT_URI
           value: "http://<INGRESS_HOST>/gridexplore/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_EXPLORE
+        - name: CLIENT_LOGOUT_REDIRECT_URI
           value: "http://<INGRESS_HOST>/gridexplore/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_EXPLORE
+        - name: CLIENT_SILENT_REDIRECT_URI
           value: "http://<INGRESS_HOST>/gridexplore/silent-renew-callback"
 
-        - name: CLIENT_ID_ADMIN
+        - name: CLIENT_ID_2
           value: "gridadmin-client"
-        - name: CLIENT_REDIRECT_URI_ADMIN
+        - name: CLIENT_REDIRECT_URI_2
           value: "http://<INGRESS_HOST>/gridadmin/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_ADMIN
+        - name: CLIENT_LOGOUT_REDIRECT_URI_2
           value: "http://<INGRESS_HOST>/gridadmin/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_ADMIN
+        - name: CLIENT_SILENT_REDIRECT_URI_2
           value: "http://<INGRESS_HOST>/gridadmin/silent-renew-callback"
 
-        - name: CLIENT_ID_DYNA
+        - name: CLIENT_ID_3
           value: "griddyna-client"
-        - name: CLIENT_REDIRECT_URI_DYNA
+        - name: CLIENT_REDIRECT_URI_3
           value: "http://<INGRESS_HOST>/griddyna/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_DYNA
+        - name: CLIENT_LOGOUT_REDIRECT_URI_3
           value: "http://<INGRESS_HOST>/griddyna/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_DYNA
+        - name: CLIENT_SILENT_REDIRECT_URI_3
           value: "http://<INGRESS_HOST>/griddyna/silent-renew-callback"
 
-        - name: CLIENT_ID_STUDY
+        - name: CLIENT_ID_4
           value: "gridstudy-client"
-        - name: CLIENT_REDIRECT_URI_STUDY
+        - name: CLIENT_REDIRECT_URI_4
           value: "http://<INGRESS_HOST>/gridstudy/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_STUDY
+        - name: CLIENT_LOGOUT_REDIRECT_URI_4
           value: "http://<INGRESS_HOST>/gridstudy/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_STUDY
+        - name: CLIENT_SILENT_REDIRECT_URI_4
           value: "http://<INGRESS_HOST>/gridstudy/silent-renew-callback"
 
         # Client IDs for local dev (grid*-app/public/idpSettings.json)
-        - name: CLIENT_ID_EXPLORE_LOCAL
+        - name: CLIENT_ID_5
           value: "gridexplore-local"
-        - name: CLIENT_REDIRECT_URI_EXPLORE_LOCAL
+        - name: CLIENT_REDIRECT_URI_5
           value: "http://localhost:3000/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_EXPLORE_LOCAL
+        - name: CLIENT_LOGOUT_REDIRECT_URI_5
           value: "http://localhost:3000/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_EXPLORE_LOCAL
+        - name: CLIENT_SILENT_REDIRECT_URI_5
           value: "http://localhost:3000/silent-renew-callback"
 
-        - name: CLIENT_ID_ADMIN_LOCAL
+        - name: CLIENT_ID_6
           value: "gridadmin-local"
-        - name: CLIENT_REDIRECT_URI_ADMIN_LOCAL
+        - name: CLIENT_REDIRECT_URI_6
           value: "http://localhost:3002/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_ADMIN_LOCAL
+        - name: CLIENT_LOGOUT_REDIRECT_URI_6
           value: "http://localhost:3002/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_ADMIN_LOCAL
+        - name: CLIENT_SILENT_REDIRECT_URI_6
           value: "http://localhost:3002/silent-renew-callback"
 
-        - name: CLIENT_ID_DYNA_LOCAL
+        - name: CLIENT_ID_7
           value: "griddyna-local"
-        - name: CLIENT_REDIRECT_URI_DYNA_LOCAL
+        - name: CLIENT_REDIRECT_URI_7
           value: "http://localhost:3003/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_DYNA_LOCAL
+        - name: CLIENT_LOGOUT_REDIRECT_URI_7
           value: "http://localhost:3003/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_DYNA_LOCAL
+        - name: CLIENT_SILENT_REDIRECT_URI_7
           value: "http://localhost:3003/silent-renew-callback"
 
-        - name: CLIENT_ID_STUDY_LOCAL
+        - name: CLIENT_ID_8
           value: "gridstudy-local"
-        - name: CLIENT_REDIRECT_URI_STUDY_LOCAL
+        - name: CLIENT_REDIRECT_URI_8
           value: "http://localhost:3004/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_STUDY_LOCAL
+        - name: CLIENT_LOGOUT_REDIRECT_URI_8
           value: "http://localhost:3004/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_STUDY_LOCAL
+        - name: CLIENT_SILENT_REDIRECT_URI_8
           value: "http://localhost:3004/silent-renew-callback"
