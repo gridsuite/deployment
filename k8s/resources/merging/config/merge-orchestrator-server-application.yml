@@ -1,3 +1,0 @@
-logging:
-  level:
-    org.gridsuite.merge.orchestrator.server.MergeOrchestratorService.input-broker-messages: DEBUG

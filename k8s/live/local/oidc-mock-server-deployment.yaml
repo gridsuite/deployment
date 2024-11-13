@@ -39,15 +39,6 @@ spec:
         - name: CLIENT_SILENT_REDIRECT_URI
           value: "http://<INGRESS_HOST>/gridexplore/silent-renew-callback"
 
-        - name: CLIENT_ID_2
-          value: "gridmerge-client"
-        - name: CLIENT_REDIRECT_URI_2
-          value: "http://<INGRESS_HOST>/gridmerge/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_2
-          value: "http://<INGRESS_HOST>/gridmerge/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_2
-          value: "http://<INGRESS_HOST>/gridmerge/silent-renew-callback"
-
         - name: CLIENT_ID_3
           value: "gridadmin-client"
         - name: CLIENT_REDIRECT_URI_3
@@ -84,15 +75,6 @@ spec:
           value: "http://localhost:3000/logout-callback"
         - name: CLIENT_SILENT_REDIRECT_URI_6
           value: "http://localhost:3000/silent-renew-callback"
-
-        - name: CLIENT_ID_7
-          value: "gridmerge-local"
-        - name: CLIENT_REDIRECT_URI_7
-          value: "http://localhost:3001/sign-in-callback"
-        - name: CLIENT_LOGOUT_REDIRECT_URI_7
-          value: "http://localhost:3001/logout-callback"
-        - name: CLIENT_SILENT_REDIRECT_URI_7
-          value: "http://localhost:3001/silent-renew-callback"
 
         - name: CLIENT_ID_8
           value: "gridadmin-local"

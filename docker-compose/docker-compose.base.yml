@@ -6,7 +6,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -39,7 +38,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -71,7 +69,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -103,7 +100,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -135,7 +131,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -167,7 +162,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -199,7 +193,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -231,7 +224,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -263,7 +255,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -296,7 +287,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -329,7 +319,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -357,7 +346,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -385,7 +373,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -418,7 +405,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -435,11 +421,6 @@ services:
       - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost:80/silent-renew-callback
-
-      - CLIENT_ID_2=gridmerge-client
-      - CLIENT_REDIRECT_URI_2=http://localhost:81/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:81/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:81/silent-renew-callback
 
       - CLIENT_ID_3=gridadmin-client
       - CLIENT_REDIRECT_URI_3=http://localhost:82/sign-in-callback
@@ -461,11 +442,6 @@ services:
       - CLIENT_REDIRECT_URI_6=http://localhost:3000/sign-in-callback
       - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:3000/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:3000/silent-renew-callback
-
-      - CLIENT_ID_7=gridmerge-local
-      - CLIENT_REDIRECT_URI_7=http://localhost:3001/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3001/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3001/silent-renew-callback
 
       - CLIENT_ID_8=gridadmin-local
       - CLIENT_REDIRECT_URI_8=http://localhost:3002/sign-in-callback
@@ -493,7 +469,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
