@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
   - ../../resources/common
   - ../../resources/study
-  - ../../resources/merging
   - ../../resources/dynamic-mapping
 

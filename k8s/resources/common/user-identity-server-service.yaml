@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: merge-orchestrator-server
+    name: user-identity-server
     app.kubernetes.io/component: gridsuite-springboot
-  name: merge-orchestrator-server
+  name: user-identity-server
 spec:
   selector:
-    name: merge-orchestrator-server
+    name: user-identity-server

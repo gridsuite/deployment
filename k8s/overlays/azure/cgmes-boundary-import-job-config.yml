@@ -1,6 +1,0 @@
-acquisition-server:
-  url: sftp://opde
-  cgmes-boundary-directory: ./boundaries
-
-cgmes-boundary-server:
-  url: http://cgmes-boundary-server/

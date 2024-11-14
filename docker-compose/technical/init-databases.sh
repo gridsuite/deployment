@@ -4,7 +4,6 @@ set -e
 
 /create-postgres-databases.sh &
 /init-geo-data.sh &
-/init-merging-data.sh &
 /init-lines-catalog.sh &
 
 exec docker-entrypoint.sh "$@"
