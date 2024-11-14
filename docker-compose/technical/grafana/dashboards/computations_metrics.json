@@ -130,8 +130,7 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "computations/min"
+          }
         },
         "overrides": []
       },
@@ -142,6 +141,7 @@
         "y": 1
       },
       "id": 13,
+      "interval": "300",
       "options": {
         "legend": {
           "calcs": [],
@@ -161,13 +161,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL])) by (provider) * 60",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$__rate_interval])) by (provider) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation Rate (successful computations/min)",
+      "title": "Computation rate with success (count/min)",
       "type": "timeseries"
     },
     {
@@ -336,8 +336,7 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "errors/min"
+          }
         },
         "overrides": []
       },
@@ -348,6 +347,7 @@
         "y": 9
       },
       "id": 11,
+      "interval": "300",
       "options": {
         "legend": {
           "calcs": [],
@@ -367,13 +367,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$RATE_INTERVAL])) by (provider) * 60",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$__rate_interval])) by (provider) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation Error Rate (errors/min)",
+      "title": "Computation rate with error (count/min)",
       "type": "timeseries"
     },
     {
@@ -1062,43 +1062,6 @@
           }
         ],
         "query": "loadflow, sa, sensitivityanalysis, ds, shortcircuitanalysis, voltageinit",
-        "queryValue": "",
-        "skipUrlSync": false,
-        "type": "custom"
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": "5m",
-          "value": "5m"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "RATE_INTERVAL",
-        "options": [
-          {
-            "selected": true,
-            "text": "5m",
-            "value": "5m"
-          },
-          {
-            "selected": false,
-            "text": "10m",
-            "value": "10m"
-          },
-          {
-            "selected": false,
-            "text": "30m",
-            "value": "30m"
-          },
-          {
-            "selected": false,
-            "text": "1h",
-            "value": "1h"
-          }
-        ],
-        "query": "5m,10m,30m,1h",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
