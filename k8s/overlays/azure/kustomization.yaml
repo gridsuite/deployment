@@ -8,15 +8,6 @@ configMapGenerator:
   - name: gateway-configmap
     files:
       - allowed-issuers.yml
-  - name: case-import-job-itools-configmap
-    files:
-      - config.yml=case-import-job-config.yml
-  - name: cgmes-assembling-job-itools-configmap
-    files:
-      - config.yml=cgmes-assembling-job-config.yml
-  - name: cgmes-boundary-import-job-configmap
-    files:
-      - config.yml=cgmes-boundary-import-job-config.yml
 
 patches:
   - path: limit-gridexplore-cases.yaml

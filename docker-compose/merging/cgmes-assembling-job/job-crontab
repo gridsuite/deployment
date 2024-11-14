@@ -1,1 +1,0 @@
-*/5 * * * * . /root/project_env.sh; java -cp /app/resources:/app/classes:/app/libs/* org.gridsuite.cgmes.assembling.job.ProfilesAcquisitionJob >> /root/job-execution.log 2>&1

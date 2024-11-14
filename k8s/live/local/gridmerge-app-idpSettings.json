@@ -1,8 +1,0 @@
-{
-    "authority" : "http://<INGRESS_HOST>/oidc-mock-server/",
-    "client_id" : "gridmerge-client",
-    "redirect_uri": "http://<INGRESS_HOST>/gridmerge/sign-in-callback",
-    "post_logout_redirect_uri" : "http://<INGRESS_HOST>/gridmerge/logout-callback",
-    "silent_redirect_uri" : "http://<INGRESS_HOST>/gridmerge/silent-renew-callback",
-    "scope" : "openid"
-}

@@ -141,6 +141,7 @@
         "y": 1
       },
       "id": 13,
+      "interval": "300",
       "options": {
         "legend": {
           "calcs": [],
@@ -160,13 +161,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(app_computation_count_total{type='$COMPUTATION', status='OK'}) by (provider)",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='OK'}[$__rate_interval])) by (provider) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation with success count",
+      "title": "Computation rate with success (count/min)",
       "type": "timeseries"
     },
     {
@@ -346,6 +347,7 @@
         "y": 9
       },
       "id": 11,
+      "interval": "300",
       "options": {
         "legend": {
           "calcs": [],
@@ -365,13 +367,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(app_computation_count_total{type='$COMPUTATION', status='NOK'}) by (provider)",
+          "expr": "sum(rate(app_computation_count_total{type='$COMPUTATION', status='NOK'}[$__rate_interval])) by (provider) * 60",
           "interval": "",
           "legendFormat": "{{provider}}",
           "refId": "A"
         }
       ],
-      "title": "Computation with error count",
+      "title": "Computation rate with error (count/min)",
       "type": "timeseries"
     },
     {
