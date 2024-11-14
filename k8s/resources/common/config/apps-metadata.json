@@ -1,11 +1,4 @@
 [{
-  "name" : "Merge",
-  "url"  : "/gridmerge",
-  "appColor" : "#2D9BF0",
-  "hiddenInAppsMenu" : false,
-  "hiddenUserInformation": true
-},
-{
   "name" : "Study",
   "url"  : "/gridstudy",
   "appColor" : "#0CA789",

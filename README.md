@@ -21,13 +21,11 @@ $ chmod 777 cases postgres elasticsearch init
 |---------------------------------------------------------------------------------------------------------------------------------|
 
 
-<a name="data_init"></a>When the postgres container is created, all databases are created automatically as well as the necessary initial data loading (geographical, cgmes boundaries, tsos, lines catalog...).
+<a name="data_init"></a>When the postgres container is created, all databases are created automatically as well as the necessary initial data loading (geographical, lines catalog...).
 
 To do this, you must copy the following files in the init directory (_$GRIDSUITE_DATABASES/init_), **before** creating the postgres container:
 - [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_substations.json)
 - [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_lines.json)
-- [business_processes.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/business_processes.json)
-- [tsos.json](https://raw.githubusercontent.com/gridsuite/cgmes-boundary-server/main/src/test/resources/tsos.json)
 - [lines-catalog.json](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/test/resources/lines-catalog.json)
 
 ### Clone deployment repository
@@ -46,7 +44,7 @@ $ cd deployment
 
 ### Application profiles _(alias)_
 > [!NOTE]  
-> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `merging`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
+> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
 
 ```bash
 $ cd docker-compose/suite
@@ -54,10 +52,6 @@ $ docker compose up
 ```
 ```bash
 $ cd docker-compose/study
-$ docker compose up
-```
-```bash
-$ cd docker-compose/merging
 $ docker compose up
 ```
 ```bash
@@ -79,19 +73,18 @@ This is the preferred development deployment.
 _Everything described in this section is inside the folder `explicit-profiles`._
 
 Here's the summary of the profiles and what services they includes:
-| Component \ Service | _(none)_ | merging | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
-| kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | | ✅ | | |
-| pgadmin | | | | | | | | | | ✅ | |
-| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
-| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | | ✅ | ✅ | ✅ | | | | |
-| gridmerge&#8209;app<br/>balances&#8209;adjustment&#8209;server<br/>case&#8209;import&#8209;job<br/>case&#8209;validation&#8209;server<br/>cgmes&#8209;assembling&#8209;job<br/>cgmes&#8209;boundary&#8209;import&#8209;job<br/>cgmes&#8209;boundary&#8209;server<br/>merge&#8209;notification&#8209;server<br/>merge&#8209;orchestrator&#8209;server | | ✅ | | | | | ✅ | | | | |
-| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | | ✅ | | | ✅ | ✅ | | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | | ✅ | | | | ✅ | | | | |
-| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | | ✅ | ✅ | | ✅ | ✅ | | | | |
-| case&#8209;import&#8209;server | | | | | | | | ✅ | | | |
-| grafana<br/>prometheus | | | | | | | | | | | ✅ |
+| Component \ Service | _(none)_ | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
+|---|---|---|---|---|---|---|---|---|---|---|
+| rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
+| kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | ✅ | | |
+| pgadmin | | | | | | | | | ✅ | |
+| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
+| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | ✅ | ✅ | ✅ | | | | |
+| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>timeseries&#8209;server | | ✅ | | | ✅ | ✅ | | | | |
+| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | ✅ | | | | ✅ | | | | |
+| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | ✅ | ✅ | | ✅ | ✅ | | | | |
+| case&#8209;import&#8209;server | | | | | | | ✅ | | | |
+| grafana<br/>prometheus | | | | | | | | | | ✅ |
 
 To use a profile, you use:
 ```shell
@@ -179,7 +172,6 @@ You can now access to all applications and swagger UIs of the Spring services of
 Applications:
 ```html
 http://localhost:80 // gridexplore
-http://localhost:81 // gridmerge
 http://localhost:82 // gridadmin
 http://localhost:83 // griddyna
 http://localhost:84 // gridstudy
@@ -198,8 +190,6 @@ http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
 http://localhost:5008/swagger-ui.html  // loadflow-server
-http://localhost:5020/swagger-ui.html  // merge-orchestrator-server
-http://localhost:5021/swagger-ui.html  // cgmes-boundary-server
 http://localhost:5022/swagger-ui.html  // actions-server
 http://localhost:5023/swagger-ui.html  // security-analysis-server
 http://localhost:5025/swagger-ui.html  // config-server
@@ -209,8 +199,6 @@ http://localhost:5029/swagger-ui.html  // explore-server
 http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
 http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
 http://localhost:5027/swagger-ui.html  // filter-server
-http://localhost:5010/swagger-ui.html  // balances-adjustment-server
-http://localhost:5011/swagger-ui.html  // case-validation-server
 http://localhost:5033/swagger-ui.html  // user-admin-server
 http://localhost:5034/swagger-ui.html  // user-identity-server
 http://localhost:5030/swagger-ui.html  // sensitivity-analysis-server
@@ -378,7 +366,6 @@ You can now access to the application and the swagger UI of all the Spring servi
 Applications:
 ```html
 http://<INGRESS_HOST>/gridstudy/
-http://<INGRESS_HOST>/gridmerge/
 http://<INGRESS_HOST>/griddyna/
 http://<INGRESS_HOST>/gridexplore/
 http://<INGRESS_HOST>/gridadmin/
@@ -397,14 +384,10 @@ http://<INGRESS_HOST>/single-line-diagram-server/swagger-ui.html
 http://<INGRESS_HOST>/study-server/swagger-ui.html
 http://<INGRESS_HOST>/network-modification-server/swagger-ui.html
 http://<INGRESS_HOST>/loadflow-server/swagger-ui.html
-http://<INGRESS_HOST>/merge-orchestrator-server/swagger-ui.html
-http://<INGRESS_HOST>/cgmes-boundary-server/swagger-ui.html
 http://<INGRESS_HOST>/actions-server/swagger-ui.html
 http://<INGRESS_HOST>/security-analysis-server/swagger-ui.html
 http://<INGRESS_HOST>/config-server/swagger-ui.html
 http://<INGRESS_HOST>/directory-server/swagger-ui.html
-http://<INGRESS_HOST>/balances-adjustment-server/swagger-ui.html
-http://<INGRESS_HOST>/case-validation-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
 http://<INGRESS_HOST>/filter-server/swagger-ui.html
 http://<INGRESS_HOST>/report-server/swagger-ui.html
@@ -464,7 +447,7 @@ After this configuration :
 
 ## Databases creation and data initialization
 
-Considering databases are created automatically as well as the necessary initial data (geographical, cgmes boundaries, tsos, ...), the following part concerns only the databases recreation and/or the update of the initial data.
+Considering databases are created automatically as well as the necessary initial data (geographical, lines catalog, ...), the following part concerns only the databases recreation and/or the update of the initial data.
 All actions can be done from a docker-compose profile.
 
 ### Databases creation
@@ -490,7 +473,6 @@ Make sure the `postgres`, `odre-server`, `geo-data-server` and `network-modifica
 ```bash
 $ docker compose exec postgres /init-geo-data.sh
 $ docker compose exec postgres /init-lines-catalog.sh
-$ docker compose exec postgres /init-merging-data.sh
 ```
 
 **Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. You have to execute those REST requests :
