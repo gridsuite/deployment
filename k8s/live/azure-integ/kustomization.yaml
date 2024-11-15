@@ -46,6 +46,8 @@ images:
     digest: 8f6e450f97f334fe058ea04162625c0e00fc56528dc0ba747ea63c53324a7bde
   - name: docker.io/gridsuite/dynamic-simulation-server
     digest: a3725c2bfde5d8828aad59e97b6b9c05142700c003da08781a3a044a6bae7096
+  - name: docker.io/gridsuite/dynamic-security-analysis-server
+    digest: b60c91d32c50bccf1f80722e9273c8cce0b8358738dcafa8d70cd754e9d451e0
   - name: docker.io/gridsuite/gateway
     digest: 7a9d09c6a5125d6303b305cb6002194cc6821e6fca07fe30433b53e2519b0ad6
   - name: docker.io/gridsuite/geo-data-server
