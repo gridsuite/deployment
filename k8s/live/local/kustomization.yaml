@@ -29,6 +29,7 @@ resources:
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
+  - dynamic-security-analysis-server-ingress.yaml
   - directory-server-ingress.yaml
   - explore-server-ingress.yaml
   - external-postgres-service.yaml
