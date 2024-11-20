@@ -10,8 +10,6 @@ resources:
   - oidc-mock-server-ingress.yaml
   - oidc-mock-server-service.yaml
   - case-server-ingress.yaml
-  - case-validation-server-ingress.yaml
-  - cgmes-boundary-server-ingress.yaml
   - cgmes-gl-server-ingress.yaml
   - geo-data-server-ingress.yaml
   - network-conversion-server-ingress.yaml
@@ -23,10 +21,7 @@ resources:
   - study-server-ingress.yaml
   - gateway-ingress.yaml
   - loadflow-server-ingress.yaml
-  - balances-adjustment-server-ingress.yaml
   - study-notification-server-ingress.yaml
-  - merge-orchestrator-server-ingress.yaml
-  - merge-notification-server-ingress.yaml
   - actions-server-ingress.yaml
   - filter-server-ingress.yaml
   - report-server-ingress.yaml
@@ -34,6 +29,7 @@ resources:
   - config-server-ingress.yaml
   - config-notification-server-ingress.yaml
   - dynamic-simulation-server-ingress.yaml
+  - dynamic-security-analysis-server-ingress.yaml
   - directory-server-ingress.yaml
   - explore-server-ingress.yaml
   - external-postgres-service.yaml
@@ -42,6 +38,7 @@ resources:
   - external-kibana-service.yaml
   - dynamic-mapping-server-ingress.yaml
   - user-admin-server-ingress.yaml
+  - user-identity-server-ingress.yaml
   - sensitivity-analysis-server-ingress.yaml
   - shortcircuit-server-ingress.yaml
   - timeseries-server-ingress.yaml
@@ -58,21 +55,9 @@ configMapGenerator:
   - name: gridexplore-app-configmap
     files:
       - idpSettings.json=gridexplore-app-idpSettings.json
-  - name: gridmerge-app-configmap
-    files:
-      - idpSettings.json=gridmerge-app-idpSettings.json
   - name: gateway-configmap
     files:
       - allowed-issuers.yml
-  - name: case-import-job-itools-configmap
-    files:
-      - config.yml=case-import-job-config.yml
-  - name: cgmes-assembling-job-itools-configmap
-    files:
-      - config.yml=cgmes-assembling-job-config.yml
-  - name: cgmes-boundary-import-job-configmap
-    files:
-      - config.yml=cgmes-boundary-import-job-config.yml
   - name: griddyna-app-configmap
     files:
       - idpSettings.json=griddyna-app-idpSettings.json

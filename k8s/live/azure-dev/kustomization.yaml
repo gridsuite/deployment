@@ -15,9 +15,6 @@ configMapGenerator:
   - name: gridstudy-app-configmap
     files:
       - idpSettings.json=gridstudy-app-idpSettings.json
-  - name: gridmerge-app-configmap
-    files:
-      - idpSettings.json=gridmerge-app-idpSettings.json
   - name: gridexplore-app-configmap
     files:
       - idpSettings.json=gridexplore-app-idpSettings.json
@@ -78,18 +75,6 @@ patches:
       version: v1
       kind: Ingress
       name: gridstudy-app-ingress
-    path: patch_ingress.yaml
-  - target:
-      group: networking.k8s.io
-      version: v1
-      kind: Ingress
-      name: gridmerge-app-ingress
-    path: patch_tls_ingress.yaml
-  - target:
-      group: networking.k8s.io
-      version: v1
-      kind: Ingress
-      name: gridmerge-app-ingress
     path: patch_ingress.yaml
   - target:
       group: networking.k8s.io
