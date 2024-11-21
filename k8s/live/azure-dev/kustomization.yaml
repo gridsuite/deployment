@@ -49,6 +49,10 @@ configMapGenerator:
     behavior: merge
     files:
       - config.yml=loadflow-server-config.yml
+  - name: security-analysis-server-itools-configmap
+    behavior: merge
+    files:
+      - config.yml=security-analysis-server-config.yml
 
 # Patch ingress host
 patches:
