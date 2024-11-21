@@ -156,7 +156,10 @@ services:
       - $PWD/../technical/servers_pgadmin.json:/pgadmin4/servers.json
     restart: unless-stopped
 
-  minio:
+  s3-storage:
+    profiles:
+      - all
+      - s3
     image: minio/minio:RELEASE.2023-09-27T15-22-50Z # just a fixed version, latest as of today
     # need to override entrypoint to create the bucket, is there a simpler way ?
     entrypoint: sh
