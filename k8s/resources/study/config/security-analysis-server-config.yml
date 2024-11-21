@@ -15,4 +15,4 @@ computation-local:
   available-core: 2
 
 open-security-analysis-default-parameters:
-  threadCount: 4
+  threadCount: 2
