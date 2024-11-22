@@ -313,7 +313,6 @@ services:
     profiles:
       - all
       - suite
-      - study
       - dynamic-simulation
     image: gridsuite/dynamic-simulation-server:latest
     ports:
@@ -338,7 +337,6 @@ services:
     profiles:
       - all
       - suite
-      - study
       - dynamic-simulation
     image: gridsuite/dynamic-security-analysis-server:latest
     ports:
@@ -501,7 +499,6 @@ services:
     profiles:
       - all
       - suite
-      - study
       - dynamic-simulation
     image: gridsuite/timeseries-server:latest
     ports:
