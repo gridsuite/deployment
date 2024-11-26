@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: Release version (vX.X)
+        required: true
+      gitReference:
+        description: SHA of the commit from where to release or branch name
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        name: Generate app token
+        with:
+          app-id: ${{ vars.GRIDSUITE_ACTIONS_APPID }}
+          private-key: ${{ secrets.githubappPrivateKey }}
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Parse release version
+        run: |
+          regex="^v([0-9]+)\.([0-9]+)$"
+          if [[ ${{ github.event.inputs.releaseVersion }} =~ $regex ]]
+          then
+            echo "GITHUB_MAJOR_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+            echo "GITHUB_MINOR_VERSION=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+            echo "GITHUB_SHORT_VERSION=${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.0" >> $GITHUB_ENV
+          else 
+            echo ERROR: release version should match the format vX.X
+            exit 1
+          fi
+
+      - name: Check if release already exists
+        run: |
+          if git ls-remote --quiet --exit-code origin refs/heads/release-${{ github.event.inputs.releaseVersion }} >/dev/null 2>&1
+          then
+            echo "ERROR: Release ${{ github.event.inputs.releaseVersion }} already exists"
+            exit 1
+          else
+            echo "Release ${{ github.event.inputs.releaseVersion }} doesn't exist, it will be performed"
+          fi
+
+      - name: Checkout with new branch
+        run: |
+          git checkout -b release-v${{ env.GITHUB_MAJOR_VERSION }}.${{ env.GITHUB_MINOR_VERSION }} ${{ github.event.inputs.gitReference }}
+
+      - name: Create commit and tag
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Release v${{ env.GITHUB_SHORT_VERSION }}"
+          git tag v${{ env.GITHUB_SHORT_VERSION }}
+          git push origin release-v${{ env.GITHUB_MAJOR_VERSION }}.${{ env.GITHUB_MINOR_VERSION }}
+          git push origin v${{ env.GITHUB_SHORT_VERSION }}
