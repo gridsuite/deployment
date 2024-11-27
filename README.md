@@ -135,14 +135,15 @@ $ docker compose down
 
 This profile allows you to launch only the technical services : postgres, elasticsearch, rabbitmq, ...
 
-| Software      | Version used |
-|---------------|--------------|
-| Postgres      | 14.9         |
-| RabbitMQ      | latest       |
+| Software     | Version used |
+|--------------|--------------|
+| Postgres     | 14.9         |
+| RabbitMQ     | latest       |
 | Elasticsearch | 7.9.3        |
-| Grafana       | latest       |
-| Prometheus    | latest       |
-| Minio         | 2023-09-27   |
+| Grafana      | latest       |
+| Prometheus   | latest       |
+| Minio*       | 2023-09-27   |
+\* Minio is only launched when **$STORAGE_TYPE** is set to 'S3'
 
 It is used for k8s deployment with Minikube.
 
