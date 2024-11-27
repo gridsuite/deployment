@@ -146,6 +146,7 @@ This profile allows you to launch only the technical services : postgres, elasti
 | Prometheus    | latest       |
 | Minio         | 2023-09-27   |
 
+
 It is used for k8s deployment with Minikube.
 
 ```bash
