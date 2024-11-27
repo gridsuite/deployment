@@ -157,19 +157,17 @@ services:
     restart: unless-stopped
 
   s3-storage:
-    profiles:
-      - all
-      - s3
     image: minio/minio:RELEASE.2023-09-27T15-22-50Z
     # need to override entrypoint to create the bucket, is there a simpler way ?
     entrypoint: sh
-    command: -c 'mkdir -p /data/bucket-gridsuite && /opt/bin/minio server /data --console-address ":9090"'
+    # We couldn't find yet another way to conditionnally start or not the minio container. Better solution  appreciated.
+    command: -c '[ "$STORAGE_TYPE" = "S3" ] || exit 0; mkdir -p /data/bucket-gridsuite && /usr/bin/docker-entrypoint.sh server /data --console-address ":9090"'
     ports:
      - "19000:9000"
      - "19090:9090"
     volumes:
       - $GRIDSUITE_DATABASES/cases_v1/miniodata:/data:Z
-    restart: unless-stopped
+    restart: on-failure
 
   prometheus:
     profiles:
