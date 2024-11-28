@@ -1,1 +1,4 @@
-case-store-directory: /cases
+storage:
+  type: FS  # FS or S3
+
+case-home: /

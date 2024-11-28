@@ -17,6 +17,12 @@ $ cd $GRIDSUITE_DATABASES
 $ chmod 777 cases postgres elasticsearch init
 ```
 
+Optional : **cases** can be stored either on your filesystem, either in a minio container. If you choose the filesystem option, nothing need to be done.
+
+If you opt for the S3 option and the minio container, you have to define the following environnement variable : **STORAGE_TYPE=S3**
+
+You can choose the filesystem option explicitly with : **STORAGE_TYPE=FS**
+
 | :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose ! |
 |---------------------------------------------------------------------------------------------------------------------------------|
 
@@ -75,7 +81,7 @@ _Everything described in this section is inside the folder `explicit-profiles`._
 Here's the summary of the profiles and what services they includes:
 | Component \ Service | _(none)_ | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
 |---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
+| rabbitmq<br/>postgres<br/>elasticsearch<br/>minio* | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
 | kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | ✅ | | |
 | pgadmin | | | | | | | | | ✅ | |
 | apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
@@ -85,6 +91,8 @@ Here's the summary of the profiles and what services they includes:
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | ✅ | ✅ | | ✅ | ✅ | | | | |
 | case&#8209;import&#8209;server | | | | | | | ✅ | | | |
 | grafana<br/>prometheus | | | | | | | | | | ✅ |
+
+\* Minio is only launched when **$STORAGE_TYPE** is set to 'S3'
 
 To use a profile, you use:
 ```shell
@@ -136,6 +144,7 @@ This profile allows you to launch only the technical services : postgres, elasti
 | Elasticsearch | 7.9.3        |
 | Grafana       | latest       |
 | Prometheus    | latest       |
+| Minio         | 2023-09-27   |
 
 
 It is used for k8s deployment with Minikube.
