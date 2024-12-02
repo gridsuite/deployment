@@ -161,10 +161,10 @@ services:
     # need to override entrypoint to create the bucket, is there a simpler way ?
     entrypoint: sh
     # We couldn't find yet another way to conditionnally start or not the minio container. Better solution  appreciated.
-    command: -c '[ "$STORAGE_TYPE" = "S3" ] || exit 0; mkdir -p /data/bucket-gridsuite && /usr/bin/docker-entrypoint.sh server /data --console-address ":9090"'
+    command: -c '[ "${STORAGE_TYPE-FS}" = "S3" ] || exit 0; mkdir -p /data/bucket-gridsuite && /usr/bin/docker-entrypoint.sh server /data --console-address ":19090"'
     ports:
      - "19000:9000"
-     - "19090:9090"
+     - "19090:19090"
     volumes:
       - $GRIDSUITE_DATABASES/cases_v1/miniodata:/data:Z
     restart: on-failure

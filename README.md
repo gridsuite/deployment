@@ -23,7 +23,8 @@ If you opt for the S3 option and the minio container, you have to define the fol
 
 You can choose the filesystem option explicitly with : **STORAGE_TYPE=FS**
 
-| :warning:  This environment variable must be set and subdirectories created before running any containers with docker-compose ! |
+
+| :warning:  These environment variables must be set and subdirectories created before running any containers with docker-compose ! |
 |---------------------------------------------------------------------------------------------------------------------------------|
 
 
@@ -264,6 +265,17 @@ In order to show documents in the case-server index with Kibana, you must first 
 Grafana UI:
 ```html
 http://localhost:7000
+```
+
+### Minio console
+
+Minio management UI:
+
+```html
+http://localhost:19090
+default credentials :
+   - username : minioadmin
+   - password : minioadmin
 ```
 
 
