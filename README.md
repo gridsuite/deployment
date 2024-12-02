@@ -267,6 +267,17 @@ Grafana UI:
 http://localhost:7000
 ```
 
+### Minio console
+
+Minio management UI:
+
+```html
+http://localhost:19090
+default credentials :
+   - username : minioadmin
+   - password : minioadmin
+```
+
 
 ### Installing / Updating docker-compose to v2
 [Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose project which uses [profiles feature](https://docs.docker.com/compose/profiles/).  
