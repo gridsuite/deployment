@@ -100,6 +100,8 @@ services:
       - 5601:5601
     environment:
       - LOGSPOUT=ignore
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=5601
     depends_on:
       - elasticsearch
     restart: unless-stopped
@@ -197,5 +199,7 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_ANALYTICS_REPORTING_ENABLED=false
       - GF_ANALYTICS_CHECK_FOR_UPDATES=false
+      - HTTP_PORT=3000
+      - HTTP_ADDR=0.0.0.0
     ports:
       - "7000:3000"
