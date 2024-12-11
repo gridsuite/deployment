@@ -1,7 +1,5 @@
 spring:
   elasticsearch:
-    uris:
-      - http://elasticsearch:9200
     username: ${ELASTICSEARCH_USER:#{null}}
     password: ${ELASTICSEARCH_PASSWORD:#{null}}
   rabbitmq:
