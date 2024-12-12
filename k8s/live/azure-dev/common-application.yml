@@ -1,8 +1,7 @@
 spring:
-  data:
-    elasticsearch:
-      username: ${ELASTICSEARCH_USER:#{null}}
-      password: ${ELASTICSEARCH_PASSWORD:#{null}}
+  elasticsearch:
+    username: ${ELASTICSEARCH_USER:#{null}}
+    password: ${ELASTICSEARCH_PASSWORD:#{null}}
   rabbitmq:
     username: ${RABBITMQ_USER:guest}
     password: ${RABBITMQ_PASSWORD:guest}
