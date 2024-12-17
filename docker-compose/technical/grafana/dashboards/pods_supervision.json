@@ -1323,7 +1323,7 @@
           "useBackend": false
         }
       ],
-      "title": "Gateway active connection",
+      "title": "Gateway active connections",
       "type": "timeseries"
     },
     {
@@ -1332,7 +1332,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 32
       },
       "id": 52,
       "panels": [
