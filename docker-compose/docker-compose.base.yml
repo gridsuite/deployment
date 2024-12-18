@@ -9,7 +9,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: powsybl/case-server:latest
+    image: inca.rte-france.com/gridsuite/powsybl-case-server-rte:latest
     ports:
       - 5000:80
     volumes:
@@ -130,7 +130,7 @@ services:
         limits:
           memory: 384m
 
-  spreadsheet-config-server:
+  study-config-server:
     profiles:
       - all
       - suite
@@ -139,11 +139,11 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: gridsuite/spreadsheet-config-server:latest
+    image: gridsuite/study-config-server:latest
     ports:
       - 5035:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/spreadsheet-config-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/study-config-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
@@ -232,7 +232,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: powsybl/network-store-server:latest
+    image: inca.rte-france.com/gridsuite/powsybl-network-store-server-rte:latest
     ports:
       - 8080:80
     volumes:
@@ -263,7 +263,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: powsybl/network-conversion-server:latest
+    image: inca.rte-france.com/gridsuite/powsybl-network-conversion-server-rte:latest
     ports:
       - 5003:80
     volumes:
