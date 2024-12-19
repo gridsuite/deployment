@@ -9,7 +9,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: inca.rte-france.com/gridsuite/powsybl-case-server-rte:latest
+    image: powsybl/case-server:latest
     ports:
       - 5000:80
     volumes:
@@ -232,7 +232,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: inca.rte-france.com/gridsuite/powsybl-network-store-server-rte:latest
+    image: powsybl/network-store-server:latest
     ports:
       - 8080:80
     volumes:
@@ -263,7 +263,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
-    image: inca.rte-france.com/gridsuite/powsybl-network-conversion-server-rte:latest
+    image: powsybl/network-conversion-server:latest
     ports:
       - 5003:80
     volumes:
