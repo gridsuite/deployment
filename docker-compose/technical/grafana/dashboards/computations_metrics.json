@@ -72,7 +72,7 @@
           "refId": "A"
         }
       ],
-      "title": "Computation reports",
+      "title": "Computation stats",
       "type": "row"
     },
     {
@@ -464,7 +464,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum(app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}) by (provider)",
+          "expr": "sum(rate(app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}[$__rate_interval])) by (provider) * 60",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -475,7 +475,7 @@
           "useBackend": false
         }
       ],
-      "title": "Computation with exception count",
+      "title": "Computation rate with exception (count/min)",
       "type": "timeseries"
     },
     {
@@ -896,7 +896,7 @@
       },
       "id": 15,
       "panels": [],
-      "title": "Computation queues",
+      "title": "Computation count",
       "type": "row"
     },
     {
@@ -996,7 +996,7 @@
           "useBackend": false
         }
       ],
-      "title": "Computation run ready queue",
+      "title": "Queued computation",
       "type": "timeseries"
     }
   ],
