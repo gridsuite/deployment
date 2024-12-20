@@ -214,7 +214,7 @@ http://localhost:5033/swagger-ui.html  // user-admin-server
 http://localhost:5034/swagger-ui.html  // user-identity-server
 http://localhost:5030/swagger-ui.html  // sensitivity-analysis-server
 http://localhost:5031/swagger-ui.html  // shortcircuit-server
-http://localhost:5035/swagger-ui.html  // spreadsheet-config-server
+http://localhost:5035/swagger-ui.html  // study-config-server
 http://localhost:5037/swagger-ui.html  // timeseries-server
 http://localhost:5038/swagger-ui.html  // voltage-init-server
 http://localhost:5039/swagger-ui.html  // case-import-server
@@ -421,7 +421,7 @@ http://<INGRESS_HOST>/shortcircuit-server/swagger-ui.html
 http://<INGRESS_HOST>/timeseries-server/swagger-ui.html
 http://<INGRESS_HOST>/voltage-init-server/swagger-ui.html
 http://<INGRESS_HOST>/case-import-server/swagger-ui.html
-http://<INGRESS_HOST>/spreadsheet-config-server/swagger-ui.html
+http://<INGRESS_HOST>/study-config-server/swagger-ui.html
 ```
 
 ## How to use a local docker image into Minikube?

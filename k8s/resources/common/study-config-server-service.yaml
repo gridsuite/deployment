@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: spreadsheet-config-server
+    name: study-config-server
     app.kubernetes.io/component: gridsuite-springboot
-  name: spreadsheet-config-server
+  name: study-config-server
 spec:
   selector:
-    name: spreadsheet-config-server
+    name: study-config-server
