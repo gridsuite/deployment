@@ -160,7 +160,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "count(count by (user) (app_users))",
+          "expr": "count(app_users)",
           "interval": "",
           "legendFormat": "",
           "range": true,
