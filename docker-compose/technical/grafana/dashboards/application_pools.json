@@ -129,13 +129,30 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_diagram_tasks_pool",
+          "expr": "app_diagram_tasks_pool_current",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "{{type}}",
           "range": true,
           "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "app_diagram_tasks_pool_pending",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{type}}",
+          "range": true,
+          "refId": "B",
           "useBackend": false
         }
       ],
@@ -228,13 +245,29 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_network_modification_tasks_pool",
+          "expr": "app_network_modification_tasks_pool_current",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "{{type}}",
           "range": true,
           "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "app_network_modification_tasks_pool_pending",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{type}}",
+          "range": true,
+          "refId": "B",
           "useBackend": false
         }
       ],
