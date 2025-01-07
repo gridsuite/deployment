@@ -72,7 +72,7 @@
           "refId": "A"
         }
       ],
-      "title": "Computation reports",
+      "title": "Computation stats",
       "type": "row"
     },
     {
@@ -464,7 +464,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum(app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}) by (provider)",
+          "expr": "sum(rate(app_computation_run_seconds_count{type='$COMPUTATION', error!=\"none\"}[$__rate_interval])) by (provider) * 60",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -475,7 +475,7 @@
           "useBackend": false
         }
       ],
-      "title": "Computation with exception count",
+      "title": "Computation rate with exception (count/min)",
       "type": "timeseries"
     },
     {
@@ -896,7 +896,7 @@
       },
       "id": 15,
       "panels": [],
-      "title": "Computation queues",
+      "title": "Computation count",
       "type": "row"
     },
     {
@@ -996,7 +996,107 @@
           "useBackend": false
         }
       ],
-      "title": "Computation run ready queue",
+      "title": "Queued computation",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Calculation currently running by provider",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sum(app_computation_current_count{type='$COMPUTATION'}) by (provider)",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{provider}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Current computation",
       "type": "timeseries"
     }
   ],
