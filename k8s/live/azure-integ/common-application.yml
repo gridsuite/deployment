@@ -11,6 +11,9 @@ powsybl-ws:
 
   # Postgres database prefix
   database:
+    # env var comming from k8s secret
+    login: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
     host: 10.0.0.5
     databaseOrSchema:
       prefix: ${powsybl-ws.environment:}
