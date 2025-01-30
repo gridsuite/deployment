@@ -5,6 +5,7 @@ resources:
   - ../../overlays/azure
 
 components:
+  - ../../components/gridsuite-smaller-network
   - ../../components/gridsuite
   - ../../components/azure
 
