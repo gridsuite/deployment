@@ -1,0 +1,4 @@
+storage:
+  type: S3  # FS or S3
+
+spring.cloud.aws.bucket: bucket-gridsuite
