@@ -54,6 +54,10 @@ configMapGenerator:
     behavior: merge
     files:
       - config.yml=security-analysis-server-config.yml
+  - name: case-server-configmap-specific
+    behavior: merge
+    files:
+      - application.yml=config/case-server-application.yml
 
 # Patch ingress host
 patches:
@@ -135,4 +139,16 @@ patches:
       kind: Ingress
       name: gridadmin-app-ingress
     path: patch_ingress.yaml
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: case-server
+    path: patch_case-server-deployment.yaml
+  - patch: |-
+     $patch: delete
+     apiVersion: v1
+     kind: PersistentVolumeClaim
+     metadata:
+       name: case-server-claim
 
