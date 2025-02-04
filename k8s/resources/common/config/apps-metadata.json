@@ -16,8 +16,6 @@
     }
   },
   "defaultParametersValues": {
-    "fluxConvention": "iidm",
-    "mapManualRefresh": "false"
   }
 },
 {
