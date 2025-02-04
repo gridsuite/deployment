@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 patches:
-# tag xxs and xs servers to restore later
+# tag xxs servers to restore later
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -14,19 +14,8 @@ patches:
       name: not-important
       annotations:
         gridsuite.org/smallnetwork-tmptag: xxs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xs
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/smallnetwork-tmptag: xs
 
-# set all springboot to s
+# set all springboot to xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -36,9 +25,9 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/size: springboot-s
+        gridsuite.org/size: springboot-xs
 
-# reset xxs and xs to their original size
+# reset xxs to their original size
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -49,13 +38,3 @@ patches:
     - op: replace
       path: /metadata/annotations/gridsuite.org~1size
       value: springboot-xxs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/smallnetwork-tmptag=xs
-  patch: |-
-    - op: remove
-      path: /metadata/annotations/gridsuite.org~1smallnetwork-tmptag
-    - op: replace
-      path: /metadata/annotations/gridsuite.org~1size
-      value: springboot-xs
