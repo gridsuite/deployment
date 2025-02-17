@@ -49,6 +49,3 @@ spec:
         - name: case-server-configmap-specific-volume
           configMap:
             name: case-server-configmap-specific
-        - name: case-server-storage
-          persistentVolumeClaim:
-            claimName: case-server-claim

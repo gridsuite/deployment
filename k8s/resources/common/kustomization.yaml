@@ -10,7 +10,6 @@ resources:
   - root-ingress.yaml
   - default-backend-deployment.yaml
   - default-backend-service.yaml
-  - case-server-claim.yaml
   - case-server-deployment.yaml
   - case-server-service.yaml
   - network-conversion-server-deployment.yaml

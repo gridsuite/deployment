@@ -141,10 +141,3 @@ patches:
       kind: Deployment
       name: case-server
     path: patch_case-server-deployment.yaml
-  - patch: |-
-     $patch: delete
-     apiVersion: v1
-     kind: PersistentVolumeClaim
-     metadata:
-       name: case-server-claim
-
