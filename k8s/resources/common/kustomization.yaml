@@ -104,4 +104,8 @@ configMapGenerator:
   - name: user-identity-oidc-replication-server-configmap-specific
     files:
       - application.yml=config/user-identity-oidc-replication-server-application.yml
+  - name: case-server-configmap-specific
+    behavior: merge
+    files:
+      - application.yml=config/case-server-application.yml
 

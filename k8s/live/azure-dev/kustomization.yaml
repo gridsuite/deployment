@@ -54,10 +54,6 @@ configMapGenerator:
     behavior: merge
     files:
       - config.yml=security-analysis-server-config.yml
-  - name: case-server-configmap-specific
-    behavior: merge
-    files:
-      - application.yml=config/case-server-application.yml
 
 # Patch ingress host
 patches:
