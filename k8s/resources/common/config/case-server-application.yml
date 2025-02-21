@@ -1,4 +1,10 @@
-storage:
-  type: FS  # FS or S3
+spring:
+  application:
+    aws:
+      bucket: bucket-gridsuite
+      credentials:
+        access-key: ${S3_ACCESS_KEY:minioadmin}
+        secret-key: ${S3_SECRET_KEY:minioadmin}
 
-case-home: /
+storage:
+  type: S3  # FS or S3
