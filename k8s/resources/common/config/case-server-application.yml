@@ -1,5 +1,5 @@
 spring:
-  application:
+  cloud:
     aws:
       bucket: bucket-gridsuite
       credentials:
