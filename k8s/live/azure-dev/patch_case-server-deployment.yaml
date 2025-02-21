@@ -1,9 +1,0 @@
-# case-server-storage volumemount /cases
-- op: remove
-  path: /spec/template/spec/containers/0/volumeMounts/3
-# case-server-storage claimName
-- op: remove
-  path: /spec/template/spec/volumes/3
-# strategy type recreate needed by RWO pvc
-- op: remove
-  path: /spec/strategy

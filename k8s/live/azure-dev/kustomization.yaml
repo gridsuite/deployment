@@ -135,9 +135,3 @@ patches:
       kind: Ingress
       name: gridadmin-app-ingress
     path: patch_ingress.yaml
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: case-server
-    path: patch_case-server-deployment.yaml
