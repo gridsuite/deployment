@@ -15,8 +15,6 @@ spec:
   selector:
     matchLabels:
       name: case-server
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -28,14 +26,22 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: case-server-configmap-specific-volume
-        - mountPath: /cases
-          name: case-server-storage
+        env:
+          - name: S3_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-secrets
+                key: S3_ACCESS_KEY
+                optional: true
+          - name: S3_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-secrets
+                key: S3_SECRET_KEY
+                optional: true
       securityContext:
         fsGroup: 1000
       volumes:
         - name: case-server-configmap-specific-volume
           configMap:
             name: case-server-configmap-specific
-        - name: case-server-storage
-          persistentVolumeClaim:
-            claimName: case-server-claim
