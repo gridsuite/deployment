@@ -6,6 +6,12 @@ spring:
     username: ${RABBITMQ_USER:guest}
     password: ${RABBITMQ_PASSWORD:guest}
 
+#FIXME: To remove when powsybl-ws-commons 1.24.0 is released
+server:
+  tomcat:
+    threads:
+      max: 20
+
 powsybl-ws:
   environment:
 
