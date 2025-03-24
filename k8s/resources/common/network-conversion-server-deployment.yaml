@@ -25,7 +25,12 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: network-conversion-server-configmap-specific-volume
+        - mountPath: /home/powsybl/.itools
+          name: network-conversion-server-itools-configmap-volume
       volumes:
         - name: network-conversion-server-configmap-specific-volume
           configMap:
             name: network-conversion-server-configmap-specific
+        - name: network-conversion-server-itools-configmap-volume
+          configMap:
+            name: network-conversion-server-itools-configmap
