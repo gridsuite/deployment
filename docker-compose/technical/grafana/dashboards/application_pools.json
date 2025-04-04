@@ -481,7 +481,7 @@
           "includeNullMetadata": true,
           "instant": false,
           "interval": "",
-          "legendFormat": "current",
+          "legendFormat": "{{type}}",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -499,7 +499,7 @@
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "pending",
+          "legendFormat": "{{type}}",
           "range": true,
           "refId": "B",
           "useBackend": false
