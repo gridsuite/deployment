@@ -505,7 +505,7 @@
           "useBackend": false
         }
       ],
-      "title": "Geo data requests",
+      "title": "Geo data fetch pool",
       "type": "timeseries"
     }
   ],
