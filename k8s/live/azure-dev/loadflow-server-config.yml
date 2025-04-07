@@ -23,6 +23,7 @@ load-flow-default-parameters:
   twtSplitShuntAdmittance: true
   dcUseTransformerRatio: false
 
-#TODO: to be removed when ReferenceTerminals extension is implemented
+#TODO: remove writeReferenceTerminals parameter override when ReferenceTerminals extension is implemented
 open-loadflow-default-parameters:
   writeReferenceTerminals: false
+  slackDistributionFailureBehavior: FAIL

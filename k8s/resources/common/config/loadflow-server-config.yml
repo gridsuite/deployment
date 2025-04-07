@@ -25,6 +25,7 @@ load-flow-default-parameters:
   countriesToBalance:
     - FR
 
-#TODO: to be removed when ReferenceTerminals extension is implemented
+#TODO: remove writeReferenceTerminals parameter override when ReferenceTerminals extension is implemented
 open-loadflow-default-parameters:
   writeReferenceTerminals: false
+  slackDistributionFailureBehavior : FAIL
