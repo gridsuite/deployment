@@ -9,7 +9,7 @@ metadata:
     gridsuite.org/springboot-with-database: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
-    gridsuite.org/size: springboot-xxxl-forking
+    gridsuite.org/size: springboot-security-analysis
 spec:
   selector:
     matchLabels:
