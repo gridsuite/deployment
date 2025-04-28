@@ -94,11 +94,11 @@ patches:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
     annotationSelector: gridsuite.org/size=springboot-xxl-forking
-- path: patches/deployments-springboot-size-xxxl-forking.yaml
+- path: patches/deployments-springboot-size-security-analysis.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xxxl-forking
+    annotationSelector: gridsuite.org/size=springboot-security-analysis
 - path: patches/deployments-springnative-size-xs.yaml
   target:
     kind: Deployment
