@@ -418,6 +418,7 @@ services:
     environment:
       - PORT=9090
       - ISSUER_HOST=172.17.0.1:9090
+      - USERS_PROFILE=UTILISATEURS|ADMIN|ADMIN_EXPLORE
       - CLIENT_COUNT=8
 
       # Client IDs for containers (grid*-app-idpSettings.json)
