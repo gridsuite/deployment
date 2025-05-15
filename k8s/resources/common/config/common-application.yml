@@ -32,3 +32,9 @@ powsybl-ws:
   elasticsearch:
     index:
       prefix: ${powsybl-ws.environment:}
+
+gridsuite:
+  user-roles:
+    admin: ADMIN
+    admin-explore: ADMIN_EXPLORE
+    user: UTILISATEUR
