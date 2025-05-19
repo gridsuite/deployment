@@ -51,9 +51,11 @@ services:
     profiles:
       - all
       - metrics
-    image: prometheuscommunity/postgres-exporter:v0.15.0
+    image: prometheuscommunity/postgres-exporter:v0.17.1
     ports:
       - "9187:9187"
+    # default enabled collector.{database locks replication replication_slot stat_bgwriter stat_database stat_progress_vacuum stat_user_tables statio_user_tables wal}
+    command: --collector.database --collector.locks --collector.stat_bgwriter --collector.stat_database --collector.stat_progress_vacuum --collector.stat_user_tables --collector.statio_user_tables --collector.wal --collector.statio_user_indexes --collector.long_running_transactions --collector.stat_activity_autovacuum
     environment:
       - DATA_SOURCE_USER=postgres
       - DATA_SOURCE_PASS=postgres
