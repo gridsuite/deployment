@@ -12,6 +12,6 @@ spec:
             value: "-Xmx96m"
           resources:
             requests:
-              memory: "384Mi"
+              memory: "512Mi"
             limits:
-              memory: "384Mi"
+              memory: "512Mi"
