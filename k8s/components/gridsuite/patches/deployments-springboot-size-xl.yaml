@@ -12,6 +12,6 @@ spec:
             value: "-Xmx1086m"
           resources:
             requests:
-              memory: "1664Mi"
+              memory: "2Gi"
             limits:
-              memory: "1664Mi"
+              memory: "2Gi"
