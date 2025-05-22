@@ -15,14 +15,14 @@ powsybl-ws:
     login: ${POSTGRES_USERNAME:postgres}
     password: ${POSTGRES_PASSWORD:postgres}
     databaseOrSchema:
-      prefix: ${powsybl-ws.environment:}
+      prefix: ${powsybl-ws.environment:}_
 
   # RabbitMQ binding destination prefixes
   rabbitmq:
     destination:
-      prefix: ${powsybl-ws.environment:}
+      prefix: ${powsybl-ws.environment:}_
 
   # elasticsearch index prefixes
   elasticsearch:
     index:
-      prefix: ${powsybl-ws.environment:}
+      prefix: ${powsybl-ws.environment:}_
