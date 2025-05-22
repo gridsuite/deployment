@@ -7,7 +7,7 @@ spring:
     password: ${RABBITMQ_PASSWORD:guest}
 
 powsybl-ws:
-  environment: integ_
+  environment: integ
 
   # Postgres database prefix
   database:
@@ -16,14 +16,14 @@ powsybl-ws:
     password: ${POSTGRES_PASSWORD:postgres}
     host: 10.0.0.5
     databaseOrSchema:
-      prefix: ${powsybl-ws.environment:}
+      prefix: ${powsybl-ws.environment:}_
 
   # RabbitMQ binding destination prefixes
   rabbitmq:
     destination:
-      prefix: ${powsybl-ws.environment:}
+      prefix: ${powsybl-ws.environment:}_
 
   # elasticsearch index prefixes
   elasticsearch:
     index:
-      prefix: ${powsybl-ws.environment:}
+      prefix: ${powsybl-ws.environment:}_
