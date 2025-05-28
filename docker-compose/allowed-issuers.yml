@@ -1,1 +1,3 @@
 allowed-issuers: http://172.17.0.1:9090
+allowed-audiences: gridexplore-client, gridadmin-client, griddyna-client, gridstudy-client, gridexplore-local, gridadmin-local, griddyna-local, gridstudy-local
+allowed-clients:
