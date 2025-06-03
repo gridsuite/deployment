@@ -63,6 +63,9 @@ configMapGenerator:
   - name: network-modification-server-configmap-specific
     files:
       - application.yml=config/network-modification-server-application.yml
+  - name: network-modification-server-itools-configmap
+    files:
+      - config.yml=config/network-modification-server-config.yml
   - name: study-server-configmap-specific
     files:
       - application.yml=config/study-server-application.yml
