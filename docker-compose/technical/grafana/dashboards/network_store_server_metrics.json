@@ -663,7 +663,7 @@
       },
       "id": 7,
       "panels": [],
-      "title": "Normalized metrics (per item max)",
+      "title": "Normalized metrics (per resource max)",
       "type": "row"
     },
     {
@@ -753,7 +753,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "max(app_network_store_server_get_all_per_item_seconds_max{empty=\"false\"}) by (resource_type)",
+          "expr": "max(app_network_store_server_get_all_per_resource_seconds_max{empty=\"false\"}) by (resource_type)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -763,7 +763,7 @@
           "useBackend": false
         }
       ],
-      "title": "Get all resources (per item max)",
+      "title": "Get all resources (per resource max)",
       "type": "timeseries"
     },
     {
@@ -853,7 +853,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "max(app_network_store_server_remove_all_per_item_seconds_max{empty=\"false\"}) by (resource_type)",
+          "expr": "max(app_network_store_server_remove_all_per_resource_seconds_max{empty=\"false\"}) by (resource_type)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -863,7 +863,7 @@
           "useBackend": false
         }
       ],
-      "title": "Remove all resources (per item max)",
+      "title": "Remove all resources (per resource max)",
       "type": "timeseries"
     },
     {
@@ -953,7 +953,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "max(app_network_store_server_create_all_per_item_seconds_max{empty=\"false\"}) by (resource_type)",
+          "expr": "max(app_network_store_server_create_all_per_resource_seconds_max{empty=\"false\"}) by (resource_type)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -963,7 +963,7 @@
           "useBackend": false
         }
       ],
-      "title": "Create all resources (per item max)",
+      "title": "Create all resources (per resource max)",
       "type": "timeseries"
     },
     {
@@ -1153,7 +1153,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "max(app_network_store_server_update_all_per_item_seconds_max{empty=\"false\"}) by (resource_type)",
+          "expr": "max(app_network_store_server_update_all_per_resource_seconds_max{empty=\"false\"}) by (resource_type)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -1163,7 +1163,7 @@
           "useBackend": false
         }
       ],
-      "title": "Update all resources (per item max)",
+      "title": "Update all resources (per resource max)",
       "type": "timeseries"
     }
   ],
