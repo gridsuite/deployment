@@ -338,7 +338,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "mode": "single",
@@ -352,9 +352,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_case_export_seconds_max) by (storage_type)",
+          "expr": "max(http_server_requests_seconds_max{method='GET', uri='/v1/cases/{caseUuid}'})",
           "interval": "",
-          "legendFormat": "{{storage_type}}",
           "refId": "A"
         }
       ],
@@ -570,53 +569,6 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": "loadflow",
-          "value": "loadflow"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "COMPUTATION",
-        "options": [
-          {
-            "selected": true,
-            "text": "loadflow",
-            "value": "loadflow"
-          },
-          {
-            "selected": false,
-            "text": "sa",
-            "value": "sa"
-          },
-          {
-            "selected": false,
-            "text": "sensitivityanalysis",
-            "value": "sensitivityanalysis"
-          },
-          {
-            "selected": false,
-            "text": "ds",
-            "value": "ds"
-          },
-          {
-            "selected": false,
-            "text": "shortcircuitanalysis",
-            "value": "shortcircuitanalysis"
-          },
-          {
-            "selected": false,
-            "text": "voltageinit",
-            "value": "voltageinit"
-          }
-        ],
-        "query": "loadflow, sa, sensitivityanalysis, ds, shortcircuitanalysis, voltageinit",
-        "queryValue": "",
-        "skipUrlSync": false,
-        "type": "custom"
       }
     ]
   },
