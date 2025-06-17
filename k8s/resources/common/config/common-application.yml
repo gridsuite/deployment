@@ -5,6 +5,12 @@ spring:
   rabbitmq:
     username: ${RABBITMQ_USER:guest}
     password: ${RABBITMQ_PASSWORD:guest}
+  cloud:
+    aws:
+      bucket: bucket-gridsuite
+      credentials:
+        access-key: ${S3_ACCESS_KEY:minioadmin}
+        secret-key: ${S3_SECRET_KEY:minioadmin}
 
 powsybl-ws:
   environment:

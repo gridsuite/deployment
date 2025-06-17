@@ -7,6 +7,7 @@ metadata:
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-database: "true"
+    gridsuite:org/springboot-with-s3: "true"
   annotations:
     gridsuite.org/size: springboot-l-forking
 spec:
@@ -26,19 +27,6 @@ spec:
               name: dynamic-security-analysis-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
-          env:
-            - name: S3_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: s3-secrets
-                  key: S3_ACCESS_KEY
-                  optional: true
-            - name: S3_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: s3-secrets
-                  key: S3_SECRET_KEY
-                  optional: true
       volumes:
         - name: dynamic-security-analysis-server-configmap-specific-volume
           configMap:
