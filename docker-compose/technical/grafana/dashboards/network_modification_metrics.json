@@ -132,7 +132,7 @@
           "useBackend": false
         }
       ],
-      "title": "Modification (unitary) time (max)",
+      "title": "Incremental modification time (max)",
       "type": "timeseries"
     },
     {
@@ -221,7 +221,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_network_modification_apply_seconds_count{error=\"none\"}",
+          "expr": "sum(rate(app_network_modification_apply_seconds_count{error='none'}[$__rate_interval])) * 60",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -231,7 +231,7 @@
           "useBackend": false
         }
       ],
-      "title": "Modification (unitary) with success count",
+      "title": "Incremental modification rate with success (count/min)",
       "type": "timeseries"
     },
     {
@@ -330,7 +330,7 @@
           "useBackend": false
         }
       ],
-      "title": "Modifications (group) time (max)",
+      "title": "Network build time (max)",
       "type": "timeseries"
     },
     {
@@ -419,7 +419,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "app_network_modification_build_seconds_count{error=\"none\"}",
+          "expr": "sum(rate(app_network_modification_build_seconds_count{error='none'}[$__rate_interval])) * 60",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -428,7 +428,7 @@
           "useBackend": false
         }
       ],
-      "title": "Modifications (group) with success count",
+      "title": "Network build rate with success (count/min)",
       "type": "timeseries"
     }
   ],
