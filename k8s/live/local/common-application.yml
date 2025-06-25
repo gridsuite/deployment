@@ -26,3 +26,10 @@ powsybl-ws:
   elasticsearch:
     index:
       prefix: ${powsybl-ws.environment:}
+
+  s3:
+    # env var coming from k8s secret
+    login: ${S3_ACCESS_KEY:s3username}
+    password: ${S3_SECRET_KEY:s3password}
+    subpath:
+      prefix: ${powsybl-ws.environment:}
