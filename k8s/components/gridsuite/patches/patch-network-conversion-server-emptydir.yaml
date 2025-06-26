@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-conversion-server
+spec:
+  template:
+    spec:
+      volumes:
+        - name: tmp-emptydir
+          emptyDir:
+            sizeLimit: 2Gi
