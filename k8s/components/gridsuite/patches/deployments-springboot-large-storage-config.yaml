@@ -8,10 +8,10 @@ spec:
       containers:
         - name: main
           resources:
-            limits:
-              ephemeral-storage: 2Gi
             requests:
               ephemeral-storage: 1Gi
+            limits:
+              ephemeral-storage: 2Gi
       volumes:
         - name: tmp-emptydir
           emptyDir:
