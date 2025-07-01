@@ -112,7 +112,7 @@ patches:
   target:
     kind: Deployment
     labelSelector: gridsuite.org/springboot-with-rabbitmq=true
-- path: patches/patch-network-conversion-server-emptydir.yaml
+- path: patches/deployments-springboot-large-storage-config.yaml
   target:
     kind: Deployment
-    name: network-conversion-server
+    labelSelector: gridsuite.org/springboot-with-large-storage=true
