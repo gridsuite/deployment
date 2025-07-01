@@ -8,3 +8,11 @@ gridsuite:
       name: state-estimation-server
       base-uri: http://state-estimation-server/
       optional: true
+    -
+      name: dynamic-simulation-server
+      base-uri: http://dynamic-simulation-server
+      optional: true
+    -
+      name: dynamic-security-analysis-server
+      base-uri: http://dynamic-security-analysis-server
+      optional: true
