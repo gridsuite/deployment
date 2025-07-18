@@ -2,3 +2,7 @@ dynawo:
   homeDir: /dynaflow-launcher
   debug: true
 
+dynawo-algorithms:
+  homeDir: /dynaflow-launcher
+  debug: true
+
