@@ -100,6 +100,7 @@ services:
       - 5007:80
     volumes:
       - $PWD/../../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/network-modification-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:

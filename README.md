@@ -274,8 +274,8 @@ Minio management UI:
 ```html
 http://localhost:19090
 default credentials :
-   - username : minioadmin
-   - password : minioadmin
+   - username : s3username
+   - password : s3password
 ```
 
 
