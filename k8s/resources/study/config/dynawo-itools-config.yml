@@ -1,6 +1,6 @@
 dynawo:
   homeDir: /dynaflow-launcher
-  debug: false
+  debug: true
 
 dynawo-algorithms:
   homeDir: /dynaflow-launcher
