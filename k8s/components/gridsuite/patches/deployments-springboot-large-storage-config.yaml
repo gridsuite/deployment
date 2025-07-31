@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+spec:
+  template:
+    spec:
+      containers:
+        - name: main
+          resources:
+            requests:
+              ephemeral-storage: 1Gi
+            limits:
+              ephemeral-storage: 2Gi
+      volumes:
+        - name: tmp-emptydir
+          emptyDir:
+            sizeLimit: 2000Mi

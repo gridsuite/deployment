@@ -116,3 +116,7 @@ patches:
   target:
     kind: Deployment
     labelSelector: gridsuite.org/springboot-with-s3=true
+- path: patches/deployments-springboot-large-storage-config.yaml
+  target:
+    kind: Deployment
+    labelSelector: gridsuite.org/springboot-with-large-storage=true
