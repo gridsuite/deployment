@@ -1,10 +1,10 @@
 dynawo:
   homeDir: /dynaflow-launcher
-  debug: true
+  debug: false
 
 dynawo-algorithms:
   homeDir: /dynaflow-launcher
-  debug: true
+  debug: false
 
 # Nb of concurrent processes - should be in-sync with ds.run.dsGroup queue concurrency
 computation-local:
