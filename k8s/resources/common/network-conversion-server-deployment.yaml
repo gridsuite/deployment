@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-elasticsearch: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
+    gridsuite.org/springboot-with-large-storage: "true"
   annotations:
     gridsuite.org/size: springboot-xxl
 spec:
