@@ -1,0 +1,4 @@
+include:
+  - docker-compose.infra.yml
+  - docker-compose.fronts.yml
+  - docker-compose.servers.yml

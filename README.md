@@ -45,7 +45,7 @@ $ cd deployment
 ## Docker compose deployment
 
 > **Important**
-> [Docker Compose v2](https://docs.docker.com/compose/install/standalone/) is mandatory.  
+> [Docker Compose v2.20.0+](https://docs.docker.com/compose/install/standalone/) is mandatory.  
 > _See instructions in [sub-section](#installing--updating-docker-compose-to-v2)_
 
 

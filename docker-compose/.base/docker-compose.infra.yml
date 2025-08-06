@@ -1,0 +1,292 @@
+services:
+  mock-user-service:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
+    image: gridsuite/oidc-mock-server
+    ports:
+      - 9090:9090
+    environment:
+      - PORT=9090
+      - ISSUER_HOST=172.17.0.1:9090
+      - USERS_PROFILE=UTILISATEURS|ADMIN|ADMIN_EXPLORE
+      - CLIENT_COUNT=8
+
+      # Client IDs for containers (grid*-app-idpSettings.json)
+      - CLIENT_ID=gridexplore-client
+      - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost:80/silent-renew-callback
+
+      - CLIENT_ID_2=gridadmin-client
+      - CLIENT_REDIRECT_URI_2=http://localhost:82/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:82/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:82/silent-renew-callback
+
+      - CLIENT_ID_3=griddyna-client
+      - CLIENT_REDIRECT_URI_3=http://localhost:83/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:83/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:83/silent-renew-callback
+
+      - CLIENT_ID_4=gridstudy-client
+      - CLIENT_REDIRECT_URI_4=http://localhost:84/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:84/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:84/silent-renew-callback
+
+      # Client IDs for local dev (grid*-app/public/idpSettings.json)
+      - CLIENT_ID_5=gridexplore-local
+      - CLIENT_REDIRECT_URI_5=http://localhost:3000/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:3000/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:3000/silent-renew-callback
+
+      - CLIENT_ID_6=gridadmin-local
+      - CLIENT_REDIRECT_URI_6=http://localhost:3002/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:3002/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:3002/silent-renew-callback
+
+      - CLIENT_ID_7=griddyna-local
+      - CLIENT_REDIRECT_URI_7=http://localhost:3003/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3003/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3003/silent-renew-callback
+
+      - CLIENT_ID_8=gridstudy-local
+      - CLIENT_REDIRECT_URI_8=http://localhost:3004/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_8=http://localhost:3004/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_8=http://localhost:3004/silent-renew-callback
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    restart: unless-stopped
+
+  apps-metadata-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
+    image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
+    ports:
+      - 8070:8080
+    volumes:
+      - ./config/metadata/apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - ./config/metadata/version.json:/opt/bitnami/apache/htdocs/version.json:Z
+      - ./config/metadata/gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:4.0.4-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 15692:15692
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    restart: unless-stopped
+
+  s3-storage:
+    image: minio/minio:RELEASE.2023-09-27T15-22-50Z
+    # need to override entrypoint to create the bucket, is there a simpler way ?
+    entrypoint: sh
+    # We couldn't find yet another way to conditionnally start or not the minio container. Better solution  appreciated.
+    command: -c '[ "${STORAGE_TYPE-FS}" = "S3" ] || exit 0; mkdir -p /data/ws-bucket && /usr/bin/docker-entrypoint.sh server /data --console-address ":19090"'
+    ports:
+      - 19000:9000
+      - 19090:19090
+    environment:
+      - MINIO_ROOT_USER=s3username
+      - MINIO_ROOT_PASSWORD=s3password
+    volumes:
+      - $GRIDSUITE_DATABASES/cases_v1/miniodata:/data:Z
+    restart: on-failure
+
+  postgres:
+    build:
+      context: ./config/postgresql
+      dockerfile: Dockerfile-postgres
+      args:
+        - http_proxy=${http_proxy-}
+        - https_proxy=${https_proxy-}
+        - no_proxy=${no_proxy-}
+    ports:
+      - 5432:5432
+    command: "/init-databases.sh
+              -c listen_addresses='*'
+              -c shared_preload_libraries='auto_explain'
+              -c auto_explain.log_min_duration=0
+              -c jit=false
+              -c enable_seqscan=false
+              "
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DEFAULT_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data
+    env_file:
+      - $PWD/.env
+    volumes:
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
+      - $GRIDSUITE_DATABASES/init:/init-data:Z
+      - ./config/postgresql/create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - ./config/postgresql/init-databases.sh:/init-databases.sh:Z
+      - ./config/postgresql/init-geo-data.sh:/init-geo-data.sh:Z
+      - ./config/postgresql/init-lines-catalog.sh:/init-lines-catalog.sh:Z
+    restart: unless-stopped
+
+  postgres-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    ports:
+      - 9187:9187
+    environment:
+      - DATA_SOURCE_USER=postgres
+      - DATA_SOURCE_PASS=postgres
+      - DATA_SOURCE_URI=postgres:5432/postgres?sslmode=disable
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+  pgadmin:
+    profiles:
+      - all
+      - pgadmin
+    image: dpage/pgadmin4:latest
+    ports:
+      - 12080:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@localhost.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - ./config/servers_pgadmin.json:/pgadmin4/servers.json
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - LOGSPOUT=ignore
+      - xpack.security.enabled=false
+      - ingest.geoip.downloader.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - action.auto_create_index=filebeat-*
+    volumes:
+      - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
+    restart: unless-stopped
+
+  elasticsearch-exporter:
+    profiles:
+      - all
+      - metrics
+    image: prometheuscommunity/elasticsearch-exporter:v1.7.0
+    command: --es.uri=http://elasticsearch:9200
+    ports:
+      - 9114:9114
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    profiles:
+      - all
+      - kibana
+    image: docker.elastic.co/kibana/kibana:8.7.1
+    ports:
+      - 5601:5601
+    environment:
+      - LOGSPOUT=ignore
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  logstash:
+    profiles:
+      - all
+      - kibana
+    image: docker.elastic.co/logstash/logstash:8.7.1
+    volumes:
+      - ./config/logstash/pipelines.yml:/config/pipelines.yml:Z
+      - ./config/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+    environment:
+      - LOGSPOUT=ignore
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  socat:
+    profiles:
+      - all
+      - kibana
+    image: alpine/socat
+    command: 'TCP-LISTEN:5000,reuseaddr,fork TCP:logstash:5000,forever,interval=5'
+    restart: unless-stopped
+
+  logspout:
+    profiles:
+      - all
+      - kibana
+    image: gliderlabs/logspout:v3.2.13
+    command: 'tcp://socat:5000?filter.name=grid*'
+    environment:
+      - LOGSPOUT=ignore
+      - BACKLOG=false
+      - "RAW_FORMAT={ \"container\": {{ toJSON .Container.Name }}, \"message\": {{ toJSON .Data }}, \"@timestamp\": {{ toJSON .Time }} }\n"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - socat
+    restart: unless-stopped
+
+  prometheus:
+    profiles:
+      - all
+      - metrics
+    image: prom/prometheus:v2.28.1
+    command: --enable-feature=exemplar-storage
+    volumes:
+      - ./config/prometheus.yml:/prometheus/prometheus.yml:ro
+    restart: unless-stopped
+    ports:
+      - 8000:9090
+
+  grafana:
+    profiles:
+      - all
+      - metrics
+    image: grafana/grafana:10.2.2
+    volumes:
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./config/grafana/alerting:/etc/grafana/provisioning/alerting:ro
+    restart: unless-stopped
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=false
+    ports:
+      - 7000:3000
