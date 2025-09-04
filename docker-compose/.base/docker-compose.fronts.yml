@@ -1,0 +1,92 @@
+services:
+  gridadmin-app:
+    profiles:
+      - all
+      - suite
+      - study
+    image: gridsuite/gridadmin-app:latest
+    ports:
+      - 82:8080
+    volumes:
+      - ./config/apps/gridadmin-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridadmin/idpSettings.json:Z
+      - ./config/apps/env.json:/opt/bitnami/apache/htdocs/gridadmin/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  gridexplore-app:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-simulation
+    image: gridsuite/gridexplore-app:latest
+    ports:
+      - 80:8080
+    volumes:
+      - ./config/apps/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
+      - ./config/apps/env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  gridstudy-app:
+    profiles:
+      - all
+      - suite
+      - study
+      - dynamic-simulation
+    image: gridsuite/gridstudy-app:latest
+    ports:
+      - 84:8080
+    volumes:
+      - ./config/apps/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - ./config/apps/env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  griddyna-app:
+    profiles:
+      - all
+      - suite
+      - dynamic-mapping
+      - dynamic-simulation
+    image: gridsuite/griddyna-app:latest
+    ports:
+      - 83:8080
+    volumes:
+      - ./config/apps/griddyna-app-idpSettings.json:/opt/bitnami/apache/htdocs/griddyna/idpSettings.json:Z
+      - ./config/apps/env.json:/opt/bitnami/apache/htdocs/griddyna/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
