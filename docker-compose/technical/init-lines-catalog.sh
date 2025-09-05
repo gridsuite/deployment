@@ -4,9 +4,9 @@ set -e
 
 function init_lines_catalog()
 {
-  LINES_CATALOG=/init-data/lines-catalog.json
+  LINES_CATALOG=/init-data/lines-catalog.json.gz
   if [ -f $LINES_CATALOG ]; then
-      curl -X 'POST' -f -s -o /dev/null 'http://network-modification-server/v1/network-modifications/catalog/line_types' -H "Content-Type: application/json" -d "@${LINES_CATALOG}"
+      curl -X 'POST' -f -s -o /dev/null 'http://network-modification-server/v1/network-modifications/catalog/line_types' -F "file=@${LINES_CATALOG}"
   fi
 }
 
