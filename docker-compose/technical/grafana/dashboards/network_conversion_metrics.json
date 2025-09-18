@@ -79,6 +79,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Maximum end-to-end time per bus including queue wait time.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -160,13 +161,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max by(format) (app_conversion_import_seconds_max{error=\"none\"} / on(format, instance) app_conversion_import_buses_max{})",
+          "expr": "max by(format) (app_conversion_import_total_seconds_max{error=\"none\"} / on(format, instance) app_conversion_import_buses_max{})",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
         }
       ],
-      "title": "Import time (normalized max)",
+      "title": "Import total time efficiency (normalized max)",
       "type": "timeseries"
     },
     {
@@ -174,6 +175,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Maximum pure processing time per bus excluding queue wait.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -235,7 +237,7 @@
         "x": 12,
         "y": 1
       },
-      "id": 10,
+      "id": 16,
       "options": {
         "legend": {
           "calcs": [],
@@ -254,14 +256,16 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "max by(format) (app_conversion_export_seconds_max{error=\"none\"} / on(format, instance) app_conversion_export_buses_max{})",
+          "expr": "max by(format) (app_conversion_import_processing_seconds_max{error=\"none\"} / on(format, instance) app_conversion_import_buses_max{})",
           "interval": "",
           "legendFormat": "{{format}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Export time (normalized max)",
+      "title": "Import processing time efficiency (normalized max)",
       "type": "timeseries"
     },
     {
@@ -269,6 +273,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Maximum end-to-end import time including queue wait time.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -350,13 +355,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_conversion_import_seconds_max{error=\"none\"}) by (format)",
+          "expr": "max(app_conversion_import_total_seconds_max{error=\"none\"}) by (format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
         }
       ],
-      "title": "Import time (max)",
+      "title": "Import total time (max)",
       "type": "timeseries"
     },
     {
@@ -364,6 +369,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Maximum pure processing time excluding queue wait.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -425,6 +431,298 @@
         "x": 12,
         "y": 9
       },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "max(app_conversion_import_processing_seconds_max{error=\"none\"}) by (format)",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Import processing time (max)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Maximum end-to-end time per bus including queue wait time.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "max by(format) (app_conversion_export_total_seconds_max{error=\"none\"} / on(format, instance) app_conversion_export_buses_max{})",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Export total time efficiency (normalized max)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Maximum pure processing time per bus excluding queue wait.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "max by(format) (app_conversion_export_processing_seconds_max{error=\"none\"} / on(format, instance) app_conversion_export_buses_max{})",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Export processing time efficiency (normalized max)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Maximum end-to-end export time including queue wait time.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      },
       "id": 3,
       "options": {
         "legend": {
@@ -445,13 +743,111 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "max(app_conversion_export_seconds_max{error=\"none\"}) by (format)",
+          "expr": "max(app_conversion_export_total_seconds_max{error=\"none\"}) by (format)",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
         }
       ],
-      "title": "Export time (max)",
+      "title": "Export total time (max)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Maximum pure processing export time excluding queue wait.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 25
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "max(app_conversion_export_processing_seconds_max{error=\"none\"}) by (format)",
+          "interval": "",
+          "legendFormat": "{{format}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Export processing time (max)",
       "type": "timeseries"
     },
     {
@@ -517,7 +913,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 33
       },
       "id": 4,
       "options": {
@@ -611,7 +1007,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 33
       },
       "id": 5,
       "options": {
@@ -705,7 +1101,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 41
       },
       "id": 14,
       "options": {
@@ -727,7 +1123,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum by(format) (rate(app_conversion_import_seconds_count{error='none'}[$__rate_interval])) * 60",
+          "expr": "sum by(format) (rate(app_conversion_import_total_seconds_count{error='none'}[$__rate_interval])) * 60",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -799,7 +1195,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 41
       },
       "id": 12,
       "options": {
@@ -821,7 +1217,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum by(format) (rate(app_conversion_export_seconds_count{error=\"none\"}[$__rate_interval])) * 60",
+          "expr": "sum by(format) (rate(app_conversion_export_total_seconds_count{error=\"none\"}[$__rate_interval])) * 60",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -893,7 +1289,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 49
       },
       "id": 6,
       "options": {
@@ -915,7 +1311,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum by(format) (rate(app_conversion_import_seconds_count{error!=\"none\"}[$__rate_interval])) * 60",
+          "expr": "sum by(format) (rate(app_conversion_import_total_seconds_count{error!=\"none\"}[$__rate_interval])) * 60",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
@@ -987,7 +1383,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 49
       },
       "id": 7,
       "options": {
@@ -1009,7 +1405,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum by(format) (rate(app_conversion_export_seconds_count{error!=\"none\"}[$__rate_interval])) * 60",
+          "expr": "sum by(format) (rate(app_conversion_export_total_seconds_count{error!=\"none\"}[$__rate_interval])) * 60",
           "interval": "",
           "legendFormat": "{{format}}",
           "refId": "A"
