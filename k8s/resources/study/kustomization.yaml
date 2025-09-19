@@ -89,6 +89,9 @@ configMapGenerator:
   - name: dynamic-simulation-server-configmap-specific
     files:
       - application.yml=config/dynamic-simulation-server-application.yml
+  - name: dynamic-security-analysis-server-configmap-specific
+    files:
+      - application.yml=config/dynamic-security-analysis-server-application.yml
   - name: dynamic-margin-calculation-server-configmap-specific
     files:
       - application.yml=config/dynamic-margin-calculation-server-application.yml
