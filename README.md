@@ -93,8 +93,6 @@ Here's the summary of the profiles and what services they includes:
 | case&#8209;import&#8209;server | | | | | | | ✅ | | | |
 | grafana<br/>prometheus | | | | | | | | | | ✅ |
 
-\* Minio is only launched when **$STORAGE_TYPE** is set to 'S3'
-
 To use a profile, you use:
 ```shell
 $ cd docker-compose/explicit-profiles
