@@ -33,7 +33,7 @@ You can choose the filesystem option explicitly with : **STORAGE_TYPE=FS**
 To do this, you must copy the following files in the init directory (_$GRIDSUITE_DATABASES/init_), **before** creating the postgres container:
 - [geo_data_substations.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_substations.json)
 - [geo_data_lines.json](https://raw.githubusercontent.com/gridsuite/geo-data/main/src/test/resources/geo_data_lines.json)
-- [lines-catalog.json](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/test/resources/lines-catalog.json)
+- [lines-catalog.json.gz](https://raw.githubusercontent.com/gridsuite/network-modification-server/main/src/test/resources/lines-catalog.json.gz)
 
 ### Clone deployment repository
 
@@ -92,8 +92,6 @@ Here's the summary of the profiles and what services they includes:
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | ✅ | ✅ | | ✅ | ✅ | | | | |
 | case&#8209;import&#8209;server | | | | | | | ✅ | | | |
 | grafana<br/>prometheus | | | | | | | | | | ✅ |
-
-\* Minio is only launched when **$STORAGE_TYPE** is set to 'S3'
 
 To use a profile, you use:
 ```shell

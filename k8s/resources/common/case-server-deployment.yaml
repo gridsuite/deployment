@@ -9,6 +9,7 @@ metadata:
     gridsuite.org/springboot-with-database: "true"
     gridsuite.org/springboot-with-elasticsearch: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
+    gridsuite.org/springboot-with-s3: "true"
   annotations:
     gridsuite.org/size: springboot-xs
 spec:
@@ -26,19 +27,6 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: case-server-configmap-specific-volume
-        env:
-          - name: S3_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: s3-secrets
-                key: S3_ACCESS_KEY
-                optional: true
-          - name: S3_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: s3-secrets
-                key: S3_SECRET_KEY
-                optional: true
       securityContext:
         fsGroup: 1000
       volumes:
