@@ -87,7 +87,7 @@ Here's the summary of the profiles and what services they includes:
 | pgadmin | | | | | | | | | ✅ | |
 | apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
 | griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | ✅ | ✅ | ✅ | | | | |
-| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>dynamic&#8209;security&#8209;analysis&#8209;server<br/>timeseries&#8209;server | | | | | ✅ | ✅ | | | | |
+| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>dynamic&#8209;security&#8209;analysis&#8209;server<br/>dynamic&#8209;margin&#8209;calculation&#8209;server<br/>timeseries&#8209;server | | | | | ✅ | ✅ | | | | |
 | cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | ✅ | | | | ✅ | | | | |
 | directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | ✅ | ✅ | | ✅ | ✅ | | | | |
 | case&#8209;import&#8209;server | | | | | | | ✅ | | | |
@@ -207,6 +207,7 @@ http://localhost:5029/swagger-ui.html  // explore-server
 http://localhost:5036/swagger-ui.html  // dynamic-mapping-server
 http://localhost:5032/swagger-ui.html  // dynamic-simulation-server
 http://localhost:5040/swagger-ui.html  // dynamic-security-analysis-server
+http://localhost:5041/swagger-ui.html  // dynamic-margin-calculation-server
 http://localhost:5027/swagger-ui.html  // filter-server
 http://localhost:5033/swagger-ui.html  // user-admin-server
 http://localhost:5034/swagger-ui.html  // user-identity-server
@@ -410,6 +411,7 @@ http://<INGRESS_HOST>/config-server/swagger-ui.html
 http://<INGRESS_HOST>/directory-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-simulation-server/swagger-ui.html
 http://<INGRESS_HOST>/dynamic-security-analysis-server/swagger-ui.html
+http://<INGRESS_HOST>/dynamic-margin-calculation-server/swagger-ui.html
 http://<INGRESS_HOST>/filter-server/swagger-ui.html
 http://<INGRESS_HOST>/report-server/swagger-ui.html
 http://<INGRESS_HOST>/user-admin-server/swagger-ui.html

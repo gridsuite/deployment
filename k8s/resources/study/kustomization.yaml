@@ -33,6 +33,8 @@ resources:
   - dynamic-simulation-server-service.yaml
   - dynamic-security-analysis-server-deployment.yaml
   - dynamic-security-analysis-server-service.yaml
+  - dynamic-margin-calculation-server-deployment.yaml
+  - dynamic-margin-calculation-server-service.yaml
   - directory-server-deployment.yaml
   - directory-server-service.yaml
   - explore-server-deployment.yaml
@@ -90,6 +92,9 @@ configMapGenerator:
   - name: dynamic-security-analysis-server-configmap-specific
     files:
       - application.yml=config/dynamic-security-analysis-server-application.yml
+  - name: dynamic-margin-calculation-server-configmap-specific
+    files:
+      - application.yml=config/dynamic-margin-calculation-server-application.yml
   - name: dynawo-itools-configmap
     files:
       - config.yml=config/dynawo-itools-config.yml
