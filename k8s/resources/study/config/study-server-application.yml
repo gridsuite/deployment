@@ -1,7 +1,7 @@
 non-evacuated-energy:
   default-provider: OpenLoadFlow
 
-# optional server (not delivered in open-source)
+# optional servers
 gridsuite:
   services:
     - name: state-estimation-server
