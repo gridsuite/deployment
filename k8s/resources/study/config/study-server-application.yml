@@ -4,15 +4,24 @@ non-evacuated-energy:
 # optional server (not delivered in open-source)
 gridsuite:
   services:
-    -
-      name: state-estimation-server
+    - name: state-estimation-server
       base-uri: http://state-estimation-server/
       optional: true
-    -
-      name: dynamic-simulation-server
-      base-uri: http://dynamic-simulation-server
+    - name: dynamic-simulation-server
+      base-uri: http://dynamic-simulation-server/
       optional: true
-    -
-      name: dynamic-security-analysis-server
-      base-uri: http://dynamic-security-analysis-server
+    - name: dynamic-security-analysis-server
+      base-uri: http://dynamic-security-analysis-server/
+      optional: true
+    - name: security-analysis-server
+      base-uri: http://security-analysis-server/
+      optional: true
+    - name: sensitivity-analysis-server
+      base-uri: http://sensitivity-analysis-server/
+      optional: true
+    - name: shortcircuit-server
+      base-uri: http://shortcircuit-server/
+      optional: true
+    - name: voltage-init-server
+      base-uri: http://voltage-init-server/
       optional: true
