@@ -500,7 +500,7 @@
         "x": 0,
         "y": 17
       },
-      "id": 6,
+      "id": 7,
       "options": {
         "legend": {
           "calcs": [],
@@ -599,7 +599,7 @@
         "x": 12,
         "y": 17
       },
-      "id": 7,
+      "id": 8,
       "options": {
         "legend": {
           "calcs": [],
@@ -697,7 +697,7 @@
         "x": 0,
         "y": 17
       },
-      "id": 8,
+      "id": 6,
       "maxDataPoints": 940,
       "options": {
         "legend": {
