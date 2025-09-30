@@ -35,11 +35,11 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DEFAULT_DB=postgres
       - POSTGRES_PASSWORD=postgres
-      - PGDATA=/var/lib/postgresql/data
+      - PGDATA=/var/lib/postgresql/18/docker
     env_file:
       - $PWD/.env
     volumes:
-      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
+      - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/18/docker:Z
       - $GRIDSUITE_DATABASES/init:/init-data:Z
       - $PWD/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
       - $PWD/../technical/init-databases.sh:/init-databases.sh:Z
