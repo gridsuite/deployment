@@ -1,6 +1,3 @@
-non-evacuated-energy:
-  default-provider: OpenLoadFlow
-
 # optional servers
 gridsuite:
   services:
