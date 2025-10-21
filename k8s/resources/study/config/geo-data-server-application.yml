@@ -1,2 +1,7 @@
+spring:
+  datasource:
+    hikari:
+      maximumPoolSize: 20
+
 network-geo-data:
   iterations: 5
