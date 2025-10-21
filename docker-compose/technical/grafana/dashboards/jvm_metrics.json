@@ -358,7 +358,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(jvm_gc_pause_seconds_sum[1m])) by (pod) / on(pod) system_cpu_count",
+          "expr": "sum(rate(jvm_gc_pause_seconds_sum[1m])) by (pod) ",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -425,6 +425,6 @@
   "timezone": "",
   "title": "JVM metrics",
   "uid": "a84a0012-4f45-422c-ac20-bf069843fe1f",
-  "version": 5,
+  "version": 9,
   "weekStart": ""
 }
