@@ -70,7 +70,7 @@ services:
     environment:
       - discovery.type=single-node
       - LOGSPOUT=ignore
-      - xpack.security.enabled=false
+      - xpack.security.enabled=true
       - ingest.geoip.downloader.enabled=false
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
       - action.auto_create_index=filebeat-*
@@ -100,8 +100,11 @@ services:
       - 5601:5601
     environment:
       - LOGSPOUT=ignore
+      - ELASTIC_PASSWORD="gridsuitekibana"
     depends_on:
       - elasticsearch
+    volumes:
+      - $PWD/../technical/kibana.yml:/usr/share/kibana/config/kibana.yml:Z
     restart: unless-stopped
 
   logstash:

@@ -23,6 +23,8 @@ services:
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx186m #deployment: 768m
+      - ELASTICSEARCH_USER=elastic
+      - ELASTICSEARCH_PASSWORD=gridsuiteelasticsearch
     command: >
       --server.port=80 
       --spring.config.additional-location=/config/ 
@@ -276,6 +278,8 @@ services:
         required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
+      - ELASTICSEARCH_USER=elastic
+      - ELASTICSEARCH_PASSWORD=gridsuiteelasticsearch
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0

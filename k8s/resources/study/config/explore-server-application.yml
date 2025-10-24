@@ -1,0 +1,38 @@
+gridsuite:
+  services:
+    -
+      name: study-server
+      base-uri: http://172.17.0.1:5001
+    -
+      name: directory-server
+      base-uri: http://172.17.0.1:5026
+    -
+      name: actions-server
+      base-uri: http://172.17.0.1:5022
+    -
+      name: network-modification-server
+      base-uri: http://172.17.0.1:5007
+    -
+      name: filter-server
+      base-uri: http://172.17.0.1:5027
+    -
+      name: voltage-init-server
+      base-uri: http://172.17.0.1:5038
+    -
+      name: security-analysis-server
+      base-uri: http://172.17.0.1:5023
+    -
+      name: loadflow-server
+      base-uri: http://172.17.0.1:5008
+    -
+      name: sensitivity-analysis-server
+      base-uri: http://172.17.0.1:5030
+    -
+      name: user-admin-server
+      base-uri: http://172.17.0.1:5033
+    -
+      name: shortcircuit-server
+      base-uri: http://172.17.0.1:5031
+    -
+      name: study-config-server
+      base-uri: http://172.17.0.1:5035

@@ -1,0 +1,5 @@
+gridsuite:
+  services:
+    -
+      name: user-admin-server
+      base-uri: http://172.17.0.1:5033
