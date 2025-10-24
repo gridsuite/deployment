@@ -1,57 +1,24 @@
 # optional servers
 gridsuite:
   services:
-    -
-      name: geo-data-server
-      base-uri: http://172.17.0.1:8087
-    -
-      name: network-map-server
-      base-uri: http://172.17.0.1:5006
-    -
-      name: network-modification-server
-      base-uri: http://172.17.0.1:5007
-    -
-      name: loadflow-server
-      base-uri: http://172.17.0.1:5008
-    -
-      name: actions-server
-      base-uri: http://172.17.0.1:5022
-    -
-      name: filter-server
-      base-uri: http://172.17.0.1:5027
-    -
-      name: security-analysis-server
-      base-uri: http://172.17.0.1:5023
-    -
-      name: report-server
-      base-uri: http://172.17.0.1:5028
-    -
-      name: sensitivity-analysis-server
-      base-uri: http://172.17.0.1:5030
-    -
-      name: shortcircuit-server
-      base-uri: http://172.17.0.1:5031
-    -
-      name: dynamic-simulation-server
-      base-uri: http://172.17.0.1:5032
-    -
-      name: timeseries-server
-      base-uri: http://172.17.0.1:5037
-    -
-      name: dynamic-mapping-server
-      base-uri: http://172.17.0.1:5036
-    -
-      name: voltage-init-server
-      base-uri: http://172.17.0.1:5038
-    -
-      name: user-admin-server
-      base-uri: http://172.17.0.1:5033
-    -
-      name: study-config-server
-      base-uri: http://172.17.0.1:5035
-    -
-      name: state-estimation-server
-      base-uri: http://172.17.0.1:6040
-    -
-      name: directory-server
-      base-uri: http://172.17.0.1:5026
+    - name: state-estimation-server
+      base-uri: http://state-estimation-server/
+      optional: true
+    - name: dynamic-simulation-server
+      base-uri: http://dynamic-simulation-server/
+      optional: true
+    - name: dynamic-security-analysis-server
+      base-uri: http://dynamic-security-analysis-server/
+      optional: true
+    - name: security-analysis-server
+      base-uri: http://security-analysis-server/
+      optional: true
+    - name: sensitivity-analysis-server
+      base-uri: http://sensitivity-analysis-server/
+      optional: true
+    - name: shortcircuit-server
+      base-uri: http://shortcircuit-server/
+      optional: true
+    - name: voltage-init-server
+      base-uri: http://voltage-init-server/
+      optional: true
