@@ -10,8 +10,3 @@ spec:
           env:
           - name: JAVA_TOOL_OPTIONS
             value: "-Xmx4g"
-          resources:
-            requests:
-              memory: "7.5Gi"
-            limits:
-              memory: "7.5Gi"

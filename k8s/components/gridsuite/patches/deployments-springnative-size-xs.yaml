@@ -7,8 +7,3 @@ spec:
     spec:
       containers:
         - name: main
-          resources:
-            requests:
-              memory: "256Mi"
-            limits:
-              memory: "256Mi"

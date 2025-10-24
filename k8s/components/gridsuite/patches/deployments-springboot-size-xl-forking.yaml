@@ -10,8 +10,3 @@ spec:
           env:
           - name: JAVA_TOOL_OPTIONS
             value: "-Xmx1086m"
-          resources:
-            requests:
-              memory: "2432Mi"
-            limits:
-              memory: "2432Mi"
