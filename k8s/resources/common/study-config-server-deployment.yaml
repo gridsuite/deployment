@@ -24,6 +24,13 @@ spec:
           volumeMounts:
             - mountPath: /config/specific
               name: study-config-server-configmap-specific-volume
+          resources:
+            requests:
+              memory: "0.4Gi"
+              cpu: "0.1"
+            limits:
+              memory: "0.4Gi"
+              cpu: "0.5"
       volumes:
         - name: study-config-server-configmap-specific-volume
           configMap:

@@ -28,6 +28,13 @@ spec:
           name: network-conversion-server-configmap-specific-volume
         - mountPath: /home/powsybl/.itools
           name: network-conversion-server-itools-configmap-volume
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "2.5"
+          limits:
+            memory: "2Gi"
+            cpu: "5"
       volumes:
         - name: network-conversion-server-configmap-specific-volume
           configMap:

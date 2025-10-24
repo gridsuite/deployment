@@ -25,6 +25,13 @@ spec:
           name: gateway-configmap-volume
         - mountPath: /config/specific
           name: gateway-configmap-specific-volume
+        resources:
+          requests:
+            memory: "0.4Gi"
+            cpu: "0.5"
+          limits:
+            memory: "0.4Gi"
+            cpu: "1"
       volumes:
         - name: gateway-configmap-volume
           configMap:

@@ -28,6 +28,13 @@ spec:
               name: shortcircuit-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: shortcircuit-server-itools-configmap-volume
+          resources:
+            requests:
+              memory: "2.4Gi"
+              cpu: "1"
+            limits:
+              memory: "2.4Gi"
+              cpu: "2"
       volumes:
         - name: shortcircuit-server-configmap-specific-volume
           configMap:

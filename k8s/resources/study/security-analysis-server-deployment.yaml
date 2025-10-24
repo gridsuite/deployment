@@ -27,6 +27,13 @@ spec:
               name: security-analysis-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: security-analysis-server-itools-configmap-volume
+          resources:
+            requests:
+              memory: "7.5Gi"
+              cpu: "16"
+            limits:
+              memory: "7.5Gi"
+              cpu: "16"
       volumes:
         - name: security-analysis-server-configmap-specific-volume
           configMap:

@@ -27,6 +27,13 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: case-server-configmap-specific-volume
+        resources:
+          requests:
+            memory: "0.5Gi"
+            cpu: "0.5"
+          limits:
+            memory: "0.5Gi"
+            cpu: "1"
       securityContext:
         fsGroup: 1000
       volumes:

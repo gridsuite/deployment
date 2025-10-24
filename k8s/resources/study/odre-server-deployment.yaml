@@ -23,6 +23,13 @@ spec:
           volumeMounts:
             - mountPath: /config/specific
               name: odre-server-configmap-specific-volume
+          resources:
+            requests:
+              memory: "1.3Gi"
+              cpu: "0.1"
+            limits:
+              memory: "1.3Gi"
+              cpu: "0.5"
       volumes:
         - name: odre-server-configmap-specific-volume
           configMap:

@@ -23,6 +23,13 @@ spec:
             - mountPath: /opt/bitnami/apache/conf/bitnami/bitnami.conf
               subPath: bitnami.conf
               name: apps-metadata-server-httpdconf-configmap-volume
+          resources:
+            requests:
+              memory: "0.13Gi"
+              cpu: "0.1"
+            limits:
+              memory: "0.13Gi"
+              cpu: "0.5"
       volumes:
         - name: apps-metadata-server-configmap-volume
           configMap:

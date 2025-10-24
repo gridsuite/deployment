@@ -24,6 +24,13 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: single-line-diagram-server-configmap-specific-volume
+        resources:
+          requests:
+            memory: "1.8Gi"
+            cpu: "1.5"
+          limits:
+            memory: "1.8Gi"
+            cpu: "3"
       volumes:
         - name: single-line-diagram-server-configmap-specific-volume
           configMap:

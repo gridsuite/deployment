@@ -24,6 +24,13 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: geo-data-server-configmap-specific-volume
+        resources:
+          requests:
+            memory: "1.6Gi"
+            cpu: "1"
+          limits:
+            memory: "1.6Gi"
+            cpu: "2"
       volumes:
         - name: geo-data-server-configmap-specific-volume
           configMap:

@@ -28,6 +28,13 @@ spec:
               name: voltage-init-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: voltage-init-server-itools-configmap-volume
+          resources:
+            requests:
+              memory: "3Gi"
+              cpu: "2"
+            limits:
+              memory: "3Gi"
+              cpu: "4"
       volumes:
         - name: voltage-init-server-configmap-specific-volume
           configMap:

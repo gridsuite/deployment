@@ -23,6 +23,13 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: network-map-server-configmap-specific-volume
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1.5"
+          limits:
+            memory: "2Gi"
+            cpu: "3"
       volumes:
         - name: network-map-server-configmap-specific-volume
           configMap:

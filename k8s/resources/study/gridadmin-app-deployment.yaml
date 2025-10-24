@@ -26,6 +26,13 @@ spec:
         - mountPath: /opt/bitnami/apache/htdocs/gridadmin/idpSettings.json
           subPath: idpSettings.json
           name: gridadmin-app-configmap-volume
+        resources:
+          requests:
+            memory: "0.13Gi"
+            cpu: "0.5"
+          limits:
+            memory: "0.13Gi"
+            cpu: "1"
       volumes:
         - name: gridadmin-app-configmap-volume
           configMap:

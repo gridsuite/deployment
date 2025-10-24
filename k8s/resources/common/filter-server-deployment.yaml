@@ -25,6 +25,13 @@ spec:
           volumeMounts:
             - mountPath: /config/specific
               name: filter-server-configmap-specific-volume
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.5"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
       volumes:
         - name: filter-server-configmap-specific-volume
           configMap:

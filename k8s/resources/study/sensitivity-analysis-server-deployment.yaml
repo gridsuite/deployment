@@ -27,6 +27,13 @@ spec:
               name: sensitivity-analysis-server-configmap-specific-volume
             - mountPath: /home/powsybl/.itools
               name: sensitivity-analysis-server-itools-configmap-volume
+          resources:
+            requests:
+              memory: "3Gi"
+              cpu: "2.5"
+            limits:
+              memory: "3Gi"
+              cpu: "5"
       volumes:
         - name: sensitivity-analysis-server-configmap-specific-volume
           configMap:
