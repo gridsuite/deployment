@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: not-important
   annotations:
-    gridsuite.org/cpu: cpu-xxlarge
+    gridsuite.org/cpu: cpu-xxs
 spec:
   template:
     spec:
@@ -11,6 +11,6 @@ spec:
         - name: main
           resources:
             requests:
-              cpu: "3500m"
+              cpu: "100m"
             limits:
-              cpu: "7000m"
+              cpu: "500m"

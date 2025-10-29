@@ -44,41 +44,41 @@ patches:
   target:
     kind: CronJob
     labelSelector: gridsuite.org/cronjob-with-database=true
-- path: patches/deployments-springboot-cpu-minimal.yaml
+- path: patches/deployments-springboot-cpu-xxs.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-minimal
-- path: patches/deployments-springboot-cpu-small.yaml
+    annotationSelector: gridsuite.org/cpu=cpu-xxs
+- path: patches/deployments-springboot-cpu-xs.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-small
-- path: patches/deployments-springboot-cpu-medium.yaml
+    annotationSelector: gridsuite.org/cpu=cpu-xs
+- path: patches/deployments-springboot-cpu-s.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-medium
-- path: patches/deployments-springboot-cpu-medium-plus.yaml
+    annotationSelector: gridsuite.org/cpu=cpu-s
+- path: patches/deployments-springboot-cpu-m.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-medium-plus
-- path: patches/deployments-springboot-cpu-large.yaml
+    annotationSelector: gridsuite.org/cpu=cpu-m
+- path: patches/deployments-springboot-cpu-l.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-large
-- path: patches/deployments-springboot-cpu-xlarge.yaml
+    annotationSelector: gridsuite.org/cpu=cpu-l
+- path: patches/deployments-springboot-cpu-xl.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-xlarge
-- path: patches/deployments-springboot-cpu-xxlarge.yaml
+    annotationSelector: gridsuite.org/cpu=cpu-xl
+- path: patches/deployments-springboot-cpu-xxl.yaml
   target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/cpu=cpu-xxlarge
+    annotationSelector: gridsuite.org/cpu=cpu-xxl
 - path: patches/deployments-springboot-cpu-security-analysis.yaml
   target:
     kind: Deployment

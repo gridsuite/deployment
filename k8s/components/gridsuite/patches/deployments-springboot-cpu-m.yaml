@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: not-important
   annotations:
-    gridsuite.org/cpu: cpu-medium-plus
+    gridsuite.org/cpu: cpu-m
 spec:
   template:
     spec:

@@ -10,7 +10,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
     gridsuite.org/springboot-with-large-storage: "true"
   annotations:
-    gridsuite.org/cpu: cpu-xlarge
+    gridsuite.org/cpu: cpu-xl
     gridsuite.org/memory: memory-xxl
 spec:
   selector:
