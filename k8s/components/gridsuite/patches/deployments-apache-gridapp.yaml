@@ -5,6 +5,13 @@ metadata:
 spec:
   template:
     spec:
+      containers:
+        - name: main
+          resources:
+            requests:
+              cpu: "500m"
+            limits:
+              cpu: "1000m"
       volumes:
         - name: gridapps-env-configmap-volume
           configMap:
