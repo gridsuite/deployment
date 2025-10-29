@@ -9,8 +9,8 @@ metadata:
     gridsuite.org/springboot-with-database: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
-    gridsuite.org/size: springboot-security-analysis
     gridsuite.org/cpu: cpu-security-analysis
+    gridsuite.org/memory: memory-security
 spec:
   selector:
     matchLabels:

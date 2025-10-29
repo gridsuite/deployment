@@ -10,8 +10,8 @@ metadata:
     gridsuite.org/springboot-with-s3: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
-    gridsuite.org/size: springboot-xxl-forking
     gridsuite.org/cpu: cpu-large
+    gridsuite.org/memory: memory-xl-forking
 spec:
   selector:
     matchLabels:

@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
-    gridsuite.org/size: springboot-xxs
     gridsuite.org/cpu: cpu-minimal
+    gridsuite.org/memory: memory-xs
 spec:
   selector:
     matchLabels:

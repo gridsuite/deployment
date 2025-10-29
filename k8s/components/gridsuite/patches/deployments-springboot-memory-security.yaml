@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-important
+  annotations:
+    gridsuite.org/memory: memory-security
 spec:
   template:
     spec:
@@ -9,9 +11,9 @@ spec:
         - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-Xmx1086m"
+            value: "-Xmx5760m"
           resources:
             requests:
-              memory: "2432Mi"
+              memory: "7680Mi"
             limits:
-              memory: "2432Mi"
+              memory: "7680Mi"

@@ -44,66 +44,6 @@ patches:
   target:
     kind: CronJob
     labelSelector: gridsuite.org/cronjob-with-database=true
-- path: patches/deployments-springboot-size-xxs.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xxs
-- path: patches/deployments-springboot-size-xs.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xs
-- path: patches/deployments-springboot-size-s.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-s
-- path: patches/deployments-springboot-size-m.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-m
-- path: patches/deployments-springboot-size-l.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-l
-- path: patches/deployments-springboot-size-l-forking.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-l-forking
-- path: patches/deployments-springboot-size-xl.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xl
-- path: patches/deployments-springboot-size-xl-forking.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xl-forking
-- path: patches/deployments-springboot-size-xxl.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xxl
-- path: patches/deployments-springboot-size-xxl-forking.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xxl-forking
-- path: patches/deployments-springboot-size-security-analysis.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-security-analysis
-- path: patches/deployments-springnative-size-xs.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springnative-xs
 - path: patches/deployments-springboot-cpu-minimal.yaml
   target:
     kind: Deployment
@@ -144,6 +84,71 @@ patches:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
     annotationSelector: gridsuite.org/cpu=cpu-security-analysis
+- path: patches/deployments-springboot-memory-xxs.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xxs
+- path: patches/deployments-springboot-memory-xs.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xs
+- path: patches/deployments-springboot-memory-s.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-s
+- path: patches/deployments-springboot-memory-m.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-m
+- path: patches/deployments-springboot-memory-l.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-l
+- path: patches/deployments-springboot-memory-xl.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xl
+- path: patches/deployments-springboot-memory-xxl.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xxl
+- path: patches/deployments-springboot-memory-xxxl.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xxxl
+- path: patches/deployments-springboot-memory-security.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-security
+- path: patches/deployments-springboot-memory-m-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-m-forking
+- path: patches/deployments-springboot-memory-l-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-l-forking
+- path: patches/deployments-springboot-memory-xl-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xl-forking
+- path: patches/deployments-springboot-memory-xxl-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xxl-forking
 - path: patches/deployments-springboot-elasticsearch-config.yaml
   target:
     kind: Deployment
