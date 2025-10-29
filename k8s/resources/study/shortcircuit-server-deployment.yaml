@@ -11,6 +11,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-xl-forking
+    gridsuite.org/cpu: cpu-medium
 spec:
   selector:
     matchLabels:

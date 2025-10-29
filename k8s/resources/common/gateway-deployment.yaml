@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
   annotations:
     gridsuite.org/size: springboot-xxs
+    gridsuite.org/cpu: cpu-small
 spec:
   selector:
     matchLabels:

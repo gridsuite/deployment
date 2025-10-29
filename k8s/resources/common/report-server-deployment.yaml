@@ -9,6 +9,7 @@ metadata:
     gridsuite.org/springboot-with-database: "true"
   annotations:
     gridsuite.org/size: springboot-s
+    gridsuite.org/cpu: cpu-small
 spec:
   selector:
     matchLabels:

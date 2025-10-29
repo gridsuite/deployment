@@ -10,6 +10,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-security-analysis
+    gridsuite.org/cpu: cpu-security-analysis
 spec:
   selector:
     matchLabels:

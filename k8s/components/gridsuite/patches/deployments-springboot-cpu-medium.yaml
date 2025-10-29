@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+  annotations:
+    gridsuite.org/cpu: cpu-medium
+spec:
+  template:
+    spec:
+      containers:
+        - name: main
+          resources:
+            requests:
+              cpu: "1000m"
+            limits:
+              cpu: "2000m"

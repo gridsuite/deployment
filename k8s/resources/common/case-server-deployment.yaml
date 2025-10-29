@@ -12,6 +12,7 @@ metadata:
     gridsuite.org/springboot-with-s3: "true"
   annotations:
     gridsuite.org/size: springboot-xs
+    gridsuite.org/cpu: cpu-small
 spec:
   selector:
     matchLabels:

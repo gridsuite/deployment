@@ -9,6 +9,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-s
+    gridsuite.org/cpu: cpu-minimal
 spec:
   selector:
     matchLabels:
