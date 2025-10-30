@@ -8,7 +8,8 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-database: "true"
   annotations:
-    gridsuite.org/size: springboot-m # should be m or s ?
+    gridsuite.org/cpu: cpu-xs
+    gridsuite.org/memory: memory-m
 spec:
   selector:
     matchLabels:

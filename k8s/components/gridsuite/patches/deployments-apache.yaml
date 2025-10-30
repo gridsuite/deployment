@@ -16,9 +16,11 @@ spec:
           runAsUser: 1001
         resources:
           requests:
+            cpu: "100m"
             memory: "128Mi"
             ephemeral-storage: 12Mi
           limits:
+            cpu: "500m"
             memory: "128Mi"
             ephemeral-storage: 64Mi
         startupProbe:

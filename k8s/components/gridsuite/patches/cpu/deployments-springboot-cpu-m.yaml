@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-important
+  annotations:
+    gridsuite.org/cpu: cpu-m
 spec:
   template:
     spec:
@@ -9,6 +11,6 @@ spec:
         - name: main
           resources:
             requests:
-              memory: "256Mi"
+              cpu: "1500m"
             limits:
-              memory: "256Mi"
+              cpu: "3000m"

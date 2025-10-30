@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-important
+  annotations:
+    gridsuite.org/cpu: cpu-xs
 spec:
   template:
     spec:
@@ -12,7 +14,3 @@ spec:
               cpu: "500m"
             limits:
               cpu: "1000m"
-      volumes:
-        - name: gridapps-env-configmap-volume
-          configMap:
-            name: gridapps-env-configmap
