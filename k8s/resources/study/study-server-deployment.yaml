@@ -11,7 +11,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/cpu: cpu-xs
-    gridsuite.org/memory: memory-xs
+    gridsuite.org/memory: memory-l
 spec:
   selector:
     matchLabels:
