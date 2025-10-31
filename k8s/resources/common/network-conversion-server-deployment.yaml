@@ -9,6 +9,7 @@ metadata:
     gridsuite.org/springboot-with-elasticsearch: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
     gridsuite.org/springboot-with-large-storage: "true"
+    gridsuite.org/springboot-with-s3: "true"
   annotations:
     gridsuite.org/cpu: cpu-xl
     gridsuite.org/memory: memory-xxl
