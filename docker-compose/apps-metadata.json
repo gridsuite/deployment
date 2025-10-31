@@ -62,6 +62,10 @@
     },
     "voltageLevel":  {
       "codeOI": []
+    },
+    "limitsGroup": {
+      "Limit type": [],
+      "Other": []
     }
   },
   "defaultParametersValues": {
