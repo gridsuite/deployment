@@ -8,8 +8,6 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-database: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
-  annotations:
-    gridsuite.org/size: springboot-security-analysis
 spec:
   selector:
     matchLabels:
@@ -22,6 +20,16 @@ spec:
       containers:
         - name: main
           image: docker.io/gridsuite/security-analysis-server:latest
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-Xmx4096m"
+          resources:
+            requests:
+              cpu: "16000m"
+              memory: "7680Mi"
+            limits:
+              cpu: "16000m"
+              memory: "7680Mi"
           volumeMounts:
             - mountPath: /config/specific
               name: security-analysis-server-configmap-specific-volume
