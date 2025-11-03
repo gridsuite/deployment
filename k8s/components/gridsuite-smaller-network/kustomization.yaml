@@ -2,99 +2,23 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 patches:
-# Set all large memory sizes to memory-xs (need separate patches since annotationSelector uses AND logic)
+# tag xxs servers to restore later
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-s
+    annotationSelector: gridsuite.org/memory=memory-xxs
   patch: |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-xs
+        gridsuite.org/smallnetwork-tmptag: xxs
+
+# set all springboot to xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-m
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-l
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-l-forking
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-xl
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-xl-forking
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-xxl
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-xxl-forking
-  patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
-- target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-xxxl
   patch: |-
     apiVersion: apps/v1
     kind: Deployment
@@ -103,19 +27,19 @@ patches:
       annotations:
         gridsuite.org/memory: memory-xs
 
+# reset xxs to their original size
 - target:
     kind: Deployment
-    labelSelector: name=security-analysis-server
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/smallnetwork-tmptag=xxs
   patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: not-important
-      annotations:
-        gridsuite.org/memory: memory-xs
+    - op: remove
+      path: /metadata/annotations/gridsuite.org~1smallnetwork-tmptag
+    - op: replace
+      path: /metadata/annotations/gridsuite.org~1memory
+      value: memory-xxs
 
-
-  # remove cpu requests/limits annotations (except security-analysis-server which has hardcoded resources)
+# remove cpu requests/limits annotations (except security-analysis-server which has hardcoded resources)
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot,name!=security-analysis-server
