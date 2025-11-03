@@ -10,7 +10,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/cpu: cpu-xl
-    gridsuite.org/memory: memory-xl-forking
+    gridsuite.org/memory: memory-xxl-forking
 spec:
   selector:
     matchLabels:

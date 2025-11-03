@@ -12,7 +12,7 @@ metadata:
     gridsuite.org/springboot-with-s3: "true"
   annotations:
     gridsuite.org/cpu: cpu-xs
-    gridsuite.org/memory: memory-s
+    gridsuite.org/memory: memory-xs
 spec:
   selector:
     matchLabels:

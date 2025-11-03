@@ -11,7 +11,7 @@ metadata:
     gridsuite.org/springboot-with-elasticsearch: "true"
   annotations:
     gridsuite.org/cpu: cpu-xxs
-    gridsuite.org/memory: memory-xs
+    gridsuite.org/memory: memory-springnative-xs
 spec:
   selector:
     matchLabels:

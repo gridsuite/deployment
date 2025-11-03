@@ -79,6 +79,11 @@ patches:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
     annotationSelector: gridsuite.org/cpu=cpu-xxl
+- path: patches/memory/deployments-springboot-memory-springnative-xs.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-springnative-xs
 - path: patches/memory/deployments-springboot-memory-xxs.yaml
   target:
     kind: Deployment
@@ -119,11 +124,6 @@ patches:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
     annotationSelector: gridsuite.org/memory=memory-xxxl
-- path: patches/memory/deployments-springboot-memory-m-forking.yaml
-  target:
-    kind: Deployment
-    labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-m-forking
 - path: patches/memory/deployments-springboot-memory-l-forking.yaml
   target:
     kind: Deployment

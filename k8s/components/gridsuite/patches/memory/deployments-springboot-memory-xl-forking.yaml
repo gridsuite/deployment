@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-important
-  annotations:
-    gridsuite.org/memory: memory-xl-forking
 spec:
   template:
     spec:
@@ -11,9 +9,9 @@ spec:
         - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-Xmx1536m"
+            value: "-Xmx1086m"
           resources:
             requests:
-              memory: "3Gi"
+              memory: "2432Mi"
             limits:
-              memory: "3Gi"
+              memory: "2432Mi"

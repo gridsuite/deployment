@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
   annotations:
     gridsuite.org/cpu: cpu-xs
-    gridsuite.org/memory: memory-xs
+    gridsuite.org/memory: memory-xxs
 spec:
   selector:
     matchLabels:

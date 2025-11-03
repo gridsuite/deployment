@@ -9,7 +9,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/cpu: cpu-xxs
-    gridsuite.org/memory: memory-m
+    gridsuite.org/memory: memory-s
 spec:
   selector:
     matchLabels:

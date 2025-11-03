@@ -9,7 +9,7 @@ metadata:
     gridsuite.org/springboot-with-database: "true"
   annotations:
     gridsuite.org/cpu: cpu-xs
-    gridsuite.org/memory: memory-xxl
+    gridsuite.org/memory: memory-xl
 spec:
   selector:
     matchLabels:

@@ -2,18 +2,29 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 patches:
-# Set all large memory sizes to memory-m (need separate patches since annotationSelector uses AND logic)
+# Set all large memory sizes to memory-xs (need separate patches since annotationSelector uses AND logic)
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/memory=memory-m-forking
+    annotationSelector: gridsuite.org/memory=memory-s
   patch: |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
+- target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-m
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: not-important
+      annotations:
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -24,7 +35,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -35,7 +46,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -46,7 +57,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -57,7 +68,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -68,7 +79,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -79,7 +90,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
@@ -90,7 +101,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 
 - target:
     kind: Deployment
@@ -101,7 +112,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/memory: memory-m
+        gridsuite.org/memory: memory-xs
 
 
   # remove cpu requests/limits annotations (except security-analysis-server which has hardcoded resources)

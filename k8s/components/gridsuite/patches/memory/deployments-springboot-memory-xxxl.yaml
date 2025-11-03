@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-important
-  annotations:
-    gridsuite.org/memory: memory-xxxl
 spec:
   template:
     spec:
@@ -14,6 +12,6 @@ spec:
             value: "-Xmx1920m"
           resources:
             requests:
-              memory: "2560Mi"
+              memory: "2816Mi"
             limits:
-              memory: "2560Mi"
+              memory: "2816Mi"
