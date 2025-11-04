@@ -7,6 +7,8 @@ metadata:
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-s3: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-l-forking
 spec:
@@ -24,21 +26,12 @@ spec:
           volumeMounts:
             - mountPath: /config/specific
               name: dynamic-simulation-server-configmap-specific-volume
-            - mountPath: /dynawo-config
-              name: dynawo-config-configmap-volume
             - mountPath: /home/powsybl/.itools
               name: dynawo-itools-configmap-volume
-            - mountPath: /home/powsybl/.itools/tmp
-              name: itoolstmp-emptydir
       volumes:
         - name: dynamic-simulation-server-configmap-specific-volume
           configMap:
             name: dynamic-simulation-server-configmap-specific
-        - name: dynawo-config-configmap-volume
-          configMap:
-            name: dynawo-config-configmap
         - name: dynawo-itools-configmap-volume
           configMap:
             name: dynawo-itools-configmap
-        - name: itoolstmp-emptydir
-          emptyDir: { }

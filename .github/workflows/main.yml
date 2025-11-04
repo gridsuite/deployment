@@ -4,12 +4,12 @@ on:
   push:
   repository_dispatch:
     types:
-      - case_updated
+      - case_server_updated
       - cgmes_gl_server_updated
       - geo_data_updated
       - network_conversion_server_updated
       - network_map_server_updated
-      - network_store_updated
+      - network_store_server_updated
       - single_line_diagram_server_updated
       - gridstudy_app_updated
       - study_server_updated
@@ -17,23 +17,16 @@ on:
       - network_modification_server_updated
       - gateway_updated
       - loadflow_server_updated
-      - case_import_job_updated
       - study_notification_server_updated
-      - merge_orchestrator_server_updated
-      - merge_notification_server_updated
-      - cgmes_boundary_server_updated
-      - cgmes_assembling_job_updated
-      - gridmerge_app_updated
       - actions_server_updated
       - security_analysis_server_updated
       - config_server_updated
       - config_notification_server_updated
-      - cgmes_boundary_import_job_updated
       - filter_server_updated
-      - balances_adjustment_server_updated
       - case_validation_server_updated
       - directory_server_updated
       - dynamic_simulation_server_updated
+      - dynamic_security_analysis_server_updated
       - report_server_updated
       - gridexplore_app_updated
       - directory-notification_server_updated
@@ -42,11 +35,13 @@ on:
       - griddyna_app_updated
       - sensitivity_analysis_server_updated
       - user_admin_server_updated
+      - user_identity_oidc_replication_server_updated
       - shortcircuit_server_updated
       - timeseries_server_updated
       - voltage_init_server_updated
       - case_import_server_updated
       - gridadmin_app_updated
+      - study_config_server_updated
 
 jobs:
   build:
@@ -60,7 +55,7 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.x'
 
       - name: Install python dependencies
         run: python -m pip install --upgrade pip pyyaml requests

@@ -22,7 +22,7 @@ $body$
 <<fn>>
 DECLARE
     schema_prefix constant text := '';
-    study_name text := 'study';
+    study_schema constant text := quote_ident(concat(fn.schema_prefix, 'study'));
     migrate constant jsonb[] := array[
         /* Config format:
          *   - from_table (string): source table name
@@ -61,25 +61,23 @@ DECLARE
     err_pg_exception_context text;
 BEGIN
     --lock table study in exclusive mode;
-    raise log 'Script % starting at %', 'v1.7', now();
+    raise log 'Script % starting at %', 'v1.8.1', now();
     raise log 'user=%, db=%, schema=%', current_user, current_database(), current_schema();
-
-    study_name := quote_ident(concat(fn.schema_prefix, fn.study_name));
 
     /* Case OPF: copy from db.study.<table> to db.<service>.<table> (easy, no problem to migrate)
      * Case localdev & Azure: copy from study.public.<table> to <service>.public.<table> (need to copy between databases...)
      *   [0A000] cross-database references are not implemented: "ref.to.remote.table"
      */
-    if exists(SELECT nspname FROM pg_catalog.pg_namespace where nspname = fn.study_name) then
+    if exists(SELECT nspname FROM pg_catalog.pg_namespace where nspname = fn.study_schema) then
         raise notice 'multi schemas structure detected';
-        if current_schema() != study_name then
-            raise exception 'Invalid current schema "%"', current_schema() using hint='Assuming script launch at "'||study_name||'.*"', errcode='invalid_schema_name';
+        if current_schema() != study_schema then
+            raise exception 'Invalid current schema "%"', current_schema() using hint='Assuming script launch at "'||study_schema||'.*"', errcode='invalid_schema_name';
         end if;
         remote_databases := false;
-    elsif exists(SELECT datname FROM pg_catalog.pg_database WHERE datistemplate = false and datname = fn.study_name) then
+    elsif exists(SELECT datname FROM pg_catalog.pg_database WHERE datistemplate = false and datname = fn.study_schema) then
         raise notice 'separate databases structure detected';
-        if current_database() != study_name then
-            raise exception 'Invalid current database "%"', current_database() using hint='Assuming script launch at "'||study_name||'.*.*"', errcode='invalid_database_definition';
+        if current_database() != study_schema then
+            raise exception 'Invalid current database "%"', current_database() using hint='Assuming script launch at "'||study_schema||'.*.*"', errcode='invalid_database_definition';
         end if;
         remote_databases := true;
         create extension if not exists postgres_fdw;
@@ -87,7 +85,7 @@ BEGIN
         raise exception 'Can''t detect type of database' using
             hint='Is it the good database?',
             errcode='invalid_database_definition',
-            detail='Can''t find schema nor database "study" from current session, use to determine the database structure.';
+            detail='Can''t find schema nor database "'||study_schema||'" from current session, use to determine the database structure.';
     end if;
 
     foreach params in array migrate loop
@@ -122,7 +120,7 @@ BEGIN
                     into insert_columns; --[...] ; there isn't oid cast for foreign tables
                     --the create&import commands don't raise an exception if something isn't right, so insert_column result can be null
                 else
-                    path_from := concat(study_name, '.', quote_ident(additional_table->>'from_table'));
+                    path_from := concat(study_schema, '.', quote_ident(additional_table->>'from_table'));
                     path_to := concat(quote_ident(to_schema_full), '.', quote_ident(additional_table->>'to_table'));
                     execute format('select string_agg(attname, '','') from pg_attribute where attrelid = %L::regclass and attnum >=1', path_to)
                     into insert_columns; --columns order may be different between src & dst tables
@@ -131,7 +129,7 @@ BEGIN
                 if insert_columns is null then
                     raise exception 'A silent problem seem to happen during the connection to the remote database' using errcode = 'fdw_error', hint='Check if the server is created and the table imported';
                 end if;
-                raise debug 'table locations: study=% src="%" dst="%"', study_name, path_from, path_to;
+                raise debug 'table locations: study=% src="%" dst="%"', study_schema||'.study', path_from, path_to;
 
                 raise notice 'copy data from % to %', path_from, path_to;
                 execute format('insert into %s(%s) select %s from %s', path_to, insert_columns, insert_columns, path_from); --... on conflict do nothing/update
@@ -140,9 +138,9 @@ BEGIN
 
                 if additional_first then
                     additional_first := false;
-                    execute format('update %s set %I=%I, %I=null', study_name, params->>'from_new_uuid', params->>'from_old_id', params->>'from_old_id');
+                    execute format('update %s set %I=%I, %I=null', concat(fn.study_schema, '.', quote_ident('study')), params->>'from_new_uuid', params->>'from_old_id', params->>'from_old_id');
                     get current diagnostics rows_affected = row_count;
-                    raise info 'Moved % IDs in % from % to %', rows_affected, study_name, params->>'from_old_id', params->>'from_new_uuid';
+                    raise info 'Moved % IDs in % from % to %', rows_affected, concat(fn.study_schema, '.', quote_ident('study')), params->>'from_old_id', params->>'from_new_uuid';
                 end if;
 
                 if remote_databases then
@@ -173,7 +171,7 @@ BEGIN
                 err_pg_exception_detail = pg_exception_detail,
                 err_pg_exception_hint = pg_exception_hint,
                 err_pg_exception_context = pg_exception_context;
-            raise warning using
+            raise exception using
                 message = err_message_text,
                 detail = err_pg_exception_detail,
                 errcode = err_returned_sqlstate,

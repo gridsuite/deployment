@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/component: gridsuite-springboot
     gridsuite.org/springboot-with-elasticsearch: "true"
     gridsuite.org/springboot-with-rabbitmq: "true"
+    gridsuite.org/springboot-with-large-storage: "true"
   annotations:
     gridsuite.org/size: springboot-xxl
 spec:
@@ -25,7 +26,12 @@ spec:
         volumeMounts:
         - mountPath: /config/specific
           name: network-conversion-server-configmap-specific-volume
+        - mountPath: /home/powsybl/.itools
+          name: network-conversion-server-itools-configmap-volume
       volumes:
         - name: network-conversion-server-configmap-specific-volume
           configMap:
             name: network-conversion-server-configmap-specific
+        - name: network-conversion-server-itools-configmap-volume
+          configMap:
+            name: network-conversion-server-itools-configmap

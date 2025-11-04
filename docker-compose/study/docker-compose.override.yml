@@ -100,6 +100,7 @@ services:
       - 5007:80
     volumes:
       - $PWD/../../k8s/resources/study/config/network-modification-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/network-modification-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
@@ -107,15 +108,15 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx576m
+      - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1086m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 1g
+    memswap_limit: 1280m #deployment: 1664m
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 1280m #deployment: 1664m
 
   study-notification-server:
     profiles:
@@ -299,21 +300,20 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
+      - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 3072m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 1792m #deployment: 3072m
+    memswap_limit: 1792m #deployment: 5632m
     deploy:
       resources:
         limits:
-          memory: 1792m #deployment: 3072m
+          memory: 1792m #deployment: 5632m
 
   dynamic-simulation-server:
     profiles:
       - all
       - suite
-      - study
       - dynamic-simulation
     image: gridsuite/dynamic-simulation-server:latest
     ports:
@@ -322,7 +322,54 @@ services:
       - $PWD/../../k8s/resources/study/config/dynamic-simulation-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - $PWD/../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
-      - $PWD/../../k8s/resources/study/config/dynamic-simulation/:/dynawo-config/:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1792m
+    deploy:
+      resources:
+        limits:
+          memory: 1792m
+
+  dynamic-security-analysis-server:
+    profiles:
+      - all
+      - suite
+      - dynamic-simulation
+    image: gridsuite/dynamic-security-analysis-server:latest
+    ports:
+      - 5040:80
+    volumes:
+      - $PWD/../../k8s/resources/study/config/dynamic-security-analysis-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx768m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 1792m
+    deploy:
+      resources:
+        limits:
+          memory: 1792m
+
+  dynamic-margin-calculation-server:
+    profiles:
+      - all
+      - suite
+      - dynamic-simulation
+    image: gridsuite/dynamic-margin-calculation-server:latest
+    ports:
+      - 5040:80
+    volumes:
+      - $PWD/../../k8s/resources/study/config/dynamic-margin-calculation-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
@@ -477,7 +524,6 @@ services:
     profiles:
       - all
       - suite
-      - study
       - dynamic-simulation
     image: gridsuite/timeseries-server:latest
     ports:

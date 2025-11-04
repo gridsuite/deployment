@@ -6,6 +6,8 @@ metadata:
     name: loadflow-server
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/size: springboot-xxl-forking
 spec:

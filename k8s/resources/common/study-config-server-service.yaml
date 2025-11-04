@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: study-config-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: study-config-server
+spec:
+  selector:
+    name: study-config-server

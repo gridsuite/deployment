@@ -1,8 +1,7 @@
 spring:
-  data:
-    elasticsearch:
-      username: ${ELASTICSEARCH_USER:#{null}}
-      password: ${ELASTICSEARCH_PASSWORD:#{null}}
+  elasticsearch:
+    username: ${ELASTICSEARCH_USER:#{null}}
+    password: ${ELASTICSEARCH_PASSWORD:#{null}}
   rabbitmq:
     username: ${RABBITMQ_USER:guest}
     password: ${RABBITMQ_PASSWORD:guest}
@@ -12,6 +11,9 @@ powsybl-ws:
 
   # Postgres database prefix
   database:
+    # env var coming from k8s secret
+    login: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
     databaseOrSchema:
       prefix: ${powsybl-ws.environment:}
 
@@ -23,4 +25,11 @@ powsybl-ws:
   # elasticsearch index prefixes
   elasticsearch:
     index:
+      prefix: ${powsybl-ws.environment:}
+
+  s3:
+    # env var coming from k8s secret
+    login: ${S3_ACCESS_KEY:s3username}
+    password: ${S3_SECRET_KEY:s3password}
+    subpath:
       prefix: ${powsybl-ws.environment:}

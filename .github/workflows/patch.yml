@@ -1,0 +1,17 @@
+name: Patch
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: version to patch (vX.X)
+        required: true
+
+jobs:
+  run-patch:
+    uses: powsybl/github-ci/.github/workflows/patch-sources-generic.yml@0f5dc177aba311b9d4167e330fc6450bf8a65218
+    with:
+      githubappId: ${{ vars.GRIDSUITE_ACTIONS_APPID }}
+      releaseVersion: ${{ github.event.inputs.releaseVersion }}
+    secrets:
+      VERSIONBUMP_GHAPP_PRIVATE_KEY: ${{ secrets.VERSIONBUMP_GHAPP_PRIVATE_KEY }}

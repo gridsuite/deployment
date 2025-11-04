@@ -1,14 +1,9 @@
 [{
-  "name" : "Merge",
-  "url"  : "/gridmerge",
-  "appColor" : "#2D9BF0",
-  "hiddenInAppsMenu" : false
-},
-{
   "name" : "Study",
   "url"  : "/gridstudy",
   "appColor" : "#0CA789",
   "hiddenInAppsMenu" : true,
+  "hiddenUserInformation": true,
   "resources" : [
     {
       "types" : ["STUDY"],
@@ -21,25 +16,26 @@
     }
   },
   "defaultParametersValues": {
-    "fluxConvention": "iidm",
-    "mapManualRefresh": "false"
   }
 },
 {
   "name" : "Explore",
   "url"  : "/gridexplore",
   "appColor" : "#33AFED",
-  "hiddenInAppsMenu" : false
+  "hiddenInAppsMenu" : false,
+  "hiddenUserInformation": true
 },
 {
   "name" : "Dynamic Mapping",
   "url"  : "/griddyna",
   "appColor" : "#FFC11B",
-  "hiddenInAppsMenu" : false
+  "hiddenInAppsMenu" : false,
+  "hiddenUserInformation": true
 },
 {
   "name" : "Admin",
   "url"  : "/gridadmin",
   "appColor" : "#FD3745",
-  "hiddenInAppsMenu" : true
+  "hiddenInAppsMenu" : true,
+  "hiddenUserInformation": true
 }]

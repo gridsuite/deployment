@@ -1,8 +1,0 @@
-acquisition-server:
-  url: sftp://opde
-  cases-directory: ./opde
-  label: opde
-
-case-server:
-  url: http://case-server/
-

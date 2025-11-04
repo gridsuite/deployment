@@ -6,5 +6,17 @@ spec:
   template:
     spec:
       containers:
-      - name: main
-      #TODO environment variables for secrets
+        - name: main
+          env:
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: postgres-username
+                optional: true
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: postgres-password
+                optional: true

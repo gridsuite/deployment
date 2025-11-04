@@ -6,7 +6,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -23,15 +22,19 @@ services:
         required: false
     restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx576m #deployment: 768m
-    command: --server.port=80 --spring.config.additional-location=/config/
+      - JAVA_TOOL_OPTIONS=-Xmx186m #deployment: 768m
+    command: >
+      --server.port=80 
+      --spring.config.additional-location=/config/ 
+      --storage.type=${STORAGE_TYPE-FS}
+      --case-home=/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
-    memswap_limit: 1g #deployment: 1280m
+    memswap_limit: 512m
     deploy:
       resources:
         limits:
-          memory: 1g #deployment: 1280m
+          memory: 512m
 
   actions-server:
     profiles:
@@ -39,7 +42,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -71,7 +73,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -103,7 +104,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -129,13 +129,74 @@ services:
         limits:
           memory: 384m
 
+  study-config-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
+    image: gridsuite/study-config-server:latest
+    ports:
+      - 5035:80
+    volumes:
+      - $PWD/../../k8s/resources/common/config/study-config-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  user-identity-server:
+    profiles:
+      - all
+      - suite
+      - study
+      - study-light
+      - dynamic-mapping
+      - dynamic-simulation
+      - import
+    image: gridsuite/user-identity-oidc-replication-server:latest
+    ports:
+      - 5034:80
+    volumes:
+      - $PWD/../../k8s/resources/common/config/user-identity-oidc-replication-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
   report-server:
     profiles:
       - all
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -167,7 +228,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -199,7 +259,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -209,6 +268,7 @@ services:
     volumes:
       - $PWD/../../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -231,7 +291,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -264,7 +323,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -292,7 +350,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -320,7 +377,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -353,7 +409,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -363,7 +418,8 @@ services:
     environment:
       - PORT=9090
       - ISSUER_HOST=172.17.0.1:9090
-      - CLIENT_COUNT=10
+      - USERS_PROFILE=UTILISATEURS|ADMIN|ADMIN_EXPLORE
+      - CLIENT_COUNT=8
 
       # Client IDs for containers (grid*-app-idpSettings.json)
       - CLIENT_ID=gridexplore-client
@@ -371,51 +427,41 @@ services:
       - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
       - CLIENT_SILENT_REDIRECT_URI=http://localhost:80/silent-renew-callback
 
-      - CLIENT_ID_2=gridmerge-client
-      - CLIENT_REDIRECT_URI_2=http://localhost:81/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:81/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:81/silent-renew-callback
+      - CLIENT_ID_2=gridadmin-client
+      - CLIENT_REDIRECT_URI_2=http://localhost:82/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:82/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:82/silent-renew-callback
 
-      - CLIENT_ID_3=gridadmin-client
-      - CLIENT_REDIRECT_URI_3=http://localhost:82/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:82/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:82/silent-renew-callback
+      - CLIENT_ID_3=griddyna-client
+      - CLIENT_REDIRECT_URI_3=http://localhost:83/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:83/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:83/silent-renew-callback
 
-      - CLIENT_ID_4=griddyna-client
-      - CLIENT_REDIRECT_URI_4=http://localhost:83/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:83/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:83/silent-renew-callback
-
-      - CLIENT_ID_5=gridstudy-client
-      - CLIENT_REDIRECT_URI_5=http://localhost:84/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:84/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:84/silent-renew-callback
+      - CLIENT_ID_4=gridstudy-client
+      - CLIENT_REDIRECT_URI_4=http://localhost:84/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:84/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:84/silent-renew-callback
 
       # Client IDs for local dev (grid*-app/public/idpSettings.json)
-      - CLIENT_ID_6=gridexplore-local
-      - CLIENT_REDIRECT_URI_6=http://localhost:3000/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:3000/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:3000/silent-renew-callback
+      - CLIENT_ID_5=gridexplore-local
+      - CLIENT_REDIRECT_URI_5=http://localhost:3000/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:3000/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:3000/silent-renew-callback
 
-      - CLIENT_ID_7=gridmerge-local
-      - CLIENT_REDIRECT_URI_7=http://localhost:3001/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3001/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3001/silent-renew-callback
+      - CLIENT_ID_6=gridadmin-local
+      - CLIENT_REDIRECT_URI_6=http://localhost:3002/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:3002/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:3002/silent-renew-callback
 
-      - CLIENT_ID_8=gridadmin-local
-      - CLIENT_REDIRECT_URI_8=http://localhost:3002/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_8=http://localhost:3002/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_8=http://localhost:3002/silent-renew-callback
+      - CLIENT_ID_7=griddyna-local
+      - CLIENT_REDIRECT_URI_7=http://localhost:3003/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3003/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3003/silent-renew-callback
 
-      - CLIENT_ID_9=griddyna-local
-      - CLIENT_REDIRECT_URI_9=http://localhost:3003/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_9=http://localhost:3003/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_9=http://localhost:3003/silent-renew-callback
-
-      - CLIENT_ID_10=gridstudy-local
-      - CLIENT_REDIRECT_URI_10=http://localhost:3004/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_10=http://localhost:3004/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_10=http://localhost:3004/silent-renew-callback
+      - CLIENT_ID_8=gridstudy-local
+      - CLIENT_REDIRECT_URI_8=http://localhost:3004/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_8=http://localhost:3004/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_8=http://localhost:3004/silent-renew-callback
     depends_on:
       logspout:
         condition: "service_started"
@@ -428,7 +474,6 @@ services:
       - suite
       - study
       - study-light
-      - merging
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -437,7 +482,6 @@ services:
       - 8070:8080
     volumes:
       - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
-      - $PWD/../authentication.json:/opt/bitnami/apache/htdocs/authentication.json:Z
       - $PWD/../version.json:/opt/bitnami/apache/htdocs/version.json:Z
       - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:

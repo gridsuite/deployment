@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamic-margin-calculation-server
+  labels:
+    name: dynamic-margin-calculation-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
+  annotations:
+    gridsuite.org/size: springboot-l-forking
+spec:
+  selector:
+    matchLabels:
+      name: dynamic-margin-calculation-server
+  template:
+    metadata:
+      labels:
+        name: dynamic-margin-calculation-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/dynamic-margin-calculation-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: dynamic-margin-calculation-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: dynawo-itools-configmap-volume
+      volumes:
+        - name: dynamic-margin-calculation-server-configmap-specific-volume
+          configMap:
+            name: dynamic-margin-calculation-server-configmap-specific
+        - name: dynawo-itools-configmap-volume
+          configMap:
+            name: dynawo-itools-configmap

@@ -1,14 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-commonLabels:
-  app: gridsuite
+labels:
+  - includeSelectors: true
+    pairs:
+      app: gridsuite
 
 resources:
   - root-ingress.yaml
   - default-backend-deployment.yaml
   - default-backend-service.yaml
-  - case-server-claim.yaml
   - case-server-deployment.yaml
   - case-server-service.yaml
   - network-conversion-server-deployment.yaml
@@ -34,6 +35,10 @@ resources:
   - config-notification-server-service.yaml
   - user-admin-server-deployment.yaml
   - user-admin-server-service.yaml
+  - study-config-server-deployment.yaml
+  - study-config-server-service.yaml
+  - user-identity-oidc-replication-server-deployment.yaml
+  - user-identity-server-service.yaml
 
 configMapGenerator:
   - name: default-backend-htdocs-configmap
@@ -52,6 +57,9 @@ configMapGenerator:
   - name: network-conversion-server-configmap-specific
     files:
       - application.yml=config/network-conversion-server-application.yml
+  - name: network-conversion-server-itools-configmap
+    files:
+      - config.yml=config/network-conversion-server-config.yml
   - name: network-store-server-configmap-specific
     files:
       - application.yml=config/network-store-server-application.yml
@@ -76,7 +84,6 @@ configMapGenerator:
   - name: apps-metadata-server-configmap
     files:
       - config/apps-metadata.json
-      - config/authentication.json
       - config/version.json
   - name: apps-metadata-server-httpdconf-configmap
     files:
@@ -90,3 +97,14 @@ configMapGenerator:
   - name: user-admin-server-configmap-specific
     files:
       - application.yml=config/user-admin-server-application.yml
+  - name: study-config-server-configmap-specific
+    files:
+      - application.yml=config/study-config-server-application.yml
+  - name: user-identity-oidc-replication-server-configmap-specific
+    files:
+      - application.yml=config/user-identity-oidc-replication-server-application.yml
+  - name: case-server-configmap-specific
+    behavior: merge
+    files:
+      - application.yml=config/case-server-application.yml
+

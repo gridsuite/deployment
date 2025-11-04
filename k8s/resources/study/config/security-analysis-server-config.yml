@@ -13,3 +13,6 @@ network:
 # Nb of hades2 concurrent processes - should be in-sync with sa.run.saGroup queue concurrency
 computation-local:
   available-core: 2
+
+open-security-analysis-default-parameters:
+  threadCount: 2

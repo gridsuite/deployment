@@ -1,14 +1,10 @@
-dynawaltz:
-  homeDir: /dynawo
-  debug: true
+dynawo:
+  homeDir: /dynaflow-launcher
+  debug: false
 
-dynawaltz-default-parameters:
-    parametersFile: /dynawo-config/models.par
-    network.parametersFile: /dynawo-config/network.par
-    network.parametersId: "8"
-    solver.type: IDA
-    solver.parametersFile: /dynawo-config/solvers.par
-    solver.parametersId: "1"
+dynawo-algorithms:
+  homeDir: /dynaflow-launcher
+  debug: false
 
 # Nb of concurrent processes - should be in-sync with ds.run.dsGroup queue concurrency
 computation-local:
