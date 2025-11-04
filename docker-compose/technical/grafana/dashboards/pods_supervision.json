@@ -759,7 +759,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(container_memory_working_set_bytes{service=\"$service\", container=\"main\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{container=\"main\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "intervalFactor": 2,
@@ -785,7 +785,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(container_memory_working_set_bytes{service=\"$service\", container=\"main\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{container=\"main\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits) by (pod)",
           "format": "table",
           "instant": true,
           "intervalFactor": 2,
@@ -1566,29 +1566,6 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
-      {
-        "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values({service=\"kube-prometheus-stack-kubelet\"},service)",
-        "hide": 2,
-        "includeAll": false,
-        "multi": false,
-        "name": "service",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values({service=\"kube-prometheus-stack-kubelet\"},service)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "type": "query"
       }
     ]
   },
