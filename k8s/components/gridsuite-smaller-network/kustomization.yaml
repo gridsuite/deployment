@@ -6,7 +6,7 @@ patches:
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
-    annotationSelector: gridsuite.org/size=springboot-xxs
+    annotationSelector: gridsuite.org/memory=memory-xxs
   patch: |-
     apiVersion: apps/v1
     kind: Deployment
@@ -25,7 +25,7 @@ patches:
     metadata:
       name: not-important
       annotations:
-        gridsuite.org/size: springboot-xs
+        gridsuite.org/memory: memory-xs
 
 # reset xxs to their original size
 - target:
@@ -36,5 +36,21 @@ patches:
     - op: remove
       path: /metadata/annotations/gridsuite.org~1smallnetwork-tmptag
     - op: replace
-      path: /metadata/annotations/gridsuite.org~1size
-      value: springboot-xxs
+      path: /metadata/annotations/gridsuite.org~1memory
+      value: memory-xxs
+
+# remove cpu requests/limits annotations (except security-analysis-server which has hardcoded resources)
+- target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot,name!=security-analysis-server
+  patch: |-
+    - op: remove
+      path: /metadata/annotations/gridsuite.org~1cpu
+
+  # remove hardcoded cpu and memory requests/limits for security-analysis-server
+- target:
+    kind: Deployment
+    labelSelector: name=security-analysis-server
+  patch: |-
+    - op: remove
+      path: /spec/template/spec/containers/0/resources

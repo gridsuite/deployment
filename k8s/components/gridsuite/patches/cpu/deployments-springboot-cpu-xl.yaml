@@ -2,16 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-important
+  annotations:
+    gridsuite.org/cpu: cpu-xl
 spec:
   template:
     spec:
       containers:
         - name: main
-          env:
-          - name: JAVA_TOOL_OPTIONS
-            value: "-Xmx1086m"
           resources:
             requests:
-              memory: "2432Mi"
+              cpu: "2500m"
             limits:
-              memory: "2432Mi"
+              cpu: "5000m"
