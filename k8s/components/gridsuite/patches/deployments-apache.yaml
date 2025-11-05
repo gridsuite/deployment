@@ -20,7 +20,7 @@ spec:
             memory: "128Mi"
             ephemeral-storage: 12Mi
           limits:
-            cpu: "500m"
+            cpu: "1000m"
             memory: "128Mi"
             ephemeral-storage: 64Mi
         startupProbe:
