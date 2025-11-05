@@ -63,7 +63,7 @@ services:
       - postgres
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.5
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.8
     ports:
       - 9200:9200
       - 9300:9300
@@ -95,7 +95,7 @@ services:
     profiles:
       - all
       - kibana
-    image: docker.elastic.co/kibana/kibana:8.15.5
+    image: docker.elastic.co/kibana/kibana:8.18.8
     ports:
       - 5601:5601
     environment:
@@ -108,7 +108,7 @@ services:
     profiles:
       - all
       - kibana
-    image: docker.elastic.co/logstash/logstash:8.15.5
+    image: docker.elastic.co/logstash/logstash:8.18.8
     volumes:
       - $PWD/../technical/pipelines.yml:/config/pipelines.yml:Z
       - $PWD/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
@@ -157,7 +157,7 @@ services:
     restart: unless-stopped
 
   s3-storage:
-    image: minio/minio:RELEASE.2023-09-27T15-22-50Z
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
     # need to override entrypoint to create the bucket, is there a simpler way ?
     entrypoint: sh
     command: -c 'mkdir -p /data/ws-bucket && /usr/bin/docker-entrypoint.sh server /data --console-address ":19090"'
