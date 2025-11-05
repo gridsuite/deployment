@@ -160,9 +160,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "count(app_users)",
+          "expr": "count(count by (user) (app_users)) OR on() vector(0)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "User count",
           "range": true,
           "refId": "A"
         }
@@ -256,14 +256,14 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(app_users)",
+          "expr": "sum(app_users) OR on() vector(0)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "Connection count",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Connexion count",
+      "title": "Connection count",
       "type": "timeseries"
     },
     {
