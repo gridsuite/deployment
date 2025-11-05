@@ -635,7 +635,7 @@
     "list": [
       {
         "current": {
-          "text": "thanos-ns-gridsuite-rec",
+          "text": "datasource",
           "value": "ef092jljxbcaoa"
         },
         "label": "Datasource",

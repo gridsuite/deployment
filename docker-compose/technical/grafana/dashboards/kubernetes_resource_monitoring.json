@@ -901,7 +901,7 @@
     "list": [
       {
         "current": {
-          "text": "thanos-ns-gridsuite-dev",
+          "text": "datasource",
           "value": "eep8b3zwjmwaoe"
         },
         "label": "Datasource",
