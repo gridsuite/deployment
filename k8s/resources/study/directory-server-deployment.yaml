@@ -10,7 +10,7 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
     gridsuite.org/springboot-with-elasticsearch: "true"
   annotations:
-    gridsuite.org/cpu: cpu-xxs
+    gridsuite.org/cpu: cpu-s
     gridsuite.org/memory: memory-springnative-xs
 spec:
   selector:
