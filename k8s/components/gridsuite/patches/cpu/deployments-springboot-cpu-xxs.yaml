@@ -13,4 +13,4 @@ spec:
             requests:
               cpu: "100m"
             limits:
-              cpu: "500m"
+              cpu: "2000m"
