@@ -139,6 +139,11 @@ patches:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot
     annotationSelector: gridsuite.org/memory=memory-xxl-forking
+- path: patches/memory/deployments-springboot-memory-xxxl-forking.yaml
+  target:
+    kind: Deployment
+    labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    annotationSelector: gridsuite.org/memory=memory-xxxl-forking
 - path: patches/deployments-springboot-elasticsearch-config.yaml
   target:
     kind: Deployment

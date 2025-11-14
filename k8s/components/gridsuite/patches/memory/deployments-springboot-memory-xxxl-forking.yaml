@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+spec:
+  template:
+    spec:
+      containers:
+        - name: main
+          env:
+          - name: JAVA_TOOL_OPTIONS
+            value: "-Xmx1408m"
+          resources:
+            requests:
+              memory: "4Gi"
+            limits:
+              memory: "4Gi"
