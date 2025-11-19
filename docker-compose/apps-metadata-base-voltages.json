@@ -1,6 +1,6 @@
 [
     {
-        "name": "vl7",
+        "name": "voltage-level-7",
         "vlValue": 400,
         "minValue": 300,
         "maxValue": 500,
@@ -33,7 +33,7 @@
         }
     },
     {
-        "name": "vl6",
+        "name": "voltage-level-6",
         "vlValue": 225,
         "minValue": 200,
         "maxValue": 300,
@@ -66,7 +66,7 @@
         }
     },
     {
-        "name": "vl5",
+        "name": "voltage-level-5",
         "vlValue": 150,
         "minValue": 100,
         "maxValue": 200,
@@ -99,7 +99,7 @@
         }
     },
     {
-        "name": "vl4",
+        "name": "voltage-level-4",
         "vlValue": 90,
         "minValue": 70,
         "maxValue": 100,
@@ -132,7 +132,7 @@
         }
     },
     {
-        "name": "vl3",
+        "name": "voltage-level-3",
         "vlValue": 63,
         "minValue": 50,
         "maxValue": 70,
@@ -165,7 +165,7 @@
         }
     },
     {
-        "name": "vl2",
+        "name": "voltage-level-2",
         "vlValue": 42,
         "minValue": 40,
         "maxValue": 50,
@@ -198,7 +198,7 @@
         }
     },
     {
-        "name": "vl1",
+        "name": "voltage-level-1",
         "vlValue": 20,
         "minValue": 0,
         "maxValue": 40,
