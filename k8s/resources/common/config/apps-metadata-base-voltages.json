@@ -4,7 +4,7 @@
         "vlValue": 400,
         "minValue": 300,
         "maxValue": 500,
-        "mapColor": "rgb(255, 0, 0)",
+        "networkMapColor": "rgb(255, 0, 0)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(255, 0, 0)",
@@ -37,7 +37,7 @@
         "vlValue": 225,
         "minValue": 200,
         "maxValue": 300,
-        "mapColor": "rgb(34, 139, 34)",
+        "networkMapColor": "rgb(34, 139, 34)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(50, 181, 50)",
@@ -70,7 +70,7 @@
         "vlValue": 150,
         "minValue": 100,
         "maxValue": 200,
-        "mapColor": "rgb(1, 175, 175)",
+        "networkMapColor": "rgb(1, 175, 175)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(0, 175, 174)",
@@ -103,7 +103,7 @@
         "vlValue": 90,
         "minValue": 70,
         "maxValue": 100,
-        "mapColor": "rgb(204, 85, 0)",
+        "networkMapColor": "rgb(204, 85, 0)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(255, 157, 0)",
@@ -136,7 +136,7 @@
         "vlValue": 63,
         "minValue": 50,
         "maxValue": 70,
-        "mapColor": "rgb(160, 32, 240)",
+        "networkMapColor": "rgb(160, 32, 240)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(160, 32, 240)",
@@ -169,7 +169,7 @@
         "vlValue": 42,
         "minValue": 40,
         "maxValue": 50,
-        "mapColor": "rgb(255, 130, 144)",
+        "networkMapColor": "rgb(255, 130, 144)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(255, 130, 144)",
@@ -202,7 +202,7 @@
         "vlValue": 20,
         "minValue": 0,
         "maxValue": 40,
-        "mapColor": "rgb(171, 175, 40)",
+        "networkMapColor": "rgb(171, 175, 40)",
         "sldAndNadColors": {
             "lightThemeColors": {
                 "default": "rgb(171, 174, 40)",
