@@ -482,6 +482,7 @@ services:
       - 8070:8080
     volumes:
       - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - $PWD/../../k8s/resources/common/config/apps-metadata-base-voltages.json:/opt/bitnami/apache/htdocs/apps-metadata-base-voltages.json:Z
       - $PWD/../version.json:/opt/bitnami/apache/htdocs/version.json:Z
       - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:

@@ -4,6 +4,8 @@
 #TODO can we avoid repeating all keys here just to put openid-configuration in the .well-known folder??
     - key: apps-metadata.json
       path: apps-metadata.json
+    - key: apps-metadata-base-voltages.json
+      path: apps-metadata-base-voltages.json
     - key: version.json
       path: version.json
     - key: keys
