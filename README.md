@@ -140,10 +140,10 @@ This profile allows you to launch only the technical services : postgres, elasti
 |---------------|------------|------------|
 | Postgres      | 14.9       |            |
 | RabbitMQ      | 4.0.4      | management |
-| Elasticsearch | 8.18.8     |            |
+| Elasticsearch | 8.7.1      |            |
 | Grafana       | 10.2.2     |            |
 | Prometheus    | v2.28.1    |            |
-| Minio         | 2025-09-07 |            |
+| Minio         | 2023-09-27 |            |
 
 
 It is used for k8s deployment with Minikube.
