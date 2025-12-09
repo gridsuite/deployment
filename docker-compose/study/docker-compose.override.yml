@@ -365,7 +365,7 @@ services:
       - dynamic-simulation
     image: gridsuite/dynamic-margin-calculation-server:latest
     ports:
-      - 5040:80
+      - 5041:80
     volumes:
       - $PWD/../../k8s/resources/study/config/dynamic-margin-calculation-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
