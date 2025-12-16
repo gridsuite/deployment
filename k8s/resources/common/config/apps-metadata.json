@@ -16,7 +16,25 @@
     }
   },
   "defaultParametersValues": {
-  }
+  },
+  "baseMapOptions" : [
+    {
+      "id": "mapbox",
+      "label": "Mapbox"
+    },
+    {
+      "id": "carto",
+      "label": "Carto"
+    },
+    {
+      "id": "cartonolabel",
+      "label": "CartoNoLabel"
+    },
+    {
+      "id": "etalab",
+      "label": "Etalab"
+    }
+  ]
 },
 {
   "name" : "Explore",
