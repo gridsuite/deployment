@@ -8,6 +8,7 @@ labels:
 
 resources:
   - root-ingress.yaml
+  - api-ingress.yaml
   - default-backend-deployment.yaml
   - default-backend-service.yaml
   - case-server-deployment.yaml

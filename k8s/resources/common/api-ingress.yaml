@@ -1,0 +1,62 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # our containers host at '/' so can't possibly make a difference between
+      # '/XXX/' and '/XXX' (trailing slash) (which would respectively become
+      # '/' and '' inside the container but an empty path doesn't exist in http)
+      # so always redirect '/XXX' to '/XXX/' in the client outside the container
+      # NOTE: not so useful for APIs because we don't often visit '/api/v1/rest'
+      # or '/api/v1/rest/' and expect something there, but we may add something
+      # one day like a root entry point listing all APIs and it doesn't cost us
+      # to add the client permanent redirect now and make the whole system simpler
+      rewrite ^/api$ /api/ permanent;
+      rewrite ^/api/v1$ /api/v1/ permanent;
+      rewrite ^/api/v1/rest$ /api/v1/rest/ permanent;
+      rewrite ^/api/v1/ws$ /api/v1/ws/ permanent;
+
+      # using this instead of standard rewrite as a workaround to avoid decoding slashes in urls
+      # we sometimes have ids in the urls that contain properly encoded slashes
+      # NOTE: the gateway currently doesn't use separate paths for ws/rest, everything is
+      # reverse proxied to the same path, here we could add more enforcement of using /ws/ for websockets
+      # and /rest/ for the rest, but not yet implemented for simplicity (so it's possible to use the
+      # rest apis through /ws and to use websockets through /rest for now...
+      if ($request_uri ~ "^/api/v1/(rest|ws)(/.*)") {
+        proxy_pass http://upstream_balancer$2;
+        break;
+      }
+spec:
+  rules:
+    - http:
+        paths:
+          # For convenience and to avoid surprises, we could avoid returning the standard
+          # 404 of bad urls for the parents of our paths /api/ and /api/v1/.
+          # This contrasts with e.g. '/api/rest' (missing v1) or '/apî/v1/rets'
+          # (typo on rest) which will get a generic "bad url" page with logo.
+          # We may even add api docs or something at these paths later.
+          # But for now use pathType: Exact, I couldn't get it to work on azure, it
+          # behaved like pathType: Prefix not sure why so left out
+
+          # NOTE: we use two paths here to have the global 404 page handle bad urls like
+          # /api/v1/rets and properly display the normal 404 page there, as opposed to
+          # accepting any /api/v1/* url here. In the future we can decide to have more
+          # than just v1/rest and v1/ws and it should be easy to change here, either add
+          # more paths or switch to accepting the full /api/v1/* or even /api/* depending
+          # on what we want
+          - path: /api/v1/rest(/|$)
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 80
+
+          - path: /api/v1/ws(/|$)
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 80
