@@ -135,3 +135,15 @@ patches:
       kind: Ingress
       name: gridadmin-app-ingress
     path: patch_ingress.yaml
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: api-ingress
+    path: patch_tls_ingress.yaml
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: api-ingress
+    path: patch_ingress.yaml
