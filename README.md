@@ -13,7 +13,9 @@ The following subdirectories must be created with file **mode 777 (rwx)** :
 - **init** : data files for initialization
 
 ```
+$ export GRIDSUITE_DATABASES=/path/to/your/folder
 $ cd $GRIDSUITE_DATABASES
+$ mkdir cases postgres elasticsearch init
 $ chmod 777 cases postgres elasticsearch init
 ```
 
