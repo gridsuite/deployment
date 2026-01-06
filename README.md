@@ -7,17 +7,16 @@
 All data must be stored under a common root directory whose location is defined by the environment variable **$GRIDSUITE_DATABASES**
 
 The following subdirectories must be created with file **mode 777 (rwx)** :
-- **cases** : working directory for cases-server
 - **postgres** : databases Postgres
 - **elasticsearch** : indexes (documents) Elasticsearch
 - **init** : data files for initialization
 
 ```
 $ cd $GRIDSUITE_DATABASES
-$ chmod 777 cases postgres elasticsearch init
+$ chmod 777 postgres elasticsearch init
 ```
 
-Be careful: **cases** are stored only in a minio container. Nothing to be done for that
+**cases** are stored in a minio containerand a volume folder named $GRIDSUITE_DATABASES/cases_v1/. Nothing to be done for that.
 
 
 | :warning:  These environment variables must be set and subdirectories created before running any containers with docker-compose ! |

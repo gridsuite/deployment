@@ -14,7 +14,6 @@ services:
       - 5000:80
     volumes:
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $GRIDSUITE_DATABASES/cases:/cases:Z
     depends_on:
       logspout:
         condition: "service_started"
