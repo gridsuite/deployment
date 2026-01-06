@@ -52,9 +52,6 @@ configMapGenerator:
   - name: common-application-configmap
     files:
       - application.yml=config/common-application.yml
-  - name: case-server-configmap-specific
-    files:
-      - application.yml=config/case-server-application.yml
   - name: network-conversion-server-configmap-specific
     files:
       - application.yml=config/network-conversion-server-application.yml
@@ -105,8 +102,4 @@ configMapGenerator:
   - name: user-identity-oidc-replication-server-configmap-specific
     files:
       - application.yml=config/user-identity-oidc-replication-server-application.yml
-  - name: case-server-configmap-specific
-    behavior: merge
-    files:
-      - application.yml=config/case-server-application.yml
 

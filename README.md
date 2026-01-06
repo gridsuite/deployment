@@ -17,11 +17,7 @@ $ cd $GRIDSUITE_DATABASES
 $ chmod 777 cases postgres elasticsearch init
 ```
 
-Optional : **cases** can be stored either on your filesystem, either in a minio container. If you choose the filesystem option, nothing need to be done.
-
-If you opt for the S3 option and the minio container, you have to define the following environnement variable : **STORAGE_TYPE=S3**
-
-You can choose the filesystem option explicitly with : **STORAGE_TYPE=FS**
+Be careful: **cases** are stored only in a minio container. Nothing to be done for that
 
 
 | :warning:  These environment variables must be set and subdirectories created before running any containers with docker-compose ! |

@@ -1,2 +1,0 @@
-storage:
-  type: S3  # FS or S3
