@@ -13,6 +13,7 @@ services:
     ports:
       - 5000:80
     volumes:
+      - $PWD/../../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       logspout:
