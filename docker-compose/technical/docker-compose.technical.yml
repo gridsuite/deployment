@@ -187,11 +187,9 @@ services:
     profiles:
       - all
       - metrics
-    image: grafana/grafana:10.2.2
+    image: grafana/grafana:11.3.0
     volumes:
       - $PWD/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
-      - $PWD/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
-      - $PWD/../technical/grafana/alerting:/etc/grafana/provisioning/alerting:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
