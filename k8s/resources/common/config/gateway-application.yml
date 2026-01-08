@@ -3,7 +3,6 @@ storeIdToken: true
 server:
   compression:
     enabled: true
-    min-response-size: 1024
     mime-types:
       - text/html
       - text/xml
