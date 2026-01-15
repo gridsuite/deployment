@@ -7,8 +7,7 @@ metadata:
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
   annotations:
-    gridsuite.org/cpu: cpu-xxl
-    gridsuite.org/memory: memory-xs
+    gridsuite.org/memory: memory-xxs
 spec:
   selector:
     matchLabels:
@@ -21,6 +20,11 @@ spec:
       containers:
       - name: main
         image: docker.io/gridsuite/gateway:latest
+        resources:
+          requests:
+            cpu: "2000m"
+          limits:
+            cpu: "10000m"
         volumeMounts:
         - mountPath: /config
           name: gateway-configmap-volume
