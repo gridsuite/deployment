@@ -12,11 +12,13 @@ The following subdirectories must be created with file **mode 777 (rwx)** :
 - **init** : data files for initialization
 
 ```
+$ export GRIDSUITE_DATABASES=/path/to/your/folder
 $ cd $GRIDSUITE_DATABASES
+$ mkdir postgres elasticsearch init
 $ chmod 777 postgres elasticsearch init
 ```
 
-**cases** are stored in a minio containerand a volume folder named $GRIDSUITE_DATABASES/cases_v1/. Nothing to be done for that.
+**cases** are stored in a minio container and a volume folder named $GRIDSUITE_DATABASES/cases_v1/. Nothing to be done for that.
 
 
 | :warning:  These environment variables must be set and subdirectories created before running any containers with docker-compose ! |
