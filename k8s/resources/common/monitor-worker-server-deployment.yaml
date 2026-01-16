@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor-worker-server
+  labels:
+    name: monitor-worker-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
+spec:
+  selector:
+    matchLabels:
+      name: monitor-worker-server
+  template:
+    metadata:
+      labels:
+        name: monitor-worker-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/monitor-worker-server:latest
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-Xmx4g"
+          resources:
+            requests:
+              cpu: "16000m"
+              memory: "7.5Gi"
+            limits:
+              cpu: "16000m"
+              memory: "7.5Gi"
+          volumeMounts:
+            - mountPath: /config/specific
+              name: monitor-worker-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: monitor-worker-server-itools-configmap-volume
+      volumes:
+        - name: monitor-worker-server-configmap-specific-volume
+          configMap:
+            name: monitor-worker-server-configmap-specific
+        - name: monitor-worker-server-itools-configmap-volume
+          configMap:
+            name: monitor-worker-server-itools-configmap

@@ -40,6 +40,10 @@ resources:
   - study-config-server-service.yaml
   - user-identity-oidc-replication-server-deployment.yaml
   - user-identity-server-service.yaml
+  - monitor-server-deployment.yaml
+  - monitor-server-service.yaml
+  - monitor-worker-server-deployment.yaml
+  - monitor-worker-server-service.yaml
 
 configMapGenerator:
   - name: default-backend-htdocs-configmap
@@ -105,3 +109,12 @@ configMapGenerator:
   - name: user-identity-oidc-replication-server-configmap-specific
     files:
       - application.yml=config/user-identity-oidc-replication-server-application.yml
+  - name: monitor-server-configmap-specific
+    files:
+      - application.yml=config/monitor-server-application.yml
+  - name: monitor-worker-server-configmap-specific
+    files:
+      - application.yml=config/monitor-worker-server-application.yml
+  - name: monitor-worker-server-itools-configmap
+    files:
+      - application.yml=config/monitor-worker-server-config.yml

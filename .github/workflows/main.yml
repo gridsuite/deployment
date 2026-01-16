@@ -42,6 +42,8 @@ on:
       - case_import_server_updated
       - gridadmin_app_updated
       - study_config_server_updated
+      - monitor-server-updated
+      - monitor-workflow-server-updated
 
 jobs:
   build:
