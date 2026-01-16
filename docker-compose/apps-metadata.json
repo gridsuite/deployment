@@ -65,7 +65,7 @@
     }
   },
   "defaultParametersValues": {
-    "enableDeveloperMode": "true"
+    "isDeveloperMode": "true"
   },
   "baseMapOptions" : [
     {
