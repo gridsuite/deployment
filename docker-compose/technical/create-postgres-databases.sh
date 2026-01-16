@@ -32,6 +32,7 @@ psql --username $POSTGRES_USER --dbname $POSTGRES_DEFAULT_DB <<-EOSQL
   create database "${DATABASE_PREFIX_NAME}useridentity_oidcreplication";
   create database "${DATABASE_PREFIX_NAME}diagram";
   create database "${DATABASE_PREFIX_NAME}pccmin";
+  create database "${DATABASE_PREFIX_NAME}monitor";
 EOSQL
 }
 

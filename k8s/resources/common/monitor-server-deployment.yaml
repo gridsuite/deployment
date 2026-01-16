@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor-server
+  labels:
+    name: monitor-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
+  annotations:
+    gridsuite.org/cpu: cpu-s
+    gridsuite.org/memory: memory-m
+spec:
+  selector:
+    matchLabels:
+      name: monitor-server
+  template:
+    metadata:
+      labels:
+        name: monitor-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/monitor-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: monitor-server-configmap-specific-volume
+      volumes:
+        - name: monitor-server-configmap-specific-volume
+          configMap:
+            name: monitor-server-configmap-specific
