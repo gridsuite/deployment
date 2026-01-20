@@ -3,4 +3,3 @@ storeIdToken: true
 server:
   compression:
     enabled: true
-s
