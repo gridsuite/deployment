@@ -39,7 +39,7 @@ patches:
       path: /metadata/annotations/gridsuite.org~1memory
       value: memory-xxs
 
-# remove cpu requests/limits annotations (except security-analysis-server which has hardcoded resources)
+# remove cpu requests/limits annotations (except security-analysis-server and gateway which have hardcoded resources)
 - target:
     kind: Deployment
     labelSelector: app.kubernetes.io/component=gridsuite-springboot,name!=security-analysis-server,name!=gateway
@@ -58,7 +58,7 @@ patches:
 # remove hardcoded cpu requests/limits for gateway
 - target:
     kind: Deployment
-    labelSelector: name=gateway-server
+    labelSelector: name=gateway
   patch: |-
     - op: remove
       path: /spec/template/spec/containers/0/resources
