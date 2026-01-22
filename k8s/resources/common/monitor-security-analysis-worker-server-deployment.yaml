@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: main
-          image: docker.io/gridsuite/monitor-security-analysis-worker-server:latest
+          image: docker.io/gridsuite/monitor-worker-server:latest
           volumeMounts:
             - mountPath: /config/specific
               name: monitor-security-analysis-worker-server-configmap-specific-volume
