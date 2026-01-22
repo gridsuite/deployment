@@ -647,13 +647,13 @@ services:
         limits:
           memory: 384m
 
-  monitor-security-analysis-worker-server:
+  monitor-sa-worker-server:
     profiles:
       - all
       - monitor
     image: gridsuite/monitor-worker-server:latest
     volumes:
-      - $PWD/../../k8s/resources/common/config/monitor-security-analysis-worker-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/monitor-sa-worker-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
