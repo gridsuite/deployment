@@ -77,18 +77,22 @@ This is the preferred development deployment.
 _Everything described in this section is inside the folder `explicit-profiles`._
 
 Here's the summary of the profiles and what services they includes:
-| Component \ Service | _(none)_ | study | study-light | dynamic-mapping | dynamic-simulation | suite | import | kibana | pgadmin | metrics |
-|---|---|---|---|---|---|---|---|---|---|---|
-| rabbitmq<br/>postgres<br/>elasticsearch<br/>minio* | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | |
-| kibana<br/>logstash<br/>socat<br/>logspout | | | | | | | | ✅ | | |
-| pgadmin | | | | | | | | | ✅ | |
-| apps&#8209;metadata&#8209;server<br/>mock&#8209;user&#8209;service<br/>gateway<br/>actions&#8209;server<br/>case&#8209;server<br/>config&#8209;notification&#8209;server<br/>config&#8209;server<br/>filter&#8209;server<br/>loadflow&#8209;server<br/>network&#8209;conversion&#8209;server<br/>network&#8209;store&#8209;server<br/>report&#8209;server<br/>user&#8209;admin&#8209;server | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
-| griddyna&#8209;app<br/>dynamic&#8209;mapping&#8209;server | | | | ✅ | ✅ | ✅ | | | | |
-| gridstudy&#8209;app<br/>dynamic&#8209;simulation&#8209;server<br/>dynamic&#8209;security&#8209;analysis&#8209;server<br/>dynamic&#8209;margin&#8209;calculation&#8209;server<br/>timeseries&#8209;server | | | | | ✅ | ✅ | | | | |
-| cgmes&#8209;gl&#8209;server<br/>odre&#8209;server<br/>security&#8209;analysis&#8209;server<br/>sensitivity&#8209;analysis&#8209;server<br/>shortcircuit&#8209;server<br/>voltage&#8209;init&#8209;server<br/>gridadmin&#8209;app | | ✅ | | | | ✅ | | | | |
-| directory&#8209;notification&#8209;server<br/>directory&#8209;server<br/>explore&#8209;server<br/>geo&#8209;data&#8209;server<br/>gridexplore&#8209;app<br/>network&#8209;map&#8209;server<br/>network&#8209;modification&#8209;server<br/>single&#8209;line&#8209;diagram&#8209;server<br/>study&#8209;notification&#8209;server<br/>study&#8209;server | | ✅ | ✅ | | ✅ | ✅ | | | | |
-| case&#8209;import&#8209;server | | | | | | | ✅ | | | |
-| grafana<br/>prometheus | | | | | | | | | | ✅ |
+| **Component \ Service** 	| **_(none)_** 	| **study** 	| **study-light** 	| **dynamic-mapping** 	| **dynamic-simulation** 	| **suite** 	| **import** 	| **kibana** 	| **pgadmin** 	| **metrics** 	| **monitor** 	|
+|---	|---	|---	|---	|---	|---	|---	|---	|---	|---	|---	|---	|
+| rabbitmq<br>postgres<br>elasticsearch<br>minio* 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	| ✅ 	|
+| kibana<br>logstash<br>socat<br>logspout 	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|
+| pgadmin 	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|
+| apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>config‑notification‑server<br>config‑server<br>loadflow‑server<br>network‑conversion‑server<br>network‑store‑server<br>user‑admin‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
+| actions‑server<br>case‑server<br>filter‑server<br>report‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
+| griddyna‑app<br>dynamic‑mapping‑server 	|  	|  	|  	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| gridstudy‑app<br>dynamic‑simulation‑server<br>dynamic‑security‑analysis‑server<br>dynamic‑margin‑calculation‑server<br>timeseries‑server 	|  	|  	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| cgmes‑gl‑server<br>odre‑server<br>sensitivity‑analysis‑server<br>shortcircuit‑server<br>voltage‑init‑server<br>gridadmin‑app 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
+| security‑analysis‑server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
+| directory‑notification‑server<br>directory‑server<br>explore‑server<br>geo‑data‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| network‑modification‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
+| monitor-server<br>monitor-worker-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
+| case‑import‑server 	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|
+| grafana<br>prometheus 	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|
 
 To use a profile, you use:
 ```shell
@@ -214,6 +218,7 @@ http://localhost:5035/swagger-ui.html  // study-config-server
 http://localhost:5037/swagger-ui.html  // timeseries-server
 http://localhost:5038/swagger-ui.html  // voltage-init-server
 http://localhost:5039/swagger-ui.html  // case-import-server
+http://localhost:5043/swagger-ui.html  // monitor-server
 ```
 
 ### RabbitMQ console
@@ -419,6 +424,7 @@ http://<INGRESS_HOST>/timeseries-server/swagger-ui.html
 http://<INGRESS_HOST>/voltage-init-server/swagger-ui.html
 http://<INGRESS_HOST>/case-import-server/swagger-ui.html
 http://<INGRESS_HOST>/study-config-server/swagger-ui.html
+http://<INGRESS_HOST>/monitor-server/swagger-ui.html
 ```
 
 ## How to use a local docker image into Minikube?

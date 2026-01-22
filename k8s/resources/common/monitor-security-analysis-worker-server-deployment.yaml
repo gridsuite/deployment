@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor-security-analysis-worker-server
+  labels:
+    name: monitor-security-analysis-worker-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-database: "true"
+    gridsuite.org/springboot-with-rabbitmq: "true"
+  annotations:
+    gridsuite.org/cpu: cpu-l
+    gridsuite.org/memory: memory-xl
+spec:
+  selector:
+    matchLabels:
+      name: monitor-security-analysis-worker-server
+  template:
+    metadata:
+      labels:
+        name: monitor-security-analysis-worker-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/monitor-security-analysis-worker-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: monitor-security-analysis-worker-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: monitor-security-analysis-worker-server-itools-configmap-volume
+      volumes:
+        - name: monitor-security-analysis-worker-server-configmap-specific-volume
+          configMap:
+            name: monitor-security-analysis-worker-server-configmap-specific
+        - name: monitor-security-analysis-worker-server-itools-configmap-volume
+          configMap:
+            name: monitor-security-analysis-worker-server-itools-configmap

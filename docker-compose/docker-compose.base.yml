@@ -9,6 +9,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: powsybl/case-server:latest
     ports:
       - 5000:80
@@ -43,6 +44,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/actions-server:latest
     ports:
       - 5022:80
@@ -74,6 +76,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/filter-server:latest
     ports:
       - 5027:80
@@ -198,6 +201,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/report-server:latest
     ports:
       - 5028:80
