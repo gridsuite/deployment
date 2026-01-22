@@ -647,7 +647,7 @@ services:
         limits:
           memory: 384m
 
-  monitor-worker-server:
+  monitor-security-analysis-worker-server:
     profiles:
       - all
       - monitor
