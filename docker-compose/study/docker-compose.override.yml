@@ -95,6 +95,7 @@ services:
       - study
       - study-light
       - dynamic-simulation
+      - monitor
     image: gridsuite/network-modification-server:latest
     ports:
       - 5007:80
@@ -287,6 +288,7 @@ services:
       - all
       - suite
       - study
+      - monitor
     image: gridsuite/security-analysis-server:latest
     ports:
       - 5023:80
@@ -653,7 +655,7 @@ services:
     ports:
       - 5042:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/monitor-worker-server-application.yml:/config/specific/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/monitor-security-analysis-worker-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:

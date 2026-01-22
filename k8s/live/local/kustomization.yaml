@@ -46,7 +46,7 @@ resources:
   - voltage-init-server-ingress.yaml
   - study-config-server-ingress.yaml
   - monitor-server-ingress.yaml
-  - monitor-worker-server-ingress.yaml
+  - monitor-security-analysis-worker-server-ingress.yaml
 
 configMapGenerator:
   - name: gridapps-env-configmap
