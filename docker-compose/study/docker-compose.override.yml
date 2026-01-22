@@ -652,8 +652,6 @@ services:
       - all
       - monitor
     image: gridsuite/monitor-worker-server:latest
-    ports:
-      - 5042:80
     volumes:
       - $PWD/../../k8s/resources/common/config/monitor-security-analysis-worker-server-application.yml:/config/specific/application.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
