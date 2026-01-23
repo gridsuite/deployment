@@ -117,4 +117,4 @@ configMapGenerator:
       - application.yml=config/monitor-sa-worker-server-application.yml
   - name: monitor-sa-worker-server-itools-configmap
     files:
-      - application.yml=config/monitor-sa-worker-server-config.yml
+      - config.yml=config/monitor-sa-worker-server-config.yml

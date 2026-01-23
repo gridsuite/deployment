@@ -654,6 +654,7 @@ services:
     image: gridsuite/monitor-worker-server:latest
     volumes:
       - $PWD/../../k8s/resources/common/config/monitor-sa-worker-server-application.yml:/config/specific/application.yml:Z
+      - ${PATH_TO_STUDY_COMPOSE:-$PWD}/../../k8s/resources/common/config/monitor-sa-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
