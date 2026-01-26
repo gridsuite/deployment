@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - monitor-server-deployment.yaml
+  - monitor-server-service.yaml
+  - monitor-sa-worker-server-deployment.yaml
+  - monitor-sa-worker-server-service.yaml
+
+configMapGenerator:
+  - name: monitor-server-configmap-specific
+    files:
+      - application.yml=config/monitor-server-application.yml
+  - name: monitor-sa-worker-server-configmap-specific
+    files:
+      - application.yml=config/monitor-sa-worker-server-application.yml
+  - name: monitor-sa-worker-server-itools-configmap
+    files:
+      - config.yml=config/monitor-sa-worker-server-config.yml
