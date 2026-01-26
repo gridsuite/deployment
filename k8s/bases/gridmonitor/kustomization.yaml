@@ -3,7 +3,5 @@ kind: Kustomization
 
 resources:
   - ../../resources/common
-  - ../../resources/study
   - ../../resources/monitor
-  - ../../resources/dynamic-mapping
 
