@@ -10,7 +10,7 @@ services:
       - 5043:80
     volumes:
       - $PWD/../../k8s/resources/monitor/config/monitor-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/monitor/config/common-application.yml:/config/common/application.yml:Z
+      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
