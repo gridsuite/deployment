@@ -20,6 +20,15 @@ $ chmod 777 postgres elasticsearch init
 
 **cases** are stored in a minio container and a volume folder named $GRIDSUITE_DATABASES/cases_v1/. Nothing to be done for that.
 
+:warning: if you set proxies in your docker containers, you should set a noProxy conf to access the minio container.
+In your ~/.docker/config.json, add the following configuration :
+```json
+"proxies": {
+    "default": {
+        "noProxy": "s3-storage"
+    }
+}
+```
 
 | :warning:  These environment variables must be set and subdirectories created before running any containers with docker-compose ! |
 |---------------------------------------------------------------------------------------------------------------------------------|
