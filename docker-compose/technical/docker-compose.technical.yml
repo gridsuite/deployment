@@ -175,7 +175,7 @@ services:
     profiles:
       - all
       - metrics
-    image: prom/prometheus:v2.28.1
+    image: prom/prometheus:v3.8.1
     command: --enable-feature=exemplar-storage
     volumes:
       - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
@@ -187,11 +187,9 @@ services:
     profiles:
       - all
       - metrics
-    image: grafana/grafana:10.2.2
+    image: grafana/grafana:11.3.0
     volumes:
       - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/grafana/alerting:/etc/grafana/provisioning/alerting:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true

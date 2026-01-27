@@ -151,8 +151,8 @@ This profile allows you to launch only the technical services : postgres, elasti
 | Postgres      | 14.9       |            |
 | RabbitMQ      | 4.0.4      | management |
 | Elasticsearch | 8.15.5     |            |
-| Grafana       | 10.2.2     |            |
-| Prometheus    | v2.28.1    |            |
+| Grafana       | 11.3.0     |            |
+| Prometheus    | v3.8.1     |            |
 | Minio         | 2023-09-27 |            |
 
 
@@ -276,6 +276,9 @@ Grafana UI:
 ```html
 http://localhost:7000
 ```
+You need import dashboards and alerts with admin-tools
+
+See https://github.com/gridsuite/admin-tools?tab=readme-ov-file#grafana-scripts
 
 ### Minio console
 
