@@ -152,7 +152,7 @@ This profile allows you to launch only the technical services : postgres, elasti
 | RabbitMQ      | 4.0.4      | management |
 | Elasticsearch | 8.15.5     |            |
 | Grafana       | 11.3.0     |            |
-| Prometheus    | v2.28.1    |            |
+| Prometheus    | v3.8.1     |            |
 | Minio         | 2023-09-27 |            |
 
 

@@ -175,7 +175,7 @@ services:
     profiles:
       - all
       - metrics
-    image: prom/prometheus:v2.28.1
+    image: prom/prometheus:v3.8.1
     command: --enable-feature=exemplar-storage
     volumes:
       - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
