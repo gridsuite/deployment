@@ -405,7 +405,7 @@ services:
         limits:
           memory: 384m
 
-  mock-user-service:
+  mock-user-server:
     profiles:
       - all
       - suite
