@@ -41,7 +41,8 @@
   "url"  : "/gridexplore",
   "appColor" : "#33AFED",
   "hiddenInAppsMenu" : false,
-  "hiddenUserInformation": true
+  "hiddenUserInformation": true,
+  "maxFileSizeInMb": 100
 },
 {
   "name" : "Dynamic Mapping",

@@ -4,7 +4,8 @@
   "url"  : "http://localhost:80",
   "appColor" : "#33AFED",
   "hiddenInAppsMenu" : false,
-  "hiddenUserInformation": false
+  "hiddenUserInformation": false,
+  "maxFileSizeInMb" : 100
 },
 {
   "name" : "Study",
