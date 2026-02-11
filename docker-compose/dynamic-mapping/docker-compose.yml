@@ -1,5 +1,3 @@
-version: '4.0'
-
 services:
   griddyna-app:
     profiles:
@@ -11,8 +9,8 @@ services:
     ports:
       - 83:8080
     volumes:
-      - $PWD/../dynamic-mapping/griddyna-app-idpSettings.json:/opt/bitnami/apache/htdocs/griddyna/idpSettings.json:Z
-      - $PWD/../env.json:/opt/bitnami/apache/htdocs/griddyna/env.json:Z
+      - ./griddyna-app-idpSettings.json:/opt/bitnami/apache/htdocs/griddyna/idpSettings.json:Z
+      - ../env.json:/opt/bitnami/apache/htdocs/griddyna/env.json:Z
     depends_on:
       logspout:
         condition: "service_started"
@@ -34,8 +32,8 @@ services:
     ports:
       - 5036:80
     volumes:
-      - $PWD/../../k8s/resources/dynamic-mapping/config/dynamic-mapping-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../../k8s/resources/dynamic-mapping/config/dynamic-mapping-server-application.yml:/config/specific/application.yml:Z
+      - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
