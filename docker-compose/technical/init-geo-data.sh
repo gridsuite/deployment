@@ -4,7 +4,7 @@ set -e
 
 function curl_()
 {
-  curl -f -s -o /dev/null -H "Content-Type: application/json" "$@"
+  curl --noproxy '*' -f -s -o /dev/null -H "Content-Type: application/json" "$@"
 }
 
 function init_geo_data()
@@ -17,7 +17,9 @@ function init_geo_data()
   ([ ! -f "$FILE_LINES" ] || curl_ -d@$FILE_LINES http://geo-data-server/v1/lines)
 }
 
-if [ "$PROJECT_DIR_NAME" == "$PROJECT_STUDY_DIR_NAME" ] || [ "$PROJECT_DIR_NAME" == "$PROJECT_SUITE_DIR_NAME" ]
+SHOULD_INIT_GEO_DATA="${SHOULD_INIT_GEO_DATA:-false}"
+
+if [ "$SHOULD_INIT_GEO_DATA" = "true" ]
 then
   until init_geo_data
   do
