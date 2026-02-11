@@ -12,7 +12,7 @@ function init_lines_catalog()
 
 SHOULD_INIT_LINES_CATALOG="${SHOULD_INIT_LINES_CATALOG:-false}"
 
-if [ "SHOULD_INIT_LINES_CATALOG" = "true" ]
+if [ "$SHOULD_INIT_LINES_CATALOG" = "true" ]
 then
   until init_lines_catalog
   do
