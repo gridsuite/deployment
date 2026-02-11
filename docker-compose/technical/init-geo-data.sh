@@ -4,7 +4,7 @@ set -e
 
 function curl_()
 {
-  curl -f -s -o /dev/null -H "Content-Type: application/json" "$@"
+  curl --noproxy '*' -f -s -o /dev/null -H "Content-Type: application/json" "$@"
 }
 
 function init_geo_data()
