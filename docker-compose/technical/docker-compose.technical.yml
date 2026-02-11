@@ -36,6 +36,8 @@ services:
       - POSTGRES_DEFAULT_DB=postgres
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
+    env_file:
+      - $PWD/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
       - $GRIDSUITE_DATABASES/init:/init-data:Z

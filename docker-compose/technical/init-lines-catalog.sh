@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function init_lines_catalog()
 {
   LINES_CATALOG=/init-data/lines-catalog.json.gz
@@ -8,8 +10,12 @@ function init_lines_catalog()
   fi
 }
 
-until init_lines_catalog
-  do
-    echo "curl: network-modification-server is unavailable to initialize data - will retry later"
-    sleep 5
-  done
+SHOULD_INIT_LINES_CATALOG="${SHOULD_INIT_LINES_CATALOG:-false}"
+
+if [ "SHOULD_INIT_LINES_CATALOG" = "true" ]; then
+  until init_lines_catalog
+    do
+      echo "curl: network-modification-server is unavailable to initialize data - will retry later"
+      sleep 5
+    done
+fi
