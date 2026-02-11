@@ -1,0 +1,2 @@
+include:
+  - docker-compose.technical.yml
