@@ -19,10 +19,11 @@ function init_geo_data()
 
 SHOULD_INIT_GEO_DATA="${SHOULD_INIT_GEO_DATA:-false}"
 
-if [ "$SHOULD_INIT_GEO_DATA" = "true" ]; then
-  until init_geo_data
-    do
-      echo "curl: geo-data-server is unavailable to initialize data - will retry later"
-      sleep 5
-    done
+if [ "$SHOULD_INIT_GEO_DATA" = "true" ]
+then
+until init_geo_data
+  do
+    echo "curl: geo-data-server is unavailable to initialize data - will retry later"
+    sleep 5
+  done
 fi
