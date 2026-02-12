@@ -1,0 +1,5 @@
+include:
+  - ../docker-compose.base.yml
+  - ../technical/docker-compose.technical.yml
+  - ../dynamic-mapping/docker-compose.dynamic-mapping.yml
+  - docker-compose.study.yml

@@ -16,7 +16,7 @@ services:
 
   postgres:
     build:
-      context: ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical
+      context: ./
       dockerfile: Dockerfile-postgres
       args:
         - http_proxy=${http_proxy-}
@@ -37,14 +37,14 @@ services:
       - POSTGRES_PASSWORD=postgres
       - PGDATA=/var/lib/postgresql/data
     env_file:
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/.env
+      - $PWD/.env
     volumes:
       - $GRIDSUITE_DATABASES/postgres/data:/var/lib/postgresql/data:Z
       - $GRIDSUITE_DATABASES/init:/init-data:Z
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/create-postgres-databases.sh:/create-postgres-databases.sh:Z
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/init-databases.sh:/init-databases.sh:Z
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/init-geo-data.sh:/init-geo-data.sh:Z
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/init-lines-catalog.sh:/init-lines-catalog.sh:Z
+      - ./create-postgres-databases.sh:/create-postgres-databases.sh:Z
+      - ./init-databases.sh:/init-databases.sh:Z
+      - ./init-geo-data.sh:/init-geo-data.sh:Z
+      - ./init-lines-catalog.sh:/init-lines-catalog.sh:Z
     restart: unless-stopped
 
   postgres-exporter:
@@ -110,8 +110,8 @@ services:
       - kibana
     image: docker.elastic.co/logstash/logstash:8.19.10
     volumes:
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/pipelines.yml:/config/pipelines.yml:Z
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - ./pipelines.yml:/config/pipelines.yml:Z
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
     environment:
       - LOGSPOUT=ignore
     depends_on:
@@ -153,7 +153,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@localhost.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/servers_pgadmin.json:/pgadmin4/servers.json
+      - ./servers_pgadmin.json:/pgadmin4/servers.json
     restart: unless-stopped
 
   s3-storage:
@@ -178,7 +178,7 @@ services:
     image: prom/prometheus:v3.8.1
     command: --enable-feature=exemplar-storage
     volumes:
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/prometheus.yml:/prometheus/prometheus.yml:ro
+      - ./prometheus.yml:/prometheus/prometheus.yml:ro
     restart: unless-stopped
     ports:
       - "8000:9090"
@@ -189,7 +189,7 @@ services:
       - metrics
     image: grafana/grafana:11.3.0
     volumes:
-      - ${PATH_TO_TECHNICAL_COMPOSE:-$PWD}/../technical/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources:ro
     restart: unless-stopped
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true

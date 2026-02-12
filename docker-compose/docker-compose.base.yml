@@ -1,4 +1,5 @@
 version: '4.0'
+
 services:
   case-server:
     profiles:
@@ -14,8 +15,8 @@ services:
     ports:
       - 5000:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       logspout:
         condition: "service_started"
@@ -49,8 +50,8 @@ services:
     ports:
       - 5022:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/actions-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -81,8 +82,8 @@ services:
     ports:
       - 5027:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/filter-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -112,8 +113,8 @@ services:
     ports:
       - 5033:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/user-admin-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/user-admin-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -143,8 +144,8 @@ services:
     ports:
       - 5035:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/study-config-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/study-config-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -174,8 +175,8 @@ services:
     ports:
       - 5034:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/user-identity-oidc-replication-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/user-identity-oidc-replication-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -206,8 +207,8 @@ services:
     ports:
       - 5028:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/report-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -237,8 +238,8 @@ services:
     ports:
       - 8080:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/network-store-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -268,9 +269,9 @@ services:
     ports:
       - 5003:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - ../k8s/resources/common/config/network-conversion-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -300,9 +301,9 @@ services:
     ports:
       - 5008:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/loadflow-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - ../k8s/resources/common/config/loadflow-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -332,8 +333,8 @@ services:
     ports:
       - 5025:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -359,8 +360,8 @@ services:
     ports:
       - 5024:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -386,9 +387,9 @@ services:
     ports:
       - 9000:80
     volumes:
-      - $PWD/../../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
-      - $PWD/../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - $PWD/../allowed-issuers.yml:/config/allowed-issuers.yml:Z
+      - ../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
+      - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+      - ./allowed-issuers.yml:/config/allowed-issuers.yml:Z
     restart: unless-stopped
     depends_on:
       logspout:
@@ -483,10 +484,10 @@ services:
     ports:
       - 8070:8080
     volumes:
-      - $PWD/../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
-      - $PWD/../../k8s/resources/common/config/apps-metadata-base-voltages.json:/opt/bitnami/apache/htdocs/apps-metadata-base-voltages.json:Z
-      - $PWD/../version.json:/opt/bitnami/apache/htdocs/version.json:Z
-      - $PWD/../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+      - ./apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - ../k8s/resources/common/config/apps-metadata-base-voltages.json:/opt/bitnami/apache/htdocs/apps-metadata-base-voltages.json:Z
+      - ./version.json:/opt/bitnami/apache/htdocs/version.json:Z
+      - ./gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
     depends_on:
       logspout:
         condition: "service_started"
