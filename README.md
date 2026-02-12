@@ -81,8 +81,7 @@ These folders (other than `explicit-profiles`) act now like an alias to `docker 
 with the difference that they have implicitly a profile active and will be considered like another project stack,
 so compose commands will not affect others folders state.
 
-### Docker-compose profiles
-This is the preferred development deployment.  
+### Docker-compose with profiles
 _Everything described in this section is inside the folder `explicit-profiles`._
 
 Here's the summary of the profiles and what services they includes:
