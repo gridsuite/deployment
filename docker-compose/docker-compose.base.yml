@@ -406,7 +406,7 @@ services:
         limits:
           memory: 384m
 
-  mock-user-service:
+  oidc-mock-server:
     profiles:
       - all
       - suite
