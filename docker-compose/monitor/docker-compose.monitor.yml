@@ -5,6 +5,7 @@ services:
     profiles:
       - all
       - monitor
+      - snapshot-refiner
     image: gridsuite/monitor-server:latest
     ports:
       - 5043:80
