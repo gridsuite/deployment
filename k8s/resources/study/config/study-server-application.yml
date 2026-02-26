@@ -13,6 +13,9 @@ gridsuite:
     - name: dynamic-security-analysis-server
       base-uri: http://dynamic-security-analysis-server/
       optional: true
+    - name: dynamic-margin-calculation-server
+      base-uri: http://dynamic-margin-calculation-server/
+      optional: true
     - name: security-analysis-server
       base-uri: http://security-analysis-server/
       optional: true
