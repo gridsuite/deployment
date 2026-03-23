@@ -1,0 +1,12 @@
+estim:
+  homeDir: /estim
+  debug: false
+
+#Workaround iidm in-memory impl present on classpath (needed by cvg-extension)
+network:
+  default-impl-name: NetworkStore
+
+# Nb of estim concurrent processes - should be in-sync with stateestimation.run.stateestimationGroup concurrency
+computation-local:
+  available-core: 2
+
