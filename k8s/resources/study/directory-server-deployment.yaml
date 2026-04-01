@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: main
-        image: docker.io/gridsuite/directory-server-native:latest
+        image: docker.io/gridsuite/directory-server:latest
         volumeMounts:
         - mountPath: /config/specific
           name: directory-server-configmap-specific-volume

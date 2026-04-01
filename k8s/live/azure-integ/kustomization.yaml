@@ -78,7 +78,7 @@ images:
     digest: 1e516b408a7156aed3b70b3fa7d6860ed80445b858b4630364ea6c892e3d01da
   - name: docker.io/gridsuite/study-server
     digest: 8f4f7382e3ac9e07e562c4e3e8180841fe67a1f1c8fb7dac619dfc759c62bbcf
-  - name: docker.io/gridsuite/directory-server-native
+  - name: docker.io/gridsuite/directory-server
     digest: todo
   - name: docker.io/gridsuite/explore-server
     digest: todo
