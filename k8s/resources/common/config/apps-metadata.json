@@ -17,6 +17,7 @@
   },
   "defaultParametersValues": {
   },
+  "localStorageTtlDays": 7,
   "baseMapOptions" : [
     {
       "id": "mapbox",
