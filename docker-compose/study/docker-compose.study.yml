@@ -7,6 +7,7 @@ services:
       - suite
       - study
       - study-light
+      - study-xlight
       - dynamic-simulation
     image: gridsuite/study-server:latest
     ports:
@@ -36,6 +37,7 @@ services:
       - suite
       - study
       - study-light
+      - study-xlight
       - dynamic-simulation
     image: gridsuite/geo-data-server:latest
     ports:
@@ -65,6 +67,7 @@ services:
       - suite
       - study
       - study-light
+      - study-xlight
       - dynamic-simulation
     image: powsybl/single-line-diagram-server:latest
     ports:
@@ -94,6 +97,7 @@ services:
       - suite
       - study
       - study-light
+      - study-xlight
       - dynamic-simulation
       - monitor
     image: gridsuite/network-modification-server:latest
@@ -125,6 +129,7 @@ services:
       - suite
       - study
       - study-light
+      - study-xlight
       - dynamic-simulation
     image: gridsuite/study-notification-server:latest
     ports:
@@ -183,6 +188,7 @@ services:
       - suite
       - study
       - study-light
+      - study-xlight
       - dynamic-simulation
     image: gridsuite/network-map-server:latest
     ports:
@@ -265,6 +271,8 @@ services:
       - all
       - suite
       - study
+      - study-light
+      - study-xlight
       - dynamic-simulation
     image: gridsuite/gridstudy-app:latest
     ports:
