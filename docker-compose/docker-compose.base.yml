@@ -297,6 +297,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/loadflow-server:latest
     ports:
       - 5008:80
