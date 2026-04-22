@@ -27,12 +27,7 @@ spec:
           volumeMounts:
             - mountPath: /config/specific
               name: monitor-lf-worker-server-configmap-specific-volume
-            - mountPath: /home/powsybl/.itools
-              name: monitor-lf-worker-server-itools-configmap-volume
       volumes:
         - name: monitor-lf-worker-server-configmap-specific-volume
           configMap:
             name: monitor-lf-worker-server-configmap-specific
-        - name: monitor-lf-worker-server-itools-configmap-volume
-          configMap:
-            name: monitor-lf-worker-server-itools-configmap

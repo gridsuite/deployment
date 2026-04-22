@@ -19,6 +19,6 @@ configMapGenerator:
   - name: monitor-sa-worker-server-itools-configmap
     files:
       - config.yml=config/monitor-sa-worker-server-config.yml
-  - name: monitor-sa-worker-server-configmap-specific
+  - name: monitor-lf-worker-server-configmap-specific
     files:
       - application.yml=config/monitor-lf-worker-server-application.yml
