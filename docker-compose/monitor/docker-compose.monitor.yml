@@ -12,6 +12,13 @@ services:
       - ../../k8s/resources/monitor/config/monitor-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -33,6 +40,11 @@ services:
       - ../../k8s/resources/monitor/config/monitor-sa-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 3072m
     command: --server.port=80 --spring.config.additional-location=/config/

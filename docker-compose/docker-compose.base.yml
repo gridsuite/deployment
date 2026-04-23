@@ -18,6 +18,14 @@ services:
       - ../k8s/resources/common/config/case-server-application.yml:/config/specific/application.yml:Z
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -55,6 +63,10 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -88,6 +100,10 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -120,6 +136,10 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -152,6 +172,8 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -183,6 +205,8 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -216,6 +240,8 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -248,6 +274,8 @@ services:
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -280,6 +308,12 @@ services:
       - ../k8s/resources/common/config/network-conversion-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
+      elasticsearch:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -313,6 +347,10 @@ services:
       - ../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -344,6 +382,11 @@ services:
       - ../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -372,6 +415,9 @@ services:
       - ../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
       - ../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/

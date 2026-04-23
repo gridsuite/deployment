@@ -38,6 +38,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false

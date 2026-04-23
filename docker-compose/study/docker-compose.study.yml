@@ -17,6 +17,12 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -47,6 +53,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -77,6 +85,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -109,6 +119,12 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -139,6 +155,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -168,6 +186,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -306,6 +326,10 @@ services:
       - ../../k8s/resources/study/config/security-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -333,6 +357,13 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - ../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -357,6 +388,13 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - ../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -381,6 +419,13 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
       - ../../k8s/resources/study/config/dynawo-itools-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -407,6 +452,12 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -460,6 +511,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -488,6 +541,10 @@ services:
       - ../../k8s/resources/study/config/sensitivity-analysis-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -516,6 +573,12 @@ services:
       - ../../k8s/resources/study/config/shortcircuit-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -543,6 +606,8 @@ services:
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false
@@ -571,6 +636,12 @@ services:
       - ../../k8s/resources/study/config/voltage-init-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     depends_on:
+      postgres:
+        condition: service_healthy
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       logspout:
         condition: "service_started"
         required: false

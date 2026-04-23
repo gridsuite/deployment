@@ -8,6 +8,11 @@ services:
       - 15672:15672
       - 5672:5672
       - 15692:15692
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     depends_on:
       logspout:
         condition: "service_started"
@@ -45,7 +50,13 @@ services:
       - ./init-databases.sh:/init-databases.sh:Z
       - ./init-geo-data.sh:/init-geo-data.sh:Z
       - ./init-lines-catalog.sh:/init-lines-catalog.sh:Z
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DEFAULT_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     restart: unless-stopped
+#    stop_grace_period: 60s
 
   postgres-exporter:
     profiles:
@@ -60,7 +71,8 @@ services:
       - DATA_SOURCE_URI=postgres:5432/postgres?sslmode=disable
     restart: unless-stopped
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.19.10
@@ -76,7 +88,13 @@ services:
       - action.auto_create_index=filebeat-*
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     restart: unless-stopped
+#    stop_grace_period: 60s
 
   elasticsearch-exporter:
     profiles:
@@ -89,7 +107,8 @@ services:
       - "9114:9114"
     restart: unless-stopped
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
 
   kibana:
     profiles:
@@ -101,7 +120,8 @@ services:
     environment:
       - LOGSPOUT=ignore
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
     restart: unless-stopped
 
   logstash:
@@ -115,7 +135,8 @@ services:
     environment:
       - LOGSPOUT=ignore
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
     restart: unless-stopped
 
   socat:
@@ -154,6 +175,9 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - ./servers_pgadmin.json:/pgadmin4/servers.json
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
   s3-storage:
@@ -169,7 +193,13 @@ services:
       - MINIO_ROOT_PASSWORD=s3password
     volumes:
       - $GRIDSUITE_DATABASES/cases_v1/miniodata:/data:Z
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9000/minio/health/live >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     restart: on-failure
+#    stop_grace_period: 60s
 
   prometheus:
     profiles:
