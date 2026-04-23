@@ -290,6 +290,23 @@ default credentials :
    - password : s3password
 ```
 
+### Customizing user roles
+
+When using the `mock-user-service` in local deployment, you can customize the roles assigned to the authenticated user by modifying the `USERS_PROFILE` environment variable in the `docker-compose/docker-compose.base.yml` file.
+
+The roles are defined as a pipe-separated string. For example:
+```yaml
+mock-user-service:
+  ...
+  environment:
+    - USERS_PROFILE=UTILISATEURS|ADMIN|ADMIN_EXPLORE
+```
+
+After modifying this variable, you need to recreate the `mock-user-service` container:
+```bash
+$ docker compose up -d --force-recreate mock-user-service
+```
+
 
 ### Installing / Updating docker-compose to v2
 [Docker compose v2](https://github.com/docker/compose) is necessary to be able to use this compose project which uses [profiles feature](https://docs.docker.com/compose/profiles/).  
