@@ -50,7 +50,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -87,7 +86,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -124,7 +122,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -160,7 +157,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -227,7 +223,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -262,7 +257,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -334,7 +328,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -371,7 +364,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -404,7 +396,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -435,7 +426,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -468,7 +458,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
@@ -534,7 +523,6 @@ services:
       - suite
       - study
       - study-light
-      - study-xlight
       - dynamic-mapping
       - dynamic-simulation
       - import
