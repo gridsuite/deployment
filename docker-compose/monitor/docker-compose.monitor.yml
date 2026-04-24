@@ -52,7 +52,7 @@ services:
     volumes:
       - ../../k8s/resources/monitor/config/monitor-lf-worker-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
-      - ../../k8s/resources/common/config/loadflow-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - ../../k8s/resources/common/config/monitor-lf-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
