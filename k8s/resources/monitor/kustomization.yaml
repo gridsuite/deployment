@@ -22,3 +22,6 @@ configMapGenerator:
   - name: monitor-lf-worker-server-configmap-specific
     files:
       - application.yml=config/monitor-lf-worker-server-application.yml
+  - name: monitor-lf-worker-server-itools-configmap
+    files:
+      - config.yml=config/monitor-lf-worker-server-config.yml
