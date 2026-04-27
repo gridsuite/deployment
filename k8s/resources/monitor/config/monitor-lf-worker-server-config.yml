@@ -1,0 +1,12 @@
+load-flow-default-parameters:
+  voltageInitMode: DC_VALUES
+  phaseShifterRegulationOn: true
+  twtSplitShuntAdmittance: true
+  dcUseTransformerRatio: false
+  countriesToBalance:
+    - FR
+
+#TODO: remove writeReferenceTerminals parameter override when ReferenceTerminals extension is implemented
+open-loadflow-default-parameters:
+  writeReferenceTerminals: false
+  slackDistributionFailureBehavior : FAIL

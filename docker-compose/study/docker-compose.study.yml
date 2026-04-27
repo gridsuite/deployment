@@ -437,6 +437,7 @@ services:
       - study
       - study-light
       - dynamic-simulation
+      - monitor
     image: gridsuite/directory-server:latest
     ports:
       - 5026:80
