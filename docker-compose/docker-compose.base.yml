@@ -330,6 +330,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/config-server:latest
     ports:
       - 5025:80
