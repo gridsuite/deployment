@@ -56,7 +56,6 @@ services:
       timeout: 5s
       retries: 10
     restart: unless-stopped
-#    stop_grace_period: 60s
 
   postgres-exporter:
     profiles:
@@ -94,7 +93,6 @@ services:
       timeout: 5s
       retries: 10
     restart: unless-stopped
-#    stop_grace_period: 60s
 
   elasticsearch-exporter:
     profiles:
@@ -199,7 +197,6 @@ services:
       timeout: 5s
       retries: 10
     restart: on-failure
-#    stop_grace_period: 60s
 
   prometheus:
     profiles:
