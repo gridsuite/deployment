@@ -90,13 +90,15 @@ Here's the summary of the profiles and what services they includes:
 | rabbitmq<br>postgres<br>elasticsearch<br>minio* 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	| ✅ 	|
 | kibana<br>logstash<br>socat<br>logspout 	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|
 | pgadmin 	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|
-| apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>config‑notification‑server<br>config‑server<br>loadflow‑server<br>network‑conversion‑server<br>network‑store‑server<br>user‑admin‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
-| actions‑server<br>case‑server<br>filter‑server<br>report‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
+| apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>config‑notification‑server<br>config‑server<br>loadflow‑server<br>network‑conversion‑server<br>network‑store‑server<br>study‑config‑server<br>user‑admin‑server<br>user‑identity‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
+| actions‑server 	|  	| ✅ 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
+| case‑server<br>filter‑server<br>report‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
 | griddyna‑app<br>dynamic‑mapping‑server 	|  	|  	|  	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | gridstudy‑app<br>dynamic‑simulation‑server<br>dynamic‑security‑analysis‑server<br>dynamic‑margin‑calculation‑server<br>timeseries‑server 	|  	|  	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | cgmes‑gl‑server<br>odre‑server<br>sensitivity‑analysis‑server<br>shortcircuit‑server<br>voltage‑init‑server<br>gridadmin‑app 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
 | security‑analysis‑server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
-| directory‑notification‑server<br>directory‑server<br>explore‑server<br>geo‑data‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| geo‑data‑server 	|  	| ✅ 	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| directory‑notification‑server<br>directory‑server<br>explore‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | network‑modification‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
 | monitor-server<br>monitor-worker-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
 | case‑import‑server 	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|
@@ -553,4 +555,3 @@ services:
 ...
 ```
 Now, when using ```docker compose up```, your custom Docker image will be used.
-

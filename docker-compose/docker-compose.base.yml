@@ -49,7 +49,6 @@ services:
       - all
       - suite
       - study
-      - study-light
       - dynamic-mapping
       - dynamic-simulation
       - import

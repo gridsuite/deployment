@@ -41,7 +41,6 @@ services:
       - all
       - suite
       - study
-      - study-light
       - dynamic-simulation
     image: gridsuite/geo-data-server:latest
     ports:
