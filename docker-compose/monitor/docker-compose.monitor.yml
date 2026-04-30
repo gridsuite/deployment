@@ -90,3 +90,26 @@ services:
       resources:
         limits:
           memory: 384m
+
+  gridmonitor-app:
+    profiles:
+      - all
+      - suite
+      - study
+      - dynamic-simulation
+    image: gridsuite/gridmonitor-app:latest
+    ports:
+      - 84:8080
+    volumes:
+      - ./gridmonitor-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmonitor/idpSettings.json:Z
+      - ../env.json:/opt/bitnami/apache/htdocs/gridmonitor/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
