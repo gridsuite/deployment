@@ -71,7 +71,7 @@ services:
       - monitor
     image: gridsuite/monitor-notification-server:latest
     ports:
-      - 5009:80
+      - 5010:80
     volumes:
       - ../../k8s/resources/monitor/config/monitor-notification-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
@@ -94,12 +94,10 @@ services:
   gridmonitor-app:
     profiles:
       - all
-      - suite
-      - study
-      - dynamic-simulation
+      - monitor
     image: gridsuite/gridmonitor-app:latest
     ports:
-      - 84:8080
+      - 85:8080
     volumes:
       - ./gridmonitor-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmonitor/idpSettings.json:Z
       - ../env.json:/opt/bitnami/apache/htdocs/gridmonitor/env.json:Z

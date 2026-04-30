@@ -57,7 +57,7 @@ $ cd deployment
 
 ### Application profiles _(alias)_
 > [!NOTE]  
-> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
+> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `monitor`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
 
 ```bash
 $ cd docker-compose/suite
@@ -69,6 +69,10 @@ $ docker compose up
 ```
 ```bash
 $ cd docker-compose/dynamic-mapping
+$ docker compose up
+```
+```bash
+$ cd docker-compose/monitor
 $ docker compose up
 ```
 
@@ -98,7 +102,7 @@ Here's the summary of the profiles and what services they includes:
 | security‑analysis‑server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
 | directory‑notification‑server<br>directory‑server<br>explore‑server<br>geo‑data‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | network‑modification‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
-| monitor-server<br>monitor-worker-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
+| gridmonitor-app<br>monitor-server<br>monitor-sa-worker-server<br>monitor-lf-worker-server<br>monitor-notification-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
 | case‑import‑server 	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|
 | grafana<br>prometheus 	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|
 
@@ -192,6 +196,7 @@ http://localhost:80 // gridexplore
 http://localhost:82 // gridadmin
 http://localhost:83 // griddyna
 http://localhost:84 // gridstudy
+http://localhost:85 // gridmonitor
 ```
 
 Swagger UI:
@@ -226,6 +231,7 @@ http://localhost:5035/swagger-ui.html  // study-config-server
 http://localhost:5037/swagger-ui.html  // timeseries-server
 http://localhost:5038/swagger-ui.html  // voltage-init-server
 http://localhost:5039/swagger-ui.html  // case-import-server
+http://localhost:5010/swagger-ui.html  // monitor-notification-server
 http://localhost:5043/swagger-ui.html  // monitor-server
 ```
 
@@ -553,4 +559,3 @@ services:
 ...
 ```
 Now, when using ```docker compose up```, your custom Docker image will be used.
-
