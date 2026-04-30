@@ -94,13 +94,15 @@ Here's the summary of the profiles and what services they includes:
 | rabbitmq<br>postgres<br>elasticsearch<br>minio* 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	| ✅ 	|
 | kibana<br>logstash<br>socat<br>logspout 	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|
 | pgadmin 	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|
-| apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>config‑notification‑server<br>config‑server<br>loadflow‑server<br>network‑conversion‑server<br>network‑store‑server<br>user‑admin‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
+| apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>config‑server<br>loadflow‑server<br>user‑admin‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
+| config‑notification‑server<br>network‑conversion‑server<br>network‑store‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
 | actions‑server<br>case‑server<br>filter‑server<br>report‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
 | griddyna‑app<br>dynamic‑mapping‑server 	|  	|  	|  	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | gridstudy‑app<br>dynamic‑simulation‑server<br>dynamic‑security‑analysis‑server<br>dynamic‑margin‑calculation‑server<br>timeseries‑server 	|  	|  	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | cgmes‑gl‑server<br>odre‑server<br>sensitivity‑analysis‑server<br>shortcircuit‑server<br>voltage‑init‑server<br>gridadmin‑app 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
 | security‑analysis‑server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
-| directory‑notification‑server<br>directory‑server<br>explore‑server<br>geo‑data‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| directory‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
+| directory‑notification‑server<br>explore‑server<br>geo‑data‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | network‑modification‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
 | gridmonitor-app<br>monitor-server<br>monitor-sa-worker-server<br>monitor-lf-worker-server<br>monitor-notification-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
 | case‑import‑server 	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|
