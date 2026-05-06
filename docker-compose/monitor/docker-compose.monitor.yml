@@ -11,6 +11,10 @@ services:
     volumes:
       - ../../k8s/resources/monitor/config/monitor-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -32,6 +36,10 @@ services:
       - ../../k8s/resources/monitor/config/monitor-sa-worker-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/monitor/config/monitor-sa-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 3072m
@@ -53,6 +61,10 @@ services:
       - ../../k8s/resources/monitor/config/monitor-lf-worker-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/monitor/config/monitor-lf-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
@@ -64,3 +76,50 @@ services:
       resources:
         limits:
           memory: 1536m #deployment: 3072m
+
+  monitor-notification-server:
+    profiles:
+      - all
+      - monitor
+    image: gridsuite/monitor-notification-server:latest
+    ports:
+      - 5010:80
+    volumes:
+      - ../../k8s/resources/monitor/config/monitor-notification-server-application.yml:/config/specific/application.yml:Z
+      - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  gridmonitor-app:
+    profiles:
+      - all
+      - monitor
+    image: gridsuite/gridmonitor-app:latest
+    ports:
+      - 85:8080
+    volumes:
+      - ./gridmonitor-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmonitor/idpSettings.json:Z
+      - ../env.json:/opt/bitnami/apache/htdocs/gridmonitor/env.json:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
