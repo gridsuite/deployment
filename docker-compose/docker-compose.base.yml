@@ -122,6 +122,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/user-admin-server:latest
     ports:
       - 5033:80
@@ -365,6 +366,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/config-server:latest
     ports:
       - 5025:80
@@ -427,6 +429,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/gateway:latest
     ports:
       - 9000:80
@@ -459,6 +462,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: gridsuite/oidc-mock-server
     ports:
       - 9090:9090
@@ -534,6 +538,7 @@ services:
       - dynamic-mapping
       - dynamic-simulation
       - import
+      - monitor
     image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
     ports:
       - 8070:8080
