@@ -1,24 +1,36 @@
 services:
 
   # ===========================================================================
-  # SINGLE TOMCAT — all WAR-deployed microservices
+  # SINGLE TOMCAT — all WAR-deployed microservices (33 webmvc servers)
   # ===========================================================================
   tomcat:
+    # JDK 21 required: servers are compiled with Java 21 (class file version 65)
     image: tomcat:10.1-jdk21
     ports:
       - "${TOMCAT_PORT:-12345}:8080"
     volumes:
+      # Custom server.xml: sets Host startStopThreads="10" for parallel WAR deployment
       - ./server.xml:/usr/local/tomcat/conf/server.xml:Z
       - ./webapps:/usr/local/tomcat/webapps:Z
+      # Per-WAR config overrides (base-uri rewrites) loaded via spring.config.additional-location
+      # in each WAR's SpringBootServletInitializer. Only contains service base-uri mappings.
       - ./config:/config:Z
+      # Merged powsybl itools config (loadflow params, writeReferenceTerminals: false, etc.)
       - ./itools-config.yml:/root/.itools/config.yml:Z
     environment:
+      # spring.profiles.active=default: disables "local" profile so application-local.yml
+      # files embedded in server JARs are NOT loaded. Infrastructure defaults (rabbitmq,
+      # postgres, elasticsearch hosts) come from powsybl-ws-commons.jar application.yaml
+      # which already has the correct docker service names.
       - CATALINA_OPTS=-Dspring.profiles.active=default -Xmx2g
     depends_on:
       - postgres
       - rabbitmq
       - elasticsearch
       - s3-storage
+    # Wait for elasticsearch before starting Tomcat: WARs that depend on elasticsearch
+    # (study-server, directory-server, case-server, network-conversion-server) fail
+    # immediately if ES is not reachable at startup (no built-in retry).
     entrypoint: ["/bin/bash", "-c", "until curl -sf http://elasticsearch:9200/_cluster/health; do echo 'Waiting for elasticsearch...'; sleep 3; done && catalina.sh run"]
     restart: unless-stopped
     memswap_limit: 6g

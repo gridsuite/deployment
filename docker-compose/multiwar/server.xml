@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Custom Tomcat server.xml for multiwar deployment.
+  Only change from default: startStopThreads="10" on the Host element.
+  This deploys up to 10 WARs in parallel at startup, reducing total boot time
+  from ~5min (sequential) to ~1min with 33 WARs.
+-->
 <Server port="8005" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
