@@ -1,0 +1,234 @@
+services:
+
+  # ===========================================================================
+  # SINGLE TOMCAT — all WAR-deployed microservices
+  # ===========================================================================
+  tomcat:
+    image: tomcat:10.1-jdk21
+    ports:
+      - "${TOMCAT_PORT:-12345}:8080"
+    volumes:
+      - ./server.xml:/usr/local/tomcat/conf/server.xml:Z
+      - ./webapps:/usr/local/tomcat/webapps:Z
+      - ./config:/config:Z
+      - ./itools-config.yml:/root/.itools/config.yml:Z
+    environment:
+      - CATALINA_OPTS=-Dspring.profiles.active=default -Xmx2g
+    depends_on:
+      - postgres
+      - rabbitmq
+      - elasticsearch
+      - s3-storage
+    entrypoint: ["/bin/bash", "-c", "until curl -sf http://elasticsearch:9200/_cluster/health; do echo 'Waiting for elasticsearch...'; sleep 3; done && catalina.sh run"]
+    restart: unless-stopped
+    memswap_limit: 6g
+    deploy:
+      resources:
+        limits:
+          memory: 6g
+
+  # ===========================================================================
+  # NON-WAR SERVICES (WebFlux / notification servers)
+  # ===========================================================================
+  config-server:
+    image: gridsuite/config-server:latest
+    ports:
+      - 5025:80
+    volumes:
+      - ../../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
+      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  config-notification-server:
+    image: gridsuite/config-notification-server:latest
+    ports:
+      - 5024:80
+    volumes:
+      - ../../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
+      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  study-notification-server:
+    image: gridsuite/study-notification-server:latest
+    ports:
+      - 5009:80
+    volumes:
+      - ../../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
+      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  directory-notification-server:
+    image: gridsuite/directory-notification-server:latest
+    ports:
+      - 5004:80
+    volumes:
+      - ../../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
+      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  gateway:
+    image: gridsuite/gateway:latest
+    ports:
+      - 9000:80
+    volumes:
+      - ../../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
+      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+      - ../allowed-issuers.yml:/config/allowed-issuers.yml:Z
+    restart: unless-stopped
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx96m
+    command: --server.port=80 --spring.config.additional-location=/config/
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    memswap_limit: 384m
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+
+  # ===========================================================================
+  # FRONTEND APPS
+  # ===========================================================================
+  gridstudy-app:
+    image: gridsuite/gridstudy-app:latest
+    ports:
+      - 84:8080
+    volumes:
+      - ../study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
+      - ../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  gridexplore-app:
+    image: gridsuite/gridexplore-app:latest
+    ports:
+      - 80:8080
+    volumes:
+      - ../study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
+      - ../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  gridadmin-app:
+    image: gridsuite/gridadmin-app:latest
+    ports:
+      - 82:8080
+    volumes:
+      - ../study/gridadmin-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridadmin/idpSettings.json:Z
+      - ../env.json:/opt/bitnami/apache/htdocs/gridadmin/env.json:Z
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped
+
+  # ===========================================================================
+  # MOCK & METADATA
+  # ===========================================================================
+  mock-user-service:
+    image: gridsuite/oidc-mock-server
+    ports:
+      - 9090:9090
+    environment:
+      - PORT=9090
+      - ISSUER_HOST=172.17.0.1:9090
+      - USERS_PROFILE=UTILISATEURS|ADMIN|ADMIN_EXPLORE
+      - CLIENT_COUNT=8
+      - CLIENT_ID=gridexplore-client
+      - CLIENT_REDIRECT_URI=http://localhost:80/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI=http://localhost:80/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI=http://localhost:80/silent-renew-callback
+      - CLIENT_ID_2=gridadmin-client
+      - CLIENT_REDIRECT_URI_2=http://localhost:82/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_2=http://localhost:82/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_2=http://localhost:82/silent-renew-callback
+      - CLIENT_ID_3=griddyna-client
+      - CLIENT_REDIRECT_URI_3=http://localhost:83/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_3=http://localhost:83/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_3=http://localhost:83/silent-renew-callback
+      - CLIENT_ID_4=gridstudy-client
+      - CLIENT_REDIRECT_URI_4=http://localhost:84/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_4=http://localhost:84/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_4=http://localhost:84/silent-renew-callback
+      - CLIENT_ID_5=gridexplore-local
+      - CLIENT_REDIRECT_URI_5=http://localhost:3000/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:3000/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:3000/silent-renew-callback
+      - CLIENT_ID_6=gridadmin-local
+      - CLIENT_REDIRECT_URI_6=http://localhost:3002/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:3002/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:3002/silent-renew-callback
+      - CLIENT_ID_7=griddyna-local
+      - CLIENT_REDIRECT_URI_7=http://localhost:3003/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3003/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3003/silent-renew-callback
+      - CLIENT_ID_8=gridstudy-local
+      - CLIENT_REDIRECT_URI_8=http://localhost:3004/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_8=http://localhost:3004/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_8=http://localhost:3004/silent-renew-callback
+    restart: unless-stopped
+
+  apps-metadata-server:
+    image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
+    ports:
+      - 8070:8080
+    volumes:
+      - ../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
+      - ../../k8s/resources/common/config/apps-metadata-base-voltages.json:/opt/bitnami/apache/htdocs/apps-metadata-base-voltages.json:Z
+      - ../version.json:/opt/bitnami/apache/htdocs/version.json:Z
+      - ../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+    memswap_limit: 128m
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    restart: unless-stopped

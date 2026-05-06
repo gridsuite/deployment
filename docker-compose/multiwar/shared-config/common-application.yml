@@ -1,0 +1,56 @@
+# Common application config for non-WAR services in multiwar deployment.
+# Points service base-uris to the single Tomcat instance.
+
+powsybl:
+  services:
+    case-server:
+      base-uri: http://tomcat:8080/case-server/
+    network-store-server:
+      base-uri: http://tomcat:8080/network-store-server/
+    network-conversion-server:
+      base-uri: http://tomcat:8080/network-conversion-server/
+    single-line-diagram-server:
+      base-uri: http://tomcat:8080/single-line-diagram-server/
+
+gridsuite:
+  services:
+    directory-server:
+      base-uri: http://tomcat:8080/directory-server/
+    explore-server:
+      base-uri: http://tomcat:8080/explore-server/
+    study-server:
+      base-uri: http://tomcat:8080/study-server/
+    actions-server:
+      base-uri: http://tomcat:8080/actions-server/
+    filter-server:
+      base-uri: http://tomcat:8080/filter-server/
+    user-admin-server:
+      base-uri: http://tomcat:8080/user-admin-server/
+    config-server:
+      base-uri: http://config-server:80
+    report-server:
+      base-uri: http://tomcat:8080/report-server/
+    network-modification-server:
+      base-uri: http://tomcat:8080/network-modification-server/
+    geo-data-server:
+      base-uri: http://tomcat:8080/geo-data-server/
+    network-map-server:
+      base-uri: http://tomcat:8080/network-map-server/
+    loadflow-server:
+      base-uri: http://tomcat:8080/loadflow-server/
+    security-analysis-server:
+      base-uri: http://tomcat:8080/security-analysis-server/
+    sensitivity-analysis-server:
+      base-uri: http://tomcat:8080/sensitivity-analysis-server/
+    shortcircuit-server:
+      base-uri: http://tomcat:8080/shortcircuit-server/
+    voltage-init-server:
+      base-uri: http://tomcat:8080/voltage-init-server/
+    dynamic-simulation-server:
+      base-uri: http://tomcat:8080/dynamic-simulation-server/
+    timeseries-server:
+      base-uri: http://tomcat:8080/timeseries-server/
+    study-config-server:
+      base-uri: http://tomcat:8080/study-config-server/
+    user-identity-server:
+      base-uri: http://tomcat:8080/user-identity-oidc-replication-server/
