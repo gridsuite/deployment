@@ -11,10 +11,10 @@ services:
     volumes:
       # Custom server.xml: sets Host startStopThreads="10" for parallel WAR deployment
       - ./server.xml:/usr/local/tomcat/conf/server.xml:Z
-      - ./webapps:/usr/local/tomcat/webapps:Z
+      - ./gen/wars:/usr/local/tomcat/webapps:Z
       # Per-WAR config overrides (base-uri rewrites) loaded via spring.config.additional-location
       # in each WAR's SpringBootServletInitializer. Only contains service base-uri mappings.
-      - ./config:/config:Z
+      - ./gen/externalized-war-configs:/config:Z
       # Merged powsybl itools config (loadflow params, writeReferenceTerminals: false, etc.)
       - ./itools-config.yml:/root/.itools/config.yml:Z
     environment:
@@ -54,7 +54,7 @@ services:
       - 5025:80
     volumes:
       - ../../k8s/resources/common/config/config-server-application.yml:/config/specific/application.yml:Z
-      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+      - ./nonwars-to-tomcat-config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -73,7 +73,7 @@ services:
       - 5024:80
     volumes:
       - ../../k8s/resources/common/config/config-notification-server-application.yml:/config/specific/application.yml:Z
-      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+      - ./nonwars-to-tomcat-config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -92,7 +92,7 @@ services:
       - 5009:80
     volumes:
       - ../../k8s/resources/study/config/study-notification-server-application.yml:/config/specific/application.yml:Z
-      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+      - ./nonwars-to-tomcat-config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -111,7 +111,7 @@ services:
       - 5004:80
     volumes:
       - ../../k8s/resources/study/config/directory-notification-server-application.yml:/config/specific/application.yml:Z
-      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+      - ./nonwars-to-tomcat-config/common-application.yml:/config/common/application.yml:Z
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -130,7 +130,7 @@ services:
       - 9000:80
     volumes:
       - ../../k8s/resources/common/config/gateway-application.yml:/config/specific/application.yml:Z
-      - ./shared-config/common-application.yml:/config/common/application.yml:Z
+      - ./nonwars-to-tomcat-config/common-application.yml:/config/common/application.yml:Z
       - ../allowed-issuers.yml:/config/allowed-issuers.yml:Z
     restart: unless-stopped
     environment:
