@@ -33,14 +33,20 @@ services:
     # immediately if ES is not reachable at startup (no built-in retry).
     entrypoint: ["/bin/bash", "-c", "until curl -sf http://elasticsearch:9200/_cluster/health; do echo 'Waiting for elasticsearch...'; sleep 3; done && catalina.sh run"]
     restart: unless-stopped
-    memswap_limit: 6g
+    memswap_limit: 5g
     deploy:
       resources:
         limits:
-          memory: 6g
+          memory: 5g
+    # Future: move shared JARs (Spring, Hibernate, powsybl-*) to Tomcat lib/ so
+    # they are loaded once by the common classloader, reducing Metaspace usage.
+    # Current setup: each WAR bundles ~200MB of dependencies, many identical across
+    # WARs. Shared classloading could cut memory by 30-50%.
 
   # ===========================================================================
   # NON-WAR SERVICES (WebFlux / notification servers)
+  # Future: avoid redeclaring these services here — find a way to reuse the
+  # definitions from docker-compose.base.yml directly.
   # ===========================================================================
   config-server:
     image: gridsuite/config-server:latest

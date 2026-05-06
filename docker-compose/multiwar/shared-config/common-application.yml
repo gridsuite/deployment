@@ -53,4 +53,4 @@ gridsuite:
     study-config-server:
       base-uri: http://tomcat:8080/study-config-server/
     user-identity-server:
-      base-uri: http://tomcat:8080/user-identity-oidc-replication-server/
+      base-uri: http://tomcat:8080/user-identity-server/
