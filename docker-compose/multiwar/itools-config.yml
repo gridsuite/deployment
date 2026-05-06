@@ -1,0 +1,46 @@
+# Merged itools config for all WAR-deployed servers in Tomcat.
+# Mounted at /home/powsybl/.itools/config.yml
+
+hades2:
+  homeDir: /hades2
+  debug: false
+
+dynaflow:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+dynawo:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+dynawo-algorithms:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+network:
+  default-impl-name: NetworkStore
+
+dynaflow-default-parameters:
+  mergeLoads: false
+
+computation-local:
+  available-core: 4
+
+load-flow-default-parameters:
+  voltageInitMode: DC_VALUES
+  phaseShifterRegulationOn: true
+  twtSplitShuntAdmittance: true
+  dcUseTransformerRatio: false
+  countriesToBalance:
+    - FR
+
+open-loadflow-default-parameters:
+  writeReferenceTerminals: false
+  slackDistributionFailureBehavior: FAIL
+
+open-security-analysis-default-parameters:
+  threadCount: 2
+
+import-export-parameters-default-value:
+  iidm.import.cgmes.cgm-with-subnetworks: false
+  ucte.import.create-areas: false
