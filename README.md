@@ -555,4 +555,3 @@ services:
 ...
 ```
 Now, when using ```docker compose up```, your custom Docker image will be used.
-
