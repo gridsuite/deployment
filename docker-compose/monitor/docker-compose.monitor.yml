@@ -11,6 +11,10 @@ services:
     volumes:
       - ../../k8s/resources/monitor/config/monitor-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
@@ -32,6 +36,10 @@ services:
       - ../../k8s/resources/monitor/config/monitor-sa-worker-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/monitor/config/monitor-sa-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx1086m #deployment: 3072m
@@ -53,6 +61,10 @@ services:
       - ../../k8s/resources/monitor/config/monitor-lf-worker-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/monitor/config/monitor-lf-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m #deployment: 1408m
