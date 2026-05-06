@@ -429,7 +429,7 @@ POM
         local wrapper_dir="$WRAPPERS_DIR/$ctx"
         generate_local_config_override "$ctx" "$server_folder" "$pom_subpath" "$wrapper_dir"
     done
-    ls -1 "$CONFIG_DIR"/*/* 2>/dev/null || true
+    (cd "$SCRIPT_DIR" && find gen/externalized-war-configs -type f 2>/dev/null) || true
 
 
 }
@@ -488,7 +488,7 @@ build_wars() {
 # ===========================================================================
 deploy_to_compose_dirs() {
     log "=== Copying WARs to gen/wars/ ==="
-    rm -rf "$WEBAPPS_DIR"
+    rm -f "$WEBAPPS_DIR"/*.war 2>/dev/null || true
     mkdir -p "$WEBAPPS_DIR"
 
     for entry in "${MANIFEST[@]}"; do
@@ -503,7 +503,7 @@ deploy_to_compose_dirs() {
         fi
     done
 
-    ls -1 "$WEBAPPS_DIR"/*.war 2>/dev/null
+    (cd "$SCRIPT_DIR" && find gen/wars -maxdepth 1 -name '*.war' -type f 2>/dev/null) || true
     echo ""
     echo "Folders gen/wars/ and gen/externalized-war-configs/ ready for \$ docker compose up"
 }
