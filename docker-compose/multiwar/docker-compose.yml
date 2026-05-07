@@ -1,0 +1,3 @@
+include:
+  - ../technical/docker-compose.technical.yml
+  - docker-compose.multiwar.yml
