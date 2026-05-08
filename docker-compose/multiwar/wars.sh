@@ -25,23 +25,23 @@
 #
 #   This keeps all server submodules UNMODIFIED while producing deployable WARs.
 #
-# Future improvements:
-#   - Move shared JARs (Spring, Hibernate, powsybl-commons, etc.) into Tomcat's
-#     lib/ directory so they are loaded once by the common classloader. This would
-#     significantly reduce Metaspace usage (each WAR currently loads its own copy
-#     of every dependency class).
-#   - Reduce duplication in config override generation: many servers share the same
-#     service references (e.g. network-store, report-server). A template or merge
-#     system could replace per-server YAML generation.
+#   Shared classloading: all deps (highest version across servers) are placed
+#   in Tomcat's lib/ via gen/shared-lib/. WARs use packagingIncludes to keep
+#   only the server's own classes JAR. No per-WAR version overrides — all
+#   servers use the same shared version to avoid ServiceLoader/SPI classloader
+#   conflicts.
 #
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AGGREGATOR_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 SERVERS_DIR="$AGGREGATOR_ROOT/backend/servers"
+SERVERS_REACTOR_DIR="$SCRIPT_DIR/gen/servers-reactor"
+SHARED_DEPS_DIR="$SCRIPT_DIR/gen/shared-deps"
 WRAPPERS_DIR="$SCRIPT_DIR/gen/war-wrappers"
 WEBAPPS_DIR="$SCRIPT_DIR/gen/wars"
 CONFIG_DIR="$SCRIPT_DIR/gen/externalized-war-configs"
+SHARED_LIB_DIR="$SCRIPT_DIR/gen/shared-lib"
 
 # Base URL used inside docker network (container-to-container)
 TOMCAT_BASE_URL="http://tomcat:8080"
@@ -247,6 +247,264 @@ generate_local_config_override() {
     echo -n "$output" > "$out_file"
 }
 
+# ---------------------------------------------------------------------------
+# Add auto-configuration exclusions for servers affected by shared-lib.
+# With shared-lib, ALL Spring Boot auto-configuration trigger classes are on
+# the common classpath, so auto-configs activate for ALL webapps — even servers
+# that don't use a given feature. This function detects which features each
+# server actually uses and adds exclusions for the rest.
+# ---------------------------------------------------------------------------
+add_shared_lib_autoconfig_exclusions() {
+    local datasource_exclusions=(
+        "org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+        "org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"
+        "org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration"
+        "org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration"
+    )
+    local security_exclusions=(
+        "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration"
+        "org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration"
+        "org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration"
+    )
+
+    for entry in "${MANIFEST[@]}"; do
+        IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
+        should_process "$ctx" || continue
+
+        local deps_file="${DEPS_DIR}/${ctx}.parsed"
+        [[ -f "$deps_file" ]] || continue
+
+        local needs_exclusions=false
+        local exclusions_to_add=()
+
+        # Check if server uses a database
+        if ! grep -q 'spring-boot-starter-data-jpa\|spring-data-r2dbc\|spring-boot-starter-jdbc\|liquibase' "$deps_file"; then
+            needs_exclusions=true
+            exclusions_to_add+=("${datasource_exclusions[@]}")
+        fi
+
+        # Check if server uses Spring Security
+        if ! grep -q 'spring-boot-starter-security\|spring-security-config' "$deps_file"; then
+            needs_exclusions=true
+            exclusions_to_add+=("${security_exclusions[@]}")
+        fi
+
+        $needs_exclusions || continue
+
+        local module_dir="$SERVERS_DIR/$server_folder"
+        [[ -n "$pom_subpath" ]] && module_dir="$module_dir/$pom_subpath"
+
+        # Find the server's config/application.yaml from source to extract existing exclusions
+        local config_yaml="$module_dir/src/main/resources/config/application.yaml"
+        [[ ! -f "$config_yaml" ]] && config_yaml="$module_dir/src/main/resources/config/application.yml"
+
+        # Collect existing exclusions from the server's config/application.yaml
+        local all_exclusions=()
+        if [[ -f "$config_yaml" ]]; then
+            while IFS= read -r line; do
+                local cls
+                cls=$(echo "$line" | sed -n 's/^[[:space:]]*-[[:space:]]*//p')
+                [[ -n "$cls" ]] && all_exclusions+=("$cls")
+            done < <(sed -n '/autoconfigure:/,/^[^ ]/p' "$config_yaml" | \
+                     sed -n '/exclude:/,/^[[:space:]]*[^-[:space:]]/p' | \
+                     grep '^[[:space:]]*-')
+        fi
+
+        # Add new exclusions (dedup)
+        for excl in "${exclusions_to_add[@]}"; do
+            local found=false
+            for existing in "${all_exclusions[@]}"; do
+                [[ "$existing" == "$excl" ]] && found=true && break
+            done
+            $found || all_exclusions+=("$excl")
+        done
+
+        # Write/update externalized config
+        local out_file="$CONFIG_DIR/$ctx/application.yml"
+        mkdir -p "$CONFIG_DIR/$ctx"
+
+        # Build the exclusion YAML block
+        local excl_yaml="spring:"$'\n'"  autoconfigure:"$'\n'"    exclude:"$'\n'
+        for excl in "${all_exclusions[@]}"; do
+            excl_yaml+="    - ${excl}"$'\n'
+        done
+
+        if [[ -f "$out_file" ]]; then
+            # Prepend to existing config (spring: block must come first)
+            local existing
+            existing=$(cat "$out_file")
+            echo -n "${excl_yaml}
+${existing}" > "$out_file"
+        else
+            echo -n "$excl_yaml" > "$out_file"
+        fi
+
+        log "  $ctx: added ${#exclusions_to_add[@]} auto-config exclusions"
+    done
+}
+
+# ===========================================================================
+# PHASE 0: FIND COMMON DEPENDENCIES ACROSS ALL SERVERS
+# Generates a "servers-reactor" POM that references all original server modules,
+# then runs a SINGLE `mvn dependency:list` on that reactor. Each module writes
+# its resolved deps to its own target/deps.txt. For each groupId:artifactId,
+# the most common version is selected. A "shared-deps" POM is generated with
+# all these as compile deps (used later by dependency:copy-dependencies to
+# populate Tomcat's lib/). Per-server version overrides are recorded for
+# use in packagingExcludes negations.
+# ===========================================================================
+find_common_deps() {
+    log "=== Generating servers-reactor POM ==="
+    rm -rf "$SERVERS_REACTOR_DIR"
+    mkdir -p "$SERVERS_REACTOR_DIR"
+
+    # Build the <modules> list pointing to original server sources
+    local server_modules=""
+    local server_count=0
+    for entry in "${MANIFEST[@]}"; do
+        IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
+        should_process "$ctx" || continue
+
+        local rel_path="../../../../../../backend/servers/$server_folder"
+        [[ -n "$pom_subpath" ]] && rel_path="$rel_path/$pom_subpath"
+        server_modules+="        <module>${rel_path}</module>\n"
+        server_count=$((server_count + 1))
+    done
+
+    cat > "$SERVERS_REACTOR_DIR/pom.xml" << POM
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.gridsuite.war</groupId>
+    <artifactId>servers-reactor</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+$(echo -e "$server_modules")    </modules>
+</project>
+POM
+
+    # Single Maven invocation: resolve deps for all server modules at once.
+    # Each module writes target/deps.txt relative to its own basedir.
+    log "=== Resolving dependencies ($server_count servers, single mvn invocation) ==="
+    (cd "$SERVERS_REACTOR_DIR" && mvn dependency:list \
+        -DincludeScope=runtime \
+        -DoutputAbsoluteArtifactFilename=false \
+        -DoutputFile=target/deps.txt \
+        -q) || {
+        err "Failed to resolve dependencies"
+        return 1
+    }
+
+    # Parse each module's target/deps.txt
+    log "=== Analyzing dependencies across $server_count servers ==="
+    local deps_dir="$SCRIPT_DIR/gen/deps"
+    rm -rf "$deps_dir"
+    mkdir -p "$deps_dir"
+
+    for entry in "${MANIFEST[@]}"; do
+        IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
+        should_process "$ctx" || continue
+
+        local module_dir="$SERVERS_DIR/$server_folder"
+        [[ -n "$pom_subpath" ]] && module_dir="$module_dir/$pom_subpath"
+        local deps_file="$module_dir/target/deps.txt"
+
+        if [[ ! -f "$deps_file" ]]; then
+            err "  No deps.txt for $ctx"
+            continue
+        fi
+
+        # Parse: extract groupId:artifactId:type:classifier:version
+        # dependency:list format is g:a:t:v:scope (5 fields) or g:a:t:classifier:v:scope (6 fields)
+        # Normalize to g:a:type:classifier:version (classifier empty if none)
+        grep -oP '^\s+\S+' "$deps_file" | sed 's/^[[:space:]]*//' | \
+            awk -F: 'NF==5 {print $1":"$2":"$3"::"$4} NF>=6 {print $1":"$2":"$3":"$4":"$5}' | \
+            sort -u > "$deps_dir/${ctx}.parsed"
+    done
+
+    # For each groupId:artifactId:type:classifier, find the most common version.
+    log "=== Selecting most common version per artifact ==="
+
+    # Collect all deps, count each full coordinate (with version)
+    cat "$deps_dir"/*.parsed | sort | uniq -c | sort -rn > "$deps_dir/_full_counts.txt"
+
+    # For each g:a:t:classifier key, pick the HIGHEST version.
+    # Using the highest version avoids ServiceLoader/SPI classloader conflicts
+    # that occur when a WAR overrides a shared-lib JAR with a different version.
+    # Output: g:a:type:classifier:version (the "winning" version for shared-lib)
+    awk '{$1=$1; count=$1; $1=""; sub(/^ /,""); print $0}' "$deps_dir/_full_counts.txt" | \
+        sort -t: -k1,4 -k5Vr | \
+        awk -F: '{key=$1":"$2":"$3":"$4} !seen[key]++ {print}' | \
+        grep ':jar:' | \
+        grep -v 'javax\.servlet\|jakarta\.servlet\|tomcat-embed\|spring-boot-starter-tomcat\|org\.antlr:antlr4:' \
+        > "$deps_dir/_shared.txt" || true
+
+    local shared_count
+    shared_count=$(wc -l < "$deps_dir/_shared.txt")
+    log "  $shared_count artifacts selected for shared-lib (highest version each)"
+
+    # Build a lookup file: key -> version (for detecting per-server overrides)
+    awk -F: '{print $1":"$2":"$3":"$4"="$5}' "$deps_dir/_shared.txt" > "$deps_dir/_shared_lookup.txt"
+
+    # Note: no per-server version overrides. With shared classloading, all servers
+    # must use the same version from shared-lib. Version overrides (keeping a
+    # different version in WEB-INF/lib) cause ServiceLoader/SPI classloader conflicts
+    # because the interface from the parent classloader != the interface from the
+    # child classloader.
+
+    # Generate shared-deps POM: lists all common deps as compile dependencies.
+    # Used by dependency:copy-dependencies to populate Tomcat's lib/.
+    log "=== Generating shared-deps POM ==="
+    rm -rf "$SHARED_DEPS_DIR"
+    mkdir -p "$SHARED_DEPS_DIR"
+
+    # Since _shared.txt is already the full transitive closure from the servers,
+    # exclude all transitives to avoid pulling in artifacts not in Maven Central
+    # (e.g. com.bea.xml:jsr173-ri via stax-utils).
+    local shared_deps_xml=""
+    while IFS=: read -r g a t classifier v; do
+        shared_deps_xml+="
+        <dependency>
+            <groupId>${g}</groupId>
+            <artifactId>${a}</artifactId>
+            <version>${v}</version>"
+        if [[ -n "$classifier" ]]; then
+            shared_deps_xml+="
+            <classifier>${classifier}</classifier>"
+        fi
+        shared_deps_xml+="
+            <exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
+        </dependency>"
+    done < "$deps_dir/_shared.txt"
+
+    cat > "$SHARED_DEPS_DIR/pom.xml" << POM
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.gridsuite.war</groupId>
+    <artifactId>shared-deps</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <description>All shared dependencies (most common version). Used to collect JARs for Tomcat lib/.</description>
+
+    <dependencies>${shared_deps_xml}
+    </dependencies>
+</project>
+POM
+
+    # Export for use by generate_wrappers
+    SHARED_DEPS_FILE="$deps_dir/_shared.txt"
+    DEPS_DIR="$deps_dir"
+}
+
 # ===========================================================================
 # PHASE 1: GENERATE WRAPPER PROJECTS
 # ===========================================================================
@@ -254,16 +512,6 @@ generate_wrappers() {
     log "=== Generating wrapper projects ==="
     rm -rf "$WRAPPERS_DIR"
     mkdir -p "$WRAPPERS_DIR"
-
-    # Detect gridsuite-dependencies BOM version
-    local first_entry="${MANIFEST[0]}"
-    IFS='|' read -r _ctx first_folder first_sub _ <<< "$first_entry"
-    local first_dir="$SERVERS_DIR/$first_folder"
-    [[ -n "$first_sub" ]] && first_dir="$first_dir/$first_sub"
-    local gridsuite_deps_version
-    gridsuite_deps_version=$(grep -m1 "gridsuite-dependencies.version" "$first_dir/pom.xml" 2>/dev/null | sed 's/.*>\(.*\)<.*/\1/' || true)
-    [[ -z "$gridsuite_deps_version" ]] && gridsuite_deps_version="50.0.0"
-    log "  gridsuite-dependencies version: $gridsuite_deps_version"
 
     local modules=""
 
@@ -287,15 +535,16 @@ generate_wrappers() {
         [[ -z "$group_id" ]] && group_id="$parent_group"
         [[ -z "$version" ]] && version="$parent_version"
 
+        # Detect spring-boot version from this server's resolved deps
+        local spring_boot_version
+        spring_boot_version=$(grep 'org\.springframework\.boot:spring-boot:jar:' \
+            "${DEPS_DIR}/${ctx}.parsed" | awk -F: '{print $5}' | head -1)
+        [[ -z "$spring_boot_version" ]] && spring_boot_version="3.5.11"
+
         local wrapper_dir="$WRAPPERS_DIR/$ctx"
         mkdir -p "$wrapper_dir/src/main/java/org/gridsuite/war"
 
         # Generate WarInitializer.java
-        # Sets spring.config.additional-location to load per-WAR base-uri overrides from
-        # an external directory (/config/<ctx>/application.yml). "optional:" prefix means
-        # servers with no service references (e.g. report-server) won't fail if the
-        # directory doesn't exist. This is the Spring Boot guaranteed way to override
-        # config — additional-location properties always win over classpath configs.
         local simple_class="${app_class##*.}"
         local initializer_class="${simple_class/Application/WarInitializer}"
         cat > "$wrapper_dir/src/main/java/org/gridsuite/war/${initializer_class}.java" << JAVA
@@ -314,24 +563,11 @@ public class ${initializer_class} extends SpringBootServletInitializer {
 }
 JAVA
 
-        # Generate wrapper pom.xml
-        local extra_deps=""
-        # antlr4 version override: these servers depend on powsybl-open-loadflow which
-        # pulls in graphviz-builder → antlr4:4.5.1. But Spring Data JPA's HqlLexer was
-        # compiled with antlr4 4.13.0 (ATN version 4). The old antlr4-4.5.1.jar contains
-        # ATNDeserializer that only understands ATN version 3, causing:
-        #   InvalidClassException: org.antlr.v4.runtime.atn.ATN; Could not deserialize ATN with version 4
-        # Fix: force antlr4 (the full tool jar, which includes the runtime) to 4.13.0.
-        case "$ctx" in
-            loadflow-server|security-analysis-server|sensitivity-analysis-server|network-modification-server)
-                extra_deps='
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4</artifactId>
-            <version>4.13.0</version>
-        </dependency>'
-                ;;
-        esac
+        # Build packagingIncludes: only keep the server's own classes JAR.
+        # Everything else (shared deps) is excluded from the WAR.
+        # Non-JAR content (WEB-INF/classes, META-INF) is always included.
+        local server_jar_name="${artifact_id}-${version}.jar"
+        local packaging_includes="META-INF/**,WEB-INF/classes/**,WEB-INF/lib/${server_jar_name}"
 
         cat > "$wrapper_dir/pom.xml" << POM
 <?xml version="1.0" encoding="UTF-8"?>
@@ -354,11 +590,28 @@ JAVA
             <groupId>${group_id}</groupId>
             <artifactId>${artifact_id}</artifactId>
             <version>${version}</version>
-        </dependency>${extra_deps}
+        </dependency>
+        <!-- Compile dependency on spring-boot: needed to compile the WarInitializer
+             class (extends SpringBootServletInitializer). Version matched from this
+             server's resolved dependency tree. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>${spring_boot_version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>${ctx}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <packagingIncludes>${packaging_includes}</packagingIncludes>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
 POM
@@ -367,7 +620,7 @@ POM
         log "  ${ctx}-war -> $module_dir"
     done
 
-    # Generate reactor parent pom
+    # Generate reactor parent pom (minimal: just modules + compiler settings)
     cat > "$WRAPPERS_DIR/pom.xml" << POM
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -385,37 +638,10 @@ POM
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Import gridsuite-dependencies BOM: manages com.powsybl:*, Spring Boot,
-                 software.amazon.awssdk:* versions to match what servers are compiled against.
-                 Without this, Maven "nearest wins" rule would resolve older transitive
-                 versions (e.g. powsybl-commons 7.0.1 instead of 7.1.1) causing
-                 NoSuchMethodError at runtime. -->
-            <dependency>
-                <groupId>org.gridsuite</groupId>
-                <artifactId>gridsuite-dependencies</artifactId>
-                <version>${gridsuite_deps_version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <!-- Common to all wrappers -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
     <modules>
+        <!-- Server sources (builds classes JARs needed by wrappers) -->
+        <module>../servers-reactor</module>
+        <!-- WAR wrappers -->
 $(echo -e "$modules")    </modules>
 </project>
 POM
@@ -429,45 +655,27 @@ POM
         local wrapper_dir="$WRAPPERS_DIR/$ctx"
         generate_local_config_override "$ctx" "$server_folder" "$pom_subpath" "$wrapper_dir"
     done
+    add_shared_lib_autoconfig_exclusions
     (cd "$SCRIPT_DIR" && find gen/externalized-war-configs -type f 2>/dev/null) || true
-
-
 }
 
 # ===========================================================================
 # PHASE 2: BUILD ALL (SINGLE REACTOR)
-# Builds ALL server source modules + wrapper projects in one Maven invocation.
-# Server source modules are added to the reactor so that their classes JARs
-# are available in the local repo for wrapper dependency resolution.
-# -T2.0C = 2 threads per CPU core for parallel module builds.
+# war-wrappers/pom.xml includes servers-reactor as a module, so a single
+# `mvn package` builds server JARs first (reactor ordering), then WAR wrappers.
 # ===========================================================================
 build_wars() {
     # Prefer mvnd (Maven Daemon) for faster builds; fall back to mvn -q
     local mvn_cmd
     if command -v mvnd &>/dev/null; then
         mvn_cmd="mvnd"
-        log "=== Building all with mvnd ==="
+        log "=== Building with mvnd ==="
     else
-        mvn_cmd="mvn -T2.0C -q"
-        log "=== Building all with mvn (mvnd not found, using -T2.0C -q) ==="
+        mvn_cmd="mvn -T4 -q"
+        log "=== Building with mvn (mvnd not found, using -T4 -q) ==="
     fi
 
-    # Add server source modules to reactor POM for a single build
-    local server_modules=""
-    for entry in "${MANIFEST[@]}"; do
-        IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
-        should_process "$ctx" || continue
-
-        local rel_path="../../../../../../backend/servers/$server_folder"
-        [[ -n "$pom_subpath" ]] && rel_path="$rel_path/$pom_subpath"
-        server_modules+="        <module>${rel_path}</module>\n"
-    done
-
-    # Inject server modules into reactor POM (before wrapper modules)
-    local wrapper_pom="$WRAPPERS_DIR/pom.xml"
-    sed -i "s|    <modules>|    <modules>\n        <!-- Server sources -->\n${server_modules}        <!-- WAR wrappers -->|" "$wrapper_pom"
-
-    log "Running: $mvn_cmd package -DskipTests -f $WRAPPERS_DIR/pom.xml"
+    log "  Running: $mvn_cmd package -DskipTests -f $WRAPPERS_DIR/pom.xml"
     (cd "$WRAPPERS_DIR" && $mvn_cmd package -DskipTests) || {
         err "Reactor build failed"
         return 1
@@ -505,12 +713,73 @@ deploy_to_compose_dirs() {
 
     (cd "$SCRIPT_DIR" && find gen/wars -maxdepth 1 -name '*.war' -type f 2>/dev/null) || true
     echo ""
-    echo "Folders gen/wars/ and gen/externalized-war-configs/ ready for \$ docker compose up"
+    echo "Folders gen/wars/, gen/externalized-war-configs/ and gen/shared-lib/ ready for \$ docker compose up"
+}
+
+# ===========================================================================
+# PHASE 4: COLLECT SHARED JARS FOR TOMCAT LIB
+# Uses dependency:copy-dependencies on the shared-deps POM to download all
+# common JARs into gen/shared-lib/. These are the JARs excluded from WARs
+# by packagingExcludes and must be in Tomcat's classpath.
+# ===========================================================================
+collect_shared_libs() {
+    log "=== Collecting shared JARs to gen/shared-lib/ ==="
+    rm -rf "$SHARED_LIB_DIR"
+    mkdir -p "$SHARED_LIB_DIR"
+
+    (cd "$SHARED_DEPS_DIR" && mvn dependency:copy-dependencies \
+        -DoutputDirectory="$SHARED_LIB_DIR" \
+        -q) || {
+        err "Failed to collect shared JARs"
+        return 1
+    }
+
+    # Extract resource bundles (.properties) from each server's classes JAR
+    # and package them into a single resource-bundles.jar in shared-lib.
+    # This is needed because MultiBundleMessageTemplateProvider (in powsybl-commons,
+    # loaded by the common classloader) calls ResourceBundle.getBundle() without
+    # specifying a classloader, so it uses the caller's CL (common CL) which
+    # can't see .properties files inside each WAR's WEB-INF/lib/ server JAR.
+    local bundle_tmp="$SCRIPT_DIR/gen/_resource-bundles"
+    rm -rf "$bundle_tmp"
+    mkdir -p "$bundle_tmp"
+    local found_bundles=false
+
+    for entry in "${MANIFEST[@]}"; do
+        IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
+        should_process "$ctx" || continue
+
+        local server_dir="$SERVERS_DIR/$server_folder"
+        # Find reports*.properties in the server source
+        local res_dir="$server_dir/src/main/resources"
+        if [[ -d "$res_dir" ]]; then
+            while IFS= read -r propfile; do
+                local rel="${propfile#$res_dir/}"
+                mkdir -p "$bundle_tmp/$(dirname "$rel")"
+                cp "$propfile" "$bundle_tmp/$rel"
+                found_bundles=true
+            done < <(find "$res_dir" -name 'reports*.properties' -type f 2>/dev/null)
+        fi
+    done
+
+    if [[ "$found_bundles" == "true" ]]; then
+        (cd "$bundle_tmp" && jar cf "$SHARED_LIB_DIR/resource-bundles.jar" .)
+        local bundle_count
+        bundle_count=$(find "$bundle_tmp" -name '*.properties' -type f | wc -l)
+        log "  Packaged $bundle_count resource bundle files into resource-bundles.jar"
+    fi
+    rm -rf "$bundle_tmp"
+
+    local count
+    count=$(find "$SHARED_LIB_DIR" -name '*.jar' -type f | wc -l)
+    log "  $count JARs collected in gen/shared-lib/"
 }
 
 # ===========================================================================
 # MAIN
 # ===========================================================================
+find_common_deps
 generate_wrappers
 build_wars
+collect_shared_libs
 deploy_to_compose_dirs

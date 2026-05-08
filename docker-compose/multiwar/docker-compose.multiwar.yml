@@ -12,6 +12,10 @@ services:
       # Custom server.xml: sets Host startStopThreads="10" for parallel WAR deployment
       - ./server.xml:/usr/local/tomcat/conf/server.xml:Z
       - ./gen/wars:/usr/local/tomcat/webapps:Z
+      # Shared JARs: common dependencies across all WARs, loaded once by Tomcat's
+      # common classloader. Reduces Metaspace usage by avoiding duplicate class loading.
+      # Shared JARs copied to Tomcat lib/ at startup
+      - ./gen/shared-lib:/shared-lib:Z
       # Per-WAR config overrides (base-uri rewrites) loaded via spring.config.additional-location
       # in each WAR's SpringBootServletInitializer. Only contains service base-uri mappings.
       - ./gen/externalized-war-configs:/config:Z
@@ -22,16 +26,19 @@ services:
       # files embedded in server JARs are NOT loaded. Infrastructure defaults (rabbitmq,
       # postgres, elasticsearch hosts) come from powsybl-ws-commons.jar application.yaml
       # which already has the correct docker service names.
-      - CATALINA_OPTS=-Dspring.profiles.active=default -Xmx2g
+      # allow-bean-definition-overriding: required because shared-lib JARs place
+      # @Configuration classes (e.g. RabbitConsumerAutoConfiguration) on the common
+      # classloader, visible to all webapps. Without this, bean name collisions between
+      # shared-lib configs and per-WAR configs cause startup failures.
+      - CATALINA_OPTS=-Dspring.profiles.active=default -Dspring.main.allow-bean-definition-overriding=true -Xmx2g
     depends_on:
       - postgres
       - rabbitmq
       - elasticsearch
-      - s3-storage
     # Wait for elasticsearch before starting Tomcat: WARs that depend on elasticsearch
     # (study-server, directory-server, case-server, network-conversion-server) fail
     # immediately if ES is not reachable at startup (no built-in retry).
-    entrypoint: ["/bin/bash", "-c", "until curl -sf http://elasticsearch:9200/_cluster/health; do echo 'Waiting for elasticsearch...'; sleep 3; done && catalina.sh run"]
+    entrypoint: ["/bin/bash", "-c", "cp /shared-lib/*.jar /usr/local/tomcat/lib/ 2>/dev/null; until curl -sf http://elasticsearch:9200/_cluster/health; do echo 'Waiting for elasticsearch...'; sleep 3; done && catalina.sh run"]
     restart: unless-stopped
     memswap_limit: 5g
     deploy:

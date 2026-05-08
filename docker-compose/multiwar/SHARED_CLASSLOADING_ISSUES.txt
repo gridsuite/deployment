@@ -1,0 +1,87 @@
+Shared Classloading Issues — WAR Deployment on Single Tomcat
+=============================================================
+
+All 21 Spring Boot microservices deployed as WARs on one Tomcat instance,
+with all dependency JARs in Tomcat's shared lib/ (common classloader).
+Each WAR contains only its own server classes JAR.
+
+ISSUE 1: Bean definition conflicts
+───────────────────────────────────
+Symptom:  BeanDefinitionOverrideException — duplicate bean names from
+          @Configuration classes in gridsuite-computation, gridsuite-network-modification
+          JARs now visible to ALL webapps via common classloader.
+Fix:      -Dspring.main.allow-bean-definition-overriding=true in CATALINA_OPTS.
+
+ISSUE 2: DataSource auto-configuration on non-DB servers
+────────────────────────────────────────────────────────
+Symptom:  "Could not resolve placeholder 'powsybl-ws.database.name'" on
+          explore-server, network-conversion-server, network-map-server.
+Cause:    powsybl-ws-commons JAR in shared lib has application.yaml referencing
+          DB properties. With HikariCP/spring-jdbc on common classpath,
+          DataSourceAutoConfiguration activates for all webapps.
+Fix:      Auto-detect non-DB servers (no JPA/JDBC/Liquibase deps) and add
+          spring.autoconfigure.exclude entries to their externalized configs:
+          DataSourceAutoConfiguration, HibernateJpaAutoConfiguration,
+          LiquibaseAutoConfiguration, DataSourceTransactionManagerAutoConfiguration.
+
+ISSUE 3: Spring Security activating on all servers
+──────────────────────────────────────────────────
+Symptom:  All servers return "Please sign in" login page.
+Cause:    Only explore-server depends on spring-security, but security JARs
+          in shared lib activate SecurityAutoConfiguration for all webapps.
+Fix:      Auto-detect non-security servers (no spring-boot-starter-security or
+          spring-security-config in deps) and add exclusions:
+          SecurityAutoConfiguration, UserDetailsServiceAutoConfiguration,
+          ManagementWebSecurityAutoConfiguration.
+
+ISSUE 4: Logback ConcurrentModificationException during parallel deployment
+───────────────────────────────────────────────────────────────────────────
+Symptom:  ConcurrentModificationException in ContextBase.getCopyOfPropertyMap
+          during startup.
+Cause:    startStopThreads="10" in server.xml → 10 WARs deploy simultaneously,
+          all sharing the same Logback LoggerContext from common classloader.
+          Race condition in property map access.
+Fix:      Set startStopThreads="1" in server.xml for sequential deployment.
+          Shared lib preloads all classes, so sequential is fast enough.
+
+ISSUE 5: ServiceLoader "not a subtype" errors
+──────────────────────────────────────────────
+Symptom:  ServiceConfigurationError: ActivePowerControlLoader not a subtype
+          of ExtensionLoader.
+Cause:    Version mismatch between shared lib (e.g. 1.40.0) and per-WAR
+          override JARs (1.41.0). Different classloaders load the same
+          interface → different type identity → ServiceLoader rejects impl.
+Fix:      Removed per-WAR version overrides entirely. All servers use the
+          highest version from shared lib (sort -k5Vr). No override JARs in
+          WEB-INF/lib/ — only the server's own classes JAR.
+
+ISSUE 6: antlr4 tool JAR conflicts with antlr4-runtime
+───────────────────────────────────────────────────────
+Symptom:  ATN version mismatch errors from Hibernate HQL parser.
+Cause:    org.antlr:antlr4:4.5.1 (parser generator tool) bundles old runtime
+          classes that conflict with antlr4-runtime:4.13.0 used by Hibernate.
+Fix:      Exclude org.antlr:antlr4: (tool JAR) from shared lib via grep filter.
+          antlr4-runtime (the actual dependency) is kept.
+
+ISSUE 7: ResourceBundle not found for reports.properties
+────────────────────────────────────────────────────────
+Symptom:  MissingResourceException: Can't find bundle for base name
+          com.powsybl.network.conversion.server.reports.
+Cause:    MultiBundleMessageTemplateProvider (in powsybl-commons, common CL)
+          calls ResourceBundle.getBundle() without explicit classloader →
+          uses caller's CL (common CL) → can't see .properties files inside
+          each WAR's server JAR in WEB-INF/lib/.
+Fix:      Extract reports*.properties from all 9 server source trees, package
+          into a single resource-bundles.jar in shared lib. All bundle paths
+          are unique (different packages), so no conflicts.
+
+ISSUE 8: Maven build failures
+─────────────────────────────
+8a) Thread contention: -T2.0C (40 threads on 20 cores) caused Maven lock
+    contention. Fixed: -T4.
+8b) Missing artifact com.bea.xml:jsr173-ri:1.0 (transitive of stax-utils).
+    Fixed: wildcard <exclusions> on all shared-deps POM entries since
+    _shared.txt is already the full transitive closure.
+8c) Empty WARs: packagingExcludes=WEB-INF/lib/*.jar removed everything.
+    maven-war-plugin doesn't support ! negation in packagingExcludes.
+    Fixed: switched to packagingIncludes (whitelist approach).
