@@ -1,0 +1,4 @@
+include:
+  - ../docker-compose.base.yml
+  - ../technical/docker-compose.technical.yml
+  - ../study/docker-compose.study.yml

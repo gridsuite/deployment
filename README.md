@@ -57,7 +57,7 @@ $ cd deployment
 
 ### Application profiles _(alias)_
 > [!NOTE]  
-> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `monitor`, `study`, `suite`, `technical`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
+> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `monitor`, `study`, `suite`, `technical`, `study-light`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
 
 ```bash
 $ cd docker-compose/suite
@@ -65,6 +65,10 @@ $ docker compose up
 ```
 ```bash
 $ cd docker-compose/study
+$ docker compose up
+```
+```bash
+$ cd docker-compose/study-light
 $ docker compose up
 ```
 ```bash
@@ -91,23 +95,22 @@ _Everything described in this section is inside the folder `explicit-profiles`._
 Here's the summary of the profiles and what services they includes:
 | **Component \ Service** 	| **_(none)_** 	| **study** 	| **study-light** 	| **dynamic-mapping** 	| **dynamic-simulation** 	| **suite** 	| **import** 	| **kibana** 	| **pgadmin** 	| **metrics** 	| **monitor** 	|
 |---	|---	|---	|---	|---	|---	|---	|---	|---	|---	|---	|---	|
-| rabbitmq<br>postgres<br>elasticsearch<br>minio* 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	| ✅ 	|
-| kibana<br>logstash<br>socat<br>logspout 	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|
+| case-import-server 	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|
+| kibana<br>logspout<br>logstash<br>socat 	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|
+| elasticsearch-exporter<br>grafana<br>postgres-exporter<br>prometheus 	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|
+| gridmonitor-app<br>monitor-lf-worker-server<br>monitor-notification-server<br>monitor-sa-worker-server<br>monitor-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
 | pgadmin 	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|
-| apps‑metadata‑server<br>mock‑user‑service<br>gateway<br>config‑server<br>loadflow‑server<br>user‑admin‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
-| config‑notification‑server<br>network‑conversion‑server<br>network‑store‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
-| actions‑server<br>case‑server<br>filter‑server<br>report‑server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
-| griddyna‑app<br>dynamic‑mapping‑server 	|  	|  	|  	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
-| gridstudy‑app<br>dynamic‑simulation‑server<br>dynamic‑security‑analysis‑server<br>dynamic‑margin‑calculation‑server<br>timeseries‑server 	|  	|  	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
-| cgmes‑gl‑server<br>odre‑server<br>sensitivity‑analysis‑server<br>shortcircuit‑server<br>voltage‑init‑server<br>gridadmin‑app 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
-| security‑analysis‑server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
-| geo‑data‑server 	|  	| ✅ 	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
-| directory‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
-| directory‑notification‑server<br>explore‑server<br>gridexplore‑app<br>network‑map‑server<br>single‑line‑diagram‑server<br>study‑notification‑server<br>study‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
-| network‑modification‑server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
-| gridmonitor-app<br>monitor-server<br>monitor-sa-worker-server<br>monitor-lf-worker-server<br>monitor-notification-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
-| case‑import‑server 	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|
-| grafana<br>prometheus 	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|
+| dynamic-margin-calculation-server<br>dynamic-security-analysis-server<br>dynamic-simulation-server<br>timeseries-server 	|  	|  	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| cgmes-gl-server<br>gridadmin-app<br>odre-server<br>sensitivity-analysis-server<br>shortcircuit-server<br>voltage-init-server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
+| dynamic-mapping-server<br>griddyna-app 	|  	|  	|  	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| geo-data-server 	|  	| ✅ 	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| security-analysis-server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
+| directory-notification-server<br>explore-server<br>gridexplore-app<br>gridstudy-app<br>network-map-server<br>single-line-diagram-server<br>study-notification-server<br>study-server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
+| directory-server<br>network-modification-server 	|  	| ✅ 	| ✅ 	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	| ✅ 	|
+| actions-server 	|  	| ✅ 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
+| config-notification-server<br>network-conversion-server<br>network-store-server<br>study-config-server<br>user-identity-server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|
+| apps-metadata-server<br>case-server<br>config-server<br>filter-server<br>gateway<br>loadflow-server<br>mock-user-service<br>report-server<br>user-admin-server 	|  	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	| ✅ 	|
+| elasticsearch<br>postgres<br>rabbitmq<br>s3-storage 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	| ✅ 	|
 
 To use a profile, you use:
 ```shell
