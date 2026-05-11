@@ -30,7 +30,7 @@ services:
       # @Configuration classes (e.g. RabbitConsumerAutoConfiguration) on the common
       # classloader, visible to all webapps. Without this, bean name collisions between
       # shared-lib configs and per-WAR configs cause startup failures.
-      - CATALINA_OPTS=-Dspring.profiles.active=default -Dspring.main.allow-bean-definition-overriding=true -Xmx2g
+      - CATALINA_OPTS=-Dspring.profiles.active=default -Dspring.main.allow-bean-definition-overriding=true -Xmx1g -XX:NativeMemoryTracking=summary
     depends_on:
       - postgres
       - rabbitmq
@@ -40,11 +40,11 @@ services:
     # immediately if ES is not reachable at startup (no built-in retry).
     entrypoint: ["/bin/bash", "-c", "cp /shared-lib/*.jar /usr/local/tomcat/lib/ 2>/dev/null; until curl -sf http://elasticsearch:9200/_cluster/health; do echo 'Waiting for elasticsearch...'; sleep 3; done && catalina.sh run"]
     restart: unless-stopped
-    memswap_limit: 5g
+    memswap_limit: 2560m
     deploy:
       resources:
         limits:
-          memory: 5g
+          memory: 2560m
     # Future: move shared JARs (Spring, Hibernate, powsybl-*) to Tomcat lib/ so
     # they are loaded once by the common classloader, reducing Metaspace usage.
     # Current setup: each WAR bundles ~200MB of dependencies, many identical across

@@ -266,6 +266,21 @@ add_shared_lib_autoconfig_exclusions() {
         "org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration"
         "org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration"
     )
+    local elasticsearch_exclusions=(
+        "org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration"
+        "org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchClientAutoConfiguration"
+        "org.springframework.boot.autoconfigure.elasticsearch.ReactiveElasticsearchClientAutoConfiguration"
+        "org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration"
+        "org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration"
+    )
+    local otel_exclusions=(
+        "org.springframework.boot.actuate.autoconfigure.opentelemetry.OpenTelemetryAutoConfiguration"
+        "org.springframework.boot.actuate.autoconfigure.tracing.OpenTelemetryAutoConfiguration"
+        "org.springframework.boot.actuate.autoconfigure.tracing.OpenTelemetryTracingAutoConfiguration"
+        "org.springframework.boot.actuate.autoconfigure.tracing.otlp.OtlpAutoConfiguration"
+        "org.springframework.boot.actuate.autoconfigure.tracing.otlp.OtlpTracingAutoConfiguration"
+        "org.springframework.boot.actuate.autoconfigure.logging.OpenTelemetryLoggingAutoConfiguration"
+    )
 
     for entry in "${MANIFEST[@]}"; do
         IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
@@ -288,6 +303,17 @@ add_shared_lib_autoconfig_exclusions() {
             needs_exclusions=true
             exclusions_to_add+=("${security_exclusions[@]}")
         fi
+
+        # Check if server uses Elasticsearch
+        if ! grep -q 'elasticsearch\|elastic-clients' "$deps_file"; then
+            needs_exclusions=true
+            exclusions_to_add+=("${elasticsearch_exclusions[@]}")
+        fi
+
+        # Check if server uses OpenTelemetry tracing (all get it transitively but none configure it)
+        # Every webapp creates BatchSpanProcessor + BatchLogRecordProcessor threads unnecessarily
+        needs_exclusions=true
+        exclusions_to_add+=("${otel_exclusions[@]}")
 
         $needs_exclusions || continue
 

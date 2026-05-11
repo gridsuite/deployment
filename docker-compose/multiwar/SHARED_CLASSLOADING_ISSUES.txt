@@ -75,7 +75,63 @@ Fix:      Extract reports*.properties from all 9 server source trees, package
           into a single resource-bundles.jar in shared lib. All bundle paths
           are unique (different packages), so no conflicts.
 
-ISSUE 8: Maven build failures
+ISSUE 8: Elasticsearch thread pool explosion (441 threads)
+──────────────────────────────────────────────────────────
+Symptom:  706 threads total; 441 are elasticsearch-rest-client I/O threads.
+          21 ES client pools × 21 threads each (one per CPU core).
+Cause:    ElasticsearchRestClientAutoConfiguration activates for ALL 21 webapps
+          because ES client JARs are on the common classpath. Only 5 servers
+          actually use Elasticsearch (case, directory, network-conversion,
+          network-modification, study).
+Fix:      Auto-detect non-ES servers (no elasticsearch/elastic-clients in deps)
+          and add exclusions: ElasticsearchRestClientAutoConfiguration,
+          ElasticsearchClientAutoConfiguration,
+          ReactiveElasticsearchClientAutoConfiguration,
+          ElasticsearchDataAutoConfiguration,
+          ElasticsearchRepositoriesAutoConfiguration.
+          Result: 706 → 456 threads (−250).
+
+ISSUE 9: OpenTelemetry tracing auto-configuration failure
+─────────────────────────────────────────────────────────
+Symptom:  APPLICATION FAILED TO START — OpenTelemetryTracingAutoConfiguration
+          required a bean of type 'io.opentelemetry.api.OpenTelemetry'.
+Cause:    OTel JARs on common classpath activate tracing autoconfigs for all
+          webapps. Each webapp also creates BatchSpanProcessor and
+          BatchLogRecordProcessor threads (42 total) needlessly.
+Fix:      Exclude for all servers (none configure OTel tracing):
+          OpenTelemetryAutoConfiguration (×2 in different packages),
+          OpenTelemetryTracingAutoConfiguration,
+          OtlpAutoConfiguration, OtlpTracingAutoConfiguration,
+          OpenTelemetryLoggingAutoConfiguration.
+
+MEMORY USAGE REPORT (21 webapps, shared classloading)
+======================================================
+Container: 2.5g limit, no swap | JVM: -Xmx1g, G1GC
+
+Docker stats: 2.24 GiB / 2.5 GiB (89%) — 488 threads (PIDs)
+
+NMT committed breakdown (1,619 MB total):
+  Java Heap        1,020 MB   (Xmx 1g, ~300MB used at idle, ~1g under load)
+  Metaspace          193 MB   (43K classes across 21 webapps)
+  GC (G1)             92 MB   (card tables, remembered sets)
+  Code cache           85 MB   (JIT compiled code)
+  Symbol table         71 MB   (interned strings, 582K entries)
+  Threads              51 MB   (488 threads × ~1MB stack)
+  Class metadata       34 MB   (class pointers, vtables)
+  NMT overhead         14 MB
+  Other (CDS, etc.)    59 MB
+
+RSS vs NMT gap (~600 MB):
+  NMT committed = 1,619 MB, docker reports 2,236 MB.
+  Difference is thread stack RSS, glibc malloc arenas, mmap'd JARs,
+  and kernel page table overhead not tracked by NMT.
+
+Comparison vs 21 separate containers:
+  Each server standalone uses ~300-500 MB (avg ~400 MB).
+  21 × 400 MB = 8.4 GB total.
+  Shared classloading: 2.24 GB = ~73% memory reduction.
+
+ISSUE 10: Maven build failures
 ─────────────────────────────
 8a) Thread contention: -T2.0C (40 threads on 20 cores) caused Maven lock
     contention. Fixed: -T4.
