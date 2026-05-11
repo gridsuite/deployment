@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor-notification-server
+  labels:
+    name: monitor-notification-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-rabbitmq: "true"
+  annotations:
+    gridsuite.org/cpu: cpu-xxs
+    gridsuite.org/memory: memory-xxs
+spec:
+  selector:
+    matchLabels:
+      name: monitor-notification-server
+  template:
+    metadata:
+      labels:
+        name: monitor-notification-server
+    spec:
+      containers:
+      - name: main
+        image: docker.io/gridsuite/monitor-notification-server:latest
+        volumeMounts:
+        - mountPath: /config/specific
+          name: monitor-notification-server-configmap-specific-volume
+      volumes:
+        - name: monitor-notification-server-configmap-specific-volume
+          configMap:
+            name: monitor-notification-server-configmap-specific
