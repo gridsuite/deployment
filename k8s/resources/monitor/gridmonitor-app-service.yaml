@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: gridmonitor-app
+    app.kubernetes.io/component: gridsuite-apache
+  name: gridmonitor-app
+spec:
+  selector:
+    name: gridmonitor-app

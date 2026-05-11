@@ -43,6 +43,8 @@ on:
       - gridadmin_app_updated
       - study_config_server_updated
       - monitor_updated
+      - gridmonitor_app_updated
+      - monitor_notification_server_updated
 
 jobs:
   build:
