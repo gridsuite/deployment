@@ -73,6 +73,10 @@ services:
       logspout:
         condition: "service_started"
         required: false
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
@@ -100,6 +104,8 @@ services:
       logspout:
         condition: "service_started"
         required: false
+      rabbitmq:
+        condition: service_healthy
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
