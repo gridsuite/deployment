@@ -25,6 +25,9 @@ configMapGenerator:
   - name: gridadmin-app-configmap
     files:
       - idpSettings.json=gridadmin-app-idpSettings.json
+  - name: gridmonitor-app-configmap
+    files:
+      - idpSettings.json=gridmonitor-app-idpSettings.json
   - name: apps-metadata-server-configmap
     behavior: merge
     files:
