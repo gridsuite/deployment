@@ -354,6 +354,9 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -385,6 +388,9 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
@@ -416,6 +422,9 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      logspout:
+        condition: "service_started"
+        required: false
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
