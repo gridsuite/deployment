@@ -57,7 +57,7 @@ $ cd deployment
 
 ### Application profiles _(alias)_
 > [!NOTE]  
-> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `monitor`, `study`, `suite`, `technical`, `study-light`), you have to use profiles as explained in the [next section](#docker-compose-profiles).
+> If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `monitor`, `study`, `suite`, `technical`, `study-light`), you have to use profiles as explained in the [next section](#docker-compose-with-profiles).
 
 ```bash
 $ cd docker-compose/suite
