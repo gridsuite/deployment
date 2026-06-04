@@ -12,9 +12,9 @@ function init_geo_data()
   FILE_SUBSTATIONS=/init-data/geo_data_substations.json
   FILE_LINES=/init-data/geo_data_lines.json
 
-  ([ ! -f "$FILE_SUBSTATIONS" ] || curl_ -d@$FILE_SUBSTATIONS http://geo-data-server/v1/substations) \
+  ([ ! -f "$FILE_SUBSTATIONS" ] || curl_ -d@$FILE_SUBSTATIONS http://geo-data-server/v1/supervision/substations) \
   &&
-  ([ ! -f "$FILE_LINES" ] || curl_ -d@$FILE_LINES http://geo-data-server/v1/lines)
+  ([ ! -f "$FILE_LINES" ] || curl_ -d@$FILE_LINES http://geo-data-server/v1/supervision/lines)
 }
 
 SHOULD_INIT_GEO_DATA="${SHOULD_INIT_GEO_DATA:-false}"
