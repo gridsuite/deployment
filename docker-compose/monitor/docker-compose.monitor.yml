@@ -111,8 +111,8 @@ services:
     ports:
       - 85:8080
     volumes:
-      - ./gridmonitor-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridmonitor/idpSettings.json:Z
-      - ../env.json:/opt/bitnami/apache/htdocs/gridmonitor/env.json:Z
+      - ./gridmonitor-app-idpSettings.json:/usr/local/apache2/htdocs/gridmonitor/idpSettings.json:Z
+      - ../env.json:/usr/local/apache2/htdocs/gridmonitor/env.json:Z
     depends_on:
       logspout:
         condition: "service_started"

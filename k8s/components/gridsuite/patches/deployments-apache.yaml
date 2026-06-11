@@ -10,6 +10,7 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
+        # TODO bitnami
         - mountPath: /opt/bitnami/apache/var/run/
           name: run-emptydir
         securityContext:
