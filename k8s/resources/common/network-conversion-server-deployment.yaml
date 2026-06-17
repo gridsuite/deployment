@@ -10,9 +10,6 @@ metadata:
     gridsuite.org/springboot-with-rabbitmq: "true"
     gridsuite.org/springboot-with-large-storage: "true"
     gridsuite.org/springboot-with-s3: "true"
-  annotations:
-    gridsuite.org/cpu: cpu-xl
-    gridsuite.org/memory: memory-xxl
 spec:
   selector:
     matchLabels:
@@ -25,6 +22,16 @@ spec:
       containers:
       - name: main
         image: docker.io/powsybl/network-conversion-server:latest
+        env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-Xmx3072m"
+        resources:
+            requests:
+              cpu: "2500m"
+              memory: "4540Mi"
+            limits:
+              cpu: "5000m"
+              memory: "4540Mi"
         volumeMounts:
         - mountPath: /config/specific
           name: network-conversion-server-configmap-specific-volume
