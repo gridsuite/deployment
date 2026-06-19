@@ -1,0 +1,61 @@
+[{
+  "name" : "Study",
+  "url"  : "/gridstudy",
+  "appColor" : "#0CA789",
+  "hiddenInAppsMenu" : true,
+  "hiddenUserInformation": true,
+  "resources" : [
+    {
+      "types" : ["STUDY"],
+      "path" : "/studies/{elementUuid}"
+    }
+  ],
+  "predefinedEquipmentProperties" : {
+    "substation" : {
+      "Demo" : ["demo1", "demo2"]
+    }
+  },
+  "defaultParametersValues": {
+  },
+  "localStorageTtlDays": 7,
+  "baseMapOptions" : [
+    {
+      "id": "mapbox",
+      "label": "Mapbox"
+    },
+    {
+      "id": "carto",
+      "label": "Carto"
+    },
+    {
+      "id": "cartonolabel",
+      "label": "CartoNoLabel"
+    },
+    {
+      "id": "etalab",
+      "label": "Etalab"
+    }
+  ]
+},
+{
+  "name" : "Explore",
+  "url"  : "/gridexplore",
+  "appColor" : "#33AFED",
+  "hiddenInAppsMenu" : false,
+  "hiddenUserInformation": true,
+  "maxFileSizeInMb": 1
+},
+{
+  "name" : "Dynamic Mapping",
+  "url"  : "/griddyna",
+  "appColor" : "#FFC11B",
+  "hiddenInAppsMenu" : false,
+  "hiddenUserInformation": true
+},
+{
+  "name" : "Admin",
+  "url"  : "/gridadmin",
+  "appColor" : "#FD3745",
+  "hiddenInAppsMenu" : true,
+  "hiddenUserInformation": true
+}]
