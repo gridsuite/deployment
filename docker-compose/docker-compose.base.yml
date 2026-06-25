@@ -496,14 +496,13 @@ services:
       - dynamic-simulation
       - import
       - monitor
-    image: gridsuite/iodhi-httpd:2.4.68-debian13-dev@sha256:f8a042e7f71c9f2fc2b30519a9970b2b74b9e4b43a770d3f9144943a1e5c2cbd
+    image: gridsuite/httpd
     ports:
       - 8070:8080
     volumes:
       - ./apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
       - ../k8s/resources/common/config/apps-metadata-base-voltages.json:/usr/local/apache2/htdocs/apps-metadata-base-voltages.json:Z
       - ./version.json:/usr/local/apache2/htdocs/version.json:Z
-      - ./gridapps-metadata-base-httpd.conf:/usr/local/apache2/conf/httpd.conf:Z
       - ./gridapps-metadata-httpd.conf:/usr/local/apache2/conf/app-httpd.conf:Z
     depends_on:
       logspout:

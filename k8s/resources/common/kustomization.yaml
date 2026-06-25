@@ -48,7 +48,6 @@ configMapGenerator:
       - favicon.ico=config/default-backend/favicon.ico
   - name: default-backend-conf-configmap
     files:
-      - httpd.conf=config/default-backend/base-httpd.conf
       - app-httpd.conf=config/default-backend/httpd.conf
   - name: common-application-configmap
     files:
@@ -90,7 +89,6 @@ configMapGenerator:
       - config/version.json
   - name: apps-metadata-server-httpdconf-configmap
     files:
-      - httpd.conf=config/apps-metadata-server/base-httpd.conf
       - app-httpd.conf=config/apps-metadata-server/httpd.conf
   - name: config-server-configmap-specific
     files:

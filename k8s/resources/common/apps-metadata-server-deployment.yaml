@@ -16,13 +16,10 @@ spec:
     spec:
       containers:
         - name: main
-          image: gridsuite/iodhi-httpd:2.4.68-debian13-dev@sha256:f8a042e7f71c9f2fc2b30519a9970b2b74b9e4b43a770d3f9144943a1e5c2cbd
+          image: gridsuite/httpd
           volumeMounts:
             - mountPath: /usr/local/apache2/htdocs/
               name: apps-metadata-server-configmap-volume
-            - mountPath: /usr/local/apache2/conf/httpd.conf
-              subPath: httpd.conf
-              name: apps-metadata-server-httpdconf-configmap-volume
             - mountPath: /usr/local/apache2/conf/app-httpd.conf
               subPath: app-httpd.conf
               name: apps-metadata-server-httpdconf-configmap-volume
