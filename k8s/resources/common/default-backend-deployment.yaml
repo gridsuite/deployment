@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: main
-          image: gridsuite/httpd
+          image: gridsuite/httpd:1.0.0@sha256:e054963bc0bdb0df484ad59a40072f29b3ff921a9887aa041f005c87e5ba2890
           volumeMounts:
             - mountPath: /usr/local/apache2/htdocs/
               name: default-backend-htdocs-configmap-volume
