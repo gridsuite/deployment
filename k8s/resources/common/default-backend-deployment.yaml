@@ -16,12 +16,12 @@ spec:
     spec:
       containers:
         - name: main
-          image: docker.io/bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
+          image: gridsuite/httpd:1.0.0@sha256:e054963bc0bdb0df484ad59a40072f29b3ff921a9887aa041f005c87e5ba2890
           volumeMounts:
-            - mountPath: /opt/bitnami/apache/htdocs/
+            - mountPath: /usr/local/apache2/htdocs/
               name: default-backend-htdocs-configmap-volume
-            - mountPath: /opt/bitnami/apache/conf/bitnami/bitnami.conf
-              subPath: bitnami.conf
+            - mountPath: /usr/local/apache2/conf/app-httpd.conf
+              subPath: app-httpd.conf
               name: default-backend-conf-configmap-volume
       volumes:
         - name: default-backend-htdocs-configmap-volume

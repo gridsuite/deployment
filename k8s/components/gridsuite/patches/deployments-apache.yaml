@@ -10,10 +10,13 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - mountPath: /opt/bitnami/apache/var/run/
-          name: run-emptydir
+        # The logs folder needs to be RW because that's where the pidfile 'httpd.pid' goes by default.
+        # Side note: the logs/ folder doesn't contain logs (because they go to stdout, not to files).
+        - mountPath: /usr/local/apache2/logs/
+          name: logs-emptydir
         securityContext:
-          runAsUser: 1001
+          # user www-data to use as per documentation in the upstream image
+          runAsUser: 65532
         resources:
           requests:
             cpu: "100m"
@@ -37,6 +40,6 @@ spec:
             path: /
             port: 8080
       volumes:
-        - name: run-emptydir
+        - name: logs-emptydir
           emptyDir:
             sizeLimit: 10Mi

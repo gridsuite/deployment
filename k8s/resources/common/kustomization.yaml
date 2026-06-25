@@ -48,7 +48,7 @@ configMapGenerator:
       - favicon.ico=config/default-backend/favicon.ico
   - name: default-backend-conf-configmap
     files:
-      - bitnami.conf=config/default-backend/httpd.conf
+      - app-httpd.conf=config/default-backend/httpd.conf
   - name: common-application-configmap
     files:
       - application.yml=config/common-application.yml
@@ -89,7 +89,7 @@ configMapGenerator:
       - config/version.json
   - name: apps-metadata-server-httpdconf-configmap
     files:
-      - bitnami.conf=config/apps-metadata-server/httpd.conf
+      - app-httpd.conf=config/apps-metadata-server/httpd.conf
   - name: config-server-configmap-specific
     files:
       - application.yml=config/config-server-application.yml
