@@ -152,8 +152,8 @@ services:
     ports:
       - 84:8080
     volumes:
-      - ../study/gridstudy-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridstudy/idpSettings.json:Z
-      - ../env.json:/opt/bitnami/apache/htdocs/gridstudy/env.json:Z
+      - ../study/gridstudy-app-idpSettings.json:/usr/local/apache2/htdocs/gridstudy/idpSettings.json:Z
+      - ../env.json:/usr/local/apache2/htdocs/gridstudy/env.json:Z
     memswap_limit: 128m
     deploy:
       resources:
@@ -166,8 +166,8 @@ services:
     ports:
       - 80:8080
     volumes:
-      - ../study/gridexplore-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridexplore/idpSettings.json:Z
-      - ../env.json:/opt/bitnami/apache/htdocs/gridexplore/env.json:Z
+      - ../study/gridexplore-app-idpSettings.json:/usr/local/apache2/htdocs/gridexplore/idpSettings.json:Z
+      - ../env.json:/usr/local/apache2/htdocs/gridexplore/env.json:Z
     memswap_limit: 128m
     deploy:
       resources:
@@ -180,8 +180,8 @@ services:
     ports:
       - 82:8080
     volumes:
-      - ../study/gridadmin-app-idpSettings.json:/opt/bitnami/apache/htdocs/gridadmin/idpSettings.json:Z
-      - ../env.json:/opt/bitnami/apache/htdocs/gridadmin/env.json:Z
+      - ../study/gridadmin-app-idpSettings.json:/usr/local/apache2/htdocs/gridadmin/idpSettings.json:Z
+      - ../env.json:/usr/local/apache2/htdocs/gridadmin/env.json:Z
     memswap_limit: 128m
     deploy:
       resources:
@@ -236,14 +236,14 @@ services:
     restart: unless-stopped
 
   apps-metadata-server:
-    image: bitnami/apache:2.4.55-debian-11-r3@sha256:bbe50190eb3bbf3be6f61318004480b3230846bfd52dec9286bd1862254c1719
+    image: gridsuite/httpd:1.0.0@sha256:e054963bc0bdb0df484ad59a40072f29b3ff921a9887aa041f005c87e5ba2890
     ports:
       - 8070:8080
     volumes:
-      - ../apps-metadata.json:/opt/bitnami/apache/htdocs/apps-metadata.json:Z
-      - ../../k8s/resources/common/config/apps-metadata-base-voltages.json:/opt/bitnami/apache/htdocs/apps-metadata-base-voltages.json:Z
-      - ../version.json:/opt/bitnami/apache/htdocs/version.json:Z
-      - ../gridapps-metadata-httpd.conf:/opt/bitnami/apache/conf/bitnami/bitnami.conf:Z
+      - ../apps-metadata.json:/usr/local/apache2/htdocs/apps-metadata.json:Z
+      - ../../k8s/resources/common/config/apps-metadata-base-voltages.json:/usr/local/apache2/htdocs/apps-metadata-base-voltages.json:Z
+      - ../version.json:/usr/local/apache2/htdocs/version.json:Z
+      - ../gridapps-metadata-httpd.conf:/usr/local/apache2/conf/app-httpd.conf:Z
     memswap_limit: 128m
     deploy:
       resources:
