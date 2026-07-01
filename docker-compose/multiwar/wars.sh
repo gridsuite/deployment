@@ -115,6 +115,11 @@ done
 MANIFEST=("${_filtered[@]}")
 unset _filtered _e
 
+# Per-server metadata cached by generate_wrappers() and reused by
+# probe_and_patch_dependencies(), so the pom.xml can be regenerated a second
+# time (with dependency corrections) without recomputing/re-parsing anything.
+declare -A WRAP_MODULE_DIR WRAP_GROUP_ID WRAP_ARTIFACT_ID WRAP_VERSION WRAP_EXTRA_DEPS WRAP_EXCLUDE_GA
+
 should_process() {
     local ctx="$1"
     if [[ ${#ONLY_SERVERS[@]} -gt 0 ]]; then
@@ -247,6 +252,64 @@ generate_local_config_override() {
     echo -n "$output" > "$out_file"
 }
 
+# Writes a wrapper's pom.xml from the shared template. Called twice per server:
+# once by generate_wrappers() with extra_managed_deps="" (baseline), and again by
+# probe_and_patch_dependencies() with the corrections found by diffing the server's
+# and the baseline wrapper's `mvn dependency:list` output.
+write_wrapper_pom() {
+    local wrapper_dir="$1" ctx="$2" group_id="$3" artifact_id="$4" version="$5" extra_deps="$6" extra_managed_deps="$7"
+    cat > "$wrapper_dir/pom.xml" << POM
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.gridsuite.war</groupId>
+        <artifactId>war-wrappers</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>${ctx}-war</artifactId>
+    <packaging>war</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${group_id}</groupId>
+                <artifactId>${artifact_id}</artifactId>
+                <version>${version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>${extra_managed_deps}
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${group_id}</groupId>
+            <artifactId>${artifact_id}</artifactId>
+            <version>${version}</version>
+        </dependency>${extra_deps}
+    </dependencies>
+
+    <build>
+        <finalName>${ctx}</finalName>
+    </build>
+</project>
+POM
+}
+
 # ===========================================================================
 # PHASE 1: GENERATE WRAPPER PROJECTS
 # ===========================================================================
@@ -304,7 +367,17 @@ public class ${initializer_class} extends SpringBootServletInitializer {
 }
 JAVA
 
-        # Generate wrapper pom.xml
+        # Generate wrapper pom.xml from a template: <parent>war-wrappers</parent>,
+        # a <dependencyManagement> BOM import of the server's own pom, and a direct
+        # <dependencies> entry on the server's classes jar. A plain BOM import only
+        # propagates <dependencyManagement>, never <dependencies>, so this alone can
+        # silently miss cases where the server pins a version via a direct
+        # <dependencies> override (e.g. network-modification-server's
+        # gridsuite-network-modification:1.0.0). probe_and_patch_dependencies() (run
+        # after this function, once all baseline poms exist) detects such gaps by
+        # actually comparing `mvn dependency:list` between the server and this
+        # baseline wrapper, and patches this same pom.xml in place with explicit
+        # <dependencyManagement> corrections wherever the resolved versions differ.
         local extra_deps=""
         # antlr4 version override: these servers depend on powsybl-open-loadflow which
         # pulls in graphviz-builder → antlr4:4.5.1. But Spring Data JPA's HqlLexer was
@@ -312,6 +385,9 @@ JAVA
         # ATNDeserializer that only understands ATN version 3, causing:
         #   InvalidClassException: org.antlr.v4.runtime.atn.ATN; Could not deserialize ATN with version 4
         # Fix: force antlr4 (the full tool jar, which includes the runtime) to 4.13.0.
+        # This is excluded from the automated dependency diff (see WRAP_EXCLUDE_GA)
+        # so the diff never "corrects" it back to the server's conflicting version.
+        local exclude_ga=""
         case "$ctx" in
             loadflow-server|security-analysis-server|sensitivity-analysis-server|network-modification-server)
                 extra_deps='
@@ -320,59 +396,19 @@ JAVA
             <artifactId>antlr4</artifactId>
             <version>4.13.0</version>
         </dependency>'
+                exclude_ga="org.antlr:antlr4"
                 ;;
         esac
 
-        cat > "$wrapper_dir/pom.xml" << POM
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+        # Cache metadata for the later dependency-diff/patch pass.
+        WRAP_MODULE_DIR["$ctx"]="$module_dir"
+        WRAP_GROUP_ID["$ctx"]="$group_id"
+        WRAP_ARTIFACT_ID["$ctx"]="$artifact_id"
+        WRAP_VERSION["$ctx"]="$version"
+        WRAP_EXTRA_DEPS["$ctx"]="$extra_deps"
+        WRAP_EXCLUDE_GA["$ctx"]="$exclude_ga"
 
-    <parent>
-        <groupId>org.gridsuite.war</groupId>
-        <artifactId>war-wrappers</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
-    <artifactId>${ctx}-war</artifactId>
-    <packaging>war</packaging>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${group_id}</groupId>
-                <artifactId>${artifact_id}</artifactId>
-                <version>${version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>${group_id}</groupId>
-            <artifactId>${artifact_id}</artifactId>
-            <version>${version}</version>
-        </dependency>${extra_deps}
-    </dependencies>
-
-    <build>
-        <finalName>${ctx}</finalName>
-    </build>
-</project>
-POM
+        write_wrapper_pom "$wrapper_dir" "$ctx" "$group_id" "$artifact_id" "$version" "$extra_deps" ""
 
         modules="$modules        <module>$ctx</module>\n"
         log "  ${ctx}-war -> $module_dir"
@@ -415,25 +451,26 @@ POM
 
 }
 
-# ===========================================================================
-# PHASE 2: BUILD ALL (SINGLE REACTOR)
-# Builds ALL server source modules + wrapper projects in one Maven invocation.
-# Server source modules are added to the reactor so that their classes JARs
-# are available in the local repo for wrapper dependency resolution.
-# -T2.0C = 2 threads per CPU core for parallel module builds.
-# ===========================================================================
-build_wars() {
-    # Prefer mvnd (Maven Daemon) for faster builds; fall back to mvn -q
-    local mvn_cmd
+# Picks mvnd (Maven Daemon) when available for faster builds, falling back to
+# mvn -q. Sets the global MVN_CMD, used by both the probing and the real build.
+pick_mvn_cmd() {
     if command -v mvnd &>/dev/null; then
-        mvn_cmd="mvnd"
-        log "=== Building all with mvnd ==="
+        MVN_CMD="mvnd"
     else
-        mvn_cmd="mvn -T2.0C -q"
-        log "=== Building all with mvn (mvnd not found, using -T2.0C -q) ==="
+        MVN_CMD="mvn -T2.0C -q"
     fi
+}
 
-    # Add server source modules to reactor POM for a single build
+# Adds server source modules to the reactor POM (before the wrapper modules), so
+# that a single Maven invocation builds server sources + wrapper projects together
+# and their classes JARs are available for wrapper dependency resolution without
+# needing a separate `mvn install` pass first. Idempotent guard: only injects once,
+# since both probe_and_patch_dependencies() and build_wars() run against the same
+# reactor POM.
+inject_server_modules() {
+    local wrapper_pom="$WRAPPERS_DIR/pom.xml"
+    grep -q '<!-- Server sources -->' "$wrapper_pom" && return 0
+
     local server_modules=""
     for entry in "${MANIFEST[@]}"; do
         IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
@@ -444,12 +481,113 @@ build_wars() {
         server_modules+="        <module>${rel_path}</module>\n"
     done
 
-    # Inject server modules into reactor POM (before wrapper modules)
-    local wrapper_pom="$WRAPPERS_DIR/pom.xml"
     sed -i "s|    <modules>|    <modules>\n        <!-- Server sources -->\n${server_modules}        <!-- WAR wrappers -->|" "$wrapper_pom"
+}
 
-    log "Running: $mvn_cmd package -DskipTests -f $WRAPPERS_DIR/pom.xml"
-    (cd "$WRAPPERS_DIR" && $mvn_cmd package -DskipTests) || {
+# ===========================================================================
+# PHASE 1.5: PROBE DEPENDENCY RESOLUTION AND PATCH WRAPPER POMS
+# For each server, this compares `mvn dependency:list` of the real server module
+# against its baseline wrapper (BOM import only, generated above) to find any
+# dependency whose resolved version differs. This happens whenever the server
+# pins a version via a direct <dependencies> override that a plain BOM <import>
+# cannot see (Maven's <scope>import</scope> only propagates <dependencyManagement>,
+# never <dependencies> -- so such an override is otherwise silently lost). Detected
+# differences are patched into the wrapper as explicit <dependencyManagement>
+# entries, so it resolves every dependency IDENTICALLY to how the real server was
+# compiled -- without copying/parsing the server's pom, and without any hand-written
+# per-server exception list.
+# ===========================================================================
+probe_and_patch_dependencies() {
+    log "=== Probing dependency resolution (server vs. baseline wrapper) ==="
+    log "Running: $MVN_CMD package dependency:list -DskipTests -Dsort=true -DoutputFile=target/dependency-list.txt -fae -f $WRAPPERS_DIR/pom.xml"
+    (cd "$WRAPPERS_DIR" && $MVN_CMD package dependency:list -DskipTests -Dsort=true -DoutputFile=target/dependency-list.txt -fae) || true
+
+    for entry in "${MANIFEST[@]}"; do
+        IFS='|' read -r ctx server_folder pom_subpath app_class <<< "$entry"
+        should_process "$ctx" || continue
+
+        local module_dir="${WRAP_MODULE_DIR[$ctx]}"
+        local wrapper_dir="$WRAPPERS_DIR/$ctx"
+        local server_list="$module_dir/target/dependency-list.txt"
+        local wrapper_list="$wrapper_dir/target/dependency-list.txt"
+
+        if [[ ! -f "$server_list" || ! -f "$wrapper_list" ]]; then
+            err "  ${ctx}: missing dependency:list output (server=$server_list wrapper=$wrapper_list); skipping correction"
+            continue
+        fi
+
+        # Diff resolved (compile/runtime/provided) versions by groupId:artifactId,
+        # excluding any GA we already force ourselves (e.g. the antlr4 fix), so the
+        # diff can't "correct" a deliberate override back to a conflicting version.
+        local extra_managed_deps=""
+        while IFS=: read -r dep_group dep_artifact dep_ver; do
+            [[ -z "$dep_group" ]] && continue
+            extra_managed_deps+="
+            <dependency>
+                <groupId>${dep_group}</groupId>
+                <artifactId>${dep_artifact}</artifactId>
+                <version>${dep_ver}</version>
+            </dependency>"
+        done < <(python3 - "$server_list" "$wrapper_list" "${WRAP_EXCLUDE_GA[$ctx]}" << 'PYEOF'
+import re
+import sys
+
+server_file, wrapper_file, exclude_csv = sys.argv[1], sys.argv[2], sys.argv[3]
+excluded = {g for g in exclude_csv.split(',') if g}
+
+LINE_RE = re.compile(r'^\s*([\w.-]+):([\w.-]+):[\w.-]+:([\w.-]+):(\w+)')
+RELEVANT_SCOPES = {'compile', 'runtime', 'provided'}
+
+
+def parse(path):
+    deps = {}
+    with open(path) as f:
+        for line in f:
+            m = LINE_RE.match(line)
+            if not m:
+                continue
+            group, artifact, version, scope = m.groups()
+            if scope not in RELEVANT_SCOPES:
+                continue
+            deps[f'{group}:{artifact}'] = version
+    return deps
+
+
+server_deps = parse(server_file)
+wrapper_deps = parse(wrapper_file)
+
+for ga, version in sorted(server_deps.items()):
+    if ga in excluded:
+        continue
+    if wrapper_deps.get(ga) != version:
+        print(f'{ga}:{version}')
+PYEOF
+)
+
+        if [[ -n "$extra_managed_deps" ]]; then
+            log "  ${ctx}: correcting $(grep -c '<dependency>' <<< "$extra_managed_deps") dependency version(s) to match the server"
+            write_wrapper_pom "$wrapper_dir" "$ctx" "${WRAP_GROUP_ID[$ctx]}" "${WRAP_ARTIFACT_ID[$ctx]}" \
+                "${WRAP_VERSION[$ctx]}" "${WRAP_EXTRA_DEPS[$ctx]}" "$extra_managed_deps"
+        fi
+
+        rm -f "$server_list" "$wrapper_list"
+    done
+
+    rm -f "$WRAPPERS_DIR/target/dependency-list.txt"
+}
+
+# ===========================================================================
+# PHASE 2: BUILD ALL (SINGLE REACTOR)
+# Builds ALL server source modules + wrapper projects in one Maven invocation.
+# Server source modules are added to the reactor (by inject_server_modules(),
+# already done before probe_and_patch_dependencies() ran) so that their classes
+# JARs are available in the local repo for wrapper dependency resolution.
+# -T2.0C = 2 threads per CPU core for parallel module builds.
+# ===========================================================================
+build_wars() {
+    log "=== Building all with: $MVN_CMD ==="
+    log "Running: $MVN_CMD package -DskipTests -f $WRAPPERS_DIR/pom.xml"
+    (cd "$WRAPPERS_DIR" && $MVN_CMD package -DskipTests) || {
         err "Reactor build failed"
         return 1
     }
@@ -493,5 +631,8 @@ deploy_to_compose_dirs() {
 # MAIN
 # ===========================================================================
 generate_wrappers
+pick_mvn_cmd
+inject_server_modules
+probe_and_patch_dependencies
 build_wars
 deploy_to_compose_dirs
