@@ -255,16 +255,6 @@ generate_wrappers() {
     rm -rf "$WRAPPERS_DIR"
     mkdir -p "$WRAPPERS_DIR"
 
-    # Detect gridsuite-dependencies BOM version
-    local first_entry="${MANIFEST[0]}"
-    IFS='|' read -r _ctx first_folder first_sub _ <<< "$first_entry"
-    local first_dir="$SERVERS_DIR/$first_folder"
-    [[ -n "$first_sub" ]] && first_dir="$first_dir/$first_sub"
-    local gridsuite_deps_version
-    gridsuite_deps_version=$(grep -m1 "gridsuite-dependencies.version" "$first_dir/pom.xml" 2>/dev/null | sed 's/.*>\(.*\)<.*/\1/' || true)
-    [[ -z "$gridsuite_deps_version" ]] && gridsuite_deps_version="50.0.0"
-    log "  gridsuite-dependencies version: $gridsuite_deps_version"
-
     local modules=""
 
     for entry in "${MANIFEST[@]}"; do
@@ -349,7 +339,28 @@ JAVA
     <artifactId>${ctx}-war</artifactId>
     <packaging>war</packaging>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${group_id}</groupId>
+                <artifactId>${artifact_id}</artifactId>
+                <version>${version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>${group_id}</groupId>
             <artifactId>${artifact_id}</artifactId>
@@ -384,36 +395,6 @@ POM
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Import gridsuite-dependencies BOM: manages com.powsybl:*, Spring Boot,
-                 software.amazon.awssdk:* versions to match what servers are compiled against.
-                 Without this, Maven "nearest wins" rule would resolve older transitive
-                 versions (e.g. powsybl-commons 7.0.1 instead of 7.1.1) causing
-                 NoSuchMethodError at runtime. -->
-            <dependency>
-                <groupId>org.gridsuite</groupId>
-                <artifactId>gridsuite-dependencies</artifactId>
-                <version>${gridsuite_deps_version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <!-- Common to all wrappers -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
     <modules>
 $(echo -e "$modules")    </modules>
