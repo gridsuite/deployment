@@ -86,7 +86,7 @@ services:
     volumes:
       - $GRIDSUITE_DATABASES/elasticsearch:/usr/share/elasticsearch/data
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health >/dev/null"]
+      test: ["CMD-SHELL", "curl --noproxy '*' -fsS http://localhost:9200/_cluster/health >/dev/null"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -190,7 +190,7 @@ services:
     volumes:
       - $GRIDSUITE_DATABASES/cases_v1/miniodata:/data:Z
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:9000/minio/health/live >/dev/null"]
+      test: ["CMD-SHELL", "curl --noproxy '*' -fsS http://localhost:9000/minio/health/live >/dev/null"]
       interval: 10s
       timeout: 5s
       retries: 10
