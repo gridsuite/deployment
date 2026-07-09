@@ -15,7 +15,6 @@ resources:
   - network-conversion-server-ingress.yaml
   - network-map-server-ingress.yaml
   - network-store-server-ingress.yaml
-  - odre-server-ingress.yaml
   - single-line-diagram-server-ingress.yaml
   - network-modification-server-ingress.yaml
   - study-server-ingress.yaml

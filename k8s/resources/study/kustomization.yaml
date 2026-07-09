@@ -8,8 +8,6 @@ resources:
   - geo-data-server-service.yaml
   - network-map-server-deployment.yaml
   - network-map-server-service.yaml
-  - odre-server-deployment.yaml
-  - odre-server-service.yaml
   - single-line-diagram-server-deployment.yaml
   - single-line-diagram-server-service.yaml
   - network-modification-server-deployment.yaml
@@ -74,9 +72,6 @@ configMapGenerator:
   - name: cgmes-gl-server-configmap-specific
     files:
       - application.yml=config/cgmes-gl-server-application.yml
-  - name: odre-server-configmap-specific
-    files:
-      - application.yml=config/odre-server-application.yml
   - name: study-notification-server-configmap-specific
     files:
       - application.yml=config/study-notification-server-application.yml

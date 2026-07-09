@@ -101,7 +101,7 @@ Here's the summary of the profiles and what services they includes:
 | gridmonitor-app<br>monitor-lf-worker-server<br>monitor-notification-server<br>monitor-sa-worker-server<br>monitor-server 	|  	|  	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|
 | pgadmin 	|  	|  	|  	|  	|  	|  	|  	|  	| ✅ 	|  	|  	|
 | dynamic-margin-calculation-server<br>dynamic-security-analysis-server<br>dynamic-simulation-server<br>timeseries-server 	|  	|  	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
-| cgmes-gl-server<br>gridadmin-app<br>odre-server<br>sensitivity-analysis-server<br>shortcircuit-server<br>voltage-init-server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
+| cgmes-gl-server<br>gridadmin-app<br>sensitivity-analysis-server<br>shortcircuit-server<br>voltage-init-server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	|  	|
 | dynamic-mapping-server<br>griddyna-app 	|  	|  	|  	| ✅ 	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | geo-data-server 	|  	| ✅ 	|  	|  	| ✅ 	| ✅ 	|  	|  	|  	|  	|  	|
 | security-analysis-server 	|  	| ✅ 	|  	|  	|  	| ✅ 	|  	|  	|  	|  	| ✅ 	|
@@ -213,7 +213,6 @@ http://localhost:8087/swagger-ui.html  // geo-data-server
 http://localhost:5003/swagger-ui.html  // network-conversion-server
 http://localhost:8080/swagger-ui.html  // network-store-server
 http://localhost:5006/swagger-ui.html  // network-map-server
-http://localhost:8090/swagger-ui.html  // odre-server
 http://localhost:5005/swagger-ui.html  // single-line-diagram-server
 http://localhost:5001/swagger-ui.html  // study-server
 http://localhost:5007/swagger-ui.html  // network-modification-server
@@ -442,7 +441,6 @@ http://<INGRESS_HOST>/geo-data-server/swagger-ui.html
 http://<INGRESS_HOST>/network-conversion-server/swagger-ui.html
 http://<INGRESS_HOST>/network-store-server/swagger-ui.html
 http://<INGRESS_HOST>/network-map-server/swagger-ui.html
-http://<INGRESS_HOST>/odre-server/swagger-ui.html
 http://<INGRESS_HOST>/single-line-diagram-server/swagger-ui.html
 http://<INGRESS_HOST>/study-server/swagger-ui.html
 http://<INGRESS_HOST>/network-modification-server/swagger-ui.html
@@ -535,18 +533,11 @@ Alternatively, you can do this :
 
 With a terminal, go to the docker directory where you ran the `docker compose up -d` command.
 
-Make sure the `postgres`, `odre-server`, `geo-data-server` and `network-modification-server` services are up with the `docker compose ps` command.
+Make sure the `postgres`, `geo-data-server` and `network-modification-server` services are up with the `docker compose ps` command.
 ```bash
 $ docker compose exec postgres /init-geo-data.sh
 $ docker compose exec postgres /init-lines-catalog.sh
 ```
-
-**Note**: For RTE geographic data (lines and substations), alternately, you can use the `odre-server` swagger UI (see the URL above) to automaticaly download and import those data in your database. You have to execute those REST requests :
-
-* .../substations
-* .../lines
-
-Be sure to have at least `odre-server` and `geo-data-server` containers running.
 
 ## Working with Spring services
 

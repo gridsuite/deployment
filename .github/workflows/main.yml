@@ -13,7 +13,6 @@ on:
       - single_line_diagram_server_updated
       - gridstudy_app_updated
       - study_server_updated
-      - odre_server_updated
       - network_modification_server_updated
       - gateway_updated
       - loadflow_server_updated
