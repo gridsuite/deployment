@@ -1,0 +1,52 @@
+name: CI k8s
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v[0-9]+'
+  pull_request:
+    paths:
+      - k8s/**
+
+jobs:
+  verify_k8s:
+    runs-on: ubuntu-latest
+    steps:
+      - id: install
+        name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: latest
+      - id: checkout
+        name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            k8s
+      - name: mkdir
+        run: mkdir -v ./build
+      - name: Debug version
+        run: kubectl version --client=true --output=json | tee ./build/kubectl_version.json
+      - id: bake-local
+        name: Bake manifest of local
+        #uses: azure/k8s-bake@v3
+        run: kubectl kustomize ./k8s/live/local/ -o build/k8s-local.yml
+      - id: bake-azure-dev
+        name: Bake manifest of azure-dev
+        run: kubectl kustomize ./k8s/live/azure-dev/ -o build/k8s-azure-dev.yml
+      - id: bake-azure-integ
+        name: Bake manifest of azure-integ
+        run: kubectl kustomize ./k8s/live/azure-integ/ -o build/k8s-azure-integ.yml
+      # https://github.com/actions/upload-artifact/issues/3#issuecomment-620722206
+      # Until k8s not let us download files undividually, we upload all builds in one go
+      - id: upload-artifacts
+        name: Save builds
+        uses: actions/upload-artifact@v4
+        with:
+          name: kustomize_builds
+          path: build/*
+          compression-level: 9
+          if-no-files-found: error
