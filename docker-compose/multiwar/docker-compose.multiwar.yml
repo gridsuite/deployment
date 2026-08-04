@@ -12,9 +12,9 @@ services:
       # Custom server.xml: sets Host startStopThreads="10" for parallel WAR deployment
       - ./server.xml:/usr/local/tomcat/conf/server.xml:Z
       - ./gen/wars:/usr/local/tomcat/webapps:Z
-      # Per-WAR config overrides (base-uri rewrites) loaded via spring.config.additional-location
-      # in each WAR's SpringBootServletInitializer. Only contains service base-uri mappings.
-      - ./gen/externalized-war-configs:/config:Z
+      # Per-WAR service URLs. The initializer selects the map/list-compatible
+      # config at /config/<context>/; Kubernetes keeps using per-service config.
+      - ./gen/war-configs:/config:Z
       # Merged powsybl itools config (loadflow params, writeReferenceTerminals: false, etc.)
       - ./itools-config.yml:/root/.itools/config.yml:Z
     environment:
