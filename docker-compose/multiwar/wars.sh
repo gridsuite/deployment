@@ -160,7 +160,29 @@ executable_jar() {
 start_class() {
     local jar="$1"
     unzip -p "$jar" META-INF/MANIFEST.MF |
-        awk -F': ' '$1 == "Start-Class" { gsub(/\r/, "", $2); print $2; exit }'
+        awk '
+            /^Start-Class: / {
+                value = substr($0, 14)
+                reading = 1
+                next
+            }
+            reading && /^ / {
+                value = value substr($0, 2)
+                next
+            }
+            reading {
+                print value
+                printed = 1
+                exit
+            }
+            END {
+                if (reading && !printed) {
+                    print value
+                }
+            }
+        ' |
+        tr -d '\r' |
+        head -1
 }
 
 build_war() {
