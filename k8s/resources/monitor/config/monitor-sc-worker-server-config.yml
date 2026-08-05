@@ -1,0 +1,7 @@
+courcirc:
+  homeDir: /courcirc
+  debug: false
+short-circuit-parameters:
+  with-voltage-result: false
+short-circuit-analysis:
+  default-provider: Courcirc

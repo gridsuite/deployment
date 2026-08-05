@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor-sc-worker-server
+  labels:
+    name: monitor-sc-worker-server
+    version: "1"
+    app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-rabbitmq: "true"
+    gridsuite.org/springboot-with-s3: "true"
+  annotations:
+    gridsuite.org/cpu: cpu-m
+    gridsuite.org/memory: memory-l
+spec:
+  selector:
+    matchLabels:
+      name: monitor-sc-worker-server
+  template:
+    metadata:
+      labels:
+        name: monitor-sc-worker-server
+    spec:
+      containers:
+        - name: main
+          image: docker.io/gridsuite/monitor-worker-server:latest
+          volumeMounts:
+            - mountPath: /config/specific
+              name: monitor-sc-worker-server-configmap-specific-volume
+            - mountPath: /home/powsybl/.itools
+              name: monitor-sc-worker-server-itools-configmap-volume
+      volumes:
+        - name: monitor-sc-worker-server-configmap-specific-volume
+          configMap:
+            name: monitor-sc-worker-server-configmap-specific
+        - name: monitor-sc-worker-server-itools-configmap-volume
+          configMap:
+            name: monitor-sc-worker-server-itools-configmap

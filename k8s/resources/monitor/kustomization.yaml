@@ -8,6 +8,8 @@ resources:
   - monitor-sa-worker-server-service.yaml
   - monitor-lf-worker-server-deployment.yaml
   - monitor-lf-worker-server-service.yaml
+  - monitor-sc-worker-server-deployment.yaml
+  - monitor-sc-worker-server-service.yaml
   - monitor-notification-server-deployment.yaml
   - monitor-notification-server-service.yaml
   - gridmonitor-app-deployment.yaml
@@ -30,6 +32,12 @@ configMapGenerator:
   - name: monitor-lf-worker-server-itools-configmap
     files:
       - config.yml=config/monitor-lf-worker-server-config.yml
+  - name: monitor-sc-worker-server-configmap-specific
+    files:
+      - application.yml=config/monitor-sc-worker-server-application.yml
+  - name: monitor-sc-worker-server-itools-configmap
+    files:
+      - config.yml=config/monitor-sc-worker-server-config.yml
   - name: monitor-notification-server-configmap-specific
     files:
       - application.yml=config/monitor-notification-server-application.yml
