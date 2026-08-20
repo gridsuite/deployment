@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: monitor-sc-worker-server
+    app.kubernetes.io/component: gridsuite-springboot
+  name: monitor-sc-worker-server
+spec:
+  selector:
+    name: monitor-sc-worker-server

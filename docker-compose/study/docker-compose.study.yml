@@ -537,6 +537,7 @@ services:
       - all
       - suite
       - study
+      - monitor
     image: gridsuite/shortcircuit-server:latest
     ports:
       - 5031:80
