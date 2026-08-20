@@ -98,6 +98,14 @@ services:
       - ../../k8s/resources/monitor/config/monitor-sc-worker-server-application.yml:/config/specific/application.yml:Z
       - ../../k8s/resources/monitor/config/monitor-sc-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
+    depends_on:
+      logspout:
+        condition: "service_started"
+        required: false
+      s3-storage:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     restart: unless-stopped
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx768m
