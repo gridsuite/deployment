@@ -351,17 +351,15 @@ This setup is heavyweight and matches a realworld deployment. It is useful to re
 
 Download the recommended version of minikube and kubectl :
 
-| Software | Version recommendation | Last supported version | Link                                                                                                  |
-|----------|------------------------|------------------------|-------------------------------------------------------------------------------------------------------|
-| kubectl  | 1.21+                  | 1.27.4                 | [Download](https://storage.googleapis.com/kubernetes-release/release/v1.27.4/bin/linux/amd64/kubectl) |
-| minikube | 1.21+                  | 1.31.2                 | [Download](https://storage.googleapis.com/minikube/releases/v1.31.2/minikube-linux-amd64)             |
+| Software | Minimum Version |
+|----------|-----------------|
+| kubectl  | 1.21+           |
+| minikube | 1.21+           |
 
 
 install [minikube](https://kubernetes.io/fr/docs/tasks/tools/install-minikube/#installez-minikube-par-t%C3%A9l%C3%A9chargement-direct) and [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/#installer-le-binaire-de-kubectl-avec-curl-sur-linux) following instructions for binaries download installation.
 
 __Notes__: We require minikube 1.21+ for host.minikube.internal support inside containers (if you want to use an older minikube, replace host.minikube.internal with the IP of your host).
-
-__Notes__: Minikube 1.32.0 has been tested and is not working on our stack, so please use version 1.31.2 or below.
 
 Start minikube :
 ```bash
@@ -382,11 +380,19 @@ Activate ingress support:
 $ minikube addons enable ingress
 ```
 
+```bash
+# for recent (1.32+) minikube versions, need to relax ingress-nginx security:
+$ kubectl -n ingress-nginx patch configmap ingress-nginx-controller   --type merge   -p '{"data":{"allow-snippet-annotations":"true","annotations-risk-level":"Critical"}}'
+$ kubectl -n ingress-nginx rollout restart deployment ingress-nginx-controller
+```
+
 Verify everything is ok with:
 ```bash
 $ minikube status
 $ minikube kubectl cluster-info
 ```
+
+Note: If the application shows errors about using javascript APIs (like crypto.subtle) in insecure contexts, browsers can usually be configured to allow it. For example in firefox, it's about:config dom.securecontext.allowlist "IP". Chrome has a command line flag  --unsafely-treat-insecure-origin-as-secure "IP".
 
 ### Minikube deployment
 

@@ -1,0 +1,5 @@
+# api-ingress is the only ingress with more than one path, patch the second
+# one too (see patches/ingresses-pathtype.yaml for the first one).
+- op: replace
+  path: /spec/rules/0/http/paths/1/pathType
+  value: ImplementationSpecific

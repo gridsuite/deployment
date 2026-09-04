@@ -1,0 +1,7 @@
+# The nginx ingress controller only allows the regexes we use in the paths
+# (see the '(/|$)' suffixes) when pathType is ImplementationSpecific.
+# json6902 patch because the ingress rules/paths lists are atomic in the
+# kubernetes openapi schema, so a strategic merge patch would replace them.
+- op: replace
+  path: /spec/rules/0/http/paths/0/pathType
+  value: ImplementationSpecific

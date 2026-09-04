@@ -77,4 +77,14 @@ patches:
   - path: patches/ingresses.yaml
     target:
       kind: Ingress
+  - path: patches/ingresses-pathtype.yaml
+    target:
+      kind: Ingress
+  - path: patches/api-ingress-pathtype.yaml
+    target:
+      kind: Ingress
+      name: api-ingress
+  - path: patches/deployments-no-resources.yaml
+    target:
+      kind: Deployment
 
