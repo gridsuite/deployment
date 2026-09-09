@@ -43,6 +43,7 @@ on:
       - monitor_updated
       - gridmonitor_app_updated
       - monitor_notification_server_updated
+      - gridrt_app_updated
 
 jobs:
   build:
