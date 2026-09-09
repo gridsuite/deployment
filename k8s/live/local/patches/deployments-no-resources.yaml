@@ -1,0 +1,21 @@
+# For local dev we don't want to reserve/limit cpu and memory: the whole
+# gridsuite doesn't fit on a dev machine otherwise. Removes the requests and
+# limits set by the cpu-* and memory-* patches of the gridsuite component
+# (null deletes the field). ephemeral-storage requests/limits are kept, as
+# well as java Xmx
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+spec:
+  template:
+    spec:
+      containers:
+        - name: main
+          resources:
+            requests:
+              cpu: null
+              memory: null
+            limits:
+              cpu: null
+              memory: null

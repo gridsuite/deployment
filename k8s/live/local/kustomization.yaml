@@ -77,4 +77,18 @@ patches:
   - path: patches/ingresses.yaml
     target:
       kind: Ingress
+  - path: patches/ingresses-pathtype.yaml
+    target:
+      kind: Ingress
+      # don't need to patch root-ingress, this one is a prefix.
+      # Logically it should be the only on with the app-root annotation
+      # so use it to exclude it (for lack of other simple way to do it)
+      annotationSelector: '!nginx.ingress.kubernetes.io/app-root'
+  - path: patches/api-ingress-pathtype.yaml
+    target:
+      kind: Ingress
+      name: api-ingress
+  - path: patches/deployments-no-resources.yaml
+    target:
+      kind: Deployment
 
