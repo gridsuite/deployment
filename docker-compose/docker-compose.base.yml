@@ -476,7 +476,7 @@ services:
       - PORT=9090
       - ISSUER_HOST=172.17.0.1:9090
       - USERS_PROFILE=UTILISATEURS|ADMIN|ADMIN_EXPLORE
-      - CLIENT_COUNT=10
+      - CLIENT_COUNT=12
 
       # Client IDs for containers (grid*-app-idpSettings.json)
       - CLIENT_ID=gridexplore-client
@@ -504,31 +504,41 @@ services:
       - CLIENT_LOGOUT_REDIRECT_URI_5=http://localhost:85/logout-callback
       - CLIENT_SILENT_REDIRECT_URI_5=http://localhost:85/silent-renew-callback
 
+      - CLIENT_ID_6=gridrt-client
+      - CLIENT_REDIRECT_URI_6=http://localhost:86/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:86/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:86/silent-renew-callback
+
       # Client IDs for local dev (grid*-app/public/idpSettings.json)
-      - CLIENT_ID_6=gridexplore-local
-      - CLIENT_REDIRECT_URI_6=http://localhost:3000/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_6=http://localhost:3000/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_6=http://localhost:3000/silent-renew-callback
+      - CLIENT_ID_7=gridexplore-local
+      - CLIENT_REDIRECT_URI_7=http://localhost:3000/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3000/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3000/silent-renew-callback
 
-      - CLIENT_ID_7=gridadmin-local
-      - CLIENT_REDIRECT_URI_7=http://localhost:3002/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_7=http://localhost:3002/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_7=http://localhost:3002/silent-renew-callback
+      - CLIENT_ID_8=gridadmin-local
+      - CLIENT_REDIRECT_URI_8=http://localhost:3002/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_8=http://localhost:3002/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_8=http://localhost:3002/silent-renew-callback
 
-      - CLIENT_ID_8=griddyna-local
-      - CLIENT_REDIRECT_URI_8=http://localhost:3003/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_8=http://localhost:3003/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_8=http://localhost:3003/silent-renew-callback
+      - CLIENT_ID_9=griddyna-local
+      - CLIENT_REDIRECT_URI_9=http://localhost:3003/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_9=http://localhost:3003/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_9=http://localhost:3003/silent-renew-callback
 
-      - CLIENT_ID_9=gridstudy-local
-      - CLIENT_REDIRECT_URI_9=http://localhost:3004/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_9=http://localhost:3004/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_9=http://localhost:3004/silent-renew-callback
+      - CLIENT_ID_10=gridstudy-local
+      - CLIENT_REDIRECT_URI_10=http://localhost:3004/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_10=http://localhost:3004/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_10=http://localhost:3004/silent-renew-callback
 
-      - CLIENT_ID_10=gridmonitor-local
-      - CLIENT_REDIRECT_URI_10=http://localhost:3005/sign-in-callback
-      - CLIENT_LOGOUT_REDIRECT_URI_10=http://localhost:3005/logout-callback
-      - CLIENT_SILENT_REDIRECT_URI_10=http://localhost:3005/silent-renew-callback
+      - CLIENT_ID_11=gridmonitor-local
+      - CLIENT_REDIRECT_URI_11=http://localhost:3005/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_11=http://localhost:3005/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_11=http://localhost:3005/silent-renew-callback
+
+      - CLIENT_ID_12=gridrt-local
+      - CLIENT_REDIRECT_URI_12=http://localhost:3006/sign-in-callback
+      - CLIENT_LOGOUT_REDIRECT_URI_12=http://localhost:3006/logout-callback
+      - CLIENT_SILENT_REDIRECT_URI_12=http://localhost:3006/silent-renew-callback
     depends_on:
       logspout:
         condition: "service_started"
