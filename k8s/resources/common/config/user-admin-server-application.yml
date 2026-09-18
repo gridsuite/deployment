@@ -1,0 +1,3 @@
+useradmin:
+  defaultMaxAllowedCases: 100   # Default allowed cases for a user
+  defaultMaxAllowedBuilds: 100  # Default allowed builds for a user
