@@ -1,0 +1,86 @@
+name: CI Docker
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v[0-9]+'
+  pull_request:
+    paths:
+      - docker-compose/**
+      - k8s/resources/**/config/**
+
+env:
+  GRIDSUITE_DATABASES: /tmp/gs_db
+
+jobs:
+  verify_docker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docker-compose
+    steps:
+      - id: checkout
+        name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            docker-compose
+            k8s
+      #- name: Install buildx
+      #  uses: docker/setup-buildx-action@v3
+      #  with:
+      #    version: v0.9.1 # Buildx version
+      - name: mkdir
+        run: mkdir -v ./build
+      - name: Debug version
+        run: docker version --format '{{json .}}' | jq | tee ./build/docker_version.json
+      - name: List Docker compose profiles
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose config --profiles | tee ../build/docker-compose-profiles.txt
+      - name: List Docker compose environment
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose config --environment | tee ../build/docker-compose-environment.yml
+      - name: List Docker compose variables
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose config --variables | tee ../build/docker-compose-variables.yml
+      - name: List Docker compose volumes
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose config --volumes | tee ../build/docker-compose-volumes.txt
+      - name: List Docker compose services
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose --profile all config --services | tee ../build/docker-compose-services.txt
+      - name: Build Docker compose for no profile
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose config --output ../build/docker-compose.yml
+      - name: Build Docker compose for each profiles
+        working-directory: docker-compose/explicit-profiles
+        run: docker compose config --profiles | xargs -t -L 1 -I{} docker compose --profile {} config --output ../build/docker-compose.{}.yml
+      #- name: Verify Docker compose images
+      #  working-directory: docker-compose/explicit-profiles
+      #  run: docker compose --profile all config --resolve-image-digests --output ../build/docker-compose_digest.yml
+      - name: Build old docker-compose dynamic-mapping
+        working-directory: docker-compose/dynamic-mapping
+        run: docker compose config --output ../build/dynamic-mapping.yml
+      - name: Build old docker-compose merging
+        working-directory: docker-compose/merging
+        run: docker compose config --output ../build/merging.yml
+      - name: Build old docker-compose study
+        working-directory: docker-compose/study
+        run: docker compose config --output ../build/study.yml
+      - name: Build old docker-compose suite
+        working-directory: docker-compose/suite
+        run: docker compose config --output ../build/suite.yml
+      - name: Build old docker-compose technical
+        working-directory: docker-compose/technical
+        run: docker compose config --output ../build/technical.yml
+      - id: upload-artifacts
+        name: Save builds
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker_builds
+          path: docker-compose/build/*
+          compression-level: 9
+          if-no-files-found: error
