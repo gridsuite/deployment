@@ -34,16 +34,9 @@ patches:
   target:
     kind: Service
     labelSelector: app.kubernetes.io/component=gridsuite-apache
-- path: patches/cronjobs.yaml
-  target:
-    kind: CronJob
 - path: patches/ingresses.yaml
   target:
     kind: Ingress
-- path: patches/cronjobs-dbconfig.yaml
-  target:
-    kind: CronJob
-    labelSelector: gridsuite.org/cronjob-with-database=true
 - path: patches/cpu/deployments-springboot-cpu-xxs.yaml
   target:
     kind: Deployment
