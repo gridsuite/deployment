@@ -29,7 +29,7 @@ services:
         required: false
     restart: unless-stopped
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx186m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx186m
     command: >
       --server.port=80 
       --spring.config.additional-location=/config/ 
@@ -67,7 +67,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx384m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx384m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -106,7 +106,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx384m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx384m
     memswap_limit: 768m
     deploy:
       resources:
@@ -142,7 +142,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx96m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx96m
     memswap_limit: 384m
     deploy:
       resources:
@@ -175,7 +175,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx96m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx96m
     memswap_limit: 384m
     deploy:
       resources:
@@ -208,7 +208,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx96m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx96m
     memswap_limit: 384m
     deploy:
       resources:
@@ -242,7 +242,7 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx186m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx186m
     memswap_limit: 512m
     deploy:
       resources:
@@ -272,7 +272,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -310,7 +310,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx768m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx768m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -347,7 +347,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx576m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx576m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -383,7 +383,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx96m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -416,7 +416,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx96m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
@@ -449,7 +449,7 @@ services:
         condition: "service_started"
         required: false
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx96m
+      - JAVA_TOOL_OPTIONS=${GRIDSUITE_FRUGAL_MEMORY_JVMFLAGS:?} -Xmx96m
     command: --server.port=80 --spring.config.additional-location=/config/
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0 # for docker < 20.03.0
