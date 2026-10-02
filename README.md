@@ -407,13 +407,6 @@ Fill config files with the INGRESS_HOST in k8s/live/local/ :
 $ find k8s/live/local/ -type f | xargs sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g"
 ```
 
-Optionally, give an ssh access to the case importing cronjobs by providing your username and your password (or create a dedicated user for this if you want):
-The import jobs connect through ssh to your machine and automatically import files from the $HOME/opde and $HOME/boundaries
-```bash
-$ find k8s/live/local/ -type f | xargs sed -i -e 's/<USERNAME>/YOURUSERNAME/g'
-$ find k8s/live/local/ -type f | xargs sed -i -e 's/<PASSWORD>/YOURPASSWORD/g'
-```
-
 Start technical services with the docker-compose technical profile  :
 ```bash
 $ cd docker-compose/technical
