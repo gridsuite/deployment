@@ -51,8 +51,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # NOTE: already in the default tooling of ubuntu runners
+      # e.g. for 2026-10-08 runs action logs:
+      # Runner Image
+      #  Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+      #    Kubectl 1.37.1
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3.1
+
+      # NOTE: already in the default tooling of ubuntu runners but we set it up ourselves for consistency with kubectl
+      # e.g. for 2026-10-08 runs action logs:
+      # Runner Image
+      #  Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+      #    Kustomize 5.8.1
+      # using a fixed version, just the latest stable release as of today
+      - name: Set up kustomize
+        run: |
+          mkdir -p "$RUNNER_TEMP/kustomize-bin"
+          curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.8.3/kustomize_v5.8.3_linux_amd64.tar.gz \
+            | tar -xz -C "$RUNNER_TEMP/kustomize-bin"
+          echo "$RUNNER_TEMP/kustomize-bin" >> "$GITHUB_PATH"
+
+      # using a fixed version, just the latest stable release as of today
+      - name: Set up kpt
+        run: |
+          mkdir -p "$RUNNER_TEMP/kpt-bin"
+          curl -sL https://github.com/kptdev/kpt/releases/download/v1.0.1/kpt_linux_amd64 \
+            -o "$RUNNER_TEMP/kpt-bin/kpt"
+          chmod +x "$RUNNER_TEMP/kpt-bin/kpt"
+          echo "$RUNNER_TEMP/kpt-bin" >> "$GITHUB_PATH"
 
       - name: Set up python
         uses: actions/setup-python@v4
@@ -73,7 +100,29 @@ jobs:
           BASTION_KEY: ${{secrets.BASTION_KEY}}
 
       - name: Deploy to Azure
-        run: kubectl kustomize k8s/live/azure | python .github/scripts/image-tag-to-digest.py | ssh -o "StrictHostKeyChecking no" -i key ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} kubectl apply -f -
+        run: |
+          KRM_DISABLE_ATTRIBUTION=true \
+            kpt live init \
+              --namespace default \
+              --name gridsuite-azure \
+              --inventory-id gridsuite-azure \
+              k8s/live/azure
 
+          (cd k8s/live/azure && kustomize edit add resource resourcegroup.yaml)
+
+          kubectl kustomize k8s/live/azure \
+            | python .github/scripts/image-tag-to-digest.py \
+            | ssh \
+                -o "StrictHostKeyChecking no" \
+                -i key \
+                ${{ secrets.BASTION_LOGIN }}@${{ secrets.BASTION_HOST }} \
+                kpt live apply \
+                  --reconcile-timeout=15m \
+                  --prune-timeout=5m \
+                  --prune-propagation-policy=Foreground \
+                  -
+                # WARNING: for our azure demo deployment, the SSH_ORIGINAL_COMMAND
+                # (kpt live apply...) is ignored, it is forced by the server via
+                # ssh command for security
       - name: Delete key
         run: rm key
