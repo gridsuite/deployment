@@ -157,7 +157,7 @@ This profile allows you to launch only the technical services : postgres, elasti
 
 | Software      | Version    | Flavor     |
 |---------------|------------|------------|
-| Postgres      | 14.9       |            |
+| Postgres      | 17         |            |
 | RabbitMQ      | 4.0.4      | management |
 | Elasticsearch | 8.19.10    |            |
 | Grafana       | 12.3.1     |            |
