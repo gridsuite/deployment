@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: not-important
 spec:
+  # same as default server value for replicas, but set explicitly in config so that apply restores it if modified
+  replicas: 1
   template:
     spec:
       containers:
