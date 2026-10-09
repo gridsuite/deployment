@@ -5,6 +5,13 @@ metadata:
 spec:
   # same as default server value for replicas, but set explicitly in config so that apply restores it if modified
   replicas: 1
+  # same as default server values for strategy, but set explicitly in config as per docs recommendation to
+  # avoid errors if we ever change it due to fields that are defaulted based on the values of other fields
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     spec:
       containers:
