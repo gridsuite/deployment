@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: not-important
+      spec:
+        template:
+          spec:
+            containers:
+              - name: main
+                resources:
+                  requests:
+                    # all our springboot use memory limit >= 512mb (xxs) so it's safe to use 256mb here
+                    # in practice the memory used when idle ranges from 150mb to 400mb depending
+                    # on the dependencies used in the server, not correlated to actual ram usage
+                    # so it's not accurate to set the memory request based on the memory limit,
+                    # so go with simple single the global average
+                    memory: "256Mi"
+
+replacements:
+  # give back ram when idle, and don't favor low footprint to high performance
+  - sourceValue: "-XX:+UseCompactObjectHeaders -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:+UseG1GC -XX:G1PeriodicGCInterval=10000 -XX:TrimNativeHeapInterval=10000"
+    targets:
+      - select:
+          group: apps
+          version: v1
+          kind: Deployment
+          labelSelector: app.kubernetes.io/component=gridsuite-springboot
+        fieldPaths:
+          - spec.template.spec.containers.[name=main].env.[name=JAVA_TOOL_OPTIONS].value
+        options:
+          delimiter: " "
+          index: 999999 # append

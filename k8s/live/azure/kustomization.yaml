@@ -8,6 +8,7 @@ components:
   - ../../components/gridsuite-smaller-network
   - ../../components/gridsuite
   - ../../components/azure
+  - ../../components/memory-overcommit
 
 configMapGenerator:
   - name: gridapps-env-configmap
