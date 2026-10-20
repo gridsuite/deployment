@@ -63,6 +63,27 @@ configMapGenerator:
 # Patch ingress host
 patches:
   - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      labelSelector: gridsuite.org/apache-gridapp=true
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: not-important
+      spec:
+        template:
+          spec:
+            containers:
+              - name: main
+                resources:
+                  requests:
+                    # do it here specifically for azure as there is no other need to have very low
+                    # cpu requests for these in other places. NOTE: It can't be configured in the
+                    # gridsuite-smaller-network component because it runs before the gridsuite component
+                    cpu: "100m"
+  - target:
       group: networking.k8s.io
       version: v1
       kind: Ingress
