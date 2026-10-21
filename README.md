@@ -12,10 +12,10 @@ The following subdirectories must be created with file **mode 777 (rwx)** :
 - **init** : data files for initialization
 
 ```
-$ export GRIDSUITE_DATABASES=/path/to/your/folder
-$ cd $GRIDSUITE_DATABASES
-$ mkdir postgres elasticsearch init
-$ chmod 777 postgres elasticsearch init
+export GRIDSUITE_DATABASES=/path/to/your/folder
+cd $GRIDSUITE_DATABASES
+mkdir postgres elasticsearch init
+chmod 777 postgres elasticsearch init
 ```
 
 **cases** are stored in a minio container and a volume folder named $GRIDSUITE_DATABASES/cases_v1/. Nothing to be done for that.
@@ -44,8 +44,8 @@ To do this, you must copy the following files in the init directory (_$GRIDSUITE
 ### Clone deployment repository
 
 ```bash
-$ git clone https://github.com/gridsuite/deployment.git
-$ cd deployment
+git clone https://github.com/gridsuite/deployment.git
+cd deployment
 ```
 
 ## Docker compose deployment
@@ -60,24 +60,24 @@ $ cd deployment
 > If you want to use profiles other than the ones associated with the folders (`dynamic-mapping`, `monitor`, `study`, `suite`, `technical`, `study-light`), you have to use profiles as explained in the [next section](#docker-compose-with-profiles).
 
 ```bash
-$ cd docker-compose/suite
-$ docker compose up
+cd docker-compose/suite
+docker compose up
 ```
 ```bash
-$ cd docker-compose/study
-$ docker compose up
+cd docker-compose/study
+docker compose up
 ```
 ```bash
-$ cd docker-compose/study-light
-$ docker compose up
+cd docker-compose/study-light
+docker compose up
 ```
 ```bash
-$ cd docker-compose/dynamic-mapping
-$ docker compose up
+cd docker-compose/dynamic-mapping
+docker compose up
 ```
 ```bash
-$ cd docker-compose/monitor
-$ docker compose up
+cd docker-compose/monitor
+docker compose up
 ```
 
 __Note__ : When using docker-compose for deployment, your machine is accessible from the containers thought the ip address 172.17.0.1
@@ -114,13 +114,13 @@ Here's the summary of the profiles and what services they includes:
 
 To use a profile, you use:
 ```shell
-$ cd docker-compose/explicit-profiles
-$ docker compose --profile suite <cmd>
+cd docker-compose/explicit-profiles
+docker compose --profile suite <cmd>
 ```
 
 You can also combine multiple profiles:
 ```shell
-$ docker compose --profile study --profile dynamic-mapping <cmd>
+docker compose --profile study --profile dynamic-mapping <cmd>
 ```
 
 > [!IMPORTANT]  
@@ -133,18 +133,18 @@ $ docker compose --profile study --profile dynamic-mapping <cmd>
 To change the running profile('s) without `down`&`up` everything (for example you have `up` the profile `suite` and you want now use the profile `study`), you can instead `stop` & `up`:
 ```shell
 # previously: docker compose --profile suite up -d
-$ docker compose --profile suite stop
-$ docker compose --profile study up -d
+docker compose --profile suite stop
+docker compose --profile study up -d
 ```
 
 In case you want to do a `down` for everything, an `all` profile exist to simplify :
 ```shell
-$ docker compose --profile all down
+docker compose --profile all down
 ```
 
 If you still have a container existing in the project, you will have this message during the `down`:
 ```
-$ docker compose down
+docker compose down
 [+] Running 2/1
  ✔ Container abc-server             Removed                      10.6s
  ! Network gridsuite_default        Resource is still in use     0.0s
@@ -168,28 +168,28 @@ This profile allows you to launch only the technical services : postgres, elasti
 It is used for k8s deployment with Minikube.
 
 ```bash
-$ cd docker-compose/technical
-$ docker compose up
+cd docker-compose/technical
+docker compose up
 ```
 
 ### Update docker-compose images
 To synchronize with the latest images for a docker-compose profile, you need to :
 - delete the containers
 ```bash
-$ docker compose down
+docker compose down
 ```
 - get latest images
 ```bash
-$ docker compose pull
+docker compose pull
 ```
 - recreate containers
 ```bash
-$ docker compose up
+docker compose up
 ```
 
 - remove old images
 ```bash
-$ docker image prune -f
+docker image prune -f
 ```
 
 ### Applications and Swagger URLs
@@ -315,7 +315,7 @@ mock-user-service:
 
 After modifying this variable, you need to recreate the `mock-user-service` container:
 ```bash
-$ docker compose up -d --force-recreate mock-user-service
+docker compose up -d --force-recreate mock-user-service
 ```
 
 
@@ -363,12 +363,12 @@ __Notes__: We require minikube 1.21+ for host.minikube.internal support inside c
 
 Start minikube :
 ```bash
-$ minikube start --memory 24g --cpus=4
+minikube start --memory 24g --cpus=4
 ```
 
 To specify the driver used by minikube and use specific version of kubernetes you could alternatively use :
 ```bash
-$ minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
+minikube start --memory 24g --cpus=4 --driver=virtualbox --kubernetes-version=1.22.3
 ```
 
 __Notes__: With last version of minikube, *docker* is the default driver (was *virtualbox* before) which could forbid memory definition depending of your user privilegies.
@@ -377,19 +377,19 @@ see [kubernetes-version param doc](https://storage.googleapis.com/minikube/relea
 
 Activate ingress support:
 ```bash
-$ minikube addons enable ingress
+minikube addons enable ingress
 ```
 
 ```bash
 # for recent (1.32+) minikube versions, need to relax ingress-nginx security:
-$ kubectl -n ingress-nginx patch configmap ingress-nginx-controller   --type merge   -p '{"data":{"allow-snippet-annotations":"true","annotations-risk-level":"Critical"}}'
-$ kubectl -n ingress-nginx rollout restart deployment ingress-nginx-controller
+kubectl -n ingress-nginx patch configmap ingress-nginx-controller   --type merge   -p '{"data":{"allow-snippet-annotations":"true","annotations-risk-level":"Critical"}}'
+kubectl -n ingress-nginx rollout restart deployment ingress-nginx-controller
 ```
 
 Verify everything is ok with:
 ```bash
-$ minikube status
-$ minikube kubectl cluster-info
+minikube status
+minikube kubectl cluster-info
 ```
 
 Note: If the application shows errors about using javascript APIs (like crypto.subtle) in insecure contexts, browsers can usually be configured to allow it. For example in firefox, it's about:config dom.securecontext.allowlist "IP". Chrome has a command line flag  --unsafely-treat-insecure-origin-as-secure "IP".
@@ -398,29 +398,29 @@ Note: If the application shows errors about using javascript APIs (like crypto.s
 
 Get you ingress ip
 ```bash
-$ INGRESS_HOST=`minikube ip`
-$ echo $INGRESS_HOST
+INGRESS_HOST=`minikube ip`
+echo $INGRESS_HOST
 ```
 
 Fill config files with the INGRESS_HOST in k8s/live/local/ :
 ```bash
-$ find k8s/live/local/ -type f | xargs sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g"
+find k8s/live/local/ -type f | xargs sed -i -e "s/<INGRESS_HOST>/${INGRESS_HOST}/g"
 ```
 
 Start technical services with the docker-compose technical profile  :
 ```bash
-$ cd docker-compose/technical
-$ docker compose up -d
+cd docker-compose/technical
+docker compose up -d
 ```
 
 Deploy k8s services:
 ```bash
-$ kubectl apply -k k8s/live/local
+kubectl apply -k k8s/live/local
 ```
 
 Verify all services and pods have been correctly started:
 ```bash
-$ kubectl get all
+kubectl get all
 ```
 You can now access to the application and the swagger UI of all the Spring services:
 
@@ -468,20 +468,20 @@ http://<INGRESS_HOST>/monitor-server/swagger-ui.html
 
 Build and load a local image into Minikube:
 ```bash
-$ mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
-$ minikube image load local/<pod>
+mvn clean install jib:dockerBuild -Djib.to.image=local/<pod>
+minikube image load local/<pod>
 ```
 __Notes__: If you have issues, you can build with the Docker deamon bundled in the minikube to directly have access to the image inside the minikube, [instructions here](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 
 Then add it to your deployment before (re)deploy:
 ```bash
-$ vi <pod>-deployment.yaml
+vi <pod>-deployment.yaml
 +  image: docker.io/local/<pod>:latest
 ```
 
 Check the pod has started with your local image:
 ```bash
-$ kubectl describe pod <pod-instance> | grep "Image:"
+kubectl describe pod <pod-instance> | grep "Image:"
   Image:         docker.io/local/<pod>:latest
 ```
 
@@ -519,7 +519,7 @@ With a terminal, go to the docker directory where you ran the `docker compose up
 
 Make sure the `postgres` service is up with the `docker compose ps | grep postgres` command.
 ```bash
-$ docker compose exec postgres /create-postgres-databases.sh
+docker compose exec postgres /create-postgres-databases.sh
 ```
 
 ### Data initialization
@@ -534,8 +534,8 @@ With a terminal, go to the docker directory where you ran the `docker compose up
 
 Make sure the `postgres`, `geo-data-server` and `network-modification-server` services are up with the `docker compose ps` command.
 ```bash
-$ docker compose exec postgres /init-geo-data.sh
-$ docker compose exec postgres /init-lines-catalog.sh
+docker compose exec postgres /init-geo-data.sh
+docker compose exec postgres /init-lines-catalog.sh
 ```
 
 ## Working with Spring services
