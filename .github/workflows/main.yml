@@ -57,7 +57,7 @@ jobs:
       #  Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
       #    Kubectl 1.37.1
       - name: Set up kubectl
-        uses: azure/setup-kubectl@v3.1
+        uses: azure/setup-kubectl@v5.2.0
 
       # NOTE: already in the default tooling of ubuntu runners but we set it up ourselves for consistency with kubectl
       # e.g. for 2026-10-08 runs action logs:
