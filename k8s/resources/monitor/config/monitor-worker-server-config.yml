@@ -10,3 +10,6 @@ load-flow-default-parameters:
 open-loadflow-default-parameters:
   writeReferenceTerminals: false
   slackDistributionFailureBehavior : FAIL
+
+open-security-analysis-default-parameters:
+  threadCount: 2
