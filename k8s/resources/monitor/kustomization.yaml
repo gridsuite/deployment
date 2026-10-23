@@ -23,21 +23,15 @@ configMapGenerator:
   - name: monitor-sa-worker-server-configmap-specific
     files:
       - application.yml=config/monitor-sa-worker-server-application.yml
-  - name: monitor-sa-worker-server-itools-configmap
-    files:
-      - config.yml=config/monitor-sa-worker-server-config.yml
   - name: monitor-lf-worker-server-configmap-specific
     files:
       - application.yml=config/monitor-lf-worker-server-application.yml
-  - name: monitor-lf-worker-server-itools-configmap
-    files:
-      - config.yml=config/monitor-lf-worker-server-config.yml
   - name: monitor-sc-worker-server-configmap-specific
     files:
       - application.yml=config/monitor-sc-worker-server-application.yml
-  - name: monitor-sc-worker-server-itools-configmap
+  - name: monitor-worker-server-itools-configmap
     files:
-      - config.yml=config/monitor-sc-worker-server-config.yml
+      - config.yml=config/monitor-worker-server-config.yml
   - name: monitor-notification-server-configmap-specific
     files:
       - application.yml=config/monitor-notification-server-application.yml

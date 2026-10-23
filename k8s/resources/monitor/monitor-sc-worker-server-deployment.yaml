@@ -34,4 +34,4 @@ spec:
             name: monitor-sc-worker-server-configmap-specific
         - name: monitor-sc-worker-server-itools-configmap-volume
           configMap:
-            name: monitor-sc-worker-server-itools-configmap
+            name: monitor-worker-server-itools-configmap

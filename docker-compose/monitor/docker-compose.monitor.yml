@@ -38,7 +38,7 @@ services:
     image: gridsuite/monitor-worker-server:latest
     volumes:
       - ../../k8s/resources/monitor/config/monitor-sa-worker-server-application.yml:/config/specific/application.yml:Z
-      - ../../k8s/resources/monitor/config/monitor-sa-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - ../../k8s/resources/monitor/config/monitor-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       logspout:
@@ -67,7 +67,7 @@ services:
     image: gridsuite/monitor-worker-server:latest
     volumes:
       - ../../k8s/resources/monitor/config/monitor-lf-worker-server-application.yml:/config/specific/application.yml:Z
-      - ../../k8s/resources/monitor/config/monitor-lf-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - ../../k8s/resources/monitor/config/monitor-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       logspout:
@@ -96,7 +96,7 @@ services:
     image: gridsuite/monitor-worker-server:latest
     volumes:
       - ../../k8s/resources/monitor/config/monitor-sc-worker-server-application.yml:/config/specific/application.yml:Z
-      - ../../k8s/resources/monitor/config/monitor-sc-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
+      - ../../k8s/resources/monitor/config/monitor-worker-server-config.yml:/home/powsybl/.itools/config.yml:Z
       - ../../k8s/resources/common/config/common-application.yml:/config/common/application.yml:Z
     depends_on:
       logspout:
