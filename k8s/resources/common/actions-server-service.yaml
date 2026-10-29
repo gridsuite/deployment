@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     name: actions-server
-    app.kubernetes.io/component: gridsuite-apache
+    app.kubernetes.io/component: gridsuite-springboot
   name: actions-server
 spec:
   selector:
