@@ -6,6 +6,7 @@ metadata:
     name: case-import-server
     version: "1"
     app.kubernetes.io/component: gridsuite-springboot
+    gridsuite.org/springboot-with-rabbitmq: "true"
   annotations:
     gridsuite.org/cpu: cpu-xxs
     gridsuite.org/memory: memory-xxs
