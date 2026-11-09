@@ -63,6 +63,9 @@
     },
     "voltageLevel":  {
       "codeOI": []
+    },
+    "switch": {
+      "codeOI": []
     }
   },
   "defaultParametersValues": {
