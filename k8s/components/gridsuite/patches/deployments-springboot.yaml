@@ -34,6 +34,13 @@ spec:
               path: /actuator/health/readiness
               port: 8080
           args: ["--spring.config.additional-location=/config/"]
+          envFrom:
+          # note: all keys from envFrom are ordered before all keys in env:
+          # with respect to being useable in kubernetes $() variable expansion
+          # TODO: is there a better way than creating actual env variables just
+          # as a means to share some common java options ?
+            - configMapRef:
+                name: gridsuite-common-java-options
           resources:
             requests:
               ephemeral-storage: 100Mi

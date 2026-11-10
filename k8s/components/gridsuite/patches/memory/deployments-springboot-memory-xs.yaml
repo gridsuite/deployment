@@ -9,7 +9,7 @@ spec:
         - name: main
           env:
           - name: JAVA_TOOL_OPTIONS
-            value: "-Xmx186m"
+            value: "$(GRIDSUITE_COMMON_JAVA_OPTIONS) -Xmx186m"
           resources:
             requests:
               memory: "768Mi"
