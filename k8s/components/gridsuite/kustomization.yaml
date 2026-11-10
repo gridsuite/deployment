@@ -143,3 +143,19 @@ patches:
   target:
     kind: Deployment
     labelSelector: gridsuite.org/springboot-with-large-storage=true
+
+replacements:
+- source:
+    kind: ConfigMap
+    name: gridsuite-common-java-options
+    fieldPath: data.GRIDSUITE_COMMON_JAVA_OPTIONS
+  targets:
+  - select:
+      kind: Deployment
+      labelSelector: app.kubernetes.io/component=gridsuite-springboot
+    fieldPaths:
+    - spec.template.spec.containers.[name=main].env.[name=JAVA_TOOL_OPTIONS].value
+    options:
+      delimiter: " "
+      index: -1
+      create: true

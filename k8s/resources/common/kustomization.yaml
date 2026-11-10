@@ -6,6 +6,7 @@ resources:
   - api-ingress.yaml
   - default-backend-deployment.yaml
   - default-backend-service.yaml
+  - gridsuite-common-java-options.yaml
   - case-server-deployment.yaml
   - case-server-service.yaml
   - network-conversion-server-deployment.yaml
