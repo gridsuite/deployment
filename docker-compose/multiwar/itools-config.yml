@@ -1,0 +1,66 @@
+# Merged itools config for all WAR-deployed servers in Tomcat.
+# Mounted at /root/.itools/config.yml (Tomcat container runs as root).
+#
+# In k8s, each server has its own config.yml. Here we merge them all because
+# all 33 WARs share a single JVM. Key settings:
+# - writeReferenceTerminals: false — workaround for ReferenceTerminals extension
+#   not implemented in network-store (causes InvalidClassException without it)
+# - network.default-impl-name: NetworkStore — forces iidm to use network-store
+#   instead of in-memory impl (which is on classpath due to cvg-extension)
+# - computation-local.available-core: 4 — limits concurrent computation processes
+#
+# Source files merged:
+#   k8s/resources/common/config/loadflow-server-config.yml
+#   k8s/resources/common/config/network-conversion-server-config.yml
+#   k8s/resources/study/config/network-modification-server-config.yml
+#   k8s/resources/study/config/dynawo-itools-config.yml
+#   k8s/resources/study/config/voltage-init-server-config.yml
+#   k8s/resources/study/config/sensitivity-analysis-server-config.yml
+#   k8s/resources/study/config/security-analysis-server-config.yml
+#   k8s/resources/study/config/shortcircuit-server-config.yml
+#   k8s/resources/monitor/config/monitor-lf-worker-server-config.yml
+#   k8s/resources/monitor/config/monitor-sa-worker-server-config.yml
+
+hades2:
+  homeDir: /hades2
+  debug: false
+
+dynaflow:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+dynawo:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+dynawo-algorithms:
+  homeDir: /dynaflow-launcher
+  debug: false
+
+network:
+  default-impl-name: NetworkStore
+
+dynaflow-default-parameters:
+  mergeLoads: false
+
+computation-local:
+  available-core: 4
+
+load-flow-default-parameters:
+  voltageInitMode: DC_VALUES
+  phaseShifterRegulationOn: true
+  twtSplitShuntAdmittance: true
+  dcUseTransformerRatio: false
+  countriesToBalance:
+    - FR
+
+open-loadflow-default-parameters:
+  writeReferenceTerminals: false
+  slackDistributionFailureBehavior: FAIL
+
+open-security-analysis-default-parameters:
+  threadCount: 2
+
+import-export-parameters-default-value:
+  iidm.import.cgmes.cgm-with-subnetworks: false
+  ucte.import.create-areas: false
