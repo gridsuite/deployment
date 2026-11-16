@@ -36,6 +36,7 @@ resources:
   - external-rabbitmq-service.yaml
   - external-elasticsearch-service.yaml
   - external-kibana-service.yaml
+  - external-s3-storage-service.yaml
   - dynamic-mapping-server-ingress.yaml
   - user-admin-server-ingress.yaml
   - user-identity-server-ingress.yaml
