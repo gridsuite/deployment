@@ -33,3 +33,4 @@ powsybl-ws:
     password: ${S3_SECRET_KEY:s3password}
     subpath:
       prefix: ${powsybl-ws.environment:}
+    endpoint: http://s3-storage:19000
